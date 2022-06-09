@@ -2,6 +2,7 @@
 title: Starting Cobalt
 layout: default.liquid
 is_draft: false
+published_date: 2022-06-10 01:31:00 +0900
 ---
 # Starting Cobalt
 
