@@ -5,3 +5,6 @@ site:
   base_url: https://papyrus.katsumataryo.com
 posts:
   rss: rss.xml
+assets:
+  sass:
+    style: Nested
