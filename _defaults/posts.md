@@ -1,5 +1,5 @@
 ---
-layout: default.liquid
+layout: posts.liquid
 
 title: First Post
 is_draft: true

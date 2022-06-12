@@ -1,14 +1,57 @@
+@font-face {
+    font-family: "Zen Kurenaido";
+    src: url("/public/fonts/ZenKurenaido-Regular.ttf");
+}
+
 body {
-    margin: 50px;
+    margin: 0;
+    padding: 0px 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Zen Kurenaido", sans-serif;
+    background-image: url("/public/images/background-sky.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+
+
+}
+
+.content {
+    padding: 40px;
+    width: 800px;
+    margin: 0px auto;
+    color: #222222;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 10px 10px 10px 10px;
+}
+
+.description {
+    color: #777777;
+    font-size: small;
+}
+
+.footer {
+    margin: 40px;
+    text-align: center;
 }
 
 h1 {
-    font-size:30px;
+    font-size: 50px;
     font-weight: bold;
+    text-align: center;
+    color: #fff;
 }
 
 h2 {
-    font-size:25px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+h2.title {
+    margin:0;
+    font-size:35px;
     font-weight: bold;
 }
 
