@@ -1,7 +1,8 @@
 ---
+title: PAPYRUS
 layout: default.liquid
 ---
-<h3 class="subtitle">Articles!</h3>
+<h2 class="subtitle">Articles!</h2>
 
 {% for post in collections.posts.pages %}
 * {{ post.published_date }}：[{{ post.title }}]({{ post.permalink }})

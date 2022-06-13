@@ -56,25 +56,25 @@ body {
 }
 
 h1 {
-    font-size: 5ex;
+    font-size: 6ex;
     font-weight: bold;
     text-align: center;
     color: #fff;
 }
 
 h2 {
-    font-size: 2ex;
+    font-size: 4ex;
     font-weight: bold;
 }
 
 h2.title {
     margin:0;
-    font-size: 3ex;
+    font-size: 4ex;
     font-weight: bold;
 }
 
 h3 {
-    font-size: 1.5ex;
+    font-size: 3ex;
     font-weight: bold;
 }
 
