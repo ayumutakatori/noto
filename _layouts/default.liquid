@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
-        <title>{{ page.title }}</title>
-        <link rel="stylesheet" href="/public/css/base.css">
+        {% include "head.liquid" %}
     </head>
     <body>
-    <h1>PAPYRUS</h1>
-    <div class="content">
-      {{ page.content }}
-    </div>
-  </body>
+        {% include "header.liquid" %}
+        <div class="content">
+          {{ page.content }}
+        </div>
+    </body>
 </html>
