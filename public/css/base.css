@@ -1,12 +1,12 @@
 @font-face {
-    font-family: "Zen Kurenaido";
-    src: url("/public/fonts/ZenKurenaido-Regular.ttf");
+    font-family: "M PLUS Rounded 1c";
+    src: url("/public/fonts/MPLUSRounded1c-Regular.ttf");
 }
 
 @media screen and (max-width: 480px) {
     /* 480px以下に適用されるCSS（スマホ用） */
     html {
-        font-size: 12px;
+        font-size: 14px;
     }
     .content {
         width: 70%;
@@ -16,7 +16,7 @@
 
 @media screen and (min-width:481px) {
     html {
-        font-size: 14px;
+        font-size: 16px;
     }
     .content {
         width: 60%;
@@ -28,7 +28,7 @@ body {
     margin: 0;
     padding: 0px 0;
     height: 100vh;
-    font-family: "Zen Kurenaido", sans-serif;
+    font-family: "M PLUS Rounded 1c", sans-serif;
     background-image: url("/public/images/background-sky.jpg");
     background-repeat: no-repeat;
     background-size: cover;
