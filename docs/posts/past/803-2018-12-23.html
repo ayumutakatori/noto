@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>RustでExifのデータを読んで見る</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">RustでExifのデータを読んで見る</h2>
+    <div class="description">
+        　Date：2018-12-23 03:40:47 +0900<br />
+        　Categories： Programming <br />
+        
+    </div>
+    <h3>概要</h3>
+<p>RustでExifのデータを読んで見る。Rustが全然かけないので、とりあえずがむしゃらにやって見る。です。作業メモ。</p>
+<h3>準備</h3>
+<p>Exifを読むためのライブラリを探したところ以下のものが比較的多くダウンロードされていそう。</p>
+<p>[embed]https://github.com/felixc/rexiv2[/embed]</p>
+<p>このページに従って、コードを書いてみたがライブラリを読み込んでいないことを思い出した。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># console
+</span><span style="color:#c0c5ce;">$ cargo init
+</span></pre>
+<p>Cargo.tomlというものができるので、dependenciedにこのCrateを記載。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">[package]
+</span><span style="color:#c0c5ce;">name = &quot;exif&quot;
+</span><span style="color:#c0c5ce;">version = &quot;0.1.0&quot;
+</span><span style="color:#c0c5ce;">authors = [&quot;Katsumata Ryo &lt;katsumata@stores.jp&gt;&quot;]
+</span><span style="color:#c0c5ce;">edition = &quot;2018&quot;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">[dependencies]
+</span><span style="color:#c0c5ce;">rexiv2 = &quot;0.7.0&quot; // &lt;- これ
+</span></pre>
+<p>buildしてみる</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ cargo run Updating[crates.io](http://crates.io)index Downloaded rexiv2 v0.7.0
+</span><span style="color:#c0c5ce;">Downloaded gexiv2-sys v1.0.0
+</span><span style="color:#c0c5ce;">Downloaded num-rational v0.2.1
+</span><span style="color:#c0c5ce;">Downloaded libc v0.2.45
+</span><span style="color:#c0c5ce;">Downloaded pkg-config v0.3.14
+</span><span style="color:#c0c5ce;">Downloaded num-traits v0.2.6
+</span><span style="color:#c0c5ce;">Downloaded num-integer v0.1.39
+</span><span style="color:#c0c5ce;">Compiling num-traits v0.2.6
+</span><span style="color:#c0c5ce;">Compiling libc v0.2.45
+</span><span style="color:#c0c5ce;">Compiling num-integer v0.1.39
+</span><span style="color:#c0c5ce;">Compiling pkg-config v0.3.14
+</span><span style="color:#c0c5ce;">Compiling num-rational v0.2.1
+</span><span style="color:#c0c5ce;">Compiling gexiv2-sys v1.0.0
+</span><span style="color:#c0c5ce;">error: failed to run custom build command forgexiv2-sys v1.0.0
+</span><span style="color:#c0c5ce;">process didn&#39;t exit successfully:/Users/ryo/work/ryo/study_rust/exif/target/debug/build/gexiv2-sys-806d287d621f3889/build-script-build(exit code: 101) --- stdout
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">The gexiv2 library was not found by pkg-config on your system.Consult the README.md file for suggestions on how to acquire it.--- stderrthread &#39;main&#39; panicked at &#39;`&quot;pkg-config&quot; &quot;--libs&quot; &quot;--cflags&quot; &quot;gexiv2&quot;` did not exit successfully: exit code: 1--- stderrPackage gexiv2 was not found in the pkg-config search path.Perhaps you should add the directory containing `gexiv2.pc&#39;to the PKG_CONFIG_PATH environment variableNo package &#39;gexiv2&#39; found&#39;, /Users/ryo/.cargo/registry/src/github.com-1ecc6299db9ec823/gexiv2-sys-1.0.0/build.rs:28:13note: Run with `RUST_BACKTRACE=1` for a backtrace.warning: build failed, waiting for other jobs to finish...error: build failed
+</span></pre>
+<p>どうやら <code>gexiv2</code> がなさそう。これはRustのものじゃなくてそもそも別のライブラリっぽかったのでhomebrewでインストールできそうだった。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">brew install gexiv2==&gt; Installing dependencies for gexiv2: exiv2, pcre and glib==&gt; Installing gexiv2 dependency: exiv2==&gt; Downloading &lt;https://homebrew.bintray.com/bottles/exiv2-0.26.mojave.bottle.1&gt;.######################################################################## 100.0%==&gt; Pouring exiv2-0.26.mojave.bottle.1.tar.gz🍺 /usr/local/Cellar/exiv2/0.26: 55 files, 7.6MB==&gt; Installing gexiv2 dependency: pcre==&gt; Downloading &lt;https://homebrew.bintray.com/bottles/pcre-8.42.mojave.bottle.tar&gt;######################################################################## 100.0%==&gt; Pouring pcre-8.42.mojave.bottle.tar.gz🍺 /usr/local/Cellar/pcre/8.42: 204 files, 5.5MB==&gt; Installing gexiv2 dependency: glib==&gt; Downloading &lt;https://homebrew.bintray.com/bottles/glib-2.58.2.mojave.bottle.t&gt;######################################################################## 100.0%==&gt; Pouring glib-2.58.2.mojave.bottle.tar.gz🍺 /usr/local/Cellar/glib/2.58.2: 435 files, 18.5MB==&gt; Installing gexiv2==&gt; Downloading &lt;https://homebrew.bintray.com/bottles/gexiv2-0.10.9.mojave.bottle&gt;######################################################################## 100.0%==&gt; Pouring gexiv2-0.10.9.mojave.bottle.tar.gz🍺 /usr/local/Cellar/gexiv2/0.10.9: 22 files, 496KB
+</span></pre>
+<p>よっしゃ。</p>
+<h3>コード</h3>
+<p>とりあえずドキュメントを読んでみて、流儀に外れていてもとりあえず読み込めるものを作ることを頑張った。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">use rexiv2;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">fn main() {
+</span><span style="color:#c0c5ce;">let file = &quot;/Users/ryo/Downloads/Photos/DSC04117.jpg&quot;;
+</span><span style="color:#c0c5ce;">let meta = rexiv2::Metadata::new_from_path(&amp;file).unwrap();
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">println!(&quot;{:?}&quot;, meta.get_pixel_width());
+</span><span style="color:#c0c5ce;">println!(&quot;{:?}&quot;, meta.get_pixel_height());
+</span><span style="color:#c0c5ce;">println!(&quot;F: {:?}&quot;, meta.get_fnumber());
+</span><span style="color:#c0c5ce;">println!(&quot;ISO: {:?}&quot;, meta.get_iso_speed());
+</span><span style="color:#c0c5ce;">println!(&quot;{:?}&quot;, meta.get_exposure_time());
+</span><span style="color:#c0c5ce;">}
+</span></pre>
+<h3>実行</h3>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ cargo run
+</span><span style="color:#c0c5ce;">Compiling exif v0.1.0 (/Users/ryo/work/ryo/study_rust/exif)
+</span><span style="color:#c0c5ce;">Finished dev [unoptimized + debuginfo] target(s) in 0.72s
+</span><span style="color:#c0c5ce;">Running `target/debug/exif`
+</span><span style="color:#c0c5ce;">6000
+</span><span style="color:#c0c5ce;">4000
+</span><span style="color:#c0c5ce;">F: Some(1.8)
+</span><span style="color:#c0c5ce;">ISO: Some(320)
+</span><span style="color:#c0c5ce;">Some(Ratio { numer: 1, denom: 200 })
+</span></pre>
+<p>なんか変だけど、それっぽいのがとれている気がする！この記事では一旦ここまで。</p>
+<h3>今後</h3>
+<p>以下の事ができると自分がやりたいことにとりあえず追いつくので</p>
+<ul>
+<li>画像path直書きしたのを引数で取得する</li>
+<li>someとかのところをstringで表示する</li>
+<li>RatioがRatioで表示できてないのでstringで表示する</li>
+<li>ボディ名とレンズ名を取得する
+このあたりをやっていきます。</li>
+</ul>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

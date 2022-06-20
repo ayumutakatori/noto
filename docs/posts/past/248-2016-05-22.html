@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>rspec requestsでハマった。</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">rspec requestsでハマった。</h2>
+    <div class="description">
+        　Date：2016-05-22 01:22:22 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>取り急ぎ、追記。<br />
+あとで詳細を書くようにします。</p>
+<h4>rails_helper.rbのコメント</h4>
+<p>spec/support以下のコードを自動読み込みする設定が、<br />
+コメントアウトをまるごと消していたため探すのにすごい苦労した。<br />
+てっきり自動読み込みかと思っていたので辛かったが、<br />
+下記のコードを追記して無事読み込めた(本来はコメントアウトを取るだけ)</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">Dir[Rails.root.join(&#39;spec/support/**/*.rb&#39;)].each { |f| require f }
+</span></pre>
+<h4>supportで毎度使う処理をまとめる</h4>
+<p>使い回すようのメソッド</p>
+<p>spec/support/request_macros.rb</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">module RequestMacros
+</span><span style="color:#c0c5ce;">def login_user(user)
+</span><span style="color:#c0c5ce;">before(:each) do
+</span><span style="color:#c0c5ce;">Warden.test_mode!
+</span><span style="color:#c0c5ce;">login_as(user, scope: :user)
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span></pre>
+<p>諸々呼び出せるようにコードを追加</p>
+<p>spec_helper.rb</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># 追加
+</span><span style="color:#c0c5ce;">require &#39;devise&#39;
+</span><span style="color:#c0c5ce;">include Warden::Test::Helpers # requestを動かすためにこれを入れる必要があった
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">RSpec.configure do |config|
+</span><span style="color:#c0c5ce;"># 追加
+</span><span style="color:#c0c5ce;">config.include Devise::TestHelpers, type: :requests
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">rails_helper.rb
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">RSpec.configure do |config|
+</span><span style="color:#c0c5ce;">config.extend RequestMacros
+</span><span style="color:#c0c5ce;">end
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

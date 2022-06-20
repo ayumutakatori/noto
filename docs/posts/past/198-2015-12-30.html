@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>冬休みのこと2</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">冬休みのこと2</h2>
+    <div class="description">
+        　Date：2015-12-30 15:14:15 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h3>2日目</h3>
+<p>タリーズからお送りいたします。</p>
+<h4>bootstrapを使用する</h4>
+<p>昨日作成したrailsプロジェクトにbootstrapを使用できるようにします。<br />
+下記のサイトを参考にしました。<br />
+<a href="http://d.hatena.ne.jp/mabots/20150109/1420802559">http://d.hatena.ne.jp/mabots/20150109/1420802559</a></p>
+<p>なんとなくbootstrapがはいったっぽくなったね。</p>
+<p><img src="/public/images/2017/09/15993-0dd2x79uklx93dfuh.jpg" alt="Tucho" />#### font awesome4 を使用する
+font-awesomeを利用する<br />
+<a href="https://fortawesome.github.io/Font-Awesome/get-started/">https://fortawesome.github.io/Font-Awesome/get-started/</a></p>
+<p>stylesheet_link_tagってなんぞやってなった。<br />
+スタイルシートの記述を直接railsからできる書き方っぽいっすね。</p>
+<h4>link_tagの中にfont-awesomeがつっこめない</h4>
+<p>hamlに</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">i.fa.fa-home
+</span><span style="color:#c0c5ce;">$li
+</span><span style="color:#c0c5ce;">= link_tag &quot;HOME&quot;, root_path
+</span></pre>
+<p>と書いてみたけどうまくかけなかった。<br />
+調べてみたところcontent_tag(HTMLタグ, 文字列, class: クラス名)というrailsの機能で行けるみたいだ。<br />
+書いてみるとこんな感じ。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">%li
+</span><span style="color:#c0c5ce;">= link_to content_tag(:i, &#39; HOME&#39;, class: &#39;fa fa-home&#39;), root_path
+</span></pre>
+<p>良い感じです。</p>
+<p><img src="/public/images/2017/09/bee65-0nvtaco1imts_zfzv.jpg" alt="1724" />#### 適当にbootstrapを調整した
+適当にbootstrapを調節した</p>
+<h4>deviseのviewを作成</h4>
+<p>なんかviewがないなーと思っていたんですが、そのとおりだったようです。<br />
+下記の手順に従いました。<br />
+<a href="http://qiita.com/kogax/items/651aceab8df3c19bcecb">http://qiita.com/kogax/items/651aceab8df3c19bcecb</a></p>
+<h4>なんやかんや今日の成果</h4>
+<p>ここまでやりました。</p>
+<p><img src="/public/images/2017/09/2b92e-0jj1s75i7d_uhwdwp.jpg" alt="1" /></p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

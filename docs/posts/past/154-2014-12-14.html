@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>wordpress から tumblr へ記事を移動</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">wordpress から tumblr へ記事を移動</h2>
+    <div class="description">
+        　Date：2014-12-14 04:02:00 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <h4>はじめに</h4>
+<p>wordpressのアップデートに頻繁に対応して行クことより他の作業に集中したいとかもろもろの問題で、<br />
+hetanablogかtumblrのどちらかのWEBサービスに移転することにしました。tumblrを選択。</p>
+<h4>目次</h4>
+<ul>
+<li>移転作業</li>
+<li>syntax highlighter</li>
+<li>独自ドメインの設定</li>
+</ul>
+<h4>移転作業</h4>
+<p>記事を移転する上で何かツールが無いかと思ったら、下記のページを見つけました。<br />
+どうやらrubyのsinatraアプリで、wpからエクスポートしたxmlをAPI経由でインポートさせているみたいです。</p>
+<h4>動作に多分必要と思われるもの</h4>
+<p>QIITA: ikedahidenori氏</p>
+<p><a href="http://qiita.com/ikedahidenori/items/c340be65620448376229">http://qiita.com/ikedahidenori/items/c340be65620448376229</a></p>
+<ul>
+<li>
+<p>rubyの動く環境</p>
+</li>
+<li>
+<p>bundleというgemのインストール</p>
+</li>
+<li>
+<p>wpからデータをエクスポートしたxml
+補足として流れとしては、</p>
+</li>
+<li>
+<p>tumblrからAPIキー、トークンの取得</p>
+</li>
+<li>
+<p>データをエクスポート</p>
+</li>
+<li>
+<p>githubからcloneしたり、sinatraアプリが動く環境の準備</p>
+</li>
+<li>
+<p>tumblr_import.ymlの編集</p>
+</li>
+<li>
+<p>sinatraの実行
+というものになると思います。<br />
+私の環境では無事に成功しています。</p>
+</li>
+</ul>
+<h4>シンタックスハイライト</h4>
+<p>シンタックスハイライトについては下記を参考にさせていただきました。 <br />
+<a href="http://blog.quellencode.org/post/36030277666/tumblr-tips2">http://blog.quellencode.org/post/36030277666/tumblr-tips2</a></p>
+<h4>独自ドメイン</h4>
+<p>下記を参考にさせていただきました。</p>
+<p><a href="https://www.tumblr.com/docs/ja/custom_domains">https://www.tumblr.com/docs/ja/custom_domains</a></p>
+<p>ちなみに私はAWSのROUTE53からですが5分かからないくらいでサクッと終了しました。<br />
+めっちゃ便利ね。</p>
+<h4>終わり</h4>
+<p>以上で、概ね作業は完了ですがじつはテーマの選択が一番苦労しました。<br />
+基本的に素敵なテーマが多いんですが、なんか私が書く形式には結構そぐわなくて厳しいなって感じでした。<br />
+wpの脆弱性とか気にしないでいいので結構管理負担とか少なくて済むので良いかなと思います。<br />
+(仕事の都合上情報は追っかけないといけないのだけれども。)</p>
+<p>いじょうですー。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

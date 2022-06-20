@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>コントローラにないアクションで200が返る時</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">コントローラにないアクションで200が返る時</h2>
+    <div class="description">
+        　Date：2018-03-28 13:22:05 +0900<br />
+        　Categories： Rails <br />
+        
+    </div>
+    <p>railsで表題のようなコントローラに無いアクションがあり無事にアクセスができている場所があり、ハマった。</p>
+<p>こんなかんじに/showにアクセスができるようになっていて</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># config/routes.rb
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">get &#39;/show&#39; =&gt; &#39;books#show&#39;
+</span></pre>
+<p>コントローラにはshowのアクセスがない</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># app/controllers/books_controller.rb
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">class BooksController
+</span><span style="color:#c0c5ce;"># def show がない
+</span><span style="color:#c0c5ce;"># ただしviewはある この場合は app/views/books/show.html.erb みたいな
+</span><span style="color:#c0c5ce;">end
+</span></pre>
+<p>ただしこんな感じでviewがある場合、上のアクセスは成功してshow.html.erbの内容は表示される。</p>
+<p>知っていればどうってことない話なのだけど、全く知らず関係各所を探し回ったのでメモとして記録。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

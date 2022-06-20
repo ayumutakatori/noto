@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>CentOS7にajentiをインストール</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">CentOS7にajentiをインストール</h2>
+    <div class="description">
+        　Date：2015-10-13 21:20:55 +0900<br />
+        　Categories： Centos <br />
+        
+    </div>
+    <h4>ajentiとは</h4>
+<p>ajentiはpython製のサーバ管理ツールです。キャプチャを見ていただくとなんとなく伝わると思いますが、かなりいろいろなことができます。<br />
+画面もいわゆる管理ツールっぽい切なさもないので、コンソールに入らない人や緊急時にコンソールに入る環境がないときに役に立つかもしれません。</p>
+<p>私はあまりGUIをつかってどうこうってことは考えていませんが、これ自体はとても良さそう。</p>
+<h4>簡単なインストール</h4>
+<p>加えてインストールもとても簡単です。渡しの場合は、2項目です。</p>
+<h4>ソフトウェアのインストール</h4>
+<p>基本的にこれで一発です。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ sudo curl[https://raw.githubusercontent.com/ajenti/ajenti/1.x/scripts/install-rhel7.sh](https://raw.githubusercontent.com/ajenti/ajenti/1.x/scripts/install-rhel7.sh)| sh
+</span></pre>
+<p>内容としては、スクリプトがyum repoをゲットしてきて yum(rpm) インストールします。</p>
+<h4>ポートの解放</h4>
+<p>これがおわると localhost:8000 でアクセスができるようになっているので、8000番のポートが空いてない人は開けましょう。<br />
+私は</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ sudo firewall-cmd --add-port=8000/tcp --zone=public --permanent
+</span><span style="color:#c0c5ce;">$ sudo firewall-cmd --reload
+</span></pre>
+<p>で完了です。</p>
+<h4>実際の画面</h4>
+<p>長くなるので簡単に幾つかキャプチャ画面を貼っていきます。</p>
+<h4>ログイン画面</h4>
+<p>初期のログインID/PWは root/admin になっています。<br />
+ログインを行ったらすぐ変えましょう。</p>
+<p><img src="/public/images/2017/09/2653b-0mkhbnoafncwehf0w.png" alt="ajenti_20151013-2" />#### メイン画面
+これがメイン画面です。<br />
+真ん中にサーバの現在の状態が記載され、左側が各項目へのメニューになっています。</p>
+<p><img src="/public/images/2017/09/e3f91-0wfbpguqgzh1nzx20.png" alt="ajenti_20151013-3" />#### apache
+apacheはconfの直接書き換えやリロードもGUI上でできそうです。</p>
+<p><img src="/public/images/2017/09/55b07-0sc8mgiudflsihgwd.png" alt="ajenti_20151013-4" />他にも/var/log以下にあるファイルをこの画面上で読めたりとかなり良さ有りますね。<br />
+欲を言えばこのlog tail -Fができれば鼻血でそうでした。</p>
+<h4>最後に</h4>
+<p>このようなツールということでアカウント盗まれると即死だと思うので、できればSSLとかアカウントはしっかり気をつけたいところです。<br />
+とはいえすごく良いツールです。是非興味を持たれたら使っていただきたい。</p>
+<h4>参考</h4>
+<p>この記事が大変参考になりました。<br />
+<a href="http://qiita.com/kijtra/items/cda3648ed06410f492ef">http://qiita.com/kijtra/items/cda3648ed06410f492ef</a></p>
+<p>公式サイトです<br />
+<a href="http://ajenti.org/">http://ajenti.org/</a></p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

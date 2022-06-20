@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>タスク管理ツールをTodoistへ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">タスク管理ツールをTodoistへ</h2>
+    <div class="description">
+        　Date：2015-08-07 12:52:40 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h4>タスク管理ツールの乗換</h4>
+<p>タスク管理ツールをWunderlistからTodoistに乗り換えました。<br />
+取り立てて乗換に大きな理由もなく変えてみました。</p>
+<h4>便利なところ</h4>
+<p>これといってWunderlistと大きく変わることは個人的になかったんですが、<br />
+Todoistは無限に階層が組めそうな感じが良かったです。<br />
+一番決定的に違ったのはカルマという機能でゲーミフィケーションじゃありませんが<br />
+これがタスクの消化を若干ですが楽しくさせてくれます。</p>
+<h4>不便なところ</h4>
+<p>これもこれといってなかったんですが、しいて言えば階層の考え方が<br />
+wunderlistの方がすきだったのでそこは不便を感じました。<br />
+あとは選択して一斉に処理するみたいな動作もwunderlistの方が若干よかったので<br />
+そこを超えられるかが乗換のポイントでした。</p>
+<h4>今日完了したタスクを表示するスクリプト</h4>
+<p>自社は作業報告の日報があるんですが、そこがテキストフィールドになっていて完全て入力がくるしかったので<br />
+wunderlistのころから機械的にtask管理からかけるようにしていました。今回もそちらのスクリプトを書いています。</p>
+<h4>スクリプト</h4>
+<p>環境がwindowsとrubyです。コピペができるようにbatファイルからrubyをよんでコンソールを表示させています。</p>
+<h4>rubyスクリプト</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">require &#39;open-uri&#39;
+</span><span style="color:#c0c5ce;">require &#39;json&#39;
+</span><span style="color:#c0c5ce;">require &#39;date&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">API_TOKEN = &#39;管理画面から取得するapi token&#39;
+</span><span style="color:#c0c5ce;">TASK = &#39;getCompletedItems&#39;
+</span><span style="color:#c0c5ce;">PROJECT_ID = &#39;プロジェクトID&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">url = &quot;https://todoist.com/API/#{TASK}?token=#{API_TOKEN}&amp;project_id=#{PROJECT_ID}&quot;
+</span><span style="color:#c0c5ce;">responce = open(url)
+</span><span style="color:#c0c5ce;">code, message = responce.status
+</span><span style="color:#c0c5ce;">items = JSON.parse(responce.read) if code == &#39;200&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">puts &quot;[#{Date.today.to_s}の完了タスク]&quot;
+</span><span style="color:#c0c5ce;">items.collect do |item|
+</span><span style="color:#c0c5ce;">&quot;□ #{item[&#39;content&#39;]}&quot;
+</span><span style="color:#c0c5ce;">end.sort!.each {|title| puts title}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">STDIN.gets
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">exit 0
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">こんな感じに書いたものをbatで叩きます。デスクトップに置いてあって、帰るときにポチってやる感じです。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">rem Todoist completed task batch.
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">ruby &quot;作成したスクリプトのパス.rb&quot;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">するとコンソールが立ち上げってタスクの一覧が出てきます。
+</span><span style="color:#c0c5ce;">それをコピペして時間入力して帰るっていう感じです。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">gemがなかった
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">たまたま見つけられなかっただけかもしれませんが、いい感じのtodoistのWrapperがなかったので
+</span><span style="color:#c0c5ce;">直々にたたき行きました。
+</span><span style="color:#c0c5ce;">gemを作る勉強をしたことがなかったので、もし理解ができるならgemでwrapperをつくろうかなと思った次第でした。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Ruby レシピブック — 008:繰り返し</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Ruby レシピブック — 008:繰り返し</h2>
+    <div class="description">
+        　Date：2013-12-18 22:40:16 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>ほぼ、条件分岐とかと変わらない感じですね。<br />
+このあとにwhile修飾子とかuntil修飾子がありますね。っていうのもありました。<br />
+とりあえず、こんなかんじでしょうか。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">[25] pry(main)&gt; a =1
+</span><span style="color:#c0c5ce;">=&gt; 1
+</span><span style="color:#c0c5ce;">[26] pry(main)&gt; while a nil
+</span><span style="color:#c0c5ce;">[27] pry(main)&gt; p 2
+</span><span style="color:#c0c5ce;">2
+</span><span style="color:#c0c5ce;">=&gt; 2
+</span><span style="color:#c0c5ce;">[28] pry(main)&gt; p a
+</span><span style="color:#c0c5ce;">11
+</span><span style="color:#c0c5ce;">=&gt; 11
+</span><span style="color:#c0c5ce;">[29] pry(main)&gt; b = 1
+</span><span style="color:#c0c5ce;">=&gt; 1
+</span><span style="color:#c0c5ce;">[30] pry(main)&gt; until b &gt;= 10 do
+</span><span style="color:#c0c5ce;">[30] pry(main)* b = b+1
+</span><span style="color:#c0c5ce;">[30] pry(main)* p b
+</span><span style="color:#c0c5ce;">[30] pry(main)* end
+</span><span style="color:#c0c5ce;">2
+</span><span style="color:#c0c5ce;">3
+</span><span style="color:#c0c5ce;">4
+</span><span style="color:#c0c5ce;">5
+</span><span style="color:#c0c5ce;">6
+</span><span style="color:#c0c5ce;">7
+</span><span style="color:#c0c5ce;">8
+</span><span style="color:#c0c5ce;">9
+</span><span style="color:#c0c5ce;">10
+</span><span style="color:#c0c5ce;">=&gt; nil
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">[35] pry(main)&gt; array =[1,2,3,4,5,6]
+</span><span style="color:#c0c5ce;">=&gt; [1, 2, 3, 4, 5, 6]
+</span><span style="color:#c0c5ce;">[36] pry(main)&gt; for c in array do
+</span><span style="color:#c0c5ce;">[36] pry(main)* p c
+</span><span style="color:#c0c5ce;">[36] pry(main)* end
+</span><span style="color:#c0c5ce;">1
+</span><span style="color:#c0c5ce;">2
+</span><span style="color:#c0c5ce;">3
+</span><span style="color:#c0c5ce;">4
+</span><span style="color:#c0c5ce;">5
+</span><span style="color:#c0c5ce;">6
+</span><span style="color:#c0c5ce;">=&gt; [1, 2, 3, 4, 5, 6]
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">ちょっとforのときのcがなんなのか混乱したんですが、
+</span><span style="color:#c0c5ce;">array.each do |c| とイコールってことでいいんじゃないかと思いましたが、違ったら教えて下さい。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

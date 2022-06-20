@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>冬休みのこと1</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">冬休みのこと1</h2>
+    <div class="description">
+        　Date：2015-12-29 23:30:34 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h3>ruby 2.3のインストール</h3>
+<p>クリスマスだから2.3が来ていました。私はmacのrbenvなので以下のコマンドでインストールしました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ cd .rbenv/plugins/ruby-build/
+</span><span style="color:#c0c5ce;">$ git pull
+</span><span style="color:#c0c5ce;">$ cd ~/ #なんとなく
+</span><span style="color:#c0c5ce;">$ rbenv install --list |grep 2.3.0
+</span><span style="color:#c0c5ce;">2.3.0-dev
+</span><span style="color:#c0c5ce;">2.3.0-preview1
+</span><span style="color:#c0c5ce;">2.3.0-preview2
+</span><span style="color:#c0c5ce;">2.3.0
+</span><span style="color:#c0c5ce;">rbx-2.3.0
+</span></pre>
+<p>2.3.0があることを確認。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ rbenv global 2.3.0
+</span><span style="color:#c0c5ce;">$ ruby -v
+</span><span style="color:#c0c5ce;">ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin15]
+</span></pre>
+<p>無事にruby2.3入りました。</p>
+<h3>新しいRailsプロジェクト</h3>
+<p>家計簿を作りなおすことにしたんです。</p>
+<h4>deviseを使ってみる</h4>
+<p><a href="http://ruby-rails.hatenadiary.com/entry/20140801/1406907000">http://ruby-rails.hatenadiary.com/entry/20140801/1406907000</a><br />
+このサイトを参考にしてみた<br />
+<a href="http://qiita.com/ryouzi/items/9c5324ba567109ab2a22">http://qiita.com/ryouzi/items/9c5324ba567109ab2a22</a><br />
+これではまる。ありがたい。</p>
+<p>なんとか無事にログインの仕組み自体は出来上がったご様子だよ。<br />
+しかしながらなんとなく出来ただけなので、あとで細かくdeviseのこと見ようね。</p>
+<h4>テンプレートをerbからhamlに変更する</h4>
+<p>私はhaml派なのでerbから変更します。</p>
+<p><a href="http://qiita.com/m_doi/items/1f01fd2b1a52c2c43f1f">http://qiita.com/m_doi/items/1f01fd2b1a52c2c43f1f</a><br />
+を見てテンプレートを変更します。<br />
+そしたら、本体にhamlを使えるようにするのを忘れていました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">gem &#39;haml-rails&#39;
+</span></pre>
+<h4>slackにgithubのコミットを通知するintegrationの追加</h4>
+<p>bitbucketのintegrationを追加する仕組みと同様に設定できたー。</p>
+<p>これで無事になんとか。<br />
+今日はこれで終了。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

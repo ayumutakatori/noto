@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>そしてWORDPRESSの移行をしていた</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">そしてWORDPRESSの移行をしていた</h2>
+    <div class="description">
+        　Date：2014-06-01 23:48:28 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>github kaigiに参加していた裏側で最近エラー吐きまくっていたWORDPRESSの移行作業を行っておりました。</p>
+<h4>手順</h4>
+<p>移行作業は変わった点はなく、DBとファイルのバックアップからの移行先への展開で行おうと思ったのですが、どうもDBのダンプを復元しなくてもwordpress自体にあるエクスポートとインポートで簡単にblog程度であれば移せそうだったので、そちらでおこないました。</p>
+<p>・一応DBのバックアップ<br />
+・画像ファイルなどのバックアップ<br />
+・ツール&gt;エクスポートでxmlをダウンロード<br />
+・wordpressフォルダの全削除<br />
+・新しいwordpressファイルの展開<br />
+・wp-configの設定<br />
+・通常のインストール<br />
+・wp-contentの中にuploadsフォルダをつくりバックアップした画像を配置する<br />
+・ツール&gt;インポートからバックアップしたxmlをインポート<br />
+・パーミションや.htaccessの調整</p>
+<p>で行いました。今のところ特に問題なさそう。</p>
+<h4>パーミションや.htaccessの調整</h4>
+<p>毎回設定の仕方を忘れてしまいますのでメモします。ちなみに環境はcoreserverのminiプランです。</p>
+<p>・.htaccess周り<br />
+トップ階層の.htaccessのパーミションを606にする。</p>
+<p>・パーマリンクの設定<br />
+カスタムで下記を設定。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">%category%/%post_id%.html
+</span></pre>
+<p>すると.htaccessに書きが書き出されるはず。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">RewriteEngine On
+</span><span style="color:#c0c5ce;">RewriteBase /
+</span><span style="color:#c0c5ce;">RewriteRule ^index.php$ - [L]
+</span><span style="color:#c0c5ce;">RewriteCond %{REQUEST_FILENAME} !-f
+</span><span style="color:#c0c5ce;">RewriteCond %{REQUEST_FILENAME} !-d
+</span><span style="color:#c0c5ce;">RewriteRule . /index.php [L]
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">・各フォルダのパーミションを変更する。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">wp-config.php =&gt; 404
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">wp-content/
+</span><span style="color:#c0c5ce;">theme =&gt; 705
+</span><span style="color:#c0c5ce;">plugin =&gt; 705
+</span><span style="color:#c0c5ce;">uploads =&gt; 705
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">・wp-adminの.htaccessに書きを追加
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 画像・ファイルアップロード
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">AddHandler application/x-httpd-phpcgi .php
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># プラグイン・テーマ 新規インストール／アップグレード
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">AddHandler application/x-httpd-phpcgi .php
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 本体アップグレード
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">AddHandler application/x-httpd-phpcgi .php
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">以上で、ちゃんとに使えるようになっているはず。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

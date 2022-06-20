@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>ocraによる.rbのexe化</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">ocraによる.rbのexe化</h2>
+    <div class="description">
+        　Date：2013-06-29 22:51:03 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>rubyでライブラリとか入れて動かした簡単な16文字のランダム文字をクリップボードにコピーするプログラムみたいなやつが、人によってRUBY入ってないしそもそもライブラリgemからだしとかで使えないなーと思っていたんですが、なんとかなりそう。<br />
+ <br />
+ exerbがなんか夢を叶えてくれそうだったんですが、どうも1.8系だけみたいで、じゃあ1.9は？とか探してたらありました。ocra先輩です。</p>
+<p>1.インストール</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">&gt; gem install ocra
+</span></pre>
+<p>2.あとはcmdから下みたいな感じで実行してあげる（password.rbというファイルを作ってたとして）</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">&gt; ocra --windows --icon &quot;アイコンのパス&quot; password.rb
+</span></pre>
+<p>— windowsは.rbw的なプロンプト立ち上げない系<br />
+ — iconはできたexeに画像つけてあげるやつ<br />
+他にもオプションあるみたいです。</p>
+<p>3.ちなみに下みたいなプログラムでした</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">require &#39;win32ole&#39;
+</span><span style="color:#c0c5ce;">require &#39;win32/clipboard&#39;
+</span><span style="color:#c0c5ce;">require &#39;Win32API&#39;
+</span><span style="color:#c0c5ce;">include Win32
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">rand = ((&quot;a&quot;..&quot;z&quot;).to_a + (&quot;A&quot;..&quot;Z&quot;).to_a + (0..9).to_a).shuffle[0..15].join
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Clipboard.set_data(rand)
+</span><span style="color:#c0c5ce;">popup_window = WIN32OLE.new(&#39;Wscript.Shell&#39;)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">popup_window.Popup(rand)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">exit 0
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">若干.rbより遅くなったなかもかも。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

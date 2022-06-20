@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>容量確認のduコマンドに関するメモ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">容量確認のduコマンドに関するメモ</h2>
+    <div class="description">
+        　Date：2014-04-18 11:00:15 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>はじめに</p>
+<p>CentOSのサーバの中で容量を確認するduのコマンドについてあんまり上手に使えてなかったので、基本的なことをメモしておきたい</p>
+<p>メモ</p>
+<p>du =&gt; カレントディレクトリでの容量をでぃレクトリごとにバーと出す</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ du
+</span><span style="color:#c0c5ce;">8 ./spell
+</span><span style="color:#c0c5ce;">12 ./working/ruby/sqlite
+</span><span style="color:#c0c5ce;">8 ./working/ruby/.hg/cache
+</span><span style="color:#c0c5ce;">8 ./working/ruby/.hg/store/data/2013-07-31
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">中略
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">12 ./.vim/plugin
+</span><span style="color:#c0c5ce;">200 ./.vim
+</span><span style="color:#c0c5ce;">142188 .
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">du -h =&gt; 容量を見やすくする。 -kはキロ表示、-mはメガで表示する。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ du -h
+</span><span style="color:#c0c5ce;">8.0K ./spell
+</span><span style="color:#c0c5ce;">12K ./working/ruby/sqlite
+</span><span style="color:#c0c5ce;">8.0K ./working/ruby/.hg/cache
+</span><span style="color:#c0c5ce;">8.0K ./working/ruby/.hg/store/data/2013-07-31
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">中略
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">12K ./.vim/plugin
+</span><span style="color:#c0c5ce;">200K ./.vim
+</span><span style="color:#c0c5ce;">139M .
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">du dir_name =&gt; dir_name内の容量表示
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">du -s dir_name =&gt; dir_name内の容量の総量だけを表示
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ du -sh working/
+</span><span style="color:#c0c5ce;">115M working/
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">とりあえずこんなところでしょうか。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>trello APIでカードの名前を取得してみる</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">trello APIでカードの名前を取得してみる</h2>
+    <div class="description">
+        　Date：2015-10-29 00:47:51 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h4>はじめに</h4>
+<p>kanban 系のタスク管理ツールを探していて会社の人に教えてもらいました。<br />
+これは結構良さそうだったので、いつもどおりタスク管理ツールからタスクを抜き出すスクリプトを書いてみました。</p>
+<h4>環境</h4>
+<ul>
+<li>ruby 2.2.3p173</li>
+<li>MAC OS X (El Capitain)<br />
+※ windowsでも多分動くと思うのですが
+API tokenは事前に取得している前提です</li>
+</ul>
+<h4>コード</h4>
+<p>先に書いたコードを記載します。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">require &#39;open-uri&#39;
+</span><span style="color:#c0c5ce;">require &#39;json&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">module MyTrello
+</span><span style="color:#c0c5ce;">class Task
+</span><span style="color:#c0c5ce;">def initialize(name, key, token)
+</span><span style="color:#c0c5ce;">@name = name
+</span><span style="color:#c0c5ce;">@key = key
+</span><span style="color:#c0c5ce;">@token = token
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">def boards
+</span><span style="color:#c0c5ce;">responce = open(boards_url)
+</span><span style="color:#c0c5ce;">code, message = responce.status
+</span><span style="color:#c0c5ce;">if code == &#39;200&#39;
+</span><span style="color:#c0c5ce;">@json = JSON.parse(responce.read)
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;"># @json
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">def lists(boardname)
+</span><span style="color:#c0c5ce;">@boardname = boardname
+</span><span style="color:#c0c5ce;">boards
+</span><span style="color:#c0c5ce;">board_id
+</span><span style="color:#c0c5ce;">responce = open(lists_url)
+</span><span style="color:#c0c5ce;">code, message = responce.status
+</span><span style="color:#c0c5ce;">if code == &#39;200&#39;
+</span><span style="color:#c0c5ce;">@listjson = JSON.parse(responce.read)
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">def cards(boardname, listname)
+</span><span style="color:#c0c5ce;">@boardname = boardname
+</span><span style="color:#c0c5ce;">@listname = listname
+</span><span style="color:#c0c5ce;">lists(boardname)
+</span><span style="color:#c0c5ce;">list_id
+</span><span style="color:#c0c5ce;">responce = open(cards_url)
+</span><span style="color:#c0c5ce;">code, message = responce.status
+</span><span style="color:#c0c5ce;">if code == &#39;200&#39;
+</span><span style="color:#c0c5ce;">@cardjson = JSON.parse(responce.read)
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">@cardjson
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">def cardnames(boardname, listname)
+</span><span style="color:#c0c5ce;">cards(boardname, listname).collect do |card|
+</span><span style="color:#c0c5ce;">card[&#39;name&#39;]
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">private
+</span><span style="color:#c0c5ce;">def board_id
+</span><span style="color:#c0c5ce;">@json.each do |board|
+</span><span style="color:#c0c5ce;">if board[&#39;name&#39;] == @boardname
+</span><span style="color:#c0c5ce;">@board_id = board[&#39;id&#39;]
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">def list_id
+</span><span style="color:#c0c5ce;">@listjson.each do |list|
+</span><span style="color:#c0c5ce;">if list[&#39;name&#39;] == @listname
+</span><span style="color:#c0c5ce;">@list_id = list[&#39;id&#39;]
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">@list_id
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">def boards_url
+</span><span style="color:#c0c5ce;">&quot;https://trello.com/1/members/#{@name}/boards?key=#{@key}&amp;token=#{@token}&quot;
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">def lists_url
+</span><span style="color:#c0c5ce;">&quot;https://trello.com/1/boards/#{@board_id}/lists?key=#{@key}&amp;token=#{@token}&quot;
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">def cards_url
+</span><span style="color:#c0c5ce;">&quot;https://trello.com/1/lists/#{@list_id}/cards?key=#{@key}&amp;token=#{@token}&quot;
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">こんな感じです。
+</span><span style="color:#c0c5ce;">単純ですね。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">使い方
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">pryでrequireして例で出します。
+</span><span style="color:#c0c5ce;">そして今回取り出すデータ元はこんな感じです。
+</span></pre>
+<p><img src="/public/images/2017/09/abbd7-0mlfz4qkpvbz38wzc.png" alt="スクリーンショット 2015-10-29 0.01.07" />    $ pry -r ./mytrello.rb</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">mytrello.rbは上記コードが書いてあるファイルです
+</span><span style="color:#c0c5ce;">とりあえずイニシャライズします。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">[4] pry(main)&gt; name = &quot;username&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;username&quot;
+</span><span style="color:#c0c5ce;">[5] pry(main)&gt; key = &quot;000000000000000000000000000000&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;000000000000000000000000000000&quot;
+</span><span style="color:#c0c5ce;">[6] pry(main)&gt; token = &quot;1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a&quot;
+</span><span style="color:#c0c5ce;">[7] pry(main)&gt; trello = MyTrello::Task.new(name, key, token)
+</span><span style="color:#c0c5ce;">=&gt; #&lt;MyTrello::Task:0x007fe47486a488
+</span><span style="color:#c0c5ce;">@key=&quot;000000000000000000000000000000&quot;,
+</span><span style="color:#c0c5ce;">@name=&quot;username&quot;,
+</span><span style="color:#c0c5ce;">@token=
+</span><span style="color:#c0c5ce;">&quot;1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a&quot;&gt;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">key, name, tokenの値は各自のものを入れます。
+</span><span style="color:#c0c5ce;">つづいて実際に実行してみます。用意しているコマンドは以下です。
+</span><span style="color:#c0c5ce;">すべて、インスタンスメソッドです。
+</span></pre>
+<ul>
+<li>
+<p>boards</p>
+</li>
+<li>
+<p>ボード一覧のjsonデータを出します</p>
+</li>
+<li>
+<p>lists(boardname)</p>
+</li>
+<li>
+<p>リスト一覧のjsonデータを出します</p>
+</li>
+<li>
+<p>cards(boardname, listname)</p>
+</li>
+<li>
+<p>カード一覧のjsonデータを出します</p>
+</li>
+<li>
+<p>cardnames(boardname, listname)</p>
+</li>
+<li>
+<p>カード一覧の名前を配列で返します。
+実際のイメージです。</p>
+<p>boards</p>
+<p>pry(main)&gt; trello.boards
+=&gt; [{&quot;name&quot;=&gt;&quot;Doing&quot;,
+&quot;desc&quot;=&gt;&quot;&quot;,
+&quot;descData&quot;=&gt;nil,
+&quot;closed&quot;=&gt;true,
+&quot;idOrganization&quot;=&gt;&quot;56306c68cd4e76bda747e2c7&quot;,
+&quot;pinned&quot;=&gt;nil,
+&quot;invitations&quot;=&gt;nil,
+&quot;shortLink&quot;=&gt;&quot;aibKU27g&quot;,
+&quot;powerUps&quot;=&gt;[],
+&quot;dateLastActivity&quot;=&gt;nil,
+&quot;idTags&quot;=&gt;[],
+&quot;id&quot;=&gt;&quot;56306dafd00fd151baf7edbf&quot;,
+&quot;invited&quot;=&gt;false,
+&quot;starred&quot;=&gt;false,
+&quot;url&quot;=&gt;&quot;https://trello.com/b/aibKU27g/doing&quot;,
+&quot;prefs&quot;=&gt;
+{&quot;permissionLevel&quot;=&gt;&quot;private&quot;,
+&quot;voting&quot;=&gt;&quot;disabled&quot;,
+&quot;comments&quot;=&gt;&quot;members&quot;,
+略</p>
+<p>boards collectしてみる</p>
+<p>trelloがjsonで介してくれるので、これをいじっていけばいい感じにいけますよね。</p>
+<p>[13] pry(main)&gt; trello.boards.collect{|board| board['name']}
+=&gt; [&quot;Doing&quot;,
+&quot;In Progress&quot;,
+&quot;Tasks&quot;,
+&quot;Welcome Board&quot;,
+&quot;あまりにも秘密のプロジェクト&quot;]</p>
+<p>lists</p>
+<p>[15] pry(main)&gt; trello.lists(&quot;あまりにも秘密のプロジェクト&quot;)
+=&gt; [{&quot;id&quot;=&gt;&quot;56306e48cd95adfabb7d3fa1&quot;,
+&quot;name&quot;=&gt;&quot;In Progress&quot;,
+&quot;closed&quot;=&gt;false,
+&quot;idBoard&quot;=&gt;&quot;56306e3d0220e708273b8c6b&quot;,
+&quot;pos&quot;=&gt;65535,
+&quot;subscribed&quot;=&gt;false},
+{&quot;id&quot;=&gt;&quot;56306e4f54ac86c9201683f1&quot;,
+&quot;name&quot;=&gt;&quot;Doing&quot;,
+&quot;closed&quot;=&gt;false,
+&quot;idBoard&quot;=&gt;&quot;56306e3d0220e708273b8c6b&quot;,
+&quot;pos&quot;=&gt;131071,
+&quot;subscribed&quot;=&gt;false},
+{&quot;id&quot;=&gt;&quot;56306e5230ac095b026eaa84&quot;,
+&quot;name&quot;=&gt;&quot;Done&quot;,
+&quot;closed&quot;=&gt;false,
+&quot;idBoard&quot;=&gt;&quot;56306e3d0220e708273b8c6b&quot;,
+&quot;pos&quot;=&gt;196607,
+&quot;subscribed&quot;=&gt;false}]</p>
+<p>listsをcollectしてみる</p>
+<p>[16] pry(main)&gt; trello.lists(&quot;あまりにも秘密のプロジェクト&quot;).collect{|list| list['name']}
+=&gt; [&quot;In Progress&quot;, &quot;Doing&quot;, &quot;Done&quot;]</p>
+<p>cards</p>
+<p>[17] pry(main)&gt; trello.cards(&quot;あまりにも秘密のプロジェクト&quot;, &quot;In Progress)=&gt; [{&quot;id&quot;=&gt;&quot;56306ff0800225dd8f7bb59a&quot;,
+&quot;checkItemStates&quot;=&gt;[],
+&quot;closed&quot;=&gt;false,
+&quot;dateLastActivity&quot;=&gt;&quot;2015-10-28T06:49:24.639Z&quot;,
+&quot;desc&quot;=&gt;&quot;&quot;,
+&quot;descData&quot;=&gt;nil,
+&quot;idBoard&quot;=&gt;&quot;56306e3d0220e708273b8c6b&quot;,
+&quot;idList&quot;=&gt;&quot;56306e48cd95adfabb7d3fa1&quot;,
+&quot;idMembersVoted&quot;=&gt;[],
+&quot;idShort&quot;=&gt;5,
+&quot;idAttachmentCover&quot;=&gt;nil,
+&quot;manualCoverAttachment&quot;=&gt;false,
+&quot;idLabels&quot;=&gt;[],
+&quot;name&quot;=&gt;&quot;どうしようもなく秘密のラベリングを考える&quot;,
+&quot;pos&quot;=&gt;131071,
+&quot;shortLink&quot;=&gt;&quot;9Ml4KdoQ&quot;,
+&quot;badges&quot;=&gt;
+{&quot;votes&quot;=&gt;0,
+&quot;viewingMemberVoted&quot;=&gt;false,
+&quot;subscribed&quot;=&gt;true,
+&quot;fogbugz&quot;=&gt;&quot;&quot;,
+&quot;checkItems&quot;=&gt;0,
+&quot;checkItemsChecked&quot;=&gt;0,
+&quot;comments&quot;=&gt;0,
+&quot;attachments&quot;=&gt;0,
+&quot;description&quot;=&gt;false,
+&quot;due&quot;=&gt;nil},
+&quot;due&quot;=&gt;nil,</p>
+<p>nameばっかりで芸が無いので。</p>
+<p>[18] pry(main)&gt; trello.cardnames(&quot;あまりにも秘密のプロジェクト&quot;, &quot;In Progress&quot;)=&gt; [&quot;どうしようもなく秘密のラベリングを考える&quot;,
+&quot;trelloでタスク管理すればみんな幸せなのに！&quot;,
+&quot;これで会話してるみたいに見える?&quot;]</p>
+<p>という風にできる感じをチョロっと書いてみました。</p>
+<p>終わりに</p>
+<p>WunderlistのAPIもそうですが、簡単にjson形式でデータが抜き出せるのでこれを別なところに連携するということあ比較的用意です。私の場合は日報を書くのが手間なので、普段の仕事をタスク管理ツールで行って、そこで完了した作業を少し加工して使用します。今回のコードで言うと</p>
+<p>trello.cardsname(boardname, listname).collect{|cardname| &quot;■ #{cardname}&quot;}.sort</p>
+<p>とかして、タスク自体にグルーピングした名前とかつけて投げるだけみたいなことをしてます。</p>
+</li>
+</ul>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

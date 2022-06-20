@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>GraphQL手習い</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">GraphQL手習い</h2>
+    <div class="description">
+        　Date：2020-05-25 00:02:42 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <p>GraphQL何もわからない...初めてなので優しくしてほしい。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">require &#39;graphql/client&#39;
+</span></pre>
+<p>require 'graphql/client/http'</p>
+<p>module ZenhubDone</p>
+<p>ACCESS_TOKEN = ENV['GITHUB_FOR_ZENHUB_TOKEN']</p>
+<p>ENDPOINT = 'https://api.github.com/graphql'</p>
+<p>http = GraphQL::Client::HTTP.new(ENDPOINT) do</p>
+<p>def headers(context)</p>
+<p>{ &quot;Authorization&quot; =&gt; &quot;Bearer #{ACCESS_TOKEN}&quot;}</p>
+<p>end</p>
+<p>end</p>
+<p>schema = GraphQL::Client.load_schema(http)</p>
+<p>client = GraphQL::Client.new(schema: schema, execute: http)</p>
+<p>Query = client.parse &lt;&lt;-GraphQL</p>
+<p>query {</p>
+<p>viewer {</p>
+<p>login</p>
+<p>}</p>
+<p>}</p>
+<p>GraphQL</p>
+<p>response = client.query(Query)</p>
+<h1>=&gt; #&lt;GraphQL::Client::Response:0x00007fd6dad6e5a8</h1>
+<h1>@data=#&lt; viewer=...&gt;,</h1>
+<h1>@errors=#&lt;GraphQL::Client::Errors @messages={} @details={}&gt;,</h1>
+<h1>@extensions=nil,</h1>
+<h1>@original_hash={&quot;data&quot;=&gt;{&quot;viewer&quot;=&gt;{&quot;login&quot;=&gt;&quot;katsumata-ryo&quot;}}}&gt;</h1>
+<p>end</p>
+<p>なんか、何かが取れたっぽいんだけど全然わからない。</p>
+<p>とりあえず動いたからなんとなくこれからドキュメント読んでいけばわかりやすくなりそう。RESTと比べると宣言的な感じがする(感じがするだけでなにもわからない)。</p>
+<p>GithubのAPIドキュメントみながら試行錯誤してるけど、なんかちょっとずつ見えてきたぞ</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># マイルストーン内のIssueをとってくる
+</span></pre>
+<p>Query = client.parse &lt;&lt;-GraphQL</p>
+<p>query {</p>
+<p>repository(name: &quot;XXXX&quot;, owner: &quot;XXXXX&quot;) {</p>
+<p>milestones(last: 1) {</p>
+<p>nodes {</p>
+<p>id</p>
+<p>title</p>
+<p>issues(first: 100) {</p>
+<p>nodes {</p>
+<p>id</p>
+<p>number</p>
+<p>title</p>
+<p>closed</p>
+<p>}</p>
+<p>}</p>
+<p>pullRequests(first: 100) {</p>
+<p>nodes {</p>
+<p>id</p>
+<p>number</p>
+<p>title</p>
+<p>closed</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>totalCount</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>GraphQL</p>
+<p>response = client.query(Query)</p>
+<h1>=&gt; #&lt;GraphQL::Client::Response:0x00007fd69a8a1448</h1>
+<h1>@data=#&lt; repository=...&gt;,</h1>
+<h1>@errors=#&lt;GraphQL::Client::Errors @messages={} @details={}&gt;,</h1>
+<h1>@extensions=nil,</h1>
+<h1>@original_hash=</h1>
+<h1>{&quot;data&quot;=&gt;</h1>
+<h1>{&quot;repository&quot;=&gt;</h1>
+<h1>{&quot;milestones&quot;=&gt;</h1>
+<h1>{&quot;nodes&quot;=&gt;</h1>
+<h1>[{&quot;id&quot;=&gt;&quot;XXXX&quot;,</h1>
+<h1>&quot;title&quot;=&gt;&quot;XXXXX&quot;,</h1>
+<h1>&quot;issues&quot;=&gt;</h1>
+<h1>{&quot;nodes&quot;=&gt;</h1>
+<h1>[{&quot;id&quot;=&gt;&quot;xxxxxxx&quot;,</h1>
+<h1>&quot;number&quot;=&gt;0000,</h1>
+<h1>&quot;title&quot;=&gt;&quot;XXXXX&quot;,</h1>
+<h1>&quot;closed&quot;=&gt;false},</h1>
+<h1></h1>
+<h1>&quot;pullRequests&quot;=&gt;{&quot;nodes&quot;=&gt;[]}}],</h1>
+<h1>&quot;totalCount&quot;=&gt;000}}}}&gt;</h1>
+<p>Node・Connection とかの概念が体に染み渡るともっとシュッとかけそうな気がする。それにしても宣言的、型みたいだ。</p>
+<p>取りたい内容はなんとなく取れてきた。</p>
+<p>一通り取れそうな感じになったらドキュメント読んでみよう。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Vagrantを使ったWindowsでの自分用開発環境の作成（CentOS）</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Vagrantを使ったWindowsでの自分用開発環境の作成（CentOS）</h2>
+    <div class="description">
+        　Date：2015-08-12 19:23:49 +0900<br />
+        　Categories： Centos <br />
+        
+    </div>
+    <p>ずっとMACで作業だったんですが、昨日からwindowsでrails書いていたらいたるところで苦しくなってしまい<br />
+本番がlinuxなのでlinux環境を手軽に作ってみることにしました。お金をかけずに。</p>
+<h4>苦しかったことの例</h4>
+<ul>
+<li>バックスラッシュ</li>
+<li>railsの標準っぽいgemがちょいちょいハマる。</li>
+</ul>
+<h4>簡単にまとめると</h4>
+<p>簡単にまとめるとこの記事は</p>
+<ul>
+<li>vagrantとvirtualboxを使って</li>
+<li>仮想環境のCentOS7の環境でrails appを動かしてみて</li>
+<li>windows pcのブラウザで確認したよ
+という個人的なまとめです。</li>
+</ul>
+<h4>環境</h4>
+<p>下記の環境で作業しました。</p>
+<ul>
+<li>windows 7 64bit</li>
+<li>コンソールにcygwin適用済み</li>
+<li>virtual box 5.0.0(4.3.20)</li>
+<li>vagrant 1.7.4</li>
+<li>仮想環境</li>
+<li>CentOS 7</li>
+<li>ruby 2.2.2</li>
+<li>rails 4.2.3
+一応今回はrailsを動かすことを前提に作ってまして、<br />
+開発用で取り急ぎなのでfirewalldとかの設定はしていません。<br />
+必要な人は正しく設定してあげてください。</li>
+</ul>
+<h4>ダウンロード</h4>
+<p>まず、下記をファイルをダウンロードしインストールを行います。</p>
+<ul>
+<li>VirtualBox</li>
+<li><a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a></li>
+<li>Vagrant</li>
+<li><a href="https://www.vagrantup.com/downloads.html">https://www.vagrantup.com/downloads.html</a></li>
+</ul>
+<h4>vagrant 実行</h4>
+<p>windowsの適当な場所で下記を実行</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ mkdir develobment
+</span><span style="color:#c0c5ce;">$ cd development
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 今回はchefのcentos7を使用
+</span><span style="color:#c0c5ce;">$ vagrant init chef/centos-7.0
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">vagrantfileの編集
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Vagrantfileを編集します。コメントをはずしたり、ちょっと追記したり。
+</span><span style="color:#c0c5ce;">一応win-cent間でデータをシンクロさせておく用に設定しました。
+</span><span style="color:#c0c5ce;">rsyncが入っていないため&quot;nfs&quot;で設定しました（typeのところは&#39;virtualbox&#39;だとうまくいかなかったのもあり）。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;
+</span><span style="color:#c0c5ce;">config.vm.synced_folder &quot;data&quot;, &quot;/vagrant_data&quot;, create: true, type: &#39;nfs&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">vagrantfileの書き換えが終わったら下記コマンドを実行。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ vagrant up --provider virtualbox
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">これで特にエラーが起こらなければ起動します。
+</span><span style="color:#c0c5ce;">その後下記コマンドでログインできます。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ vagrant ssh
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">sshd関係の設定
+</span></pre>
+<ul>
+<li>
+<p>/etc/group のwheelに自身を追加</p>
+</li>
+<li>
+<p>/etc/ssh/sshd_configで下記を設定
+下記のものコメントアウトを外す
+#RSAAuthentication yes
+#PubkeyAuthentication yes
+#AuthorizedKeysFile .ssh/authorized_keys</p>
+<p>パスワード認証を無くす
+PasswordAuthentication no</p>
+<p>epelのrepoが使えるようにセット</p>
+<p>$ sudo yum install epel-release</p>
+<p>puppetのインストール</p>
+<p>環境をぶっ壊してもすぐ戻せるように入れておきます。
+manifestは割愛します。</p>
+<p>$ sudo yum install puppet</p>
+<p>git インストール</p>
+<p>$ sudo yum install git</p>
+<p>強い方のvimのインストール</p>
+<p>$ sudo yum install vim-enhanced</p>
+<p>ruby最新版(2.2.2)のインストール</p>
+<p>rubyのbuildです。特筆すべきことは特にありません。</p>
+<h1>依存関係</h1>
+<p>$ sudo yum install zlib zlib-devel openssl opens sl-devel gcc-c++ glibc-headers gdbm-devel libcurl-devel libffi-devel libidn-devel libyaml libyaml-devel ncurses-devel readline readline-devel sqlite-devel postgresql-contrib postgresql-devel uuid libxslt-devel libxml2-devel</p>
+<h1>バイナリゲット</h1>
+<p>$ cd /usr/local/src
+$ sudo wget<a href="https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.2.tar.gz">https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.2.tar.gz</a>
+$ sudo tar zxvf ruby-2.2.2.tar.gz</p>
+<h1>インストール</h1>
+<p>$ sudo ./configure --prefix=/usr/local/rubys/2.2.2 # prefixは個人的な設定です。
+$ sudo make
+$ sudo make install</p>
+<h1>フルパス書かないためのシンボリックリンク ※個人仕様</h1>
+<p>$ sudo ln -s /usr/local/rubys/current/2.2.2 ~/bin</p>
+<p>アプリケーションの起動</p>
+<p>すでに作りかけのrails アプリケーションがあったので
+任意のディレクトリで準備します。</p>
+<h1>clone <repo></h1>
+<p>$ gem install bundller --no-ri --no-rdoc</p>
+<h1>nokogiriでエラーが出ていたので</h1>
+<p>$ ~/bin/bundle config build.nokogiri --use-system-libraries
+$ ~/bin/bundle install
+$ ~/bin/rake db:migrate
+$ ~/bin/rails s -b 0.0.0.0 # -bオプションが私の環境では必要だった</p>
+<p>アプリは問題なく動くが、接続できない。
+調べたら以下の手順を踏む必要があった。</p>
+<p>仮想環境とPCのportをつなぐ</p>
+<p>vagrantfileに以下の記述をするとうまくい事のこと。
+boxにファイヤーウォールが設定されている場合は仮想環境のそちらも設定してください。</p>
+<h1>Vagrantfile</h1>
+<p>config.vm.network :forwarded_port, guest: 3000, host: 3000</p>
+<h1>windowsからの $ vagrant reloadでエラーがでたため、エラーメッセージの通り対処</h1>
+<h1>仮想環境</h1>
+<p>$ sudo yum install kernel-devel-3.10.0-229.11.1.el7.x86_64
+$ sudo /etc/init.d/vboxadd setup</p>
+<p>一応上記で仮想環境で動かしたアプリケーションを、windows pcのWEBブラウザで確認できました。
+長かった。</p>
+</li>
+</ul>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

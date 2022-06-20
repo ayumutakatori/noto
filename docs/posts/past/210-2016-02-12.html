@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>git rebase -iの復習</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">git rebase -iの復習</h2>
+    <div class="description">
+        　Date：2016-02-12 12:38:23 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>commitをまとめる commit -i が時々記憶喪失になるので復習。</p>
+<h4>commitをまとめるとき</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git rebase -i &lt;表示するcommitの数&gt;
+</span><span style="color:#c0c5ce;">※&lt;表示するcommitの数&gt;は HEAD~~ って書いたり HEAD~2とか書く。ここを抜かすとたくさんcommitが出てきてしまう
+</span></pre>
+<p>このコマンドを打つと編集画面が開く。<br />
+そこで squash(※sでもいい)を入力する。pickと表示されている部分でまとめたいものをsquashに変更すればいい。<br />
+まとめたいふたつのものの下の方にsquashを入れると良さそう。</p>
+<p>するとまとめるためのcommitメッセージの編集画面が開くのでそこでメッセージを入力。<br />
+コメント行以外すべて出力されるので注意。<br />
+保存してgit logで確認すると内容が変わっていることを確認できます。</p>
+<h4>その他</h4>
+<ul>
+<li>commit内容が変わってしまっているので、git push -f する必要がありそう。</li>
+<li>rebase -iの画面でcommitの順番を入れ替えると、その上でcommitを合体させる<br />
+ことができたっぽかった(コンフリクトすると大変そう)</li>
+</ul>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

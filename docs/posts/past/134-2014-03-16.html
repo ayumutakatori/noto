@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>htmlをhamlに書き換えてみて思ったこと</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">htmlをhamlに書き換えてみて思ったこと</h2>
+    <div class="description">
+        　Date：2014-03-16 13:22:02 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>hamlを書いてみたかったので、一番手軽なところで普通のhtmlで書いていたものを手書きでhamlに書き換えてみた。<br />
+いくつかメモしておきたかったのでメモします。</p>
+<p>まずhtmlをhamlにするにはこれがある</p>
+<p>やっぱり便利なものを作ってるかたはいるもので、感謝。WEBのフォームで変換できます。<br />
+<a href="%3Ca%20href=">http://html2haml.heroku.com</a>&quot;&gt;html2haml</p>
+<p>コンソールからもできるっぽいです。</p>
+<p>hamlだけでなくhtml2hamlというのがあるんですね。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ sudo gem install html2haml
+</span><span style="color:#c0c5ce;">インストール後に
+</span><span style="color:#c0c5ce;">$ html2haml index.html index.haml
+</span></pre>
+<p>とかです。</p>
+<p>sublimeな人たちへ</p>
+<p>hamlを保存時にビルドをしてくれる設定を入れておくと捗ります。以下のURLがとても参考になります。<br />
+<a href="http://dev.classmethod.jp/tool/haml-with-sublime-text-2/">http://dev.classmethod.jp/tool/haml-with-sublime-text-2/</a></p>
+<p>引っかかった集</p>
+<p><strong>Invalid US-ASCII character “xE3” って出る</strong></p>
+<p>以下のエラーがsublimetextでのビルドだけ出てまして、コンソールで ‘haml index.haml index.html’ した時はでないという謎な感じで。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">Haml error on line XX: Invalid US-ASCII character &quot;xE3&quot;
+</span><span style="color:#c0c5ce;">Use --trace for backtrace.
+</span></pre>
+<p>でこれについては、hamlファイルの先頭行に</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">- # encoding: utf-8
+</span></pre>
+<p>と入れると大丈夫になりました。文字コード。</p>
+<p><strong>htmlの-(ハイフン)が入ってる属性値は工夫がいる</strong><br />
+例えば</p>
+<p>の http-equiv=’X-UA-Compatible の部分なのですが、最初特に何も考えずにrubyのハッシュ的な感じで</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">%meta{:content =&gt; &quot;IE=edge,chrome=1&quot;, :http-equiv =&gt; &quot;X-UA-Compatible&quot;}
+</span></pre>
+<p>と書いたらエラーでした。そうだ、ハイフンだめだーと思ってどうしようかと思ってとりあえず</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">%meta{:content =&gt; &quot;IE=edge,chrome=1&quot;, &#39;http-equiv&#39; =&gt; &quot;X-UA-Compatible&quot;}
+</span></pre>
+<p>という場当たり的なニュアンスでとりあえず通りましたが、他にも</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">%meta{ http:{ :equiv =&gt;&quot;X-UA-Compatible&quot;}, :content =&gt; &quot;IE=edge,chrome=1&quot; }
+</span><span style="color:#c0c5ce;">や、ニュアンス違いで
+</span><span style="color:#c0c5ce;">%meta{content: &quot;IE=edge,chrome=1&quot;, &quot;http-equiv&quot; =&gt; &quot;X-UA-Compatible&quot;}
+</span></pre>
+<p>こういう書き方もできるようで、統一する上でどうしたものかと現在悩んでいるところです。</p>
+<p>Googleアナリティクスとかjsどうしようかなっと</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">var _gaq = _gaq || [];
+</span><span style="color:#c0c5ce;">_gaq.push([&#39;_setAccount&#39;, &#39;UA-XXXXXXXX&#39;]);
+</span><span style="color:#c0c5ce;">_gaq.push([&#39;_trackPageview&#39;]);
+</span><span style="color:#c0c5ce;">(function() {
+</span><span style="color:#c0c5ce;">var ga = document.createElement(&#39;script&#39;); ga.type = &#39;text/javascript&#39;; ga.async = true;
+</span><span style="color:#c0c5ce;">ga.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://ssl&#39; : &#39;http://www&#39;) + &#39;.google-analytics.com/ga.js&#39;;
+</span><span style="color:#c0c5ce;">var s = document.getElementsByTagName(&#39;script&#39;)[0]; s.parentNode.insertBefore(ga, s);
+</span><span style="color:#c0c5ce;">})();
+</span></pre>
+<p>こういうやつなのですが、これはこれでまたインデントが内のjavascriptにもあるので、インデントをもとにしているhamlでどうするんだろうーっておもってましたが、さすが、</p>
+<p>:javascript</p>
+<p>をjavascript部の先頭に書けば一発でした。cssとかも同様のようです。</p>
+<p>最後に</p>
+<p>一応手書きで書いてなんとなくニュアンスを触れたので、html2hamlでコードを自動変換してみた。<br />
+それをみながら「こーかくのねー」などと勉強しているところです。</p>
+<p>やっぱり、静的なHTMLでHAMるっていうよりかは、Railsとかで動的に生成するようなときにかなり熱い感じなのだろうなーと触ってみて実感しました(Railsだとbuildいらないですし)<br />
+まだRubyの文法でプログラム的に記述をしていないのでそちらも試してみたいです。<br />
+hamlのおかげでhtmlの構造が見やすくなったので、その流れでCSSをSass化してみるをやりたいと思います。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Atomでフロー図っぽいのを書く</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Atomでフロー図っぽいのを書く</h2>
+    <div class="description">
+        　Date：2017-04-12 12:43:44 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <h3>概要</h3>
+<p>Atom( <a href="https://atom.io/">https://atom.io/</a> )でテキストからこんな図を書いてみようです。</p>
+<p><img src="/public/images/2017/09/b2f52-0fifs08qsovl-aipa.png" alt="" /> <img src="/public/images/2017/09/643f1-0lmysvhtwhnvwqvzo.png" alt="" />### きっかけ
+ちょっと大きな規模の開発になった時に、頭がおかしくなりそうになったので一旦アウトプットしようということで<br />
+ドローイングツールを探してたら普段利用しているエディタのAtomでUMLっぽいの書けるじゃんということになりました。</p>
+<h3>導入ツール</h3>
+<h3>Atom</h3>
+<p>説明不要のエディターですね =&gt; <a href="https://atom.io/">https://atom.io/</a></p>
+<h3>plantuml-viewer</h3>
+<p>atomプラグインのplantuml-viewerを使用します。<br />
+使用するのに</p>
+<ul>
+<li>java</li>
+<li>Graphviz
+が必要とのこと。下記のサイトが詳しいです。<br />
+参考: <a href="http://qiita.com/mas821/items/7932c983783ffc4f9c83">http://qiita.com/mas821/items/7932c983783ffc4f9c83</a></li>
+</ul>
+<h3>language-plantuml</h3>
+<p>PlantUMLのサポート用に上記のatomプラグインも入れました。</p>
+<h3>使ってみる</h3>
+<p><a href="http://yohshiy.blog.fc2.com/blog-entry-153.html#seq_notes">http://yohshiy.blog.fc2.com/blog-entry-153.html#seq_notes</a> のサイトをみながら<br />
+自分が欲しいっぽい要素をつまみ食いして書いてみたのが上の図です。</p>
+<h3>実際のコード</h3>
+<p>一つ目の画像のクラスっぽい図のコードです。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">title クラスっぽい図
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">class User {
+</span><span style="color:#c0c5ce;">name
+</span><span style="color:#c0c5ce;">age
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">class Email {
+</span><span style="color:#c0c5ce;">address
+</span><span style="color:#c0c5ce;">user_id
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">class Phone {
+</span><span style="color:#c0c5ce;">number
+</span><span style="color:#c0c5ce;">user_id
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">User..Email
+</span><span style="color:#c0c5ce;">User..Phone
+</span></pre>
+<p>二つ目の画像のコードです。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">title 悲しい恋模様
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">==出会い==
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">note over man: 渋谷にでかける
+</span><span style="color:#c0c5ce;">note over woman: 渋谷にでかける
+</span><span style="color:#c0c5ce;">man-&gt;woman: 街中でたまたま見かけて一目惚れ
+</span><span style="color:#c0c5ce;">woman--&gt;man: 記憶にない
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">loop 7日間
+</span><span style="color:#c0c5ce;">man-&gt;man: 思い巡らす
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">note over man: 合わない時間が気持ち高ぶらせる
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">==再会==
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">man-&gt;woman: 「好きだ」
+</span><span style="color:#c0c5ce;">woman-&gt;man: 「だれ？」
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">alt 頑張る？
+</span><span style="color:#c0c5ce;">man-&gt;woman: デートに誘う
+</span><span style="color:#c0c5ce;">woman-&gt;man: だが、断る
+</span><span style="color:#c0c5ce;">else
+</span><span style="color:#c0c5ce;">man-&gt;man: 次の手を考える
+</span><span style="color:#c0c5ce;">note over man:諦める
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">note over man: 終了
+</span><span style="color:#c0c5ce;">==失恋==
+</span></pre>
+<p>なんかさっきの図と見比べてみると、なんとなくどれがどのあたりかとか検討がつきますよね。<br />
+atomではコードシンタックスをPlantUMLにした状態で右クリックすると<code>Toggle Plantunl-viewer</code>というメニューが出ます。<br />
+それを選択すると以下の画面みたいになり、リアルタイムに反映されるのでめっちゃわかりやすいです。</p>
+<p><img src="/public/images/2017/09/fe5e7-0z67rv-8yjog32fx0.jpeg" alt="" />### ちょっとだけ解説
+本当先程のリンクをつまみ食いしてみれば簡単に書けるんですが、例えば</p>
+<h3>タイトル</h3>
+<p>特に説明いらないですが下記のとおりです</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">title &lt;設定したいタイトル&gt;
+</span></pre>
+<h3>note</h3>
+<p><img src="/public/images/2017/09/4d43b-0p9awd47ti_-dr5st.jpeg" alt="" />    note &lt;位置&gt; &lt;基準要素&gt;
+位置: 要素に対してどこに置くか =&gt; over left rightなど
+基準要素: 上の例だとman womanみたいなやつ。両方にかぶせるようにとかもできる</p>
+<h3>遷移</h3>
+<p><img src="/public/images/2017/09/d2a30-09fwxdszkqvab_d6x.jpeg" alt="" />    &lt;要素&gt; -&gt; &lt;要素&gt;
+例: man-&gt;woman</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">--&gt; にすると点線になる
+</span></pre>
+<p>これもめちゃくちゃわかりやすいですが、要素から要素に線を引っ張るだけです。<br />
+<code>&lt;-</code>にすると反対向きに線が引けました。</p>
+<h3>区切り線</h3>
+<p><img src="/public/images/2017/09/8feb4-09rrerechybkcltmk.jpeg" alt="" />    ==&lt;テキスト&gt;==</p>
+<p>こんな悲しい区切り線書かないでしょうけどね。。。そんな感じです。</p>
+<p>他にも書き方があって、図の形式によって書き方も変わったりします。<br />
+リファレンスのほうが正しく充実していると思うのでそちらを参照してみてください。</p>
+<p>参考: <a href="http://plantuml.com/">http://plantuml.com/</a></p>
+<h3>保存</h3>
+<p>トグルしたタブでpngで保存してしまえばOK。<br />
+(私の環境だと、umlを書いた方にファイル名をつけてあげてないとエラーが出る)</p>
+<h3>良さ</h3>
+<ul>
+<li>画像で作ると直しがめんどくさい</li>
+<li>文字列になるので差分とか見れて管理が楽</li>
+<li>要素とか勝手に増やしてくれるし、配置とかも勝手にやってくれるので楽</li>
+</ul>
+<h3>気になる</h3>
+<ul>
+<li>色変えられるのかな(黄色と赤はちょっと。。。)</li>
+<li>ちょっとだけ配置変えたいとかできるかな・・・</li>
+<li>エラーがポツポツ出る(のを無視してる)</li>
+</ul>
+<h3>さいごに</h3>
+<p>今回作ってみて、自分の頭の整理にもなりますし、人と共有する時に図があるっていうのは<br />
+齟齬が無くなりそうですごく良いなと思いました。<br />
+WEBサービスでこういうツールが有るにはあるんですが、atomをもし使っているなら<br />
+一旦お試しするのは良さそうです。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>HashiCorpの新プロダクト「otto」</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">HashiCorpの新プロダクト「otto」</h2>
+    <div class="description">
+        　Date：2015-09-30 12:48:22 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>昨日、Vagrantで有名なHashiCorp社から「otto」と「nomad」というふたつのプロダクトが発表されました。そのなかのottoについてすごく簡単にですが触れてみます。</p>
+<p><a href="https://ottoproject.io/">otto by HashiCorp</a></p>
+<h4>ottoは簡単に言うと</h4>
+<p>ottoはVagrantの一歩先を行く環境構築ツールで、環境構築 =&gt; アプリケーションのデプロイを一つのアプリケーションから簡単に行えるようになっています。<br />
+ottoのバイナリをダウンロードし、他の関係ファイルが揃っていれば（VirtualBox？が必要かも）作業の流れを見ている限り3コマンドくらいでアプリケーション用の環境構築ができてしまっているようです。<br />
+また、本番環境（今はAWSに特化=&gt; Terraformの機能）についてのデプロイも設定をポチポチでできるようになっているようです。<br />
+※Google Cloud Platformも行けるような画像があります</p>
+<h4>実際に使ってみた人の様子</h4>
+<p>昨日話題になっていたんですが、早速使用している人がいてとても詳細に書かれているのでとても参考になると思います。</p>
+<ul>
+<li><a href="http://dev.classmethod.jp/tool/nomad-otto-ataglance/">HashiCorpの新プロダクトNomadとOttoを触ってみた</a></li>
+<li><a href="http://www.ryuzee.com/contents/blog/7043">Hashicorpの新プロダクト「Otto」を試してみた</a></li>
+</ul>
+<h4>思ったこと</h4>
+<p>chefやpuppetのような構成管理ツールとcapistranoのようなdeployツールを組み合わせてアプリケーションを設置するというのは良くあるお話かなと思いますが、<br />
+それがAWSをつかうことで一つのツール上で完結することというのは考えなければいけないことが減ってアプリケーションエンジニアはアプリケーションだけに集中する時間がまた増えて良さそうという印象。<br />
+きっとec2のテンプレートや既存のセキュリティグループやネットワークグループを組み合わせれば、基本的なサーバの環境も問題なさそうなのかなと思いました。</p>
+<p>アプリケーションの種類を自動判別する機能があるらしく、それを吸収するための処理系とか大変そうだなと思いました。<br />
+AWSの契約をしなおして、これをお試ししてみようかなと思います。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>社内用にgitのインストール初期設定をまとめた</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">社内用にgitのインストール初期設定をまとめた</h2>
+    <div class="description">
+        　Date：2015-08-06 12:26:27 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>社内でgitの最初の一歩として資料を作ったので、それをこちらにもまとめておきたいと思います。</p>
+<h4>インストール</h4>
+<p>git本家の最新版を持ってくれば問題無いと思います。</p>
+<p><a href="https://git-scm.com/">git scmのサイト</a></p>
+<p>2015/08/06 時点でwindows最新版は 1.9.5 preview</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git --version
+</span><span style="color:#c0c5ce;">git version 1.9.5.msysgit.1
+</span></pre>
+<h4>初期インストール時の設定について</h4>
+<ul>
+<li>select compornents</li>
+<li>初期でチェック入っているもので良いと思います。おこのみで。</li>
+<li>adjust your PATH environment</li>
+<li>gitをどうやって使うかの設問です。このインストールにはgitのbash環境がインストールされます。</li>
+<li>特にこだわりが無ければ [Use git from windows command prompt] でよろしいかと思います。</li>
+<li>Choosing the ssh exrcutable</li>
+<li>おそらくここも [use OpenSSH]でよろしいかと</li>
+<li>Configuring the line ending confersions</li>
+<li>ここがおそらく大事な改行コードに関する設問です。</li>
+<li>git自体がcommit時に改行コードを変更する機能があり、その設定について設問です。</li>
+<li>自動変換(true win/unix)、取得時(input as-is/unix)、無変換(false as-is/as-is)が用意されています</li>
+<li>確かこの設定は個別の .gitconfigのファイルにて変更が可能なはずです</li>
+</ul>
+<h4>インストール後一度だけ設定</h4>
+<p>必須設定ではありませんが、githubないしはbitbcuketを使用時に下記を設定するととても良いのでぜひ一度だけ設定しておいてください。</p>
+<h4>.gitconfigの設定</h4>
+<p>C:Usersusername に .gitconfigというファイルが有るとおもいます。<br />
+こちらを設定します。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ ls -a |grep git
+</span><span style="color:#c0c5ce;">.gitconfig
+</span></pre>
+<p>私の設定</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ cat .gitconfig
+</span><span style="color:#c0c5ce;">[core]
+</span><span style="color:#c0c5ce;">quotepath = false
+</span><span style="color:#c0c5ce;">autocrlf = false
+</span><span style="color:#c0c5ce;">[user]
+</span><span style="color:#c0c5ce;">name = Katsumata Ryo
+</span><span style="color:#c0c5ce;">email = ryo@andamp.work
+</span><span style="color:#c0c5ce;">[color]
+</span><span style="color:#c0c5ce;">ui = auto
+</span><span style="color:#c0c5ce;">[push]
+</span><span style="color:#c0c5ce;">default = simple
+</span></pre>
+<ul>
+<li>user のnameとemailは必須で設定しておいてください。commitの名前で使用します。</li>
+<li>その他は適宜設定してください。</li>
+<li>autocrlfがさっきの [Configuring the line ending confersions] の設定に当たります。</li>
+<li>より細かい設定は下記ページなどをご連絡ください</li>
+<li><a href="invalid#zSoyz">git configの設定</a></li>
+</ul>
+<h4>基本的なコマンド</h4>
+<p>GUIも結構種類があるのでコンソールじゃなくてそちらを選ぶのも有りです。</p>
+<h4>レポジトリ管理への追加</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git add &lt;target&gt;
+</span></pre>
+<h4>コミット(コミット文付き)</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git commit -m &lt;message&gt;
+</span></pre>
+<h4>リモートレポジトリへの展開</h4>
+<p>push先が一箇所であればgit pushだけでもいけますが一応こんなかんじです。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git push &lt;remote reponame&gt; &lt;branch name&gt;
+</span></pre>
+<h4>リモートリポジトリからファイルの取得</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git pull &lt;remote reponame&gt; &lt;branch name&gt;
+</span></pre>
+<h4>リモートレポジトリから初期ファイル取得</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git clone &lt;repo address&gt;
+</span></pre>
+<h4>リモートレポジトリの設定追加</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git remote add &lt;repo name&gt; &lt;repo address&gt;
+</span></pre>
+<h4>branchを作成</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git branch &lt;branch name&gt;
+</span></pre>
+<h4>branchの移動</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git checkout &lt;branch name&gt;
+</span></pre>
+<h4>branchの削除</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git branch -d &lt;branch name&gt;
+</span></pre>
+<h4>branchの削除(masterとマージされていない場合)</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git branch -D &lt;branch name&gt;
+</span></pre>
+<h4>コミット前のファイルの変更取り消し</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git checkout &lt;filepath&gt;
+</span></pre>
+<h4>ファイルの削除</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git rm &lt;filepath&gt;
+</span></pre>
+<p>その他は下記を参照してみてください。</p>
+<p><a href="http://qiita.com/ToruFukui/items/73e1a9a62c5e4454263b">Git コマンド一覧</a></p>
+<h4>最後に</h4>
+<p>まだまだ、たくさんコマンドとかはある（けどつかってない）ので便利なものを見つけるたびに更新をしていきたいと思います。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

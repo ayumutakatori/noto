@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Google Apps Scriptからクレカ利用の内容をslackに通知するようにした</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Google Apps Scriptからクレカ利用の内容をslackに通知するようにした</h2>
+    <div class="description">
+        　Date：2019-10-06 02:48:10 +0900<br />
+        　Categories： googleAppsScript <br />
+        
+    </div>
+    <h2>概要</h2>
+<p>我が家でクレカを家族カードにしているんですが、お互いに利用状況を見たいよねという課題感があって、zapierで gmail で対象のメールが来たら通知するようにしていました。</p>
+<p>これが本文がまるまる転送されるので厳しいという課題があって、ちょうどなんか不具合で転送されなくなったので「書くか...」となったので書いてみました。</p>
+<h2>ちなみにビフォー</h2>
+<p>携帯のファーストビューで金額までたどりつかない。厳しい。これが一通。</p>
+<p><img src="/public/images/2019/10/img_8247.png" alt="" /></p>
+<h2>段取り</h2>
+<p>やりたいことはだいたい</p>
+<ul>
+<li>Google Apps Script(以下GAS)を使い始める</li>
+<li>testでslack通知部分だけ書いてみる</li>
+<li>GASをつかって特定文字列でメールを検索する</li>
+<li>範囲は前日一日分</li>
+<li>内容を通知しやすい形に整形する</li>
+<li>slackに通知する
+こんな感じです。</li>
+</ul>
+<h2>GASを使い始める</h2>
+<p>使い始めを検索したらここにとりあえずアクセスしておけとのこと。</p>
+<p><a href="https://chrome.google.com/webstore/detail/google-apps-script/eoieeedlomnegifmaghhjnghhmcldobl?hl=ja">https://chrome.google.com/webstore/detail/google-apps-script/eoieeedlomnegifmaghhjnghhmcldobl?hl=ja</a></p>
+<h2>slackに通知してみる</h2>
+<p>事前にslackでincoming web hookのURLは取得しておいてください。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">function myFunction() {
+</span></pre>
+<p>var username = 'クレカお知らせさん'; // 通知時に表示されるユーザー名</p>
+<p>var icon = ':credit_card:'; // 通知時に表示されるアイコン</p>
+<p>var message = 'test'; // 投稿メッセージ</p>
+<p>var webhook_url = '&lt;incoming webhook url&gt;';</p>
+<p>var jsonData =</p>
+<p>{</p>
+<p>&quot;username&quot; : username,</p>
+<p>&quot;icon_emoji&quot;: icon,</p>
+<p>&quot;text&quot; : message</p>
+<p>};</p>
+<p>var payload = JSON.stringify(jsonData);</p>
+<p>var options =</p>
+<p>{</p>
+<p>&quot;method&quot; : &quot;post&quot;,</p>
+<p>&quot;contentType&quot; : &quot;application/json&quot;,</p>
+<p>&quot;payload&quot; : payload</p>
+<p>};</p>
+<p>UrlFetchApp.fetch(webhook_url, options);</p>
+<p>}</p>
+<p>既に使用されている人のコードを参考に書いてみた。</p>
+<p><img src="/public/images/2019/10/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-10-06-0.26.35.png" alt="" />
+なんかうまくいってそう。</p>
+<p>ちなみにログは <code>Logger.log('message')</code>とかで出るんですが、どこで見ていいか最初わからず迷う。</p>
+<p>ここにあった。</p>
+<p><img src="/public/images/2019/10/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-10-06-0.31.57.png" alt="" /></p>
+<h2>最終的なコード</h2>
+<p>前日のメールをとってきて正規表現で強引に引っ張ってきて投げるというパワープレイです。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">function notifyUsingCardFromGmail() {
+</span></pre>
+<p>var username = 'クレカお知らせさん'; // 通知時に表示されるユーザー名</p>
+<p>var icon = ':credit_card:'; // 通知時に表示されるアイコン</p>
+<p>var webhook_url = '&lt;WEBHOOK_URL&gt;';</p>
+<p>// Search Gmail</p>
+<p>var targetDate = Moment.moment().subtract(1, 'days').format('YYYY/MM/DD');</p>
+<p>var searchWord = 'subject:(カード利用のお知らせ -速報) after:' + targetDate;</p>
+<p>var threads = GmailApp.search(searchWord); //条件にマッチしたスレッドを取得</p>
+<p>var messages = GmailApp.getMessagesForThreads(threads); //スレッドからメールを取得する</p>
+<p>for (var i = 0; i &lt; messages.length; i++) {</p>
+<p>var body = messages[i][0].getPlainBody()</p>
+<p>var matchDate = body.match(/■利用日:.{1,}/);</p>
+<p>var matchShop = body.match(/■利用先:.{1,}/);</p>
+<p>var matchPayMethod = body.match(/支払方法:.{1,}/);</p>
+<p>var matchPrice = body.match(/■利用金額:.{1,}/);</p>
+<p>// Notify Slack</p>
+<p>var jsonData =</p>
+<p>{</p>
+<p>&quot;username&quot; : username,</p>
+<p>&quot;icon_emoji&quot;: icon,</p>
+<p>&quot;text&quot; : matchDate + ':' + matchShop + '/' + matchPrice + '/' + matchPayMethod</p>
+<p>};</p>
+<p>var payload = JSON.stringify(jsonData);</p>
+<p>var options =</p>
+<p>{</p>
+<p>&quot;method&quot; : &quot;post&quot;,</p>
+<p>&quot;contentType&quot; : &quot;application/json&quot;,</p>
+<p>&quot;payload&quot; : payload</p>
+<p>};</p>
+<p>UrlFetchApp.fetch(webhook_url, options);</p>
+<p>}</p>
+<p>}</p>
+<p>こんな感じに通知されます。</p>
+<p>![](/public/images/2019/10/Slack <em><strong>notification</strong></em>_ ktmt-1024x349.png)
+よいよい。7日分入ってますね。</p>
+<p>あとは、定期実行をしかけるだけ。編集画面の時計マークを押すと追加ができてこんな感じで設定しています。</p>
+<p><img src="/public/images/2019/10/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-10-06-2.12.17-899x1024.png" alt="" />
+Google Apps Script 便利でした。いままで何故使ってこなかったのか。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

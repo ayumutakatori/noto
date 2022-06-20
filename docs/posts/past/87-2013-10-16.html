@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>EIP/EBSのアタッチをEC2の中から行う</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">EIP/EBSのアタッチをEC2の中から行う</h2>
+    <div class="description">
+        　Date：2013-10-16 21:49:04 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>導入はやはりこのページです。<br />
+<a href="http://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/SettingUp_CommandLine.html">http://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/SettingUp_CommandLine.html</a></p>
+<p>AWSのサイトからCLIをダウンロードしようと思ったら<br />
+AMZON LINUXには既に入っているとのこと。</p>
+<p>まぁ要はEC2が死んだ時に勝手に生き返って、<br />
+生き返ったついでに勝手に可変領域のEBS（死んだ時切り離されたやつ）とかとってマウントして<br />
+生き返ったついでに勝手にEIPとかアタッチして何も無いかのように振る舞ってればいいじゃん。<br />
+です。</p>
+<p>事前に準備</p>
+<p>特に入れた記憶がなかったけれど確かになんか入ってた。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ as-describe-auto-scaling-groups --headers
+</span><span style="color:#c0c5ce;">as-describe-auto-scaling-groups: Malformed input-No Credentials were provided
+</span><span style="color:#c0c5ce;">Usage:
+</span><span style="color:#c0c5ce;">as-describe-auto-scaling-groups
+</span><span style="color:#c0c5ce;">[AutoScalingGroupNames [AutoScalingGroupNames ...] ] [--max-records
+</span><span style="color:#c0c5ce;">value ] [General Options]
+</span><span style="color:#c0c5ce;">For more information and a full list of options, run &quot;as-describe-auto-scaling-
+</span></pre>
+<p>どうやらここにいるらしい。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ ls -l /opt/aws/apitools/
+</span><span style="color:#c0c5ce;">合計 36
+</span><span style="color:#c0c5ce;">lrwxrwxrwx 1 root root 11 10月 2 05:46 2013 as -&gt; as-1.0.61.3
+</span><span style="color:#c0c5ce;">drwxr-xr-x 4 root root 4096 10月 2 05:46 2013 as-1.0.61.3
+</span><span style="color:#c0c5ce;">lrwxrwxrwx 1 root root 23 10月 2 05:46 2013 cfn-init -&gt; ./cfn-init-1.3-16.amzn1
+</span><span style="color:#c0c5ce;">drwxr-xr-x 5 root root 4096 5月 9 20:03 2013 cfn-init-1.3-13.amzn1
+</span><span style="color:#c0c5ce;">drwxr-xr-x 5 root root 4096 10月 2 05:46 2013 cfn-init-1.3-16.amzn1
+</span><span style="color:#c0c5ce;">lrwxrwxrwx 1 root root 12 10月 2 05:46 2013 ec2 -&gt; ec2-1.6.10.1
+</span><span style="color:#c0c5ce;">drwxr-xr-x 4 root root 4096 10月 2 05:46 2013 ec2-1.6.10.1
+</span><span style="color:#c0c5ce;">lrwxrwxrwx 1 root root 12 5月 9 20:03 2013 elb -&gt; elb-1.0.17.0
+</span><span style="color:#c0c5ce;">drwxr-xr-x 4 root root 4096 5月 9 20:03 2013 elb-1.0.17.0
+</span><span style="color:#c0c5ce;">lrwxrwxrwx 1 root root 9 5月 9 20:03 2013 iam -&gt; iam-1.5.0
+</span><span style="color:#c0c5ce;">drwxr-xr-x 4 root root 4096 5月 9 20:03 2013 iam-1.5.0
+</span><span style="color:#c0c5ce;">lrwxrwxrwx 1 root root 12 5月 9 20:03 2013 mon -&gt; mon-1.0.13.4
+</span><span style="color:#c0c5ce;">drwxr-xr-x 4 root root 4096 5月 9 20:03 2013 mon-1.0.13.4
+</span><span style="color:#c0c5ce;">lrwxrwxrwx 1 root root 12 9月 18 11:27 2013 rds -&gt; rds-1.14.001
+</span><span style="color:#c0c5ce;">drwxr-xr-x 4 root root 4096 9月 18 11:27 2013 rds-1.14.001
+</span><span style="color:#c0c5ce;">lrwxrwxrwx 1 root root 14 5月 9 20:03 2013 ses -&gt; ses-2012.07.09
+</span><span style="color:#c0c5ce;">drwxr-xr-x 3 root root 4096 5月 9 20:03 2013 ses-2012.07.09
+</span></pre>
+<p>もしかしてと思って環境変数を設定してあるんじゃないかと思って手順よりも先に確かめたら<br />
+やっぱり入っているんだね。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ echo $EC2_HOME
+</span><span style="color:#c0c5ce;">/opt/aws/apitools/ec2
+</span></pre>
+<p>さすがにこの2つは登録されてなかった。<br />
+なので登録。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ echo $AWS_ACCESS_KEY
+</span><span style="color:#c0c5ce;">$ echo $AWS_SECRET_KEY
+</span><span style="color:#c0c5ce;">#環境変数に登録
+</span><span style="color:#c0c5ce;">$ export AWS_ACCESS_KEY=XXXXXXXXXXXXXXXXXXX
+</span><span style="color:#c0c5ce;">$ export AWS_SECRET_KEY=XXXXXXXXXXXXXXXXXXX
+</span></pre>
+<p>アクセスキーID / シークレットアクセスキーの編集<br />
+環境変数の設定</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">sudo cp -ap /opt/aws/credential-file-path.template /opt/aws/credential-file-path #複製
+</span><span style="color:#c0c5ce;">sudo vi /opt/aws/credential-file-path
+</span><span style="color:#c0c5ce;">#templateにあわせてアクセスキーID / シークレットアクセスキーを記載
+</span><span style="color:#c0c5ce;">sudo chmod 600 /opt/aws/credential-file-path #コマンドを叩くユーザの権限でsudo系なしで行けるようにchownとか
+</span><span style="color:#c0c5ce;">$ export AWS_CREDENTIAL_FILE=/opt/aws/credential-file-path
+</span><span style="color:#c0c5ce;">$ echo $AWS_CREDENTIAL_FILE
+</span><span style="color:#c0c5ce;">/opt/aws/credential-file-path
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ ec2-describe-regions
+</span><span style="color:#c0c5ce;">REGION eu-west-1 ec2.eu-west-1.amazonaws.com
+</span><span style="color:#c0c5ce;">REGION sa-east-1 ec2.sa-east-1.amazonaws.com
+</span><span style="color:#c0c5ce;">REGION us-east-1 ec2.us-east-1.amazonaws.com
+</span><span style="color:#c0c5ce;">REGION ap-northeast-1 ec2.ap-northeast-1.amazonaws.com
+</span><span style="color:#c0c5ce;">REGION us-west-2 ec2.us-west-2.amazonaws.com
+</span><span style="color:#c0c5ce;">REGION us-west-1 ec2.us-west-1.amazonaws.com
+</span><span style="color:#c0c5ce;">REGION ap-southeast-1 ec2.ap-southeast-1.amazonaws.com
+</span><span style="color:#c0c5ce;">REGION ap-southeast-2 ec2.ap-southeast-2.amazonaws.com
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ export EC2_URL=https://ec2.ap-northeast-1.amazonaws.com
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">なんかもろもろ設定するのがめんどくさいので、exportで設定したものは.bashrcに記載しておいた。
+</span><span style="color:#c0c5ce;">あとwindowwsから設定したAuto Scalingの設定がなぜか此処で確認しようとしても出てこない。
+</span><span style="color:#c0c5ce;">各端末固有のところから設定できないんだろうか。
+</span><span style="color:#c0c5ce;">確かに自身のAutoScalingを消せないよな。勝手に死ぬし。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">まずEIP系をやってみる
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#確認
+</span><span style="color:#c0c5ce;">$ ec2-describe-addresses
+</span><span style="color:#c0c5ce;">ADDRESS 000．000．000．000． i--XXXXXXX vpc 以下略
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#なんかIPとインスタンスIDが必要なようなので
+</span><span style="color:#c0c5ce;">$ export INSTANS_ID=`curl[http://169.254.169.254/latest/meta-data/instance-id`](http://169.254.169.254/latest/meta-data/instance-id%60)
+</span><span style="color:#c0c5ce;">% Total % Received % Xferd Average Speed Time Time Time Current
+</span><span style="color:#c0c5ce;">Dload Upload Total Spent Left Speed
+</span><span style="color:#c0c5ce;">100 10 100 10 0 0 1216 0 --:--:-- --:--:-- --:--:-- 1428
+</span><span style="color:#c0c5ce;">$ echo $INSTANS_ID
+</span><span style="color:#c0c5ce;">i--XXXXXXX
+</span><span style="color:#c0c5ce;">$export EIP=000．000．000．000
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#割当を外してみる（動かしているインスタンスからやったので、勝手に接続が切れてSSHが落ちました）
+</span><span style="color:#c0c5ce;">$ ec2-disassociate-address $EIP
+</span><span style="color:#c0c5ce;">ADDRESS 000．000．000．000
+</span><span style="color:#c0c5ce;">$ ec2-associate-address -i $INSTANCE_ID $EIP
+</span><span style="color:#c0c5ce;">ADDRESS 000．000．000．000 i-XXXXXXX eipassoc-YYYYYYYY
+</span><span style="color:#c0c5ce;">$ echo $?
+</span><span style="color:#c0c5ce;">0
+</span><span style="color:#c0c5ce;">#オッケイっぽいっすね。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">EBSをつけたり外したりしてみる。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">今くっついているので、外してみる（起動中にやる無茶っぷり）
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ export EBS_DATA=vol-XXXXXXX
+</span><span style="color:#c0c5ce;">$ echo $EBS_DATA
+</span><span style="color:#c0c5ce;">vol-XXXXXXX
+</span><span style="color:#c0c5ce;">$ ec2-detach-volume $EBS_DATA
+</span><span style="color:#c0c5ce;">ATTACHMENT vol-XXXXXXX i-YYYYYYYY /dev/sdf detaching 2013-10-11T03:33:32+0000
+</span><span style="color:#c0c5ce;">$ echo $?
+</span><span style="color:#c0c5ce;">0
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">なんかうまく言ったっぽいですね。
+</span><span style="color:#c0c5ce;">コンソールを確認したらavailableでちゃんと外れてるっぽいすね。
+</span><span style="color:#c0c5ce;">そのままマウントまでやっちゃいますか。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">[ryo@ip-172-31-0-148 ~]$ export DEVICE=/dev/sdf
+</span><span style="color:#c0c5ce;">[ryo@ip-172-31-0-148 ~]$ ec2-attach-volume $EBS_DATA -i $INSTANCE_ID -d $DEVICE
+</span><span style="color:#c0c5ce;">ATTACHMENT vol-XXXXXXX i-YYYYYYYY /dev/sdf attaching 2013-10-16T14:50:27+0000
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">dfで見た時にマウントされてなかったので、mountまでしてあげてという感じ。
+</span><span style="color:#c0c5ce;">ということはやっぱりunmountしてあげなきゃいけなかったっぽ。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">というわけでなんとかコマンドベースでできることがわかったので、
+</span><span style="color:#c0c5ce;">次回はcloudinit か initスクリプトでこれらをやって何事もなかったかのように振る舞うの巻です。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

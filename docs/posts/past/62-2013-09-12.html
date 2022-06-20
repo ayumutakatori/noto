@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>AWSでAutoScalingを使い始めたいのでmemo</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">AWSでAutoScalingを使い始めたいのでmemo</h2>
+    <div class="description">
+        　Date：2013-09-12 17:23:31 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>auto scalingに関しては以下のページに説明が乗っていそう。</p>
+<p><a href="http://aws.amazon.com/jp/autoscaling/">http://aws.amazon.com/jp/autoscaling/</a><br />
+<a href="http://aws.amazon.com/jp/cloudwatch/">http://aws.amazon.com/jp/cloudwatch/</a><br />
+<a href="http://blog.serverworks.co.jp/tech/2013/03/13/auto_scaling_introductions/">Auto Scalingの薄い説明書を作ってみた</a></p>
+<p>で、入門編はこちらのまとまっているみたいです。<br />
+<a href="http://docs.aws.amazon.com/ja_jp/AutoScaling/latest/GettingStartedGuide/SignUp.html">http://docs.aws.amazon.com/ja_jp/AutoScaling/latest/GettingStartedGuide/SignUp.html</a></p>
+<p><strong>cliが使えるようになるまで</strong></p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">タスク 1: コマンドラインインターフェイスをダウンロードする
+</span><span style="color:#c0c5ce;">タスク 2: JAVA_HOME 環境変数を設定する
+</span><span style="color:#c0c5ce;">タスク 3: AWS_AUTO_SCALING_HOME 環境変数を設定する
+</span><span style="color:#c0c5ce;">タスク 4: AWS_CREDENTIAL_FILE 環境変数を設定する
+</span><span style="color:#c0c5ce;">タスク 5: リージョンを設定する
+</span><span style="color:#c0c5ce;">タスク 6: 設定をテストする
+</span></pre>
+<p>要は、3つくらいpathを通しておいてねっていうだけなので、この手順はあくまで参考程度に。<br />
+知識のない人がこの通りにやるとハマります。（体験談）</p>
+<p><strong>使ってみようのところ</strong><br />
+今無料で動かしてるインスタンスのやつで試してみる。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">- AMI ID: ami-39b23d38
+</span><span style="color:#c0c5ce;">- インスタンスタイプ: t1.micro
+</span></pre>
+<p>ここでやっと作業にはいったぽくなった。<br />
+起動設定の作成</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">C:&gt;as-create-launch-config MyLC --image-id ami-39b23d38 --instance-type t1.micro
+</span><span style="color:#c0c5ce;">OK-Created launch config
+</span></pre>
+<p>なんかうまくいったぽい記述が帰ってくるっぽいあれですね。</p>
+<p><strong>Auto Scaling グループの作成</strong></p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">C:&gt;as-create-auto-scaling-group MyGroup --launch-configuration MyLC --availabil
+</span><span style="color:#c0c5ce;">ity-zones ap-northeast-1a --min-size 1 --max-size 1
+</span><span style="color:#c0c5ce;">OK-Created AutoScalingGroup
+</span></pre>
+<p>as-create-auto-scaling-group MyGroup :グループつくりますよー<br />
+ — launch-configuration MyLC :さっきのLaunch Configですよー<br />
+ — availability-zones ap-northeast-1a : 場所(アベイラビリティゾーン)はここですよー<br />
+ — min-size 1 :最低一個は用意しておいてくださいねー<br />
+ — max-size 1 :でも最高で一個までですよー。<br />
+みたいな意味かな？とりあえずうまく行っているっぽい。</p>
+<p><strong>Auto Scaling グループの存在を検証する</strong></p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">C:&gt;as-describe-auto-scaling-groups --headers
+</span><span style="color:#c0c5ce;">AUTO-SCALING-GROUP GROUP-NAME LAUNCH-CONFIG AVAILABILITY-ZONES MIN-SIZE MAX-SIZE DESIRED-CAPACITY TERMINATION-POLICIES
+</span><span style="color:#c0c5ce;">AUTO-SCALING-GROUP MyGroup MyLC ap-northeast-1a 1 1 1 Default
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">INSTANCE INSTANCE-ID AVAILABILITY-ZONE STATE STATUS LAUNCH-CONFIG
+</span><span style="color:#c0c5ce;">INSTANCE i-d0d76dd5 ap-northeast-1a InService Healthy MyLC
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">まぁなんか返ってきてるみたいです。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">**MyGroup に EC2 インスタンスがあることを検証**
+</span><span style="color:#c0c5ce;">ちょっと全然イメージ湧いてないけど。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">C:&gt;as-describe-auto-scaling-instances --headers
+</span><span style="color:#c0c5ce;">INSTANCE INSTANCE-ID GROUP-NAME AVAILABILITY-ZONE STATE STATUS LAUNCH-CONFIG
+</span><span style="color:#c0c5ce;">INSTANCE i-d0d76dd5 MyGroup ap-northeast-1a InService HEALTHY MyLC
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">なんかありますね。これがどうなるとないことを検証できるんでしょう。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">削除
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">まず、Auto Scalingグループで立ち上がるインスタンスを0にする(動いているとAutosCaling設定を削除できない)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">as-update-auto-scaling-group MyGroup --min-size 0 --max-size 0
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Groupの削除をします
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">as-delete-auto-scaling-group MyGroup
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Configの削除をします。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">as-delete-launch-config MyLC
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">さよならー。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

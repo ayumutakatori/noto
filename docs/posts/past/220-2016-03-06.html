@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Chromeで自分用拡張機能</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Chromeで自分用拡張機能</h2>
+    <div class="description">
+        　Date：2016-03-06 01:06:20 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h4>感銘を受けた</h4>
+<p>仕事をしている時に技術的にわからないことを検索しているとこんなことを教えてもらった。<br />
+「知り合いの仕事場でどんな素性や技術力がわからない人の記事を参考にするのは筋が悪い、原典をあたりなさい(※かなり意訳した)」という話を聞いて感銘を受けた。</p>
+<h4>感銘のあまり拡張を作った</h4>
+<p>感銘を受けすぎて例えば某技術系ブログサービスの記事を見るたびに心のなかで「筋が悪いですね」と心の声が囁くようになった(※もちろん某技術系ブログサービス自体はすごくよい。)。<br />
+毎回頭のなかで心の声を囁くのもあれなので、Chrome拡張で某技術系ブログサービスの記事を閲覧するたびにjsでalert(“筋が悪いですね”)と出るようにした。</p>
+<h4>用意したもの</h4>
+<ul>
+<li>
+<p>manifest.json(必須とのこと)</p>
+</li>
+<li>
+<p>mesage.js
+■ manifest.json</p>
+<p>{
+&quot;manifest_version&quot;: 2,
+&quot;name&quot;: &quot;筋が悪いですね&quot;,
+&quot;description&quot;: &quot;筋が悪いですね&quot;,
+&quot;version&quot;: &quot;1.0&quot;,
+&quot;content_scripts&quot;: [{
+&quot;matches&quot;: [&quot;http://&lt;某技術系ブログサービス&gt;/*&quot;],
+&quot;js&quot;: [&quot;message.js&quot;]
+}]
+}</p>
+</li>
+</ul>
+<p>■ message.js</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">var msg = &quot;「筋が悪いですね」&quot;;
+</span><span style="color:#c0c5ce;">alert(msg);
+</span></pre>
+<h4>作成したら</h4>
+<p>Chromeの設定を行います。</p>
+<ul>
+<li>設定 =&gt; 拡張機能 =&gt; 右上のデベロッパーモードを有効にする</li>
+<li>「パッケージ化されていない拡張機能を読み込む…」から上記ファイルを読み込む</li>
+<li>こんな感じ。
+<img src="/public/images/2017/09/81291-0bxvvrwtmb3hvbqyj.png" alt="1" />で完了です。</li>
+</ul>
+<p>※この記事は「原典をあたりなさい」の部分には胸にズキュンときましたが、あとはファニーな感じです。よろしくお願いします。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

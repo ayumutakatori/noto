@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>AWS Route 53 を使ってみる</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">AWS Route 53 を使ってみる</h2>
+    <div class="description">
+        　Date：2013-11-08 21:12:13 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>ドメインをバリュードメインで管理している関係でそのまま無料で使えるDNSサーバを利用していたのですが、最近顕著にTTLの意味ないよねーっていう感じだったのでRoute53でいくらになるかなーとかためしてみることにしました。あれかなーバリュードメインさんはZONEファイルの更新をバッチ処理でかけてるのかなー。あの管理数を人力でやるのむりあるもんなー。</p>
+<p>ちなみにこのページがめっちゃちゃんとまとまってます。<br />
+<a href="http://blog.serverworks.co.jp/tech/2013/03/08/route53_basic/">http://blog.serverworks.co.jp/tech/2013/03/08/route53_basic/</a></p>
+<p>もともとAWSのアカウントは持っていたので</p>
+<p>・route53のページにいく</p>
+<p>・Hosted Zonesをクリック</p>
+<p>・Create Hosted Zoneをクリック</p>
+<p> 自分が管理するzone（ドメイン）を入力する</p>
+<p>すると画面が遷移してGo to Record Setsっていうところからガンガンレコード情報を突っ込める感じになります。</p>
+<p>そのあとの Create Record Set というボタンをおすと以下の様な感じでレコードごとにガシガシです。</p>
+<p>あれっすね。本当基本的なAとかCNAMEとか知っていれば、入力していくだけって感じ。DNSとかBINDの知識とかあるに越したことはないのだろうけど、間違ってたらエラー出るしね。reload前にスクリプトとか叩いて確認しなくて良いという。</p>
+<p>今、もともとあったGoogle Apps含めて12レコードぐらいを登録してみましたので、使えるかどうか確認してみようかと思います。わくわく。</p>
+<p>（特にDNSなので現状とかわらないが。）</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>RailsとKnockoutのモデルについて</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">RailsとKnockoutのモデルについて</h2>
+    <div class="description">
+        　Date：2016-03-09 23:55:23 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>個人的に脳みそが全然ついていっていないために、理解ができていないってことをメモしておきたい。</p>
+<h4>はじめに</h4>
+<p>今関わっているWEBサービスでは、Railsの画面の部分でKnockout.jsがともに鎮座されています。<br />
+そのrailsとjsについて、それぞれのモデルの切り分けの考え方が理解できていない。<br />
+この記事はそのことについて思うところをつらつら書いていく記事です。</p>
+<p>ちゃんとエンジニアをされている人には後ろ指さされそうだと思ってビクビクしながら書きます。</p>
+<h4>モデルについて</h4>
+<p>Rails自体は、”永続化しているModelと実際にWEBの画面でHTMLとして表現されるVIEWの部分があって、その間に処理を繋いでくれたりするcontrollerがいて”というMVCは、Railsを触るようになってからしばらくしたら体感的に分かった気がする。</p>
+<p>しかしながら最近そこにknockoutのモデルが入ってきたことでなんとなく、データの持ち方や利用の仕方がバッティングしているような気がして、混乱している気持ちがすごくなっているのが今です。</p>
+<p>jsのそういうフレームワークが入らないで書いていた時期は、railsの仕組みの中だけで見えていたのですごくシンプルでした。<br />
+そこにknockoutのモデルが入ってきたことで、knockoutのModelにデータを投げ込んであげるのに、例えばjsonを得て<br />
+そこからコンストラクタからデータを作っていくところに、RailsのMVCの処理の流れをもう一回やっているような感覚がありデジャビュ感を感じています。</p>
+<p>もっというと、railsのviewで使用するデータがrailsのModel・Controllerから来ているものと、knockoutのModle・ViewModelから来ているものが混ざっていて、更に言うと動的なエフェクトを司るのはknockoutとか検索エンジンから見えるところはRailsからとか分かれていればすごく頭の切り替えがうまくいくような気がする。だけどそこも混ざり合って絡み合っていると思わず天井を眺めてしまうところがあります。あぁ白い壁。</p>
+<p>(検索エンジンから見えるところはrailsからのController・Viewで書いて、その他をjsonから出してあげてよしなに取りにいってもらうという考え方は今日先輩に聞いてすごく良いなと思います。わかりやすくてシンプル)</p>
+<h4>そもそもMVVMを理解していない</h4>
+<p>モデルについて理解していないのは、knockoutのMVVMについて理解していないのが良くないのだなとこれを書いていて思いました。</p>
+<p>以下WIKIPEDIAより引用</p>
+<blockquote>
+<p>Model View ViewModel(モデル・ビュー・ビューモデル;MVVM)は、独自のGUI(グラフィカルユーザーインターフェース)を持つアプリケーションソフトウェアを、以下に述べるようなModel-View-ViewModelの3つの部分に分割して設計・実装するソフトウェアアーキテクチャパターンである。MVC(Model-View-Controller)の派生パターンであり、特にPresentation Model[1]パターンを直接の祖先に持つ。MVVMを考慮してアプリケーションを開発する目的は、他のMVC系のパターンと同様にアプリケーションの「プレゼンテーションとドメインを分離[2]」する事で、アプリケーション開発における保守性・開発生産性に寄与する事である</p>
+</blockquote>
+<p>「アプリケーション開発における保守性・開発生産性に寄与する事である」</p>
+<p>な、なんだってー。</p>
+<p>モデルとビューはRailsの考え方で多分良いと思うんだけど、問題はVMですな。<br />
+KnockoutのModelはRailsのうえで動いている限りは、RailsのRestにpostする形で永続化をさせるという考え方でよいのだろうか？knockoutからRailsの中のメソッドは蹴りに行けないからjsから更新をかけるならその方法だよなきっと。</p>
+<h4>VM について</h4>
+<p>肝心のVMですが、またwikipediaから</p>
+<blockquote>
+<p>Viewを描画するための状態の保持と、Viewから受け取った入力を適切な形に変換してModelに伝達する役目を持つ。すなわちViewとModelの間の情報の伝達と、Viewのための状態保持のみを役割とする要素である。Viewとの通信はデータバインディング機構のような仕組みを通じて行うため、ViewModelの変更は開発者から見て自動的にViewに反映される。</p>
+</blockquote>
+<p>なので、そのまま箇条書きにすると</p>
+<ul>
+<li>
+<p>viewを描画するための状態をもつ</p>
+</li>
+<li>
+<p>viewから受け取ったデータを加工しModelが理解できる状態にする
+すなわち</p>
+</li>
+<li>
+<p>viewとmodelの情報の伝達</p>
+</li>
+<li>
+<p>viewのための情報をもっておく
+ということらしい。これ、RailsのControllerと考え方で言うと何が違うんでしょ。</p>
+</li>
+</ul>
+<h4>コントローラとの違い</h4>
+<p>調べてみたら以下のサイトがなんとなく腑に落ちた。</p>
+<p>参考: <a href="https://www.xenophy.com/sencha-blog/11110">https://www.xenophy.com/sencha-blog/11110</a></p>
+<blockquote>
+<p>Model-View-ViewModel (MVVM) はその多くが MVC パターンに基づいた、もう一つのソフトウェア作成用のアーキテクチャパターンです。MVC と MVVM の大きな違いは、MVVM では View の抽象化 (ViewModel) が採用されていることです。これは Model のデータと View のデータの表現の間の変更を管理します (いわゆるデータバインディング) 。これは一般的に MVC アプリケーションで管理するのは面倒です。</p>
+</blockquote>
+<p>役割としてはControllerが近いけれど</p>
+<ul>
+<li>viewの抽象化</li>
+<li>データバインディング
+がVMに付随している要素なのかなーと理解した。<br />
+viewの抽象化っていうのは、viewの中のロジックをなるべく吸収していく感覚かなー。</li>
+</ul>
+<h4>結論は特にないけれど</h4>
+<p>結論は特にないけれど、MVCの中でロジックを混同するとすぐにカオスが待っているように、<br />
+MVVMについてもそれが言える感じがした。<br />
+というかRailsと組み合わせるとまだ頭のなかでは若干、M(C|(VM))(v|V)な感じなので<br />
+もっと綺麗なルールをみんなで描いてあげることがすごく大切な感じがしました。</p>
+<p>せめて入り口と出口は一つにしてあげたい、お兄さんと約束だぜ。</p>
+<h4>BGM</h4>
+<p>amazarashi / タクシードライバー</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

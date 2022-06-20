@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>railsのflashのよくあるお知らせ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">railsのflashのよくあるお知らせ</h2>
+    <div class="description">
+        　Date：2016-03-29 23:23:43 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>railsのflashを使ってみて、今後同じような表現方法を使いそうだったのでメモ。</p>
+<h4>やりたいこと</h4>
+<p>controllerからflashメッセージがあったらタイプによって表現方法を変えたい。</p>
+<h4>コード例</h4>
+<p>controller</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># 例えば
+</span><span style="color:#c0c5ce;">def create
+</span><span style="color:#c0c5ce;">@record = Record.new(record_params)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">respond_to do |format|
+</span><span style="color:#c0c5ce;">if @record.save
+</span><span style="color:#c0c5ce;">flash[:success] = &#39;新しい支払いを追加しました&#39;
+</span><span style="color:#c0c5ce;">format.html { redirect_to records_path }
+</span><span style="color:#c0c5ce;">else
+</span><span style="color:#c0c5ce;">format.html { render :new }
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">haml
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">- if flash
+</span><span style="color:#c0c5ce;">- flash.each do |type, msg|
+</span><span style="color:#c0c5ce;">%p{ class: &quot;flash #{type}&quot; }
+</span><span style="color:#c0c5ce;">= &quot;お知らせ: #{msg}&quot;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">css
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">p.flash{
+</span><span style="color:#c0c5ce;">display:none;
+</span><span style="color:#c0c5ce;">position: fixed;
+</span><span style="color:#c0c5ce;">top: 0;
+</span><span style="color:#c0c5ce;">width: 100%;
+</span><span style="color:#c0c5ce;">text-align: center;
+</span><span style="color:#c0c5ce;">color: #fff;
+</span><span style="color:#c0c5ce;">font-weight: bold;
+</span><span style="color:#c0c5ce;">padding: 10px;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">&amp;.success {
+</span><span style="color:#c0c5ce;">background-color: rgba(77, 188, 219, 0.8);
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">&amp;.notice {
+</span><span style="color:#c0c5ce;">background-color: rgba(237, 221, 40, 0.8);
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">&amp;.error {
+</span><span style="color:#c0c5ce;">background-color: rgba(219, 30, 20, 0.8);
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">&amp;.info {
+</span><span style="color:#c0c5ce;">background-color: rgba(255, 255, 255, 0.8);
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">js
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ -&gt;
+</span><span style="color:#c0c5ce;">$(&#39;p.flash&#39;).fadeIn 800, -&gt;
+</span><span style="color:#c0c5ce;">setTimeout -&gt;
+</span><span style="color:#c0c5ce;">$(&#39;p.flash&#39;).fadeOut(1000)
+</span><span style="color:#c0c5ce;">, 3000
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">すると
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">こんな感じになります。
+</span><span style="color:#c0c5ce;">良さですね。
+</span></pre>
+<p><img src="/public/images/2017/09/8d20b-0ebvdv-pyt9xdmihj.png" alt="overray" /></p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

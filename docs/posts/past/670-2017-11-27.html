@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>iOS開発: 第一週</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">iOS開発: 第一週</h2>
+    <div class="description">
+        　Date：2017-11-27 00:46:36 +0900<br />
+        　Categories： ios <br />
+        
+    </div>
+    <h1>概要</h1>
+<p>iOS全くかんだことのなくてrailsを比較的触ることが多い人が</p>
+<p>iOSアプリを作ってみようと思い、もがいたまたはもがいてく記録です。</p>
+<h1>進捗</h1>
+<ul>
+<li>rails5で認証をざっくりつくった</li>
+<li>iOSからrailsにメールとパスワードを送ってログインに成功した</li>
+<li>サーバサイドに家計簿の登録情報モデルを作成した</li>
+<li>家計簿レコードのAPIを作成した</li>
+</ul>
+<h1>気づき</h1>
+<h2>Sorcery と APIモード</h2>
+<p>rails5のapiモードでnewすると、ApplicationControllerの継承が BaseではなくApiになる。</p>
+<p>その関係で認証に使ったSorceryのCore(？)のAPIが使えず undefined がでまくる。</p>
+<p>一旦Baseを継承して逃れているけど、ちょっと考えたほうが良さそう。</p>
+<h2>オプショナル型</h2>
+<p>オプショナル型の感覚がまったくわからず、XCODEが吐いているエラーの対応方法がなかなかわからない。</p>
+<p>オプショナル型の勉強をしていく必要がある。</p>
+<h2>通信ライブラリ</h2>
+<p>通信ライブラリは <code>Alamofire</code> がよしなにやってくれたので</p>
+<p>難しいことは特に考えずに通信ができたので捗った。</p>
+<h2>キーチェーン</h2>
+<p>セキュリティ的に安心なところにデータを保存する用途でキーチェーンに保存すると良さそうとの情報を得た。</p>
+<p>これも簡単に扱える <code>KeychainAccess</code> というライブラリがあったので、データを保存して呼び出したりできた。</p>
+<p>ありがとうございます。</p>
+<h2>APIサーバの構築</h2>
+<p>APIサーバの構築ってほどのことはまだ全然していないのだけど、</p>
+<p>今までRoutingからController、ViewにながれてHTMLでという思考回路に鳴っているから</p>
+<p>Controllerからjsonで止まってClientに移っていくというところに少しだけ</p>
+<p>頭の切り替えが必要。viewがコントローラ側にあるだけで大きく変わっているわけではないのだけど。</p>
+<h2>次週</h2>
+<ul>
+<li>レコードを持ってきて表示をする</li>
+<li>レコードを保存する
+これができると一通りCRUDができて、認証もできるので、</li>
+</ul>
+<p>あとは応用でひたすらつくっていけば雑にアプリっぽく動くものができるのではないかと思ってる(けどどうなのだろう)</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

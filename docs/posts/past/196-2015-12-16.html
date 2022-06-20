@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>xlsxのデータをcronに載せたくていろいろしたあれこれ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">xlsxのデータをcronに載せたくていろいろしたあれこれ</h2>
+    <div class="description">
+        　Date：2015-12-16 12:47:48 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h4>概要</h4>
+<p>この記事では、</p>
+<ul>
+<li>xlsxを保存時に一部シートをCSVとして保存する話</li>
+<li>そのCSVの日付データを元にrubyスクリプトで通知する話</li>
+<li>なんでそんなことをしなければいけなかったかの話
+を書きたいと思います。</li>
+</ul>
+<h4>環境</h4>
+<h4>PC環境</h4>
+<ul>
+<li>windows 7</li>
+<li>EXCEL 2013</li>
+<li>エクセルはLinux(Samba)のファイルサーバにおかれています</li>
+</ul>
+<h4>サーバ環境</h4>
+<ul>
+<li>ruby 2.0.0p481</li>
+<li>CentOS release 5.11
+※もろもろ目をつぶってください。</li>
+</ul>
+<h4>状況</h4>
+<p>もともとはSSL証明書の有効期限の日付管理等をエクセルで行っていました。複数個ある証明書の有効期限を毎日エクセルを開いて確認するというのはなかなか酷な話なので、windows oleを使用したスクリプトを書いていました。</p>
+<p>スクリプト自体は</p>
+<ul>
+<li>FQDNと有効期限をセットにして取得する</li>
+<li>有効期限と今日の日付を比較して有効期限が近いものを集める</li>
+<li>メールでその内容を通知する
+というものです。</li>
+</ul>
+<p>このスクリプトはwindwos上のものなので、スタートアップに仕掛けて起動しておいてLinux(samba)の上にある管理エクセルを読ませて実行していました。そのキックだけがenter一発だけとはいえ手動でした。パソコンを起動しないと実行できないという。</p>
+<h4>解決策</h4>
+<p>「linuxのrubyでoleが面倒ならcsv出しちゃえば？」という先輩の一言がきっかけでややこしいんですが、該当のエクセルから使いたいデータをCSVにする方法を思いつきました。VBAではまりながらなんとか実行した記録です。</p>
+<h4>VBAでCSVを吐く</h4>
+<p>調べたところ、ThisWorkbookの中でエクセルを保存時にフックできるものがあることがわかりました。それを活用して以下のVBAを書きました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">Private Sub Workbook_AfterSave(ByVal Success As Boolean)
+</span><span style="color:#c0c5ce;">Call makeNewGeneralCSV
+</span><span style="color:#c0c5ce;">End Sub
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">&#39; CSVを保存するために別bookを作成
+</span><span style="color:#c0c5ce;">Sub makeNewGeneralCSV()
+</span><span style="color:#c0c5ce;">&#39; 変数の宣言
+</span><span style="color:#c0c5ce;">Dim newBook As Workbook
+</span><span style="color:#c0c5ce;">Dim masterBook As Workbook
+</span><span style="color:#c0c5ce;">Dim filename1 As String
+</span><span style="color:#c0c5ce;">Dim dirPath As String
+</span><span style="color:#c0c5ce;">Dim format1 As String
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">filename1 = &quot;filename.csv&quot;
+</span><span style="color:#c0c5ce;">format1 = &quot;xlCSV&quot;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">&#39; 新しいBOOKの作成 （間に確認）
+</span><span style="color:#c0c5ce;">Set masterBook = Workbooks(&quot;managefile.xlsm&quot;)
+</span><span style="color:#c0c5ce;">dirPath = masterBook.Path &amp; &quot;&quot;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">&#39; general csvが存在するか確認
+</span><span style="color:#c0c5ce;">If Dir(dirPath &amp; &quot;filename.csv&quot;) = &quot;&quot; Then
+</span><span style="color:#c0c5ce;">MsgBox (&quot;ファイルは保存されましたが、通知管理用CSVの保存処理に失敗しました。同ディレクトリに「filename.csv」があるか確認してください&quot;)
+</span><span style="color:#c0c5ce;">Exit Sub
+</span><span style="color:#c0c5ce;">End If
+</span><span style="color:#c0c5ce;">Set newBook = Workbooks.Open(dirPath &amp; &quot;filename.csv&quot;)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">&#39; アラートを消す
+</span><span style="color:#c0c5ce;">Application.DisplayAlerts = False
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">&#39; シートにデータコピー とその他のシート削除
+</span><span style="color:#c0c5ce;">newBook.Sheets(&quot;datasheet&quot;).name = &quot;datasheet_bak&quot;
+</span><span style="color:#c0c5ce;">masterBook.Sheets(&quot;DATASHEET&quot;).Copy After:=newBook.Worksheets(&quot;datasheet_bak&quot;)
+</span><span style="color:#c0c5ce;">newBook.Sheets(&quot;datasheet_bak&quot;).Delete
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">&#39; newBookの保存
+</span><span style="color:#c0c5ce;">newBook.save
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">&#39; newBookを閉じる
+</span><span style="color:#c0c5ce;">newBook.Close
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">&#39; アラートを戻す
+</span><span style="color:#c0c5ce;">Application.DisplayAlerts = True
+</span><span style="color:#c0c5ce;">MsgBox (&quot;通知用CSVを最新にしました&quot;)
+</span><span style="color:#c0c5ce;">End Sub
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">なぜかxlCSVで吐き出すのにえらく苦労しました。
+</span><span style="color:#c0c5ce;">内容としては、それ用の別のブックを用意してCSV用のデータをコピーしてCSV保存しているというぐらいです。
+</span><span style="color:#c0c5ce;">ポイントはやはり「Private Sub Workbook_AfterSave(ByVal Success As Boolean)」の部分で、
+</span><span style="color:#c0c5ce;">こいつの中に書いておくことで、保存後に挟む処理をかくことができます。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">CSVを読み込んでrubyスクリプトでメール通知
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">こっちもなんてことないんですが、やったことは
+</span></pre>
+<ul>
+<li>
+<p>CSVを頑張って切ったり貼ったりする</p>
+</li>
+<li>
+<p>曜日によって差し出しにを変える必要があったのでそれやる</p>
+</li>
+<li>
+<p>erbを使ってメールテンプレートに変数をまぜる</p>
+</li>
+<li>
+<p>メールで通知する
+というシンプルな感じです。
+なお、mail gemを使った時に文字コードの警告がでていたのは、以下のblogを見て解決しました。
+komagataさんありがとうございます(偶然一番上に！)</p>
+<p><a href="http://docs.komagata.org/4879">http://docs.komagata.org/4879</a></p>
+<p>#!/usr/local/ruby200/bin/ruby</p>
+<p>require 'csv'
+require 'pp'
+require 'date'
+require 'mail'
+require 'erb'</p>
+<p>Encoding.default_external = 'utf-8'
+Encoding.default_internal = 'utf-8'</p>
+<p>class SslCheck
+def initialize
+@week = Date.today.wday
+@csv_dir = '/your/dir/filename.csv'
+@csv_path = File.join(@csv_dir, &quot;filename.csv&quot;)
+@template = &quot;/your/dir/template.erb&quot;
+end</p>
+<p>def read
+@csv = File.open(@csv_path, &quot;rb:Shift_JIS:UTF-8&quot;) do |io| # xlsxからデータCSVなので文字コードがshift_JIS
+CSV.new(io).read
+end
+@csv.slice!(0, 2)
+@csv
+end</p>
+<p>def parse
+@dataset = {}
+@csv.each do |array|
+if not array[1] == nil
+@dataset[array[1]] = array[5]
+else
+next
+end
+end
+caliculate()
+collect()
+make_text()
+bind()
+end</p>
+<p>def send
+week_check()
+to = @to
+mailbody = @mailbody
+@mail = Mail.new do
+from 'notification@example.com'
+to to
+subject &quot;#{Date.today} - SSL証明書有効期限通知&quot;
+body mailbody
+end</p>
+<p>@mail.delivery_method :sendmail
+@mail.charset = 'utf-8'
+@mail.deliver!
+end</p>
+<p>private
+def week_check
+case @week
+when 1
+@to = 'notification1@example.com'
+when 0,6
+exit 0
+else
+@to = 'notification2@example.com'
+end
+end</p>
+<p>def collect
+@limit_time_fqdns = {:a_week =&gt; {}, :two_week =&gt; {}, :a_month =&gt; {}, :two_month =&gt; {}, :limit_over =&gt; {}}
+@fqdns.each do |fqdn|
+case fqdn[1]
+when -30..0
+@limit_time_fqdns[:limit_over][fqdn[0]] = fqdn[1]
+when 1..7
+@limit_time_fqdns[:a_week][fqdn[0]] = fqdn[1]
+when 8..14
+@limit_time_fqdns[:two_week][fqdn[0]] = fqdn[1]
+when 15..30
+@limit_time_fqdns[:a_month][fqdn[0]] = fqdn[1]
+when 31..60
+@limit_time_fqdns[:two_month][fqdn[0]] = fqdn[1]
+end
+end
+end</p>
+<p>def caliculate
+@fqdns = @dataset.collect do |fqdn, expire_date_string|
+today = Date.today
+expire_date_array = expire_date_string.split('/')
+expire_date = Date.parse(&quot;#{expire_date_array[2]}-#{expire_date_array[0]}-#{expire_date_array[1]}&quot;)
+remain = (expire_date - today) - 1
+[fqdn, remain.to_i]
+end
+end</p>
+<p>def make_text
+@text = {}
+@limit_time_fqdns.each do |timelimit, fqdns|
+@text[timelimit] = fqdns.collect do |fqdn, deadline|
+&quot;#{fqdn}t 残り #{deadline} 日&quot;
+end
+end
+end</p>
+<p>def bind
+mailbody = ERB.new(File.open(@template).read, nil, &quot;-&quot;)
+@mailbody = mailbody.result(binding).encode(&quot;UTF-8&quot;, :invalid =&gt; :replace)
+end
+end</p>
+<p>checker = SslCheck.new
+checker.read
+checker.parse
+checker.send</p>
+<p>exit 0</p>
+<p>これをcronにかけてOKな感じです。</p>
+<p>最後に</p>
+<p>不覚にも偉い遠回りしながらになりますが、xlsx自体はすごく好きなんですけど、こういうときになかなか痺れる感じを味わいました。
+保存先のエクセルがたまたまLinuxのSambaだったことが幸いしてやってみちゃった備忘録ですが、
+もともとのデータはやっぱり何かに依存しない形で管理したいものです。などと思いました。</p>
+</li>
+</ul>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

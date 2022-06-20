@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>EXCEL VBA</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">EXCEL VBA</h2>
+    <div class="description">
+        　Date：2013-06-24 19:43:45 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>ファイルの開き方のあれこれと変数展開がテーマ（コードの整理がしたい。）</p>
+<p>VBAからファイルを開く</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">Sub test()
+</span><span style="color:#c0c5ce;">Workbooks.Open &quot;C: *********.csv&quot;
+</span><span style="color:#c0c5ce;">End Sub
+</span></pre>
+<p>これは開けた。</p>
+<p>変数に入れてから開く</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">Sub test()
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Dim SalesCsvPass As String
+</span><span style="color:#c0c5ce;">SalesCsvPass = &quot;C: *********.csv&quot;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Workbooks.Open SalesCsvPass
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">End Sub
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">開いた。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">最後（”C: ***************.csv”がひらきたい）
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Sub test()
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Dim WorkDir As String
+</span><span style="color:#c0c5ce;">WorkDir = &quot;C: ******&quot;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Dim SalesCsv As String
+</span><span style="color:#c0c5ce;">SalesCsv = &quot; ******.csv&quot;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Workbooks.Open WorkDir + &quot;***&quot; + SalesCsv
+</span><span style="color:#c0c5ce;">End Sub
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">これも開いた、ありがとう。ありがとう。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

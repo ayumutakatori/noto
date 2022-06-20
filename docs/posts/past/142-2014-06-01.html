@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>gitを2.0.0にアップデートした</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">gitを2.0.0にアップデートした</h2>
+    <div class="description">
+        　Date：2014-06-01 00:33:00 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>macbookのgitを2.0.0にしました。(もともとgit version 1.8.5.2 (Apple Git-48)とやらが入っていた) 一番楽そうなのがbrewだったのでそれでインストールしました。</p>
+<p>既存のバージョンとパスの確認</p>
+<p>パスが通っている場所の確認とそのgitのバージョンを確認</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ which git
+</span><span style="color:#c0c5ce;">/usr/bin/git
+</span><span style="color:#c0c5ce;">$ git --version
+</span><span style="color:#c0c5ce;">git version 1.8.5.2 (Apple Git-48)
+</span></pre>
+<p>gitのインストール()</p>
+<p>先にも述べましたがbrewを使います。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$brew update
+</span><span style="color:#c0c5ce;">$brew versions git
+</span><span style="color:#c0c5ce;">2.0.0 git checkout e2e2236 /usr/local/Library/Formula/git.rb
+</span></pre>
+<p>brewではgitをインストールしていなかったので、</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ brew install git
+</span><span style="color:#c0c5ce;">$ /usr/local/bin/git --version
+</span><span style="color:#c0c5ce;">git version 2.0.0
+</span></pre>
+<p>でインストールできました。</p>
+<p>パスの優先順位を変える</p>
+<p>/etcの中に pathsというファイルが有ります。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ cat /etc/paths
+</span><span style="color:#c0c5ce;">/usr/bin
+</span><span style="color:#c0c5ce;">/bin
+</span><span style="color:#c0c5ce;">/usr/sbin
+</span><span style="color:#c0c5ce;">/sbin
+</span><span style="color:#c0c5ce;">/usr/local/bin
+</span></pre>
+<p>となっていたのでこのままだと/usr/bin/git を使い続けてしまうので</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ cat /etc/paths
+</span><span style="color:#c0c5ce;">/usr/local/bin
+</span><span style="color:#c0c5ce;">/usr/bin
+</span><span style="color:#c0c5ce;">/bin
+</span><span style="color:#c0c5ce;">/usr/sbin
+</span><span style="color:#c0c5ce;">/sbin
+</span></pre>
+<p>に書き換えます。コンソールを再起動してパスを読み直します。 ※ 全体に影響するので十分注意してください。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">git --version
+</span><span style="color:#c0c5ce;">git version 2.0.0
+</span></pre>
+<p>以上で完了です。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

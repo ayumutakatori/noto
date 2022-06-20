@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>RubyでExifを扱う</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">RubyでExifを扱う</h2>
+    <div class="description">
+        　Date：2018-12-23 02:37:36 +0900<br />
+        　Categories： Photography <br />
+        
+    </div>
+    <h3>概要</h3>
+<p>RubyでJPG入るのExifを扱って表示してみる</p>
+<h3>きっかけ</h3>
+<p>毎回インスペクタを見たり、ツールを使って1ファイルずつ見るのがめんどう。ブログに書くときにだいたい決まった形式で表示したい。</p>
+<h3>方法</h3>
+<p>gemのexifrを使うと簡単に取れそう</p>
+<p>[embed]https://github.com/remvee/exifr/[/embed]</p>
+<h3>手順</h3>
+<h4>インストール</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># console
+</span><span style="color:#c0c5ce;">$ gem install exifr --no-ri --no-rdoc
+</span><span style="color:#c0c5ce;">Fetching: exifr-1.3.5.gem (100%)
+</span><span style="color:#c0c5ce;">Successfully installed exifr-1.3.5
+</span><span style="color:#c0c5ce;">1 gem installed
+</span></pre>
+<h4>実行</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># pry console
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">&gt; require &#39;exifr/jpeg&#39;
+</span><span style="color:#c0c5ce;">=&gt; true
+</span><span style="color:#c0c5ce;">&gt; exif = EXIFR::JPEG.new(&#39;/Users/ryo/Downloads/Photos/DSC04117.jpg&#39;)
+</span><span style="color:#c0c5ce;">=&gt; #&lt;EXIFR::JPEG:0x00007fe3725b3
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># exifが存在するか
+</span><span style="color:#c0c5ce;">&gt; exif.exif?
+</span><span style="color:#c0c5ce;">=&gt; true
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># データ構造
+</span><span style="color:#c0c5ce;">&gt; exif.exif
+</span><span style="color:#c0c5ce;">=&gt; [{:image_description=&gt;&quot; &quot;, :make=&gt;&quot;SONY&quot;, :model=&gt;&quot;ILCE-7M3&quot;, :orientation=&gt;#&lt;EXIFR::TIFF::Orientation:TopLeft(1)&gt;, :x_resolution=&gt;(350/1), :y_resolution=&gt;(350/1), :resolution_unit=&gt;2, :software=&gt;&quot;ILCE-7M3 v1.00&quot;, :date_time=&gt;2018-12-19 14:52:08 +0900, :ycb_cr_positioning=&gt;2, :exposure_time=&gt;(1/200), :f_number=&gt;(9/5), :exposure_program=&gt;1, :iso_speed_ratings=&gt;320, :date_time_original=&gt;2018-12-19 14:52:08 +0900, :date_time_digitized=&gt;2018-12-19 14:52:08 +0900, :compressed_bits_per_pixel=&gt;(4/1), :brightness_value=&gt;(4757/1280), :exposure_bias_value=&gt;(0/1), :max_aperture_value=&gt;(217/128), :metering_mode=&gt;2, :light_source=&gt;0, :flash=&gt;16, :focal_length=&gt;(85/1), :user_comment=&gt;&quot;&quot;, :color_space=&gt;1, :pixel_x_dimension=&gt;6000, :pixel_y_dimension=&gt;4000, :custom_rendered=&gt;0, :exposure_mode=&gt;1, :white_balance=&gt;0, :digital_zoom_ratio=&gt;(1/1), :focal_length_in_35mm_film=&gt;85, :scene_capture_type=&gt;0, :contrast=&gt;0, :saturation=&gt;0, :sharpness=&gt;0, :lens_model=&gt;&quot;FE 85mm F1.8&quot;}, {:compression=&gt;6, :image_description=&gt;&quot; &quot;, :make=&gt;&quot;SONY&quot;, :model=&gt;&quot;ILCE-7M3&quot;, :orientation=&gt;#&lt;EXIFR::TIFF::Orientation:TopLeft(1)&gt;, :x_resolution=&gt;(72/1), :y_resolution=&gt;(72/1), :resolution_unit=&gt;2, :software=&gt;&quot;ILCE-7M3 v1.00&quot;, :date_time=&gt;2018-12-19 14:52:08 +0900, :jpeg_interchange_format=&gt;38912, :jpeg_interchange_format_length=&gt;10917, :ycb_cr_positioning=&gt;2}]
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 各種データ
+</span><span style="color:#c0c5ce;">&gt; exif.width
+</span><span style="color:#c0c5ce;">=&gt; 6000
+</span><span style="color:#c0c5ce;">&gt; exif.height
+</span><span style="color:#c0c5ce;">=&gt; 4000[19] pry(main)&gt; exif.model
+</span><span style="color:#c0c5ce;">=&gt; &quot;ILCE-7M3&quot;
+</span><span style="color:#c0c5ce;">&gt; exif.lens_model
+</span><span style="color:#c0c5ce;">=&gt; &quot;FE 85mm F1.8&quot;
+</span><span style="color:#c0c5ce;">&gt; exif.f_number
+</span><span style="color:#c0c5ce;">=&gt; (9/5)
+</span><span style="color:#c0c5ce;">&gt; exif.f_number.to_f
+</span><span style="color:#c0c5ce;">=&gt; 1.8
+</span><span style="color:#c0c5ce;">&gt; exif.exposure_time
+</span><span style="color:#c0c5ce;">=&gt; (1/200)
+</span><span style="color:#c0c5ce;">&gt; exif.iso_speed_ratings
+</span><span style="color:#c0c5ce;">=&gt; 320
+</span></pre>
+<p>めっちゃ簡単にデータ取れるじゃん。最高。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

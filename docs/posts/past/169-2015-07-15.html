@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>入門Puppetを読んで</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">入門Puppetを読んで</h2>
+    <div class="description">
+        　Date：2015-07-15 21:07:58 +0900<br />
+        　Categories： Books <br />
+        
+    </div>
+    <p>Puppetを触る必要が急にやって来たので以前にかっていた<a href="http://www.amazon.co.jp/dp/B00CL92JC0">入門Puppet</a>をひと通り呼んだのでその感想を</p>
+<h4>程よくまとまっている</h4>
+<p>Puppetや構成管理の何たるかがわからなくとも、一緒に手を動かしながら読み進めていくとPuppetとVagrantの簡単な使い方が自然と身についていきます。</p>
+<p>自分が16章くらいまでしか読み進めなかったのもあるのですが、簡単な構成管理をするものであればこの本で十分に実装可能だと思います。</p>
+<p>仕事で使うものとなるとさらに広範な知識が必要になると思います。この本を呼んだあとにPuppet Labをみると英語ですが情報がかなり豊富なのでいろいろ見れます。</p>
+<h4>躓いたところ</h4>
+<p>冪等性という「いつでもこの状態になっている」というものを担保するのが結構難しかったです。</p>
+<p>これを呼んだきっかけが、rubyをソースからインストールためだったのでわりとexecだらけだったため、条件で処理を分ける必要がありました。基本的には難しいことはせず unlessやonlyifでにげてなんとかインストール後は何もコマンドが実行されない状態までもっていけました。</p>
+<p>あと地味に変数をモジュールで持たせるのに苦労して結果</p>
+<ul>
+<li>変数をまとめたクラス(modulename::classname)に変数(class_val)をつくる</li>
+<li>そのクラスを include する</li>
+<li>呼び出すときは $modulename::classname::class_val でよぶ
+みたいなことをしました。</li>
+</ul>
+<h4>サーバ構築が楽しくなる</h4>
+<p>今まで、サーバ構築あんま好きでも嫌いでもなかったんですが、作ったものが動いてく瞬間がわかりやすいのでこれは結構楽しいなと思いました。また、時々しか作ったサーバの設定を行わないので忘れることが多くその都度設定を確認してたんですが、これがあればこれ自体仕様になるので単純な良さがあります。</p>
+<p>仕事で今回はrubyだけでしたが、自分用のサーバ設定をpuppetでやっていきたいと思います。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

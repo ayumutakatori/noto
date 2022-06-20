@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>カメラ名・レンズ名を追加する</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">カメラ名・レンズ名を追加する</h2>
+    <div class="description">
+        　Date：2019-01-05 07:53:15 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <h2>概要</h2>
+<p><a href="https://note.acairojuni.com/tech/2019/01/512.html">こちら</a>の続きです。Rustでカメラの本体とレンズの情報が取得できるようにしました</p>
+<h2>参考</h2>
+<p><code>Exif TAG</code>( <a href="http://cachu.xrea.jp/perl/ExifTAG.html">http://cachu.xrea.jp/perl/ExifTAG.html</a> ) を参考に対象となるtagを知らべました。</p>
+<h2>コード</h2>
+<p>事前に <code>meta.get_exif_tags</code> でどんなタグがあるのかを調べて上記のサイトで調べてみた。なんかめちゃくちゃあるが、sonyがついてないものにしないと他の機種が来たときにデータが取れなくなるので、比較的先頭の方からみたら見つけられた。</p>
+<p>[rust]</p>
+<p>Ok([&quot;Exif.Image.DateTime&quot;, &quot;Exif.Image.ExifTag&quot;, &quot;Exif.Image.ImageDescription&quot;, &quot;Exif.Image.Make&quot;, &quot;Exif.Image.Model&quot;, &quot;Exif.Image.Orientation&quot;, &quot;Exif.Image.PrintImageMatching&quot;, &quot;Exif.Image.ResolutionUnit&quot;, &quot;Exif.Image.Software&quot;, &quot;Exif.Image.XResolution&quot;, &quot;Exif.Image.YCbCrPositioning&quot;, &quot;Exif.Image.YResolution&quot;, &quot;Exif.Iop.InteroperabilityIndex&quot;, &quot;Exif.Iop.InteroperabilityVersion&quot;, &quot;Exif.MakerNote.ByteOrder&quot;, &quot;Exif.MakerNote.Offset&quot;, &quot;Exif.Photo.0x9010&quot;, &quot;Exif.Photo.0x9011&quot;, &quot;Exif.Photo.0x9012&quot;, &quot;Exif.Photo.BrightnessValue&quot;, &quot;Exif.Photo.ColorSpace&quot;, &quot;Exif.Photo.ComponentsConfiguration&quot;, &quot;Exif.Photo.CompressedBitsPerPixel&quot;, &quot;Exif.Photo.Contrast&quot;, &quot;Exif.Photo.CustomRendered&quot;, &quot;Exif.Photo.DateTimeDigitized&quot;, &quot;Exif.Photo.DateTimeOriginal&quot;, &quot;Exif.Photo.DigitalZoomRatio&quot;, &quot;Exif.Photo.ExifVersion&quot;, &quot;Exif.Photo.ExposureBiasValue&quot;, &quot;Exif.Photo.ExposureMode&quot;, &quot;Exif.Photo.ExposureProgram&quot;, &quot;Exif.Photo.ExposureTime&quot;, &quot;Exif.Photo.FNumber&quot;, &quot;Exif.Photo.FileSource&quot;, &quot;Exif.Photo.Flash&quot;, &quot;Exif.Photo.FlashpixVersion&quot;, &quot;Exif.Photo.FocalLength&quot;, &quot;Exif.Photo.FocalLengthIn35mmFilm&quot;, &quot;Exif.Photo.ISOSpeedRatings&quot;, &quot;Exif.Photo.InteroperabilityTag&quot;, &quot;Exif.Photo.LensModel&quot;, &quot;Exif.Photo.LensSpecification&quot;, &quot;Exif.Photo.LightSource&quot;, &quot;Exif.Photo.MakerNote&quot;, &quot;Exif.Photo.MaxApertureValue&quot;, &quot;Exif.Photo.MeteringMode&quot;, &quot;Exif.Photo.PixelXDimension&quot;, &quot;Exif.Photo.PixelYDimension&quot;, &quot;Exif.Photo.RecommendedExposureIndex&quot;, &quot;Exif.Photo.Saturation&quot;, &quot;Exif.Photo.SceneCaptureType&quot;, &quot;Exif.Photo.SceneType&quot;, &quot;Exif.Photo.SensitivityType&quot;, &quot;Exif.Photo.Sharpness&quot;, &quot;Exif.Photo.UserComment&quot;, &quot;Exif.Photo.WhiteBalance&quot;, &quot;Exif.Sony1.0x2000&quot;, &quot;Exif.Sony1.0x2002&quot;, &quot;Exif.Sony1.0x2003&quot;, &quot;Exif.Sony1.0x2006&quot;, &quot;Exif.Sony1.0x2007&quot;, &quot;Exif.Sony1.0x2008&quot;, &quot;Exif.Sony1.0x2009&quot;, &quot;Exif.Sony1.0x200b&quot;, &quot;Exif.Sony1.0x200c&quot;, &quot;Exif.Sony1.0x200d&quot;, &quot;Exif.Sony1.0x200e&quot;, &quot;Exif.Sony1.0x200f&quot;, &quot;Exif.Sony1.0x2010&quot;, &quot;Exif.Sony1.0x2011&quot;, &quot;Exif.Sony1.0x2012&quot;, &quot;Exif.Sony1.0x2013&quot;, &quot;Exif.Sony1.0x2014&quot;, &quot;Exif.Sony1.0x2015&quot;, &quot;Exif.Sony1.0x2016&quot;, &quot;Exif.Sony1.0x2017&quot;, &quot;Exif.Sony1.0x2018&quot;, &quot;Exif.Sony1.0x2019&quot;, &quot;Exif.Sony1.0x201a&quot;, &quot;Exif.Sony1.0x201b&quot;, &quot;Exif.Sony1.0x201c&quot;, &quot;Exif.Sony1.0x201d&quot;, &quot;Exif.Sony1.0x201e&quot;, &quot;Exif.Sony1.0x201f&quot;, &quot;Exif.Sony1.0x2020&quot;, &quot;Exif.Sony1.0x2021&quot;, &quot;Exif.Sony1.0x2023&quot;, &quot;Exif.Sony1.0x2025&quot;, &quot;Exif.Sony1.0x2026&quot;, &quot;Exif.Sony1.0x2027&quot;, &quot;Exif.Sony1.0x2028&quot;, &quot;Exif.Sony1.0x2029&quot;, &quot;Exif.Sony1.0x202a&quot;, &quot;Exif.Sony1.0x202b&quot;, &quot;Exif.Sony1.0x202c&quot;, &quot;Exif.Sony1.0x202d&quot;, &quot;Exif.Sony1.0x202e&quot;, &quot;Exif.Sony1.0x202f&quot;, &quot;Exif.Sony1.0x5001&quot;, &quot;Exif.Sony1.0x5002&quot;, &quot;Exif.Sony1.0x9050&quot;, &quot;Exif.Sony1.0x9400&quot;, &quot;Exif.Sony1.0x9401&quot;, &quot;Exif.Sony1.0x9402&quot;, &quot;Exif.Sony1.0x9403&quot;, &quot;Exif.Sony1.0x9404&quot;, &quot;Exif.Sony1.0x9405&quot;, &quot;Exif.Sony1.0x9406&quot;, &quot;Exif.Sony1.0x9407&quot;, &quot;Exif.Sony1.0x9408&quot;, &quot;Exif.Sony1.0x9409&quot;, &quot;Exif.Sony1.0x940a&quot;, &quot;Exif.Sony1.0x940b&quot;, &quot;Exif.Sony1.0x940c&quot;, &quot;Exif.Sony1.0x940d&quot;, &quot;Exif.Sony1.0x940e&quot;, &quot;Exif.Sony1.0x940f&quot;, &quot;Exif.Sony1.0x9412&quot;, &quot;Exif.Sony1.0xa100&quot;, &quot;Exif.Sony1.0xb02a&quot;, &quot;Exif.Sony1.0xb045&quot;, &quot;Exif.Sony1.0xb046&quot;, &quot;Exif.Sony1.0xb04c&quot;, &quot;Exif.Sony1.0xb04d&quot;, &quot;Exif.Sony1.0xb050&quot;, &quot;Exif.Sony1.0xb051&quot;, &quot;Exif.Sony1.0xb053&quot;, &quot;Exif.Sony1.AntiBlur&quot;, &quot;Exif.Sony1.AutoHDR&quot;, &quot;Exif.Sony1.ColorCompensationFilter&quot;, &quot;Exif.Sony1.ColorMode&quot;, &quot;Exif.Sony1.ColorReproduction&quot;, &quot;Exif.Sony1.ColorTemperature&quot;, &quot;Exif.Sony1.Contrast&quot;, &quot;Exif.Sony1.DynamicRangeOptimizer&quot;, &quot;Exif.Sony1.DynamicRangeOptimizer&quot;, &quot;Exif.Sony1.ExposureMode&quot;, &quot;Exif.Sony1.FileFormat&quot;, &quot;Exif.Sony1.FlashExposureComp&quot;, &quot;Exif.Sony1.FlashLevel&quot;, &quot;Exif.Sony1.FullImageSize&quot;, &quot;Exif.Sony1.ImageStabilization&quot;, &quot;Exif.Sony1.IntelligentAuto&quot;, &quot;Exif.Sony1.LensID&quot;, &quot;Exif.Sony1.Panorama&quot;, &quot;Exif.Sony1.PreviewImageSize&quot;, &quot;Exif.Sony1.Quality&quot;, &quot;Exif.Sony1.ReleaseMode&quot;, &quot;Exif.Sony1.Saturation&quot;, &quot;Exif.Sony1.SceneMode&quot;, &quot;Exif.Sony1.SequenceNumber&quot;, &quot;Exif.Sony1.ShotInfo&quot;, &quot;Exif.Sony1.SonyModelID&quot;, &quot;Exif.Sony1.WhiteBalance&quot;, &quot;Exif.Sony1.WhiteBalance2&quot;, &quot;Exif.Sony1.WhiteBalanceFineTune&quot;, &quot;Exif.Sony1.ZoneMatching&quot;, &quot;Exif.Thumbnail.Compression&quot;, &quot;Exif.Thumbnail.DateTime&quot;, &quot;Exif.Thumbnail.ImageDescription&quot;, &quot;Exif.Thumbnail.JPEGInterchangeFormat&quot;, &quot;Exif.Thumbnail.JPEGInterchangeFormatLength&quot;, &quot;Exif.Thumbnail.Make&quot;, &quot;Exif.Thumbnail.Model&quot;, &quot;Exif.Thumbnail.Orientation&quot;, &quot;Exif.Thumbnail.ResolutionUnit&quot;, &quot;Exif.Thumbnail.Software&quot;, &quot;Exif.Thumbnail.XResolution&quot;, &quot;Exif.Thumbnail.YCbCrPositioning&quot;, &quot;Exif.Thumbnail.YResolution&quot;])</p>
+<p>[/rust]</p>
+<p>あとは <code>meta.get_tag_string(&quot;Exif.Image.Model&quot;)</code> などしてデータを取り出せばOK。</p>
+<p>[rust]</p>
+<p>use std::env;</p>
+<p>use rexiv2;</p>
+<p>fn main() {</p>
+<p>let arguments = env::args().skip(1);</p>
+<p>for argument in arguments {</p>
+<p>let meta = rexiv2::Metadata::new_from_path(&amp;argument).unwrap();</p>
+<p>println!(&quot;[{}]&quot;, argument);</p>
+<p>println!(</p>
+<p>&quot;Body: {:?} / Lens: {:?} / F: {:?} / ISO: {:?} / Shutter: {:?}/{:?}&quot;,</p>
+<p>meta.get_tag_string(&quot;Exif.Image.Model&quot;).unwrap(),</p>
+<p>meta.get_tag_string(&quot;Exif.Photo.LensModel&quot;).unwrap(),</p>
+<p>meta.get_fnumber().unwrap(),</p>
+<p>meta.get_iso_speed().unwrap(),</p>
+<p>meta.get_exposure_time().unwrap().numer(), meta.get_exposure_time().unwrap().denom(),</p>
+<p>);</p>
+<p>}</p>
+<p>}</p>
+<p>[/rust]</p>
+<h2>CLIでの表示</h2>
+<p>[shell]</p>
+<p>[master]$ cargo run /Users/ryo/Downloads/Photos/DSC04117.jpg /Users/ryo/Downloads/DSCF1021.JPG</p>
+<p>Finished dev [unoptimized + debuginfo] target(s) in 0.33s</p>
+<p>Running <code>target/debug/exif /Users/ryo/Downloads/Photos/DSC04117.jpg /Users/ryo/Downloads/DSCF1021.JPG</code></p>
+<p>[/Users/ryo/Downloads/Photos/DSC04117.jpg]</p>
+<p>Body: &quot;ILCE-7M3&quot; / Lens: &quot;FE 85mm F1.8&quot; / F: 1.8 / ISO: 320 / Shutter: 1/200</p>
+<p>[/Users/ryo/Downloads/DSCF1021.JPG]</p>
+<p>Body: &quot;X-M1&quot; / Lens: &quot;&quot; / F: 0.0 / ISO: 1600 / Shutter: 1/100</p>
+<p>[/shell]</p>
+<p>という感じでレンズと機種名の表示ができるようになりました。(unwrap()してるところが怪しいのであとで見返さなければ行けないが異端おっけい)</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>mongoidのupdate_allが常にnilを返すときがある</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">mongoidのupdate_allが常にnilを返すときがある</h2>
+    <div class="description">
+        　Date：2016-08-24 23:57:09 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>mongoid で複数のドキュメントの集まりである mongo_documents を以下のように update_all した時に、</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">mongo_documents.update_all(status: value)
+</span></pre>
+<p>ローカルの開発環境では書き換えたレコード数やエラーなどが入った hash を返していたのに、ステージング環境では成功しようが成功しまいがnilが返ってきてはてなってなっていた。</p>
+<p>[embed]http://stackoverflow.com/questions/12291534/mongoid-update-query-sets-other-attributes-to-nil[/embed]</p>
+<p>ここを見ていてもしやとおもってmongoidの設定ファイルを見ていたらセーフモードがproductionとdevelopmentだけ有効になっていた。許可をえてstagingもセーフモードにさせてもらって解決した。</p>
+<p>config/mongoid.yml に options &gt; safe:true を設定すれば大丈夫ですし、1クエリをセーフモードで実行することも可能です。</p>
+<p>参考: <a href="http://shimotori.github.io/blog-it/2012/06/17/1-considerations-using-mongodb-on-rails/">書き込みが完了しなくても応答が返る？</a></p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

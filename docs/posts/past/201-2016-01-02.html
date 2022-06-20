@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>冬休みのこと5</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">冬休みのこと5</h2>
+    <div class="description">
+        　Date：2016-01-02 13:05:34 +0900<br />
+        　Categories： Etc <br />
+        
+    </div>
+    <p>今日も今日で引き続きやっていきます。</p>
+<h3>categoryのテストを作成</h3>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ rails g rspec:model category
+</span><span style="color:#c0c5ce;">Running via Spring preloader in process 29032
+</span><span style="color:#c0c5ce;">create spec/models/category_spec.rb
+</span></pre>
+<h3>バリデーションとかする</h3>
+<p>この辺はrecordと同様なので割愛。したいけど正直わからないことがあったので記載。<br />
+テストを書いていて、errorな値を書いていたんだけど、booleanが入ってくることを想定しているところに[nil, 1, “”]とかを用意してsaveした時にtrueかfalseかでテストを書いていた。実際テストを回してみると1とかがtrueになってしまい保存ができてしまう。これってどうしたら良いんだろう。</p>
+<h3>categoryをrecordにrelationする</h3>
+<p>category modelにbelongs_to, record modelにhas_oneを設定。<br />
+その後、DBのマイグレーションを行う</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ rails g migration ChangeColumnToRecord
+</span><span style="color:#c0c5ce;">Running via Spring preloader in process 60204
+</span><span style="color:#c0c5ce;">invoke active_record
+</span><span style="color:#c0c5ce;">create db/migrate/20160102045030_change_column_to_record.rb
+</span></pre>
+<h3>あいかわらずリレーションに迷う</h3>
+<p>個人的には一つのレコードが一つのカテゴリーを持っているんだけど<br />
+rails的には一つのレコードは一つのカテゴリーに属すが、複数のレコードに属している。というほうが実装しやすい様子。<br />
+たしかにcategoryは複数のbelongs_toのidを持てないからなー。</p>
+<h3>fixturesファイルの作成</h3>
+<p>test/の下にあるfixtures ファイルを作成しようと思って作成したと頃うまく行かず。<br />
+しらべるとrspecからfixturesを見るパスが指定されているようでした。<br />
+そのファイルは spec/rails_helperに書いてあって “config.fixture_path” にpathが指定されていました。<br />
+なのでここをtest/fixturesに変えることで対応しました。</p>
+<h3>circle ci</h3>
+<p>circle ci がうまいこと動かない。<br />
+ひとつはrakeはrspecがはしるけれど rake test がなぜかminitestが走るのが謎なので調べている<br />
+<a href="http://qiita.com/tbpgr/items/5c2f192da0ccf8fad5e1">http://qiita.com/tbpgr/items/5c2f192da0ccf8fad5e1</a></p>
+<p>管理画面からtestのコマンドが打てるみたいだ。</p>
+<p>あとはgithubとcircle ciの連携<br />
+<a href="https://circleci.com/docs/github-3rdparty-app-restrictions">https://circleci.com/docs/github-3rdparty-app-restrictions</a><br />
+Grant Access的なものをあげたらいい感じになったみたい。</p>
+<h3>deviseで、ログインしたユーザの情報を使用する</h3>
+<p>ログインユーザが作成したカテゴリー、レコードということをしらせるために<br />
+モデルに一緒に情報を保存する。<br />
+それをやる上でdeviseが用意してくれいてる current_user というヘルパーメソッドが使用できる。<br />
+ただしこれはviewでのヘルパーメソッドらしいので、modelとかで呼び出せない。<br />
+ココで少しハマった。</p>
+<p>あとhidden_fieldでデフォルト値のvalueをいれようとしたら、railsdocでみつ方やり方ではできなくてハマった。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">hidden_field :user_id, value: current_user.id
+</span></pre>
+<p>これでうまくいった。</p>
+<h3>deviseで非認証ユーザの制限</h3>
+<p>deviseのメソッドでbefore_actionを設定すると非認証ユーザの閲覧制限を行った。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">before_action :authenticate_user!
+</span></pre>
+<h3>給与の項目を scaffold する</h3>
+<p>年俸のレコードを作成</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ rails g scaffold salary year:integer money:integer user_id:integer
+</span></pre>
+<h3>deviseのコントローラを独自実装してみる</h3>
+<p>難しそうだ。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ rails g devise:controllers users
+</span><span style="color:#c0c5ce;">.
+</span><span style="color:#c0c5ce;">.
+</span><span style="color:#c0c5ce;">===============================================================================
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Some setup you must do manually if you haven&#39;t yet:
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Ensure you have overridden routes for generated controllers in your routes.rb.
+</span><span style="color:#c0c5ce;">For example:
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Rails.application.routes.draw do
+</span><span style="color:#c0c5ce;">devise_for :users, controllers: {
+</span><span style="color:#c0c5ce;">sessions: &#39;users/sessions&#39;
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">===============================================================================
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

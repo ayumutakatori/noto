@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>お試し: エディタをATOMからVisual Studio Codeへ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">お試し: エディタをATOMからVisual Studio Codeへ</h2>
+    <div class="description">
+        　Date：2017-09-26 23:47:36 +0900<br />
+        　Categories： atom <br />
+        
+    </div>
+    <p><img src="/public/images/2017/09/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2017-09-26-23.15.15-1005x480.png" alt="" />## エディタのお引っ越し
+ATOMの調子が悪くプラグインを刺しすぎたせいか、最近動作が緩慢になることが多かった。</p>
+<p>IntelliJに鞍替えしようと考えていたのですが、その前にVSC(<a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a>)を試してみることにしました。</p>
+<h2>結論</h2>
+<p>VSCをしばらく使ってみようと思いました。良かった。</p>
+<p>Sublime Text =&gt; ATOM =&gt; VSC と操作感が似ていたため違和感があまりありませんでした。</p>
+<h2>良かったところ</h2>
+<ul>
+<li>ATOMと基本的な操作感が近かったためすぐ慣れた</li>
+<li>特にプラグインを使わずに結構使える状態だった</li>
+<li>日本語対応がしっかりしている</li>
+<li>設定変更の方法がATOMよりわかりやすい</li>
+<li>Git連携ががっつりしている</li>
+<li>Terminal がなんとなくATOMより使いやすい</li>
+</ul>
+<h2>まだ慣れてないところ</h2>
+<ul>
+<li>ATOMとショートカットが違うため検索しつつやってる</li>
+<li>起動時なんか重い</li>
+</ul>
+<h2>その他</h2>
+<p>プラグインがATOMに比べて少ないかと思ったんですが、とりあえずのものであれば必要十分ありそう。</p>
+<p>ニッチだけど便利っぽいものはまだ調べられてない。ATOMでいうところのCSVプラグインとかPlantUMLとか。</p>
+<p>今回Editorからターミナルを使ってみたりgit historyとか左メニューの編集したファイルのdiffを</p>
+<p>エディタ上から操作できるというのは画面移動が少なくて良いなというお気持ちになりました。</p>
+<p>何がどうというわけではないのだけど、ATOMよりもその辺の操作がスムーズな気がする。</p>
+<h3>ちなみに現状の設定</h3>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">{
+</span></pre>
+<p>{</p>
+<p>&quot;editor.fontFamily&quot;: &quot;'Ricty Discord', Menlo, Monaco, 'Courier New', monospace&quot;,</p>
+<p>&quot;editor.fontSize&quot;: 17,</p>
+<p>&quot;editor.lineHeight&quot;: 18,</p>
+<p>&quot;editor.tabSize&quot;: 2,</p>
+<p>&quot;editor.wordWrap&quot;: &quot;on&quot;,</p>
+<p>&quot;editor.multiCursorModifier&quot;: &quot;ctrlCmd&quot;,</p>
+<p>&quot;editor.scrollBeyondLastLine&quot;: false,</p>
+<p>&quot;files.trimTrailingWhitespace&quot;: true,</p>
+<p>&quot;terminal.external.osxExec&quot;: &quot;iTerm.app&quot;,</p>
+<p>&quot;terminal.integrated.fontSize&quot;: 17,</p>
+<p>&quot;terminal.integrated.cursorBlinking&quot;: true,</p>
+<p>&quot;workbench.colorTheme&quot;: &quot;Monokai&quot;,</p>
+<p>&quot;workbench.iconTheme&quot;: &quot;vscode-icons&quot;,</p>
+<p>&quot;window.zoomLevel&quot;: 0,</p>
+<p>&quot;ctags&quot;: {</p>
+<p>&quot;executePath&quot;: &quot;/Users/ryo/.rbenv/shims/ripper-tags&quot;,</p>
+<p>&quot;options&quot;: &quot;--tag-file=.tags --recursive --force --exclude=/assets/ --exclude=.bundle --exclude=.git/ --exclude=coverage/ --exclude=.arcanist-extensions/ --exclude=log/ --exclude=tmp/ --exclude=bin/&quot;,</p>
+<p>&quot;fileName&quot;: &quot;.tags&quot;</p>
+<p>},</p>
+<p>}</p>
+<h3>ちなみに現状のプラグイン</h3>
+<p><img src="/public/images/2017/09/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2017-09-26-23.45.52-318x480.png" alt="" />## 最後に
+ひきつづき使っていって、良い感じに固まってきたら私が考えた最強のVSCしたい。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

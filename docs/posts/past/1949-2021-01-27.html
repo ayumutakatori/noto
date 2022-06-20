@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Rust プログラミング入門#2</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Rust プログラミング入門#2</h2>
+    <div class="description">
+        　Date：2021-01-27 10:53:33 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p><strong>Session 4-2：計算ロジックの追加</strong></p>
+<ul>
+<li>トレイト境界についてメモ</li>
+</ul>
+<blockquote>
+<p>_トレイト_は、Rustコンパイラに、特定の型に存在し、他の型と共有できる機能について知らせます。 トレイトを使用すると、共通の振る舞いを抽象的に定義できます。トレイト境界を使用すると、 あるジェネリックが、特定の振る舞いをもつあらゆる型になり得ることを指定できます。</p>
+</blockquote>
+<p>sugar syntaxがある</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">pub fn notify&lt;T: Summary&gt;(item: &amp;T) {
+</span></pre>
+<p>// 速報！ {}</p>
+<p>println!(&quot;Breaking news! {}&quot;, item.summarize());</p>
+<p>}</p>
+<p>ここに詳しく：<a href="https://doc.rust-jp.rs/book-ja/ch10-02-traits.html#%E3%83%88%E3%83%AC%E3%82%A4%E3%83%88%E5%A2%83%E7%95%8C%E6%A7%8B%E6%96%87">https://doc.rust-jp.rs/book-ja/ch10-02-traits.html#%E3%83%88%E3%83%AC%E3%82%A4%E3%83%88%E5%A2%83%E7%95%8C%E6%A7%8B%E6%96%87</a></p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

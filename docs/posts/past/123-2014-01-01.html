@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>ssh-add が定期的に消える</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">ssh-add が定期的に消える</h2>
+    <div class="description">
+        　Date：2014-01-01 16:58:24 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>MACのコンソールで定期的にエージェント転送用の鍵を忘れていちいちssh-addしていたので、macのbashrc的なものに書いたほうがいいよね。っていう話になりました。 .bash_profileに.bashrcを読み込むように設定してbashrcに起動時の設定をみたいな感じにしました。 .bash_profile</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">if [-f ~/.bashrc] ; then
+</span></pre>
+<p>. ~/.bashrc</p>
+<p>fi</p>
+<p>bashrcがありますよー、読んで下さいー。っていうやつ .bashrc</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">sshaddl=`ssh-add -L`
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">case $sshaddl in
+</span></pre>
+<p>&quot;The agent has no identities.&quot;)</p>
+<p>ssh-add /Users/xxx/xxx/id_rsa ;; #鍵のパス</p>
+<p>&quot;ssh-rsa&quot;*)</p>
+<p>echo &quot;ssh-key is OK&quot; ;;</p>
+<p>*)</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">echo $sshaddl
+</span></pre>
+<p>esac</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">鍵登録があるかの確認コマンドを変数に格納して、 なければエージェント転送用に使う鍵の登録をする。 あれば、OKですよってコマンドを打つ、 そうでなければ、格納したコマンドの結果を書くって感じです。 これ、bash_profileに全て書けば良い話だったりするのかなー。 まぁいいか。これでとりあえずOKそうです。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

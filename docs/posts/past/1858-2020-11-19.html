@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>chromedriverとchromeのバージョンズレでseleniumが起動しないときの対応</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">chromedriverとchromeのバージョンズレでseleniumが起動しないときの対応</h2>
+    <div class="description">
+        　Date：2020-11-19 07:13:51 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <h2>概要</h2>
+<p>mac環境でrubyでchrome/chromedriverを使って seleniumを動かしていますが、chromeのメジャーバージョンアップがあるとサポートしてないよと起こられてしまう。これの対応。</p>
+<h2>内容</h2>
+<h3>エラー</h3>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">&lt;Selenium::WebDriver::Error::SessionNotCreatedError: session not created: This version of ChromeDriver only supports Chrome version XX&gt;
+</span></pre>
+<h3>対処</h3>
+<p>ずれてるのをなおせばOK。殆どの場合chromeがバージョンアップしたのにchromedriverが追いつけてないので今回はその対応をやったことについて書いておく。</p>
+<ol>
+<li>
+<p>chromedriverのアップデート
+私の環境ではbrew caskでchromedirverをインストールしているのでそちらのバージョンを上げます。</p>
+<h1>versionの確認</h1>
+</li>
+</ol>
+<p>$ chromedriver --version</p>
+<p>=&gt; ChromeDriver 85.0.4183.87 (cd6713ebf92fa1cacc0f1a598df280093af0c5d7-refs/branch-heads/4183@{#1689})</p>
+<h1>chromedriverがあるか確認</h1>
+<p>$ brew cask list |grep chromedriver</p>
+<h1>更新</h1>
+<h1>brew cask upgrade chromedriver</h1>
+<h1>versionの確認</h1>
+<p>$ chromedriver --version</p>
+<p>=&gt; ChromeDriver 87.0.4280.20 (c99e81631faa0b2a448e658c0dbd8311fb04ddbd-refs/branch-heads/4280@{#355})</p>
+<ol start="2">
+<li>macのセキュリティに引っかかるので許可する</li>
+</ol>
+<p>実行時に「chromedriverは開発元を検証できないので開けません」的なメッセージが出るので、実行するにはこれを許可する必要がある。でてきたダイアログを一度キャンセルしたあと <code>環境設定 &gt; セキュリティとプライバシー &gt; 使用がブロックされました</code> の横にある <code>許可する</code> ボタンを押す。</p>
+<p>以上で、無事に実行できた。<br />
+2度対応したのでメモ。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

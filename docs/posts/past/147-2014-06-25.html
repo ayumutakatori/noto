@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>atom をwindows7 64bitでビルドしてみた</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">atom をwindows7 64bitでビルドしてみた</h2>
+    <div class="description">
+        　Date：2014-06-25 09:28:00 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <h4>はじめに</h4>
+<p>sublimeがwindowsでなんか異常に調子悪く、atomをwindows7 64bitでビルドしてみました。というメモです。</p>
+<h4>環境</h4>
+<p>OS<br />
+・windows 7 64bit<br />
+ビルド用にインストールしたもの<br />
+・node v0.10.29 64bit (npm 1.4.14 ※後述)<br />
+・python v2.7.7 64bit<br />
+・Microsoft Visual studio 2013 for windows desktop (持ってるサブスクリプションでインストール)</p>
+<h4>手順</h4>
+<p>githubのページに書かれているとおりなので、割愛します。手抜きですいません。<br />
+<a href="https://github.com/atom/atom/blob/master/docs/build-instructions/windows.md">https://github.com/atom/atom/blob/master/docs/build-instructions/windows.md</a></p>
+<h4>ハマった</h4>
+<h4>npm のバージョンが問われた</h4>
+<p>script/buildした時に下記のエラーが表示される</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">npm v1.4+ is required to build Atom.
+</span></pre>
+<p>これは、最初にインストールしたnode v0.10.25の日本語版のnpmが1.3系だったので怒られました。npm扱ったことないので、v0.10.29をダウンロードして解決しました。</p>
+<h4>何かnotfoundだよって言われる</h4>
+<p>下記のご様子</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">github-url-from-git@1.1.1 No repository field atom
+</span></pre>
+<p>たぶんインストール系でミスってると思い、32bit版で合わせてたものをさっきのnodeの件と合わせて64bit版を入れなおした。<br />
+あとpathの中にnpmのpathが知らないもので入っていて”cuserslocalroamingnpm”みたいになってた（うる覚え）。とりあえず消してみた。<br />
+その後scriptbuildして</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">Done, without errors.
+</span></pre>
+<p>でビルド成功。</p>
+<h4>しかし、起動はするのにウィンドウが表示されない</h4>
+<p>こんなかんじでアイコンは表示され起動されているのにウィンドウが表示されない。<br />
+完全にヘルプミー。</p>
+<p>こちらqiitaにも同様の記事を書いたところ、「Aeroプレビュー(スクショのやつ)にマウス乗っけて右クリック→最大化 でとりあえず解決」という助言をいただき無事解決しました。<br />
+これで、shift-jis読めるようにはよはよ、になれそうです。</p>
+<h4>まとめ（まとまってない）</h4>
+<p>というわけで、今積んでます。<br />
+おわり。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

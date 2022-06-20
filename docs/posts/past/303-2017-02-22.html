@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Railsのパフォーマンス・チューニング</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Railsのパフォーマンス・チューニング</h2>
+    <div class="description">
+        　Date：2017-02-22 20:46:30 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <p><img src="/public/images/2017/09/ce4f2-1hkdipgvig8tsiefyh8kcag.jpeg" alt="" />### パフォーマンス改善
+Rails アプリケーションのパフォーマンス改善というものに初めて取り組んだので、その記録を残します。<br />
+ほとんどがはじめて行ったものなので、かつ他の方がすでにまとめられているものではありますが何らかの参考になれば幸いです。</p>
+<h3>手順</h3>
+<p>基本的な手順は</p>
+<ul>
+<li>アプリケーションの速度を計測する</li>
+<li>課題点を洗い出す</li>
+<li>課題点を改善する
+の繰り返しで少しずつ時間を削っていきました。</li>
+</ul>
+<h3>計測</h3>
+<p>今回ここが一番勉強になりましたが、アプリケーションの速度計測は様々な方法で図ることが可能です。</p>
+<ul>
+<li>Chromeの開発者ツール</li>
+<li>WEBサービス</li>
+<li>データベースのログ</li>
+<li>gem
+今回は上記について記録を残していきます。</li>
+</ul>
+<h4>Chromeの開発者ツール</h4>
+<p>一番最初に行ったのはChromeの開発者ツールで「ページ全体の読み込み」について調べました。<br />
+主に参考にしたのは <a href="http://qiita.com/y_fujieda/items/a0a69151cf7307039f74">http://qiita.com/y_fujieda/items/a0a69151cf7307039f74</a> こちらのnetworkを参考にしました。</p>
+<p><img src="/public/images/2017/09/2c86b-0os8tuoxxs7hwnycn.jpeg" alt="" />(※今回の改善点と画像の数値は関係ありません)</p>
+<p>開発者ツールのnetworkタブを表示した状態で、読み込むとこのような形で表示がされます。<br />
+特に今回見ていたのは以下の部分です</p>
+<p>■全体の読み込み</p>
+<p><img src="/public/images/2017/09/59aa4-074xyez9gkmuihm0z.jpeg" alt="" />ページ下部に表示されています。全体の読み込み時間は一つの指標としました。</p>
+<p>■TTFB(Time To First Byte)</p>
+<p><img src="/public/images/2017/09/9f088-0uzrzi_hw1qqqkjcn.jpeg" alt="" />networkタブで読み込んだときの一番最初にでてくるDocumentのTTFBをよく見ていました。<br />
+TTFBは「最初の1バイト」でリクエストを投げてから応答が返ってくる一番最初の部分です。<br />
+ここがほかのと比べて時間がかかっていたので、今回注視して見ていました。<br />
+Googleはこの部分が200ms程度までで返ってくることを推奨しているようです。</p>
+<p>その他にも色々見ることができるので、活用されると良いと思います。</p>
+<h4>WEBサービス</h4>
+<p>■Google Page Speed Insights</p>
+<p>URL: <a href="https://developers.google.com/speed/pagespeed/insights/">https://developers.google.com/speed/pagespeed/insights/</a></p>
+<p><img src="/public/images/2017/09/6ed17-0mgvevi_6kqy3z_0y.jpeg" alt="" />モバイルとPCでWEBサイトの課題を表示してくれます。<br />
+レンダリングブロックなどアプリケーションの部分から、サーバ設定の部分までアドバイスがあります。</p>
+<p>■GTmetrix</p>
+<p>URL: <a href="https://gtmetrix.com/">https://gtmetrix.com/</a></p>
+<p><img src="/public/images/2017/09/8f520-0lijy9qrzuzmvxdpf.jpeg" alt="" />これもWEBページの評価をしてくれます。<br />
+開発者ツールの項目に近い感じです。</p>
+<h4>ログ</h4>
+<p>アプリケーションのログから主にデータベースのログを確認していました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">_id&quot; = $1 AND (&quot;records&quot;.&quot;date&quot; BETWEEN $2 AND $3) AND &quot;records&quot;.&quot;category_id&quot; = $4 [[&quot;user_id&quot;, 1], [&quot;date&quot;, Wed, 01 Feb 2017], [&quot;date&quot;, Tue, 28 Feb 2017], [&quot;category_id&quot;, 15]]
+</span><span style="color:#c0c5ce;">2017-02-22T10:23:45.892753+00:00 app[web.1]: D, [2017-02-22T19:23:45.892254 #4] DEBUG -- : [c1917d0b-0d2b-4005-86de-5a54690e8d92] (1.3ms) SELECT SUM(&quot;records&quot;.&quot;amount&quot;) FROM &quot;records&quot; WHERE &quot;records&quot;.&quot;user_id&quot; = $1 AND (&quot;records&quot;.&quot;date&quot; BETWEEN $2 AND $3) AND &quot;records&quot;.&quot;category_id&quot; = $4 [[&quot;user_id&quot;, 1], [&quot;date&quot;, Wed, 01 Feb 2017], [&quot;date&quot;, Tue, 28 Feb 2017], [&quot;category_id&quot;, 16]]
+</span><span style="color:#c0c5ce;">2017-02-22T10:23:45.894353+00:00 app[web.1]: D, [2017-02-22T19:23:45.894036 #4] DEBUG -- : [c1917d0b-0d2b-4005-86de-5a54690e8d92] (0.9ms) SELECT SUM(&quot;records&quot;.&quot;amount&quot;) FROM &quot;records&quot; WHERE &quot;records&quot;.&quot;user_id&quot; = $1 AND (&quot;records&quot;.&quot;date&quot; BETWEEN $2 AND $3) AND &quot;records&quot;.&quot;credit&quot; = $4 [[&quot;user_id&quot;, 1], [&quot;date&quot;, Wed, 01 Feb 2017], [&quot;date&quot;, Tue, 28 Feb 2017], [&quot;credit&quot;, true]]
+</span><span style="color:#c0c5ce;">2017-02-22T10:23:45.894666+00:00 app[web.1]: I, [2017-02-22T19:23:45.894607 #4] INFO -- : [c1917d0b-0d2b-4005-86de-5a54690e8d92] Rendered welcome/index.html.haml within layouts/application (38.3ms)
+</span><span style="color:#c0c5ce;">2017-02-22T10:23:45.896675+00:00 app[web.1]: I, [2017-02-22T19:23:45.896615 #4] INFO -- : [c1917d0b-0d2b-4005-86de-5a54690e8d92] Completed 200 OK in 44ms (Views: 18.0ms | ActiveRecord: 23.4ms)
+</span></pre>
+<p>例えばこんなようなログから 「3桁msのもの」や「同じようなクエリ」を探してリストアップして言いました。</p>
+<h4>計測で使用したgem</h4>
+<p>今回新鮮だったのが、この計測系gemでした。<br />
+わたしは以下の2つを使いました。</p>
+<p>■rack-mini-profiler</p>
+<p>URL: <a href="https://github.com/MiniProfiler/rack-mini-profiler">https://github.com/MiniProfiler/rack-mini-profiler</a></p>
+<p>発行されたSQLとその内容に加え、それぞれにかかっている時間が表示されます。</p>
+<p><img src="/public/images/2017/09/5b322-0waw4inhzdw040awr.jpeg" alt="" />左上にこのような数値が表示されて、クリックすると</p>
+<p><img src="/public/images/2017/09/24792-0kjqf3c6-ktw7o6fc.jpeg" alt="" />みたいな感じでログが表示されます。<br />
+すごくボトルネックが探しやすい。すごくたくさんのSQLが発行されていたり、著しく遅いところをさがしていきます。</p>
+<p>■rack-lineprof</p>
+<p>URL: <a href="https://github.com/kainosnoema/rack-lineprof">https://github.com/kainosnoema/rack-lineprof</a></p>
+<p>このgemは行単位で時間の計測が可能です。<br />
+画像を見てもらうのがはやいかとおもいますが、</p>
+<p><img src="/public/images/2017/09/91661-0xjyuri6wp5a_iklx.png" alt="" />※ ↑ <a href="https://github.com/kainosnoema/rack-lineprof">https://github.com/kainosnoema/rack-lineprof</a> の画像を転記</p>
+<p>このような形で表示されます。一連の処理に対してどれくらいかかったかというのがログでも見れるのですが、<br />
+どの部分にどれくらいというところが、画像のような感じでわかりやすく見ることができるので、これを土台に話たりして、とてもはかどりました。</p>
+<h3>課題</h3>
+<p>上記のツールで計測をしていくといくつか課題が見えてきます。<br />
+私の場合見えてきた課題は以下のとおりでした。</p>
+<ul>
+<li>イテレータの中でクエリが走っていて、無駄なやり取りが発生していた。</li>
+<li>キャッシュして良さそうな部分にキャッシュがなかった</li>
+<li>画像の圧縮ができそう</li>
+<li>ブラウザキャッシュの設定ができそう</li>
+<li>データベースの取得に時間がかかっていた
+あとは細かいコードの書き換えを少し行ったりしました。</li>
+</ul>
+<h3>改善</h3>
+<p>課題にあげたところを参考までにどんな感じの修正をしたか記録していきます。</p>
+<h4>データベースの取得に時間がかかっていた</h4>
+<p>時間がかかっているクエリを調べて、ひたすらINDEXを作成していく。</p>
+<h4>無駄クエリ</h4>
+<p>イテレータの中で取得していたクエリを、外で一括で取得してそれに対してイテレータをかけるようにした。<br />
+※record_ids は複数のrecord idの配列<br />
+※mongoidです</p>
+<p>before.rb</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">record_ids **.** each **do**** | **record_id** |**
+</span><span style="color:#c0c5ce;">record **=** Record **.** where(id: record_id, status: &#39;open&#39;) **.** first
+</span><span style="color:#c0c5ce;">_# recordに関する処理_
+</span><span style="color:#c0c5ce;">**end**
+</span></pre>
+<p>after.rb</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">open_records **=** Record **.** in(id: record_ids) **.** where(status: &#39;open&#39;)
+</span><span style="color:#c0c5ce;">open_records **.** each **do**** | **record** |**
+</span><span style="color:#c0c5ce;">_# recordに関する処理_
+</span><span style="color:#c0c5ce;">**end**
+</span></pre>
+<h4>キャッシュして良さそうな部分にキャッシュがなかった</h4>
+<p>railsが持っているキャッシュの機能を使用してみました。<br />
+下記、が参考になるかと思います。</p>
+<ul>
+<li>参考URL</li>
+<li><a href="https://railsguides.jp/caching_with_rails.html">https://railsguides.jp/caching_with_rails.html</a></li>
+<li><a href="http://qiita.com/moriteru/items/493a4d43bd7a77f38424">http://qiita.com/moriteru/items/493a4d43bd7a77f38424</a></li>
+</ul>
+<h4>WEBサーバ</h4>
+<p>■画像の圧縮ができそう</p>
+<p>nginxを使用しているので <code>ngx_http_gzip_module</code> を使用して、<br />
+まだ圧縮設定が入っていないものを追加しました。</p>
+<ul>
+<li>nginx の公式サイト</li>
+<li><a href="http://nginx.org/en/docs/http/ngx_http_gzip_module.html">http://nginx.org/en/docs/http/ngx_http_gzip_module.html</a>
+■ブラウザキャッシュの設定ができそう</li>
+</ul>
+<p>これもGoogle Page Speed Insight で指摘された事項で<br />
+特定のファイルに関してキャッシュさせても問題なさそうだったので<br />
+nginxに設定を追加しました。</p>
+<ul>
+<li>参考サイト</li>
+<li><a href="http://tactosh.com/2014/01/nginx-http-headers-expires/">http://tactosh.com/2014/01/nginx-http-headers-expires/</a></li>
+</ul>
+<h3>最後に</h3>
+<p>今回走り書きですが、主に計測のところを重点的に記載しました。<br />
+一つの作業でXXmsが減っていく感覚は結構面白く、貴重な体験でした。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Transmit Mail の 非公式な編集をしてみた</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Transmit Mail の 非公式な編集をしてみた</h2>
+    <div class="description">
+        　Date：2015-02-02 01:47:41 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <h4>Transmit Mail の 非公式な編集です</h4>
+<p>TransmitMailがすごくいいので個人のWEBサイトの制作でよく使わせていただくんですが、今回 <strong>件名に入力内容を埋め込む</strong> 必要があったのでメモしてみました(色々ハマってみました)。</p>
+<p>※ 非公式な修正です。フォームなので注意して下さい。<br />
+※ 私はPHPは全くわかりません。</p>
+<h4>TransmitMailとは</h4>
+<p>dounokounoさん作成のCopyright表示不要のPHP製汎用メールフォームシステムです。<br />
+github: <a href="https://github.com/dounokouno/TransmitMail">https://github.com/dounokouno/TransmitMail</a></p>
+<h4>編集するファイル</h4>
+<p>input.htmlとconf/config.phpの2ファイルになります。<br />
+今回は、ラジオボタンで選択した問い合わせ内容がメールの件名に入るという内容で記載します。</p>
+<h4>input.html</h4>
+<p>フォームパーツの部分を該当箇所のみ抜粋します。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">&lt;tr class=&quot;form&quot;&gt;
+</span><span style="color:#c0c5ce;">&lt;th class=&quot;form&quot;&gt;お問い合せの種類&lt;span class=&quot;notice&quot;&gt;*&lt;span&gt;&lt;/th&gt;
+</span><span style="color:#c0c5ce;">&lt;td&gt;
+</span><span style="color:#c0c5ce;">&lt;input class=&quot;form&quot; type=&quot;radio&quot; name=&quot;お問い合わせの種類&quot; value=&quot;項目1&quot; id=&quot;radio1&quot; {$checked.お問い合わせの種類.項目1} {$checked.default} /&gt;
+</span><span style="color:#c0c5ce;">&lt;label for=&quot;radio1&quot;&gt;項目1&lt;/label&gt;&lt;br &gt;
+</span><span style="color:#c0c5ce;">&lt;input class=&quot;form&quot; type=&quot;radio&quot; name=&quot;お問い合わせの種類&quot; value=&quot;項目2&quot; id=&quot;radio2&quot; {$checked.お問い合わせの種類.項目2} /&gt;
+</span><span style="color:#c0c5ce;">&lt;label for=&quot;radio2&quot;&gt;項目2&lt;/label&gt;&lt;br &gt;
+</span><span style="color:#c0c5ce;">&lt;input class=&quot;form&quot; type=&quot;radio&quot; name=&quot;お問い合わせの種類&quot; value=&quot;項目3&quot; id=&quot;radio3&quot; {$checked.お問い合わせの種類.項目3} /&gt;
+</span><span style="color:#c0c5ce;">&lt;label for=&quot;radio3&quot;&gt;項目3&lt;/label&gt;&lt;br &gt;
+</span><span style="color:#c0c5ce;">&lt;/td&gt;
+</span><span style="color:#c0c5ce;">&lt;/tr&gt;
+</span></pre>
+<p>このような感じ。</p>
+<h4>config.php</h4>
+<p>25行目くらいの件名の設定のところを以下の様子で編集します。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">require_once(&#39;lib/common.php&#39;);
+</span><span style="color:#c0c5ce;">$_POST = delete_nullbyte($_POST);
+</span><span style="color:#c0c5ce;">$_POST = safe_strip_slashes($_POST);
+</span><span style="color:#c0c5ce;">define(&#39;TO_SUBJECT&#39;, &#39;［テスト株式会社］お問い合わせ - &#39; . $_POST[&#39;お問い合わせの種類&#39;]);
+</span></pre>
+<h4>説明</h4>
+<p>$_POST がフォームで記入された文字列を抱え込んでいるようなので、おそらくこの連想配列と思われるデータ群の中から欲しい文字列のキーを指定してあげると取得できるご様子です。</p>
+<p>キーはinput.htmlにある一連にパーツのなかで、inputタグのname属性となっています。</p>
+<p>あとはconfig.phpのdefineでTO_SUBJECTという定数が指定されているところに、作成したい件名と文字列を 連結してあげれば完了です。</p>
+<h4>最後に</h4>
+<p>Transmit Mailの作者さんであるdounokounoさんありがとうございます。<br />
+いつも便利に使わせて頂いております。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

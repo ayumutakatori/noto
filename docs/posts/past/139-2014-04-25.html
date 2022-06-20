@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>VagrantとchefとServer Specの実験</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">VagrantとchefとServer Specの実験</h2>
+    <div class="description">
+        　Date：2014-04-25 13:47:40 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>chefとserver specのための環境</p>
+<p>気軽にぶっ壊せて、気軽に作業に入れるCentOS環境が欲しかったのでもしかしたらいいのかもしれないと思ってwindows上でVagrantをはじめて触ってみようの会です。 この記事はVagrantが起動するところまでを書いていきます。</p>
+<p>まずVirtualBoxをダウンロードしてきました</p>
+<p>よくわからないけれどVirtualBoxが必要ということだったのでダウンロードしてきました。</p>
+<p>[embed]https://www.virtualbox.org/wiki/Downloads[/embed]</p>
+<p>ダウンロードしたらインストールします。私がダウンロードした時のバージョンは VirtualBox 4.3.10 for Windows hosts でした。</p>
+<p>vagrantのインストール</p>
+<p>VagrantさんはRubyらしいので、gemでインストールできるようです。 <br />
+※現在は<a href="http://www.vagrantup.com/downloads.html">公式サイト</a>からのダウンロードが推奨されているようです。以下のものは動きませんでした。<br />
+※rubyがない人はRubyのダウンロードをよろしくです。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ gem install vagrant
+</span><span style="color:#c0c5ce;">Fetching: vagrant-1.5.0.gem (100%)
+</span><span style="color:#c0c5ce;">略
+</span><span style="color:#c0c5ce;">1 gem installed
+</span></pre>
+<p>ちなみに私のRubyは</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ ruby -v
+</span><span style="color:#c0c5ce;">ruby 2.0.0p451 (2014-02-24) [i386-mingw32]
+</span></pre>
+<p>でした参考までに。</p>
+<p>VMの追加と起動</p>
+<p>起動するためにboxというファイルをもってきます。いわゆるイメージファイルでvirtual box的なイメージでしょうか？ちがいますか？</p>
+<p><a href="http://www.vagrantbox.es/">http://www.vagrantbox.es/</a> こちらにいろいろ有ります。 わたしは 「http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-i386-v20130731.box」を使ってみることにしました。</p>
+<p>下記のように起動するようです</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># 使うboxと名前付けを追加
+</span><span style="color:#c0c5ce;">$ vagrant box add CentOS[http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-i386-v20130731.box](http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-i386-v20130731.box)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 先ほどの名前のものを設定ファイル生成
+</span><span style="color:#c0c5ce;">$ vagrant init CentOS
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 起動
+</span><span style="color:#c0c5ce;">$ vagrant up
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">という感じです。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">一行目で何か変なの出てきた
+</span></pre>
+<blockquote>
+<p>Thanks for wanting to use Vagrant! Unfortunately, this is not the way to install Vagrant anymore. We now make installers for the various operating systems Vagrant supports. 中略 If you want to learn more about why we don’t distribute using RubyGems anymore, please read this: <a href="http://mitchellh.com/abandoning-rubygems">http://mitchellh.com/abandoning-rubygems</a> 要は最新はもうgemじゃないんだぜ、webサイト来てくれ、的な話しらしいです（？）というかもうだめらしい。インストールし直しでした。悲しいね。</p>
+</blockquote>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">というわけで入れなおした。WEBサイトからダウンロードしてきてインストールをしました。 バージョンは下記のとおりです。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ vagrant -v
+</span><span style="color:#c0c5ce;">Vagrant 1.5.4
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">気を取り直して、さきほどのコマンドを一行目からいきます。 まず、ダウンロードがはじまって進捗と残時間とかが出てきます。 ※ 結構ダウンロードに時間がかかるためのちほどダウンロードしてきたものを使うことにしました。 　 その際はhttp://から始まる部分に該当ファイルパスを指定してください。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">box: Adding box &#39;CentOS&#39; (v0) for provider:
+</span><span style="color:#c0c5ce;">box: Downloading:[http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86\_64-v20130731.box](http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130731.box)
+</span><span style="color:#c0c5ce;">box: Progress: 100% (Rate: 9282k/s, Estimated time remaining: --:--:--)
+</span><span style="color:#c0c5ce;">==&gt; box: Successfully added box &#39;CentOS&#39; (v0) for &#39;virtualbox&#39;!
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">大体10分ぐらい？完了したらとりあえず続行します。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ vagrant init CentOS
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">A `Vagrantfile` has been placed in this directory. You are now
+</span><span style="color:#c0c5ce;">ready to `vagrant up` your first virtual environment! Please read
+</span><span style="color:#c0c5ce;">the comments in the Vagrantfile as well as documentation on
+</span><span style="color:#c0c5ce;">`vagrantup.com` for more information on using Vagrant.
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">とりあえず続行します。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ vagrant up
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Bringing machine &#39;default&#39; up with &#39;virtualbox&#39; provider...
+</span><span style="color:#c0c5ce;">==&gt; default: Clearing any previously set forwarded ports...
+</span><span style="color:#c0c5ce;">==&gt; default: Clearing any previously set network interfaces...
+</span><span style="color:#c0c5ce;">==&gt; default: Preparing network interfaces based on configuration...
+</span><span style="color:#c0c5ce;">default: Adapter 1: nat
+</span><span style="color:#c0c5ce;">==&gt; default: Forwarding ports...
+</span><span style="color:#c0c5ce;">default: 22 =&gt; 2222 (adapter 1)
+</span><span style="color:#c0c5ce;">==&gt; default: Booting VM...
+</span><span style="color:#c0c5ce;">==&gt; default: Waiting for machine to boot. This may take a few minutes...
+</span><span style="color:#c0c5ce;">default: SSH address: 127.0.0.1:2222
+</span><span style="color:#c0c5ce;">default: SSH username: vagrant
+</span><span style="color:#c0c5ce;">default: SSH auth method: private key
+</span><span style="color:#c0c5ce;">default: Warning: Connection timeout. Retrying...
+</span><span style="color:#c0c5ce;">default: Warning: Connection timeout. Retrying...
+</span><span style="color:#c0c5ce;">default: Warning: Connection timeout. Retrying...
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">default: Warning: Connection timeout. Retrying… から進まない事象が発生。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Connection timeout. Retrying…のままタイムアウトの対策(windos)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">散々粘っていろいろ試してみたのですが、結論から言うとWINDOWSの場合BIOSの設定で VTを有効にしないとboxが立ち上がらないようです。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">参考 =&gt;[http://qiita.com/rch850/items/ba254063df4a9ff15354](http://qiita.com/rch850/items/ba254063df4a9ff15354)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">再立ち上げ
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">BIOSの設定を変えたところで、再度upを試してみたところ無事に立ち上がりました。 Retryingも2回でてますが、前はそこからさきに進みませんでしたからね。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ vagrant up
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Bringing machine &#39;default&#39; up with &#39;virtualbox&#39; provider...
+</span><span style="color:#c0c5ce;">==&gt; default: Clearing any previously set forwarded ports...
+</span><span style="color:#c0c5ce;">==&gt; default: Clearing any previously set network interfaces...
+</span><span style="color:#c0c5ce;">==&gt; default: Preparing network interfaces based on configuration...
+</span><span style="color:#c0c5ce;">default: Adapter 1: nat
+</span><span style="color:#c0c5ce;">==&gt; default: Forwarding ports...
+</span><span style="color:#c0c5ce;">default: 22 =&gt; 2222 (adapter 1)
+</span><span style="color:#c0c5ce;">==&gt; default: Booting VM...
+</span><span style="color:#c0c5ce;">==&gt; default: Waiting for machine to boot. This may take a few minutes...
+</span><span style="color:#c0c5ce;">default: SSH address: 127.0.0.1:2222
+</span><span style="color:#c0c5ce;">default: SSH username: vagrant
+</span><span style="color:#c0c5ce;">default: SSH auth method: private key
+</span><span style="color:#c0c5ce;">default: Warning: Connection timeout. Retrying...
+</span><span style="color:#c0c5ce;">default: Warning: Connection timeout. Retrying...
+</span><span style="color:#c0c5ce;">==&gt; default: Machine booted and ready!
+</span><span style="color:#c0c5ce;">==&gt; default: Checking for guest additions in VM...
+</span><span style="color:#c0c5ce;">default: The guest additions on this VM do not match the installed version of
+</span><span style="color:#c0c5ce;">default: VirtualBox! In most cases this is fine, but in rare cases it can
+</span><span style="color:#c0c5ce;">default: prevent things such as shared folders from working properly. If you see
+</span><span style="color:#c0c5ce;">default: shared folder errors, please make sure the guest additions within the
+</span><span style="color:#c0c5ce;">default: virtual machine match the version of VirtualBox you have installed
+</span><span style="color:#c0c5ce;">on
+</span><span style="color:#c0c5ce;">default: your host and reload your VM.
+</span><span style="color:#c0c5ce;">default:
+</span><span style="color:#c0c5ce;">default: Guest Additions Version: 4.2.16
+</span><span style="color:#c0c5ce;">default: VirtualBox Version: 4.3
+</span><span style="color:#c0c5ce;">==&gt; default: Mounting shared folders...
+</span><span style="color:#c0c5ce;">default: /vagrant =&gt; C:/Users/XXXX
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">立ち上がったあとのいろいろ
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">ステータスの確認 =&gt; $ vagrant status
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Current machine states:
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">default running (virtualbox)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">The VM is running. To stop this VM, you can run `vagrant halt` to
+</span><span style="color:#c0c5ce;">shut it down forcefully, or you can run `vagrant suspend` to simply
+</span><span style="color:#c0c5ce;">suspend the virtual machine. In either case, to restart it again,
+</span><span style="color:#c0c5ce;">simply run `vagrant up`.
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">起動中のVMにssh接続 =&gt; $ vagrant ssh
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Welcome to your Vagrant-built virtual machine.
+</span><span style="color:#c0c5ce;">[vagrant@localhost ~]$
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 立ち上げたBMX試しにinitスクリプトのフォルダを覗いておいた
+</span><span style="color:#c0c5ce;">[vagrant@localhost ~]$ ls /etc/init.d/
+</span><span style="color:#c0c5ce;">auditd iscsi netfs rpcbind sshd
+</span><span style="color:#c0c5ce;">blk-availability iscsid network rpcgssd udev-post
+</span><span style="color:#c0c5ce;">crond killall nfs rpcidmapd vboxadd
+</span><span style="color:#c0c5ce;">dkms_autoinstaller lvm2-lvmetad nfslock rpcsvcgssd vboxadd-service
+</span><span style="color:#c0c5ce;">functions lvm2-monitor postfix rsyslog vboxadd-x11
+</span><span style="color:#c0c5ce;">halt mdmonitor puppet sandbox
+</span><span style="color:#c0c5ce;">ip6tables multipathd rdisc saslauthd
+</span><span style="color:#c0c5ce;">iptables netconsole restorecond single
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">起動したVMの停止 =&gt; $ vagrant halt
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">==&gt; default: Attempting graceful shutdown of VM...
+</span><span style="color:#c0c5ce;">default: Guest communication could not be established! This is usually because
+</span><span style="color:#c0c5ce;">default: SSH is not running, the authentication information was changed,
+</span><span style="color:#c0c5ce;">default: or some other networking issue. Vagrant will force halt, if
+</span><span style="color:#c0c5ce;">default: capable.
+</span><span style="color:#c0c5ce;">==&gt; default: Forcing shutdown of VM...
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">あとは 再起動 =&gt; $ vagrant reload
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">中断 =&gt; $ vagrant suspend
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">中断からの再開 =&gt; $ vagrant resume
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">マシンの停止と作られる過程で生成されたすべてのリソースの削除 =&gt; $ vagrant destroy
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">次の記事ではVagrantの具体的な設定を行いたい
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">今回はとりあえず起動までを記事にしました。 次はVagrantfileの設定の勉強をしてから記事にしたいと思います。 その次はchefの方を行います。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

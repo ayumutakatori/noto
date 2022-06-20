@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>bitbucket + mercurailで履歴管理してみた</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">bitbucket + mercurailで履歴管理してみた</h2>
+    <div class="description">
+        　Date：2013-07-30 23:55:22 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>会社では、subversionを使ってたりしていたのだけど、個人用はgithubに挑戦してなんか萎えたきりでした。</p>
+<p>今バージョン管理とかはwebsiteなので、実はdropboxだったりします。以外と便利なのですけど、ちょっとごちゃごちゃしてきたのと新しいことに挑戦しようということで、バージョン管理にチャレンジです。<br />
+<strong>初期作業とwindows</strong></p>
+<p>・bitbucketにアカウント登録</p>
+<p>・tortoiseHgのインストール</p>
+<p> -&gt; mercurailのgui操作ができるようになるのと、mercurail自体も入るのであついです。</p>
+<p>・PCとbitに作業ディレクトリを作成。</p>
+<p><strong>macのmercurailインストール</strong></p>
+<p>[crayon]</p>
+<p>brew install python</p>
+<p>pip install mercurial</p>
+<p>＃pipはphtyonインストール時に入ったみたい</p>
+<p>[/crayon]</p>
+<p>らしいです。</p>
+<p><strong>macに作業フォルダ作成</strong></p>
+<p>というわけで、じゅんびができたのでmacに作業フォルダつくってみた。</p>
+<p>[crayon]</p>
+<p>hg clone [https://*******](https:// ******* ) Mercurialの設定ファイルである ~/.hgrc (MacPortsによってインストールされています) を、普段使っているエディタで編集します。</p>
+<p>username を設定します。</p>
+<p>編集が完了後、設定ファイルは次のような感じになります:</p>
+<p>[crayon]</p>
+<p>[ui]</p>
+<h3>Name data to appear in commits</h3>
+<p>username = Mary Anthony </p>
+<p>[/crayon]</p>
+<p>これは Mercurialが使用するデフォルトの値です。リポジトリ毎に別の指定をすることもできます(これについては後で学ぶことになります)。</p>
+<p>ユーザのhomeディレクトリに.hgrcを作るんだね。</p>
+<p>なんとなくイメージ的に、hg add &gt; hg commit &gt; hg push https://＊＊＊＊</p>
+<p>と三段階な感じなので、commitからpushまでスクリプトでも良さそう。せめてhttps以下を毎回打つのをやめたい。</p>
+<p><strong>.hgrcファイル</strong></p>
+<p>https://とかのところがいちいち覚えて折れないでござるとか思ってたら</p>
+<p>やっぱり手立てはちゃんとにあって</p>
+<p>cloneしたリポジトリの中に.hgディレクトリができるのでその中に.hgrcファイルを設置しやるといい。</p>
+<p>[crayon]</p>
+<p>[ui]</p>
+<p>username </p>
+<p>[paths]</p>
+<p>default = https://からはじまるレポジトリURL[/crayon]</p>
+<p>とかでいいみたい。</p>
+<p>作業フォルダの同期？更新だけど、hg pullかと思っていたらhg updateで大丈夫なようだった。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

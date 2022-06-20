@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>hubコマンドの導入</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">hubコマンドの導入</h2>
+    <div class="description">
+        　Date：2016-02-10 20:21:08 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>会社の先輩がhubコマンドを使っていて便利だよって教えてくれたので、インストールからやってみることにします。</p>
+<h4>環境</h4>
+<ul>
+<li>MAC OS X 10.11.3</li>
+<li>homebrew 0.9.5
+$ hub — version<br />
+git version 2.5.4 (Apple Git-61)<br />
+hub version 2.2.3</li>
+</ul>
+<h4>インストール</h4>
+<p>homebrewから一発のようです。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ brew install hub
+</span></pre>
+<h4>設定</h4>
+<p>hub XXXというコマンドをgit XXX で使えるようにすると便利ということで.bashrcに追加します。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">eval &quot;$(hub alias -s)&quot;
+</span></pre>
+<p>すると</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ hub browse user/repo
+</span><span style="color:#c0c5ce;">$ git browse user/repo
+</span></pre>
+<p>で該当のgithub pageを開けるようになりました。<br />
+その他便利なコマンドがたくさんあるようです。</p>
+<p>参考: <a href="https://github.com/github/hub/blob/master/README.md">https://github.com/github/hub/blob/master/README.md</a><br />
+参考: <a href="http://qiita.com/yaotti/items/a4a7f3f9a38d7d3415e3">http://qiita.com/yaotti/items/a4a7f3f9a38d7d3415e3</a></p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

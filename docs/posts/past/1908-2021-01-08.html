@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>typescript 事始め</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">typescript 事始め</h2>
+    <div class="description">
+        　Date：2021-01-08 17:56:02 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <p>typescript をちょっと個人で書かなければいけないかもしれないので、本当に少しだけ触っていくための準備をしてみた。</p>
+<h2>インストール</h2>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ npm install -g typescript
+</span></pre>
+<p>/Users/ryo/.nodenv/versions/10.16.2/bin/tsc -&gt; /Users/ryo/.nodenv/versions/10.16.2/lib/node_modules/typescript/bin/tsc</p>
+<p>/Users/ryo/.nodenv/versions/10.16.2/bin/tsserver -&gt; /Users/ryo/.nodenv/versions/10.16.2/lib/node_modules/typescript/bin/tsserver</p>
+<ul>
+<li>typescript@4.1.3</li>
+</ul>
+<p>added 1 package from 1 contributor in 2.004s</p>
+<p>$ npx -v</p>
+<p>6.9.0</p>
+<p>$ npx tsc</p>
+<p>Version 4.1.3</p>
+<h2>IntelliJ Idea でプロジェクトを作成</h2>
+<p>こちらを見ながら作業をしていった。</p>
+<p>https://journal.lampetty.net/entry/setup-typescript-development-environment</p>
+<ul>
+<li><code>File Watchers</code> というプラグインを入れた。</li>
+<li>hello.ts ファイルを作った
+class Hello {</li>
+</ul>
+<p>message: string;</p>
+<p>constructor(message) {</p>
+<p>this.message = message;</p>
+<p>}</p>
+<p>printMessage() {</p>
+<p>console.log(this.message);</p>
+<p>}</p>
+<p>}</p>
+<p>let hello = new Hello('hello');</p>
+<p>hello.printMessage();</p>
+<p>tsファイルを作っても File Watchersが反応してくれなかったので、</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ npx tsc hello.ts
+</span></pre>
+<p>をしてみたら、hello.jsができてた。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">var Hello = /** @class */ (function () {
+</span></pre>
+<p>function Hello(message) {</p>
+<p>this.message = message;</p>
+<p>}</p>
+<p>Hello.prototype.printMessage = function () {</p>
+<p>console.log(this.message);</p>
+<p>};</p>
+<p>return Hello;</p>
+<p>}());</p>
+<p>var hello = new Hello('hello');</p>
+<p>hello.printMessage();</p>
+<p>このjsどこで実行したらいいかなー、もしかしてnpx（のことをわかってない）でいけるのではn？って思ってやってみたらいけた</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ npx run hello.js
+</span></pre>
+<p>npx: installed 5 in 1.275s</p>
+<p>Watching ts-helloworld and all sub-directories not excluded by your .gitignore. Will not monitor dotfiles.</p>
+<p>Starting: hello.js</p>
+<p>hello</p>
+<p>なるほど出力された。</p>
+<p>もう少し勉強を勧めたい、何を題材としてやっていこうかこれから考えていこう。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

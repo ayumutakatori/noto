@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>assets関係でCSS/JSが更新されないよくあるやつ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">assets関係でCSS/JSが更新されないよくあるやつ</h2>
+    <div class="description">
+        　Date：2016-03-28 00:41:13 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h4>この記事</h4>
+<p>よくある話なのですが、assetsのcompileでおかしなことになっていたので、そのまとめ。</p>
+<ul>
+<li>cssとjsの表示がなんかおかしくなった</li>
+<li>config.serve_static_assetsが rails 5で非推奨</li>
+<li>public/assetsのファイルを消して解決
+という流れです。</li>
+</ul>
+<h4>cssとjsの表示がなんかおかしくなった</h4>
+<p>ローカルではうまく表示されているんですが、herokuにgithub経由でアップロードすると表示がうまくされるという現象に襲われた。<br />
+そこで $ rake assets:precompile をした(のがよくなかった)。</p>
+<h4>config.serve_static_assets</h4>
+<p>記事を検索したら config.serve_static_assets = true にしないとだめだよー的な記事をたくさん見かけたので、盲目的に入れたのだけど、その碁herokuで</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">DEPRECATION WARNING: The configuration option `config.serve_static_assets` has been renamed to `config.serve_static_files` to clarify its role (it merely enables serving everything in the `public` folder and is unrelated to the asset pipeline). The `serve_static_assets` alias will be removed in Rails 5.0. Please migrate your configuration files accordingly. (called from block in &lt;top (required)&gt; at /app/config/environments/production.rb:33)
+</span></pre>
+<p>なるメッセージが出てきた。状態が解決しなかったのでとりあえず削除した。</p>
+<h4>public/assetsのファイル</h4>
+<p>一旦、ファイルがあるからcompileされないのかもしれないと思い、 $ rake assets:clean を実行。railsのファイル群の中でpublic/assetsにファイルが残っていたので削除した。</p>
+<p>これで解決した。<br />
+時間があるときにこの辺りもう少し掘り下げておきたい。というメモでした。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

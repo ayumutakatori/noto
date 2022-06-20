@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>windowsでの文字コードでハマった</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">windowsでの文字コードでハマった</h2>
+    <div class="description">
+        　Date：2013-12-04 20:55:05 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>Rubyのコードでハマりまして、とてもハマりました。</p>
+<p>・WINDOWS 7<br />
+・Ruby 2.0<br />
+・やりたいこと<br />
+ 特定のフォルダに入っている特定のファイル(複数)を片っ端から印刷する（一番左のシートだけ）</p>
+<p>こんなコードを書いてました</p>
+<p>まず抽出するところを見てみたくて色々していました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># coding: Windows-31J
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">require &#39;find&#39;
+</span><span style="color:#c0c5ce;">require &#39;pp&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">file =[]
+</span><span style="color:#c0c5ce;">Find.find(&#39;.&#39;) do |f|
+</span><span style="color:#c0c5ce;">next unless f.match(/テンプレート/s)
+</span><span style="color:#c0c5ce;">puts f.encoding
+</span><span style="color:#c0c5ce;">file
+</span><span style="color:#c0c5ce;">こんな感じで日本語を抽出しようとしていたんですが、見事に文字化けしまくりました。
+</span><span style="color:#c0c5ce;">そもそも、.matchが文字コードがずれてるとかマルチバイト文字だとかでエラー吐いて終わります。
+</span><span style="color:#c0c5ce;">悲しみ。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">それで先輩にご教授いただき一行追加して解決しました。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># coding: Windows-31J
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">require &#39;find&#39;
+</span><span style="color:#c0c5ce;">require &#39;pp&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Encoding.default_external = &#39;Windows-31J&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">file =[]
+</span><span style="color:#c0c5ce;">Find.find(&#39;.&#39;) do |f|
+</span><span style="color:#c0c5ce;">next unless f.match(/テンプレート/s)
+</span><span style="color:#c0c5ce;">puts f.encoding
+</span><span style="color:#c0c5ce;">file
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">これで無事いった！かと思ったら、まさかのsublime textで編集しているファイルがutf-8でエラーが出て
+</span><span style="color:#c0c5ce;">そちらもsjisにして解決いたしました。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">windowsの日本語本当わかってないで取り組むと悲しみが深まってゆきます。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

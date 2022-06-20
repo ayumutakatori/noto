@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Lambda for Ruby を使って勤怠ボタンを作ってみた</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Lambda for Ruby を使って勤怠ボタンを作ってみた</h2>
+    <div class="description">
+        　Date：2018-12-02 03:44:55 +0900<br />
+        　Categories： AWS <br />
+        
+    </div>
+    <h3>概要</h3>
+<p>弊社では勤怠の管理に <a href="https://jobcan.ne.jp/">jobcan</a> というサービスを利用しています。slack連携で特定のコマンドを入力すると出勤・退勤ができるっていうグッドでナイスな感じなんですが、もはや出勤時に文字を打つのすらめんどいということで、せっかくなので先日発表された「<a href="https://www.publickey1.jp/blog/18/aws_lambdarubyaws_reinvent_2018.html">AWS Support for Ruby</a>」を利用して更に楽に出勤してみるをしてみます。</p>
+<h3>仕組み</h3>
+<p>すでに下記とほぼ同内容の仕組みが IFTTT 版で動いてるためその時にpythonで書いてたものをrubyでやってみるという感じです。</p>
+<p>[embed]http://uskey.hatenablog.com/entry/2018/10/17/115728[/embed]</p>
+<h4>やりたいこと</h4>
+<p>オフィスのドアを開ける → ポケットからiPhoneを取り出す → IFTTT Button を押す → AWS API Gatewayで設定したURLにPOSTする → フックされた Lambda が動く→ slack にcommand を投稿する → jobcan連携が飛ぶ → 出勤！</p>
+<p>をオフィスに入ってから自席につくまでにやる、です。</p>
+<h4>手順</h4>
+<p>下記の手順でやったことを書いていきますが、IFTTTのアカウント作成はたぶん興味ある人いないと思うし、AWSのアカウントも迷うことなく登録できると思うし、太字のところから書いていこうと思います。</p>
+<ul>
+<li>IFTTTアカウントを作成する</li>
+<li>AWSアカウントを作成する</li>
+<li><strong>Rubyコードを書く</strong></li>
+<li><strong>lambdaの準備</strong></li>
+<li><strong>IFTTT ボタンの設定</strong></li>
+<li><strong>実行</strong></li>
+</ul>
+<h3>Rubyコードを書く</h3>
+<h4>ハマりどころ</h4>
+<p>Rubyでslackに投稿するコードを書いていきます。上に上げたリンクにも書いてあるんですが2つほど注意点があります。</p>
+<p>1つ目は、「レガシートークンを使う」です。今回の投稿はslackの連携commandを使うので本人の投稿として認識させる必要があります。そのためIncomming Webhookが使えません。</p>
+<p>2つ目は、「ドキュメントに記載されてないAPIの <code>chat.command</code> にあたる命令をする必要がある」です。今回 以下のgemを使ってますが、公式のドキュメントに記載がないAPIなのでこのgemのリファレンスにも乗ってないコマンドだったりします。</p>
+<p>[embed]http://uskey.hatenablog.com/entry/2018/10/17/115728[/embed]</p>
+<p>どちらも公式が推奨してない感じがプンプンしているので、いつか使えなくなる日が来るかも知れないんですがその頃にはjobcanさんがAPIを公開していただけるとありがたいです。出勤だけでいいので。</p>
+<h4>コード</h4>
+<p>さて、コードはこんな感じです。</p>
+<p><a href="https://gist.github.com/katsumata-ryo/f6c5c4736a58a3510e737681ae6cb68f#file-gemfile">https://gist.github.com/katsumata-ryo/f6c5c4736a58a3510e737681ae6cb68f#file-gemfile</a>コードのとおりなのですが、注意点としては- lambdaのコード実行のスタートが <code>lambda_fucntion.rb</code>の <code>def lambda_handler</code> から実行されます。そのためこれがないとlambdaにファイルを上げた時に警告がでます。</p>
+<ul>
+<li>3行目: lambdaは環境変数が登録できるのでトークンは環境変数に登録してます</li>
+<li>12行目: <code>client.chat_command</code> が先程のドキュメントに載ってないAPIのメソッド</li>
+<li>13行目: 投稿チャネル</li>
+<li>14行目: jobcanの出勤するスラック連携のコマンドtextだと文章として認識してしまうため、別にcommandで指定する必要があります。</li>
+<li>16行目: <code>as_user: true</code> で本人としてslackに投稿ができるようになります。
+という感じです。非公式コマンドのところは参考にしたサイトを見つけられなかったら確実に諦めてた案件でした。</li>
+</ul>
+<h3><strong>lambdaの準備</strong></h3>
+<h4>アップロードファイルの準備</h4>
+<p>lambdaの準備をしていきます。今回外部ライブラリを使用しているので、AWS lambdaのエディタを使うことができません。そのためzipにしてファイルをアップロードする必要があります。また、今回は4.3MBぐらいだったので必要なかったんですが、10MBを超えるとlambdaでのアップロードができません。その場合はS3にアップロードをする方向で対応してみてください(<a href="https://aws.amazon.com/jp/blogs/compute/announcing-ruby-support-for-aws-lambda/">参考: Announcing Ruby Support for AWS Lambda</a>)。</p>
+<p>bundle installしてローカルにgemを用意する</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ bundle install
+</span><span style="color:#c0c5ce;">$ bundle install --deployment # ./vender/bundle にgemが入る
+</span></pre>
+<p>ファイルツリーの様子</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">./
+</span><span style="color:#c0c5ce;">├── Gemfile
+</span><span style="color:#c0c5ce;">├── Gemfile.lock
+</span><span style="color:#c0c5ce;">├── lambda_function.rb
+</span><span style="color:#c0c5ce;">└── vendor # gem が入ってる
+</span></pre>
+<p>ファイル構造がこんな感じになっているはずなので、この4つを選択してzipファイルにしてあげてください。</p>
+<h4>AWSでlambdaの作成</h4>
+<p>AWSでlambdaを作っていきます。</p>
+<p>lambdaのページを開いて関数の作成を押す。</p>
+<p><img src="/public/images/2019/01/e1757-1DZxacmPjkc6Fd4MMSCXtKw.png" alt="" />一から作成で項目を入力しランタイムでRubyを選択する。2018/12/02時点だと ruby2.5 のランタイムのみ用意されているようですね。</p>
+<p><img src="/public/images/2019/01/deeb4-1Lg6D8RnqgYwg6qTn3WfBmA.png" alt="" />以下のような画面が出てくると思うので(※画面はすでに動いてる関数のものなので実際の画面とは異なります)、一番上のファイル名のところが選択されている状態になっているとページの下部に関数コードの編集画面が出ていると思います。</p>
+<p><img src="/public/images/2019/01/a28c7-1uvGmV8xFOtqRAGqc61imAA.png" alt="" />コードエントリタイプで.zipファイルをアップロードを選択し、先程zipに固めたファイルをアップロードします。アップロード選択し終わったらページ上部の保存を押すようにしてください。毎回忘れてあれ？ってなる。今回ライブラリを含んでいるので下記画像のようなinfoが出ていて、インラインコードの編集はできなくなってる。</p>
+<p><img src="/public/images/2019/01/b73c7-1_dhfVjMUlWD4GOb50_U79g.png" alt="" />次に環境変数の登録です。書いたコードに合わせて環境変数を登録します。値にしてしているのは、先程のslackのレガシートークンです。</p>
+<p><img src="/public/images/2019/01/848e9-1bBiZAAbSwh738WG2ovJ9pw.jpeg" alt="" />最後にAPI Gatewayの設定をします。ない人はトリガーの追加からAPI Gatewayの設定を行ってください。</p>
+<p><img src="/public/images/2019/01/84d6d-1LKonQOBoOlSNy4Q1lf7H4w.jpeg" alt="" />ここで作ったAPI エンドポイントが IFTTT Buttonで登録する値になります。</p>
+<p>ちなみにlambdaはメソッドの投稿テストができるので、実際に全体で動かして見る前に関数のテストを試せるので便利です。</p>
+<p><img src="/public/images/2019/01/e688c-1kPz1ebos1rqbW4g8MECU9Q.png" alt="" />### IFTTT Buttonの設定
+あとは特に説明するほどではないのでキャプチャだけ。設定はbuttonからwebhookです。</p>
+<p><img src="/public/images/2019/01/5b974-1YkJfp03hLpLBoyfkR_NxXg.jpeg" alt="" />で、iPhoneの方でIFTTTのアプリをダウンロードしてボタンを設定してあげるとこのような感じに。</p>
+<p><img src="/public/images/2019/01/5e870-1WuJVSq3nfkPIMZt6ImEW7Q.jpeg" alt="" />これで準備完了です！(実装中に一回間違えてボタンを押してしまって、出勤してしまったため勤怠修正申請しなきゃいけない...)</p>
+<h3>実行</h3>
+<p>ボタンを押すとslackの投稿がこんな感じでされてよっしゃ。</p>
+<p><img src="/public/images/2019/01/6cab1-1eIuiyWTxKsP_RJyhQ0NfZQ.png" alt="" />以上lambda for ruby を使った勤怠ボタンの作成でした。</p>
+<p>lambda for rubyですが個人的に待望の機能追加でずっと待ってたので先日の発表は歓喜でした。サーバ上から何かを実行し用とすると環境の準備がネックになって作るのやめっちゃったりとかのハードルがぐっと下がりそう。簡単なwebアプリケーションも動かせたりと夢が広がりまくりな感じがあるので、lambda for ruby 活用していきたいところ。</p>
+<h4>参考リンク</h4>
+<ul>
+<li><a href="http://uskey.hatenablog.com/entry/2018/10/17/115728">http://uskey.hatenablog.com/entry/2018/10/17/115728</a></li>
+<li><a href="https://aws.amazon.com/jp/blogs/compute/announcing-ruby-support-for-aws-lambda/">https://aws.amazon.com/jp/blogs/compute/announcing-ruby-support-for-aws-lambda/</a></li>
+<li><a href="https://github.com/slack-ruby/slack-ruby-client">https://github.com/slack-ruby/slack-ruby-client</a></li>
+</ul>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

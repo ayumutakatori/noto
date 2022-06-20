@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Rustでコマンドライン引数を受け取る</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Rustでコマンドライン引数を受け取る</h2>
+    <div class="description">
+        　Date：2018-12-23 12:24:58 +0900<br />
+        　Categories： Programming Languages <br />
+        
+    </div>
+    <h3>概要</h3>
+<p><a href="https://medium.com/katsumataryo/rust%E3%81%A7exif%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E8%AA%AD%E3%82%93%E3%81%A7%E8%A6%8B%E3%82%8B-b1dd6ce6976b">この記事</a>の続きでRustでコマンドラインから文字列を受け取る処理を書いてみます。### 手順
+<code>std::env</code> を使うとコマンドライン引数を取ることができる    use std::env;</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">fn main() {
+</span><span style="color:#c0c5ce;">let args: Vec&lt;String&gt; = env::args().collect();
+</span><span style="color:#c0c5ce;">println!(&quot;{:?}&quot;, args);
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">// 出力
+</span><span style="color:#c0c5ce;">$ cargo run /Users/ryo/Downloads/Photos/DSC04117.jpg
+</span><span style="color:#c0c5ce;">Compiling exif v0.1.0 (/Users/ryo/work/ryo/study_rust/exif)
+</span><span style="color:#c0c5ce;">Finished dev [unoptimized + debuginfo] target(s) in 0.89s
+</span><span style="color:#c0c5ce;">Running `target/debug/exif /Users/ryo/Downloads/Photos/DSC04117.jpg`
+</span><span style="color:#c0c5ce;">[&quot;target/debug/exif&quot;, &quot;/Users/ryo/Downloads/Photos/DSC04117.jpg&quot;]
+</span></pre>
+<p>1つ目は呼び出したプログラムの名前が入っているみたい。なんか撮れてる感じがします。</p>
+<p>これを↑に書いた記事のコードに組み合わせる</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">use std::env; use rexiv2;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">fn main() { let args: Vec&lt;String&gt; = env::args().collect(); let file_path = &amp;args[1]; let meta = rexiv2::Metadata::new_from_path(&amp;file_path).unwrap(); println!(&quot;{:?}&quot;, meta.get_pixel_width()); println!(&quot;{:?}&quot;, meta.get_pixel_height()); println!(&quot;F: {:?}&quot;, meta.get_fnumber()); println!(&quot;ISO: {:?}&quot;, meta.get_iso_speed()); println!(&quot;{:?}&quot;, meta.get_exposure_time());}// 出力$ cargo run /Users/ryo/Downloads/Photos/DSC04117.jpg Compiling exif v0.1.0 (/Users/ryo/work/ryo/study_rust/exif) Finished dev [unoptimized + debuginfo] target(s) in 0.93s Running `target/debug/exif /Users/ryo/Downloads/Photos/DSC04117.jpg`60004000F: Some(1.8)ISO: Some(320)Some(Ratio { numer: 1, denom: 200 })
+</span></pre>
+<p>前回記事と同じ出力ができた。一気にいろいろなことをすると全然コンパイルが通らず厳しいのでひとつずつ順番にやっていくのが良さそうだ。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

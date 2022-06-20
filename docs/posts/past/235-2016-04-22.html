@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>rails s bindオプションが便利</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">rails s bindオプションが便利</h2>
+    <div class="description">
+        　Date：2016-04-22 11:47:02 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>macで開発をしているとき師匠に教えてもらった rails ｓ -b 0.0.0.0 が便利で最近多用している。<br />
+wifiにつないでいるなど同じネットワーク内にいると、モバイルからもそのIPに接続して確認ができて大変良さがある。</p>
+<p>目下の悩みは、会社・自宅・モバイルwifiでIPが変わるので、調べないと面倒だというのがあって<br />
+コマンドaliasにまとめた。.bashrcに私は記述しています。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">alias rails_s_bind=&#39;echo; echo &quot; =&gt;[http://`ipconfig](http://%60ipconfig)getifaddr en0`:3000/&quot;; echo ;rails s -b `ipconfig getifaddr en0`&#39;
+</span></pre>
+<p>こんな感じでアクセスできるようになる。<br />
+環境によってはネットワークの設定がいる人もいるかもしれない。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ rails_s_bind
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">=&gt;[http://192.168.1.13:3000/](http://192.168.1.13:3000/)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">=&gt; Booting Unicorn
+</span><span style="color:#c0c5ce;">=&gt; Rails 4.2.3 application starting in development on[http://192.168.1.13:3000](http://192.168.1.13:3000)
+</span><span style="color:#c0c5ce;">=&gt; Run `rails server -h` for more startup options
+</span><span style="color:#c0c5ce;">=&gt; Ctrl-C to shutdown server
+</span><span style="color:#c0c5ce;">I, [2016-04-22T11:52:04.069119 #3112] INFO -- : listening on addr=192.168.1.13:3000 fd=15
+</span><span style="color:#c0c5ce;">I, [2016-04-22T11:52:04.069225 #3112] INFO -- : worker=0 spawning...
+</span><span style="color:#c0c5ce;">I, [2016-04-22T11:52:04.071211 #3112] INFO -- : master process ready
+</span><span style="color:#c0c5ce;">I, [2016-04-22T11:52:04.072324 #3129] INFO -- : worker=0 spawned pid=3129
+</span><span style="color:#c0c5ce;">I, [2016-04-22T11:52:04.072927 #3129] INFO -- : worker=0 ready
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">最初のechoはただどのアドレスにアクセスすればいいか確認したいだけなので、特に意味は無いです。
+</span><span style="color:#c0c5ce;">ipconfig getifaddr en0 でen0に割り当てられているIPを取得して利用しています。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">これでわざわざifconfig叩いたり、環境設定見なくて良くなった。良さ。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

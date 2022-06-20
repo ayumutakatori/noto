@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>AzureのWEBSITEでWORDPRESSを使うあれこれ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">AzureのWEBSITEでWORDPRESSを使うあれこれ</h2>
+    <div class="description">
+        　Date：2014-03-27 00:38:55 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <h4>AzureのWEBサイトとは</h4>
+<p>AZUREはwindowsのクラウドサービスですが、プラットフォームサービスとしてWEBサイトという機能があります。</p>
+<p>WEBを公開するまでには環境の準備として煩雑ないろいろなことがありますが、それらをクラウド環境上でパパっとWEBサイトやっていきましょうというのがWEBサイトと言う機能の概要みたいです。 サーバ構築とか一切なくすぐに制作に入る準備が数ステップで作れます。料金も仮想サーバと比べると安く、ホスティング感覚でありながら、ホスティングっぽくない機能がいくつかあります。とてもユニークなのはスケールアウト等の耐障害性のあるオプションがあります。WEBホスティングだけどWEBホスティング以上ですよね。</p>
+<p>独自ドメインやSSLは無料枠の中ではできないっぽいです。まぁ無料でwpの環境がこんな手軽に作れればもう良い良いです。</p>
+<p>[embed]http://www.windowsazure.com/ja-jp/services/web-sites/[/embed]</p>
+<h4>WORDPRESSをつくる</h4>
+<p>AZUREアカウントを既にもっている前提で話を進めます。</p>
+<h4>ログインしてWEBサイトを選択</h4>
+<p>AZUREにログインして管理画面から、WEB サイト &gt; 新規 を選択します。 <a href="http://siedc.org/wp/">http://siedc.org/wp/</a></p>
+<p>コンピューティング &gt; WEBサイト &gt; ギャラリーから と選択していきます。 このギャラリーの中にWORDPRESSとかほか多数のいわゆるWEBアプリケーションなパッケージがあります。</p>
+<p>するとアプリケーションの検索とでてきますので CMS &gt; WORDPRESS と選択していきます。</p>
+<p>URLの設定等を行います。リージョンはお好きなところを選んで下さい。</p>
+<p>デプロイの設定はおそらく以下のURLのユニークな値を入れればよろしいかと思います(違ったらごめんなさい) <a href="https://api.wordpress.org/secret-key/1.1/salt/">https://api.wordpress.org/secret-key/1.1/salt/</a></p>
+<h4>初期設定</h4>
+<p>以上を設定して 先ほど設定したURLにアクセスすると、WORDPRESSを設定したことがある人ならよく見たことがあるかと思われる初期設定画面にアクセスできます。あとはログイン名やパスワードやメールアドレスを設定してインストールは完了です。</p>
+<h4>最後に</h4>
+<p>という感じに偉く簡単にwordpressがつくれます。データベースの用意とか気にしなくて良くて最高ですね。手軽にWORDPRESS使いたい人にはめっちゃいいきがします。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

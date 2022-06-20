@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>今週のメモ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">今週のメモ</h2>
+    <div class="description">
+        　Date：2016-08-27 15:37:21 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>なんかもっとメモしていた気がしたんだけど、とりあえず。</p>
+<h3>ruby</h3>
+<h4>i18nの変数展開</h4>
+<p>%{name} でやる</p>
+<h4>営業日</h4>
+<p>なるほど確かにと思った。 loopとか滅多に使わない。<br />
+このパターンは該当日が営業日ではなかった時にその日よりも前で最も近い営業日を一行で書いてあったやつ。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">loop { date.business_day? ? break : date -= 1.day }
+</span></pre>
+<h3>rails</h3>
+<h4>CSVをアップロードして処理</h4>
+<p>参考: <a href="http://ayaketan.hatenablog.com/entry/2014/01/26/180141">Rails4 csvファイルをアップロードして読み込む</a></p>
+<h3>mongoid</h3>
+<h4>ninは使わないほうが良い</h4>
+<p>indexがきかないとのこと。 参考: <a href="http://qiita.com/suguru03/items/c7eb44ed90c7e79bbedc#%E9%9B%86%E5%90%88%E6%BC%94%E7%AE%97%E5%AD%90">mongoDB超入門</a></p>
+<h4>or検索</h4>
+<p>any_of({条件1}, {条件2}, …)</p>
+<h4>and検索</h4>
+<p>all_of({条件1}, {条件2}, …)</p>
+<h4>embedded_many が何かしらあるもの</h4>
+<p>Model.nin(key: nil)</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

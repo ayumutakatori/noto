@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>冬休みのこと4</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">冬休みのこと4</h2>
+    <div class="description">
+        　Date：2016-01-01 14:05:51 +0900<br />
+        　Categories： Etc <br />
+        
+    </div>
+    <p>電車の中から更新厚木に向かっています。</p>
+<h3>RSpecでテストを書き始めてみる</h3>
+<p>ちょっと色々書いてしまっていますが、そろそろテストを書き始めてみようと思いました。<br />
+次がRSpecだったのでRSpecで。</p>
+<p><a href="http://tech.gmo-media.jp/post/45955244694/rails%E3%81%AE%E8%87%AA%E5%8B%95%E3%83%86%E3%82%B9%E3%83%88rspec%E3%81%A7model%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E7%B7%A8">http://tech.gmo-media.jp/post/45955244694/railsの自動テストrspecでmodelのテスト編</a></p>
+<h3>rspec書いた</h3>
+<ul>
+<li>matcherのまとまっているところ</li>
+<li><a href="https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers">https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers</a>
+簡単なテストを書いてみたけど、テストの考え方ちゃんと読みたい。</li>
+</ul>
+<h4>おーとおもったやつ</h4>
+<h4>or的なこと</h4>
+<p>.or メソッドというのがあるんですねー。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">it &quot;card is require boolean&quot; do
+</span><span style="color:#c0c5ce;">expect(@record.card).to match(true).or match(false)
+</span><span style="color:#c0c5ce;">end
+</span></pre>
+<h4>truthy/falsey</h4>
+<p>true と false で比較してくれる</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">it &quot;empty category value is invalid&quot; do
+</span><span style="color:#c0c5ce;">@record.category = nil
+</span><span style="color:#c0c5ce;">expect(@record.save).to be_falsey
+</span><span style="color:#c0c5ce;">end
+</span></pre>
+<p>ちょっとよくわかってないけど、ありがとうRSpec。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

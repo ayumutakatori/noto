@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Rubyの小技 メモ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Rubyの小技 メモ</h2>
+    <div class="description">
+        　Date：2014-01-01 23:57:40 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>パスを「/」なしでFile.joinでつなぐ</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">dirname = &quot;/path/your&quot;
+</span><span style="color:#c0c5ce;">File.join(dirname, &quot;filename&quot;)
+</span><span style="color:#c0c5ce;">=&gt; /path/your/filename
+</span></pre>
+<p>実行中の.rbファイルのディレクトリパスを取得する</p>
+<p>便利です。File.join “dir”, “dir”, “dir”, “file” #カンマ区切りで何個でも</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">[12] pry(main)&gt; current_dir = File.expand_path(File.dirname( __FILE__ ))
+</span><span style="color:#c0c5ce;">=&gt; &quot;/Users/ryo/Engine/daycounting2/yml&quot;
+</span><span style="color:#c0c5ce;">[14] pry(main)&gt; yml_dir =&quot;yml&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;yml&quot;
+</span><span style="color:#c0c5ce;">[15] pry(main)&gt; dir_path = File.join current_dir, yml_dir , &quot;katsumata.yml&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;/Users/ryo/Engine/daycounting2/yml/yml/katsumata.yml&quot;
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

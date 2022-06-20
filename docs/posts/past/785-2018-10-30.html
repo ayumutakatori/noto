@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>RSpecで一時的に言語設定を変える</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">RSpecで一時的に言語設定を変える</h2>
+    <div class="description">
+        　Date：2018-10-30 21:51:38 +0900<br />
+        　Categories： Rspec <br />
+        
+    </div>
+    <p>i18nの機能に以下のメソッドが定義されてることを知った。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># Executes block with given I18n.locale set.
+</span><span style="color:#c0c5ce;">def_with\_locale_(_tmp\_locale_ = nil)
+</span><span style="color:#c0c5ce;">if_tmp\_locale  
+</span><span style="color:#c0c5ce;"> current\_locale_ = self.locale
+</span><span style="color:#c0c5ce;">self.locale =_tmp\_locale_  
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">yield
+</span><span style="color:#c0c5ce;">ensure
+</span><span style="color:#c0c5ce;">self.locale =_current\_locale_ if_tmp\_locale_  
+</span><span style="color:#c0c5ce;">end
+</span></pre>
+<p>なのでこんなふうにかけた。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">it &#39;意図した英語の値が返る&#39; do
+</span><span style="color:#c0c5ce;">I18n.with_locale(:en) do
+</span><span style="color:#c0c5ce;">expect(object.start_string).to eq(&quot;Early 10/2018&quot;)
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span></pre>
+<p>よっしゃ。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

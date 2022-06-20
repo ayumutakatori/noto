@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>annotate gem</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">annotate gem</h2>
+    <div class="description">
+        　Date：2016-01-17 17:51:33 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>railsのアプリでコードの修正を行っていたら、一つしかファイルを修正していないのにmodel系のコードが沢山変更されていた。<br />
+変更点を見てみるとschema informationと書かれたファイルがことごとく変更されている。<br />
+これ前からなんなのかなーと思いながら調べていなかったので調べてみたら、なるほどgemだった。</p>
+<h3>annotate gem</h3>
+<p><a href="http://techracho.bpsinc.jp/ikeda-kazuyuki/2014_08_29/18876">この記事</a>がとてもわかりやすかった。schemaを見に行こうと思うと db/schema.rb を見に行かなければ行けないわけだけども、このgemを使用するとapp/model/のなかのファイルにschema情報を書いておいてくれるらしい。確かに便利そう。</p>
+<p>全然確認するほどschemaが複雑ではないけれど、今度自分のrailsアプリにも入れてみよう。</p>
+<p>github: <a href="https://github.com/ctran/annotate_models">https://github.com/ctran/annotate_models</a></p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

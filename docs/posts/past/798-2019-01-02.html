@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>RustでSomeを取り扱う</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">RustでSomeを取り扱う</h2>
+    <div class="description">
+        　Date：2019-01-02 00:27:20 +0900<br />
+        　Categories： Programming <br />
+        
+    </div>
+    <p><a href="https://medium.com/katsumataryo/rust%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E5%BC%95%E6%95%B0%E3%82%92%E5%8F%97%E3%81%91%E5%8F%96%E3%82%8B-b84bbdedd693">こちら</a>の続きです。前回のスクリプトで出したい項目をRustで引っ張ってくることができました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ cargo run /Users/ryo/Downloads/Photos/DSC04117.jpg Compiling exif v0.1.0 (/Users/ryo/work/ryo/study_rust/exif) Finished dev [unoptimized + debuginfo] target(s) in 0.93s Running `target/debug/exif /Users/ryo/Downloads/Photos/DSC04117.jpg`60004000F: Some(1.8)ISO: Some(320)Some(Ratio { numer: 1, denom: 200 })
+</span></pre>
+<p>こんな感じです。 <code>Some(1.8)</code> のSomeがなんだかわからなくて、次はこいつをどうにかしようと思いました。Stringで表現できれば良いってことですよね。</p>
+<h4>Someとは</h4>
+<p>Someについて調べてみたらこいつはOption型で「型がない可能性がある」ものの列挙型らしい。型が存在する場合はSomeに包まれていて、ない場合はNoneが入っているらしい。こいつがどっちなのかを教えてあげなければ行けないらしい。</p>
+<p>判定にはmatch式で値を取り出す必要があるみたいなんですが、もっと手軽に <code>unwrap()</code> を使うと値が取り出せるみたいです。もし None が入っている場合は None が返る(らしい)。</p>
+<h4>コードを書き換えた</h4>
+<p>というわけでそれを元にコードを書き換えた</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">use std::env;
+</span><span style="color:#c0c5ce;">use rexiv2;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">fn main() {
+</span><span style="color:#c0c5ce;">let args: Vec&lt;String&gt; = env::args().collect();
+</span><span style="color:#c0c5ce;">let file_path = &amp;args[1];
+</span><span style="color:#c0c5ce;">let meta = rexiv2::Metadata::new_from_path(&amp;file_path).unwrap();
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">println!(&quot;Width: {:?}&quot;, meta.get_pixel_width());
+</span><span style="color:#c0c5ce;">println!(&quot;Height: {:?}&quot;, meta.get_pixel_height());
+</span><span style="color:#c0c5ce;">println!(&quot;F: {:?}&quot;, meta.get_fnumber().unwrap()); // ココ
+</span><span style="color:#c0c5ce;">println!(&quot;ISO: {:?}&quot;, meta.get_iso_speed().unwrap()); // ココ
+</span><span style="color:#c0c5ce;">println!(&quot;Shutter: {:?}/{:?}&quot;, meta.get_exposure_time().unwrap().numer(), meta.get_exposure_time().unwrap().denom()); // ココ
+</span><span style="color:#c0c5ce;">}
+</span></pre>
+<p>出力はこちら</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">ktmt-brkt:exif[master *]$ cargo run /Users/ryo/Downloads/Photos/DSC04117.jpg
+</span><span style="color:#c0c5ce;">Compiling exif v0.1.0 (/Users/ryo/work/ryo/study_rust/exif)
+</span><span style="color:#c0c5ce;">Finished dev [unoptimized + debuginfo] target(s) in 0.83s
+</span><span style="color:#c0c5ce;">Running `target/debug/exif /Users/ryo/Downloads/Photos/DSC04117.jpg`
+</span><span style="color:#c0c5ce;">Width: 6000
+</span><span style="color:#c0c5ce;">Height: 4000
+</span><span style="color:#c0c5ce;">F: 1.8
+</span><span style="color:#c0c5ce;">ISO: 320
+</span><span style="color:#c0c5ce;">Shutter: 1/200
+</span></pre>
+<p>よっしゃ、コンパイルできたしちゃんと表示された。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

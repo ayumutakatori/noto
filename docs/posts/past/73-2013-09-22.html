@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>WORDPRESS の 移行についてまとめてみた</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">WORDPRESS の 移行についてまとめてみた</h2>
+    <div class="description">
+        　Date：2013-09-22 04:47:23 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>WORDPRESSの移行をまとめておく。</p>
+<p>今回はURLを変えるので先にDNS的なやつを変えておいてその間に作業をしておいてもいい。でもip関係ないし作業終わったらでいいか。</p>
+<ul>
+<li>
+<p>MySQLをPHPMYADMINからフルエクスポートする -&gt; 完了</p>
+</li>
+<li>
+<p>サーバからファイル一式をダウンロードする -&gt; 完了</p>
+</li>
+<li>
+<p>wordpressの箱を用意しておく -&gt; 完了
+関係ないけど初めてscpコマンドを使った。ダウンロード。</p>
+<p>$ scp [オプション] [ユーザ名]@[ホスト名]:[ファイル名] [ローカルパス (.)はカレント]</p>
+</li>
+<li>
+<p>サーバにwordpressのファイルをアップロードする -&gt; 完了<br />
+ぼーっとしてて解凍してからあげてしまった、tarで固めたやつ上げればよかったや。</p>
+</li>
+<li>
+<p>wp-config.phpを新しい情報に書き換え -&gt; 完了
+define('DB_NAME', '○○○○');
+define('DB_USER', '○○○○');
+define('DB_PASSWORD', '○○○○');
+define('DB_HOST', '○○○○');</p>
+</li>
+<li>
+<p>wordpress管理画面に接続出来ているかを確認する -&gt; 完了<br />
+Value serverのDNSがなかなか切り替わらなくてまいった。<br />
+Bindたてたくなってくるね。</p>
+</li>
+<li>
+<p>旧サーバのDBからエクスポート（ダンプ）したデータを丸ごとインポートする -&gt;</p>
+</li>
+<li>
+<p>wordpress管理画面のログインID/パスワードを変更する<br />
+<a href="http://phono.co.jp/note/wp-wordpress%E3%82%92%E4%B8%B8%E3%81%94%E3%81%A8%E7%A7%BB%E7%AE%A1%E3%81%95%E3%81%9B%E3%82%8B%E6%89%8B%E9%A0%86_1256/index.html">こちらを参考にしました</a>
+インポート出来たら『wp_user』テーブルのadmin権限のパスワードを変更します。（右図参照）</p>
+<p>変更するカラムはadmin権限のユーザで下記の2カラムです。
+『user_pass』カラム を $P$B9f/Y7GWy4FzX5uuccAbvJxWDGVdHl0に変更。
+（パスワード adminadminでログイン出来る様になります）
+『user_email』カラムを 任意のメールアドレスに変更。</p>
+<p>詳しくは割愛しますが $P$B9f/Y7GWy4FzX5uuccAbvJxWDGVdHl0 という謎の文字列でパスワード adminadmin でログイン出来る様になっています。</p>
+<p>この変更は前任者と管理が変わる場合は特にに重要になります。</p>
+</li>
+<li>
+<p>wordpressのURLを変更する<br />
+『wp_options』テーブルの『option_name』→『siteurl」に記載されているURLを新サーバのURLに変更します。<br />
+これが結構大事かもしれない</p>
+</li>
+<li>
+<p>記事内のリンクURLを直す<br />
+記事内の画像リンクが絶対パスで指定されてい場合が多くあるので右図のプラグイン「Search Regex」を使って一括置換してあげましょう。
+—-
+むー、素晴らしい。皆様の遺産。</p>
+</li>
+</ul>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

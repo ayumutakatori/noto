@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>getsで一時停止にならない事象が発生</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">getsで一時停止にならない事象が発生</h2>
+    <div class="description">
+        　Date：2013-12-26 01:49:15 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>Rubyでocra =&gt; exe化してた時にプロンプトを閉じないようにしたくて</p>
+<p>最後の処理にgetsを書いたんですが処理終了しちゃったのでメモ。</p>
+<p>理由はよく調べなかったんですが、getsだけじゃ入力待ちにならない時があるみたいで</p>
+<p>その時は</p>
+<p>STDIN.gets</p>
+<p>って書くと止まるらしいです。</p>
+<p>試したところちゃんととまりました。そしてちゃんと理由はあるようなんですが、私にはまだわからないみたいです。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

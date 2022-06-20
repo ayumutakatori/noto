@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>s3のstatic website hostingをcliしてみる</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">s3のstatic website hostingをcliしてみる</h2>
+    <div class="description">
+        　Date：2013-11-10 20:24:28 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>まずコマンドをひとつひとつ確かめていこう。</p>
+<p>バケットの作成</p>
+<p>まずはバケットの作成</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ aws s3 mb s3://wnt.workapart.org/
+</span><span style="color:#c0c5ce;">make_bucket: s3://wnt.workapart.org/
+</span></pre>
+<p>うお、簡単すぎる。</p>
+<p>static website hostingの値を変更する</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># 設定する。json部分をシングルクォーテーションで囲むのがみそらしい
+</span><span style="color:#c0c5ce;">$ aws s3api put-bucket-website --bucket &quot;wnt.workapart.org&quot; --website-configuration &#39;{ &quot;ErrorDocument&quot;: { &quot;Key&quot;: &quot;error.html&quot; }, &quot;IndexDocument&quot;: { &quot;Suffix&quot;: &quot;index.html&quot; } }&#39;
+</span><span style="color:#c0c5ce;"># 一応設定出来ているか見てみる
+</span><span style="color:#c0c5ce;">$ aws s3api get-bucket-website --bucket &quot;wnt.workapart.org&quot;
+</span><span style="color:#c0c5ce;">{
+</span><span style="color:#c0c5ce;">&quot;RedirectAllRequestsTo&quot;: {},
+</span><span style="color:#c0c5ce;">&quot;IndexDocument&quot;: {
+</span><span style="color:#c0c5ce;">&quot;Suffix&quot;: &quot;index.html&quot;
+</span><span style="color:#c0c5ce;">},
+</span><span style="color:#c0c5ce;">&quot;ErrorDocument&quot;: {
+</span><span style="color:#c0c5ce;">&quot;Key&quot;: &quot;error.html&quot;
+</span><span style="color:#c0c5ce;">},
+</span><span style="color:#c0c5ce;">&quot;RoutingRules&quot;: []
+</span><span style="color:#c0c5ce;">}
+</span></pre>
+<p>bucket policyの設定</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ aws s3api put-bucket-policy --bucket &quot;wnt.workapart.org&quot; --policy file://put-bucket-policy.json
+</span></pre>
+<p>jsonファイルはこんな感じ</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">{
+</span><span style="color:#c0c5ce;">&quot;Version&quot;: &quot;2012-10-17&quot;,
+</span><span style="color:#c0c5ce;">&quot;Statement&quot;: [
+</span><span style="color:#c0c5ce;">{
+</span><span style="color:#c0c5ce;">&quot;Sid&quot;: &quot;AddPerm&quot;,
+</span><span style="color:#c0c5ce;">&quot;Effect&quot;: &quot;Allow&quot;,
+</span><span style="color:#c0c5ce;">&quot;Principal&quot;: {
+</span><span style="color:#c0c5ce;">&quot;AWS&quot;: &quot;*&quot;
+</span><span style="color:#c0c5ce;">},
+</span><span style="color:#c0c5ce;">&quot;Action&quot;: &quot;s3:GetObject&quot;,
+</span><span style="color:#c0c5ce;">&quot;Resource&quot;: &quot;arn:aws:s3:::wnt.workapart.org/*&quot;
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">]
+</span><span style="color:#c0c5ce;">}
+</span></pre>
+<p>ファイルの転送</p>
+<p>aws s3 sync 元ファイル 転送先 ッて感じだろうか。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ aws s3 sync /filepath/wnt/ s3://wnt.workapart.org/
+</span><span style="color:#c0c5ce;">upload: ./error.html to s3://wnt.workapart.org/error.html
+</span><span style="color:#c0c5ce;">upload: ./index.html to s3://wnt.workapart.org/index.html
+</span></pre>
+<p>よしよしこれで、一発スクリプト化する素材が揃ったので、合体させてみようか。<br />
+↓<br />
+これらのコマンドを重ねて.shにして(エラー処理なし)<br />
+今んとこうまく行ってるっぽいすね。</p>
+<p>引っかかったところ</p>
+<p>・put-bucket-policy<br />
+aws s3api put-bucket-policy — bucket “wnt.workapart.org” — policy put-bucket-policy.json<br />
+A client error (MalformedPolicy) occurred: Policies must be valid JSON and the first byte must be ‘{’<br />
+=&gt; — policyのところのファイル名を put-bucket-policy.json -&gt; file://put-bucket-policy.json<br />
+これ常識なのかしら、知らんかったってか超ハマった。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

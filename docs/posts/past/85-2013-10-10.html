@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>RDSを使ってみる wordpressの場合</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">RDSを使ってみる wordpressの場合</h2>
+    <div class="description">
+        　Date：2013-10-10 20:21:50 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>RDSを使ってみたかったのでRDSをつかってwordpressをインストールしてみた。<br />
+AWSの管理画面からRDSを作成。今回は無料枠内です。<br />
+適当にポチポチやっていくとできた。</p>
+<blockquote>
+<p>Review<br />
+ Please review the information below, then click Launch DB Instance. Engine: mysql <br />
+Engine Version: MySQL 5.6.13 <br />
+License Model: general-public-license <br />
+Auto Minor Ver. Upgrade: Yes <br />
+DB Instance Class: db.t1.micro <br />
+Multi-AZ Deployment: Yes <br />
+Allocated Storage: 5 <br />
+Provisioned IOPS: 0 <br />
+DB Instance Identifier: instancename <br />
+Master User Name: username <br />
+Master User Password: *********** <br />
+Database Name: databasename <br />
+Database Port: 3306 <br />
+Availability Zone: Using a Multi-AZ Deployment disables this preference. <br />
+Option Group: default:mysql-5–6 <br />
+DB Parameter Group: default.mysql5.6 <br />
+VPC Security Group(s): SecurityGroup (XX-ZZZZZZZ) <br />
+DB Subnet Group: default <br />
+Publicly Accessible: Yes <br />
+Backup Retention Period: 1 <br />
+Backup Window: No Preference <br />
+Maintenance Window: No Preference</p>
+</blockquote>
+<p>すべて設定が終わるとインスタンスが作られる。<br />
+私が観察していた感じだと Creating -&gt; modifing -&gt; availableて感じだったけど間にまだ何かあるかもしれない。<br />
+そうなるとendpointというのが作成される。<br />
+こんなかんじのやつ<br />
+=&gt; instancename.xxxxxxxxx.ap-northeast-1.rds.amazonaws.com</p>
+<p>wordpressのホスト名のところは通常サーバ内のmysqlだと”localhost”になると思うけど<br />
+そこに上のやつを入れる。データベース名とかユーザ名はさっき設定したやつね。</p>
+<p>あと、どれだけだと繋がらなかったりするのでSecurityGroupのinboundにmysqlの3306番を開けてあげるらしい。<br />
+これでurlを開けば最初の初期設定画面に移れます。特殊なことをしなければ特にcreate dbしなくてもいいので簡単ですね。<br />
+(※私はphp5.4のmysqlモジュールを入れ忘れていて一回バタバタしたりしてましたけども)</p>
+<p>あと自動バックアップとかも撮ってくれるようなので何かとよさそうです。<br />
+さて、ただRDSを使ってみたかっただけなので、httpdを落とします。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

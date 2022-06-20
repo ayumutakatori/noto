@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>litaをslackに導入</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">litaをslackに導入</h2>
+    <div class="description">
+        　Date：2016-11-19 16:06:29 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h3>内容</h3>
+<p>ちょっと自分用のSLACKにbotを導入してみました。<br />
+以前、hubotを昔入れたことがあったんですが、今の会社がlitaだったのでlitaを入れてみました。<br />
+rubyですし。</p>
+<p>litaをおいておくところはherokuなのでheroku toolbelt、rubyとかgitはインストール済前提の記事です。</p>
+<h3>バージョン</h3>
+<p>ruby: 2.3.1<br />
+heroku:<br />
+heroku-toolbelt/3.43.12 (x86_64-darwin15) ruby/2.3.1,<br />
+heroku-cli/5.5.1-cf2de15 (darwin-amd64) go1.7.3</p>
+<h3>導入</h3>
+<h4>ローカルの準備</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># lita gemをインストール
+</span><span style="color:#c0c5ce;">$ gem install lita
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># lita コマンドで初期コマンド
+</span><span style="color:#c0c5ce;">$ lita new &lt;app name&gt;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># できたディレクトリに移動
+</span><span style="color:#c0c5ce;">$ cd &lt;app name&gt;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># litaさんのGemfileのインストール
+</span><span style="color:#c0c5ce;">$ bundle install
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># litaさんが動くか確認
+</span><span style="color:#c0c5ce;">$ lita start
+</span><span style="color:#c0c5ce;">Type &quot;exit&quot; or &quot;quit&quot; to end the session.
+</span><span style="color:#c0c5ce;">Lita &gt; lita info
+</span><span style="color:#c0c5ce;">Lita 4.7.1 -[https://www.lita.io/](https://www.lita.io/)
+</span><span style="color:#c0c5ce;">Redis 3.2.0 - Memory used: 1.11M
+</span><span style="color:#c0c5ce;">Lita &gt; lita help
+</span><span style="color:#c0c5ce;">Lita: help - Lists help information for terms and command the robot will respond to.
+</span><span style="color:#c0c5ce;">Lita: help COMMAND - Lists help information for terms or commands that begin with COMMAND.
+</span><span style="color:#c0c5ce;">Lita: info - Replies with the current version of Lita.
+</span><span style="color:#c0c5ce;">Lita: users find SEARCH_TERM - Find a Lita user by ID, name, or mention name.
+</span><span style="color:#c0c5ce;">Lita &gt; exit
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Gemfileに lita-slack を追加
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Gemfile
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">gem &#39;lita-slack&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">またターミナルで
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 追加したgemのインストール
+</span><span style="color:#c0c5ce;">$ bundle install
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">slack側の設定
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">導入するslackにlitaのインテグレーションを追加
+</span></pre>
+<ul>
+<li></li>
+</ul>
+<p><a href="https://.slack.com/services/lita/new">https://.slack.com/services/lita/new</a> にアクセス。- lita integration を追加</p>
+<ul>
+<li>
+<p>次のページでslack apiキーが表示される(herokuの環境変数にセットする)
+heroku側の設定</p>
+<p>heroku にログインして、環境の作成、</p>
+<h1>ログイン</h1>
+<p>$ heroku login</p>
+<h1>heroku環境の作成</h1>
+<p>$ heroku apps:create
+Creating ot... done
+https://.herokuapp.com/ |<a href="https://git.heroku.com/.git">https://git.heroku.com/.git</a></p>
+<h1>herokuのredisを追加</h1>
+<p>$ heroku addons:add redistogo --app annp-bot
+Creating redistogo on ⬢ ... free
+Created redistogo-octagonal-53314 as REDISTOGO_URL
+Use heroku addons:docs redistogo to view documentation</p>
+<h1>slack apiキーを設定</h1>
+<p>$ heroku config:set SLACK_API_KEY=&quot;&quot;
+Setting SLACK_API_KEY and restarting ⬢ ... done, v6
+SLACK_API_KEY:</p>
+<p>$ heroku config # で確認できる
+=== annp-bot Config Vars
+LANG: en_US.UTF-8
+RACK_ENV: production
+REDISTOGO_URL: redis://redistogo:０ａ０ａ０ａ０ａ０ａ０ａ０ａ０ａ０ａ０ａ@crestfish.redistogo.com:10268/
+SLACK_API_KEY: xoxoxoxoxoxoxoxoxoxoxoxoxoxoxo</p>
+<h1>herokuにデプロイ</h1>
+<h1>herokuのgit設定を追加</h1>
+<p>$ git remote add heroku<a href="https://git.heroku.com/.git">https://git.heroku.com/.git</a></p>
+<h1>herokuにpush</h1>
+<p>$ git push heroku master</p>
+<p>実際に動いているか確認</p>
+<p>なんか大丈夫そう</p>
+</li>
+</ul>
+<p><img src="/public/images/2017/09/0adfb-0sqnmebnxbzgeie4k.jpg" alt="lita" />    litaさんにコマンドを教える</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">こちらの記事を見ながら作成しました =&gt;[http://knowledge.sakura.ad.jp/knowledge/5228/](http://knowledge.sakura.ad.jp/knowledge/5228/)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">個人的に route で指定した正規表現がハマリポイントでした。
+</span><span style="color:#c0c5ce;">あと、lita-slack gemをいれるとローカルで確認するのに、Gemfileなどlita-slack関連をコメントアウトするのと
+</span><span style="color:#c0c5ce;">lita_config.rbのconfig.robot.adapter = :slackをconfig.robot.adapter = :shellにし直さないと確認できなかったりしてどうにかならないかなーっておもった(たぶんあるんだろうと思う。)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">litaはrubyな分hubotよりめっちゃ簡単にかけてよかった。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

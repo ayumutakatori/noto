@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Terminalでbranch名を表示させる</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Terminalでbranch名を表示させる</h2>
+    <div class="description">
+        　Date：2016-02-01 23:09:46 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>先輩のコンソール画面を見ていたら、コンソールの$マークの手前にbranch名が書かれていてすげー便利だなと思ったので探してやってみた。</p>
+<h4>環境</h4>
+<ul>
+<li>MAC El Capitan</li>
+<li>iTerm2(terminalでも大丈夫だと思う)</li>
+</ul>
+<h4>git-completion.bashがあるか確認</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ ls /usr/local/etc/bash_completion.d/
+</span><span style="color:#c0c5ce;">git-completion.bash git-prompt.sh
+</span></pre>
+<p>自分の環境にはあるようだった。<br />
+ない場合は <a href="https://github.com/git/git/blob/master/contrib/completion/git-completion.bash">このサイト</a> にある。</p>
+<h4>.bashrc に設定</h4>
+<p>.bashrc に設定を追加</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">### git branch mark
+</span><span style="color:#c0c5ce;">source /usr/local/etc/bash_completion.d/git-prompt.sh
+</span><span style="color:#c0c5ce;">source /usr/local/etc/bash_completion.d/git-completion.bash
+</span><span style="color:#c0c5ce;">GIT_PS1_SHOWDIRTYSTATE=true
+</span><span style="color:#c0c5ce;">export PS1=&#39;h[33[00m]:W[33[31m]$(__git_ps1 [%s])[33[00m]$ &#39;
+</span></pre>
+<p>どうも自分の環境だと上の2行がないとエラーになるようだった。<br />
+これで以下のように表示されるようになった。</p>
+<p><img src="/public/images/2017/09/a8a5d-0wka29nqxfmiuwlnc.png" alt="2016-02-01" />すごく良い。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

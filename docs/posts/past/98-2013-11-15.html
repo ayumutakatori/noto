@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>MACからAgent Forwarding全然できなかった話</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">MACからAgent Forwarding全然できなかった話</h2>
+    <div class="description">
+        　Date：2013-11-15 02:33:03 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>この一ヶ月くらいはまってた話です。</p>
+<p>ローカルネットワークから他サーバに入るためのCentOSでできた踏み台サーバがあるんですが、MACのターミナルから踏み台の向こう側にいけなくてチョー困ってました。<br />
+とりあえずやっていたことは</p>
+<p>・パーミション合わせ</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">chmod 700 ~/.ssh/
+</span><span style="color:#c0c5ce;">chmod 600 ~/.ssh/identify (鍵ファイル)
+</span></pre>
+<p>・AgentForwardingの許可</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># ~/.ssh/config
+</span><span style="color:#c0c5ce;">Host hostname.co.jp
+</span><span style="color:#c0c5ce;">ForwardAgent yes
+</span><span style="color:#c0c5ce;">IdentityFile ~/.ssh/id_rsa
+</span></pre>
+<p>・sshコマンド</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">ssh -A -p 22 -i ~/.ssh/identify user@hostname.co.jp
+</span></pre>
+<p>#一応これで踏み台まではいけるがその後がだめ。<br />
+#どうやらローカルPCの鍵ファイルを参照している気配がない</p>
+<p>それで、さっきbitbucketのページ(<a href="https://confluence.atlassian.co.jp/pages/viewpage.action">https://confluence.atlassian.co.jp/pages/viewpage.action</a>)で見つけた以下をためして</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ ssh-add -l
+</span></pre>
+<p>そしたらば鍵ファイルが読み込まれていなくて、SSHにたいして鍵をアドしていなかったみたい。<br />
+たぶん、前のPCを引き継いだ鍵だったのでそれで読み込まれなかったのか。本当は多分ダメなんだろな(もちろん物理的に慎重にしました)<br />
+鍵を作ると登録されるのだね・・・。</p>
+<p>とりあえずやっと解決したでござるよ。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

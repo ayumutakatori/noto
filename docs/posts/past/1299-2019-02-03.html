@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>PCのリストア作業メモ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">PCのリストア作業メモ</h2>
+    <div class="description">
+        　Date：2019-02-03 23:52:25 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <h2>やること</h2>
+<ul>
+<li>PCの初回起動時の設定</li>
+<li>基本設定</li>
+<li>ソフトウェアのインストール・設定（一般）</li>
+<li>ソフトウェアのインストール・設定（開発）</li>
+<li>ソフトウェアのインストール・設定（その他）</li>
+<li>業務用の設定</li>
+<li>その他</li>
+</ul>
+<h2>基本設定</h2>
+<h3>システム環境設定</h3>
+<ul>
+<li>
+<p>一般</p>
+<ul>
+<li>外観モードをダークに</li>
+<li>アクセントカラーをピンク</li>
+<li>デフォルトのブラウザをchrome</li>
+</ul>
+</li>
+<li>
+<p>画面</p>
+<ul>
+<li>スクリーンセーバーを設定</li>
+</ul>
+</li>
+<li>
+<p>Dock</p>
+<ul>
+<li>右に表示</li>
+<li>自動で非表示</li>
+<li>最近使ったアプリケーションを表示しない</li>
+</ul>
+</li>
+<li>
+<p> セキュリティ</p>
+<ul>
+<li>file valutを有効にする</li>
+</ul>
+</li>
+<li>
+<p>省エネルギー</p>
+<ul>
+<li>オフにするまでの時間を設定</li>
+</ul>
+</li>
+<li>
+<p>キーボード</p>
+<ul>
+<li>TouchBarをFnキーを表示するように変更</li>
+<li>キーボード &gt; 修飾キー で以下にある画像のように <code>caps lock</code> -&gt; <code>controll</code> / <code>左control-&gt;esc</code>(escの物理キーがなくなったため試しに)</li>
+</ul>
+</li>
+<li>
+<p>トラックパッド</p>
+<ul>
+<li>タップでクリックできるようにする</li>
+<li>スクロールの方向ナチュラルを解除</li>
+</ul>
+</li>
+<li>
+<p>iCloudを設定
+参考画像</p>
+</li>
+</ul>
+<p><img src="/public/images/2019/02/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-02-03-16.44.56-1024x659.png" alt="" />
+<img src="/public/images/2019/02/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-02-03-19.30.17.png" alt="" /></p>
+<h2>ソフトウェアのインストール（一般）</h2>
+<p>ブラウザや日々普通にmacを使ううえで必要になるツールをインストールしてみるのコーナーです。</p>
+<p>mitamaeとかansibleとかあるんだけど、brewをどうせ多用するのでbrew caskを使って今回やってみようかと思う。セットアップしながらこの記事を書いているので挫けたらこの先は挫けた旨の文章へ変わっていく。</p>
+<h3>brew &amp; brew cask のインストール</h3>
+<p>rubyが入っていることを確認</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ ruby -v
+</span></pre>
+<p>ruby 2.3.7p456 (2018-03-28 revision 63024) [universal.x86_64-darwin18]</p>
+<p><a href="https://brew.sh">https://brew.sh</a> に記載されているインストール用のコマンドを実行</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+</span></pre>
+<p>（色々表示される）</p>
+<p>==&gt; Installation successful!</p>
+<p>ryo$ brew -v</p>
+<p>Homebrew 2.0.0</p>
+<p>Homebrew/homebrew-core (git revision 175a; last commit 2019-02-02)</p>
+<p>権限やファイル作成をするためパスワードを聞かれるので答える。Xcodeのcommand line toolsもこの過程で入る。</p>
+<h3>brew bundleを使って色々インストールしてみる</h3>
+<p>通常のツールをインストールするbrewとバイナリ系をインストールする<code>cask</code>とmac app store からインストール可能な <code>mas-cli</code>を駆使して設定ファイルを作っていく。</p>
+<p>リストを作るときにアプリケーションの名前がわからなかったけれどcask/mas共に検索用のコマンドがあるようだった。リスト一番最初作るところがなかなか重労働だ。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># cask
+</span></pre>
+<p>$ brew cask info appcleaner</p>
+<p>appcleaner: 3.5 (auto_updates)</p>
+<p>https://freemacsoft.net/appcleaner/</p>
+<p>/usr/local/Caskroom/appcleaner/3.5 (64B)</p>
+<p>From: https://github.com/Homebrew/homebrew-cask/blob/master/Casks/appcleaner.rb</p>
+<p>==&gt; Name</p>
+<p>AppCleaner</p>
+<p>==&gt; Artifacts</p>
+<p>AppCleaner.app (App)</p>
+<h1>mas</h1>
+<p>ryo$ mas search motion</p>
+<p>434290957 Motion (5.4.2)</p>
+<p>449597246 Motion FX (1.1.4)</p>
+<p>456069722 Course For Motion 5 101 - Overview and Workflow Guide (1.0)</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">ryo$ vi Brewfile # Brewfileを作成
+</span></pre>
+<p>ryo$ brew bundle #　インストールの実行</p>
+<p>#　実行するとこんな感じに</p>
+<p>Using homebrew/cask</p>
+<p>Using mas</p>
+<p>==&gt; Satisfying dependencies</p>
+<p>==&gt; Downloading https://downloads.vivaldi.com/stable/Vivaldi.2.2.1388.37.dmg</p>
+<p>Already downloaded: /Users/ryo/Library/Caches/Homebrew/downloads/97ac4757de59a235ed09ee0030f87cb5b70181703fbfcb702758c851dd3663bf--Vivaldi.2.2.1388.37.dmg</p>
+<p>==&gt; Verifying SHA-256 checksum for Cask 'vivaldi'.</p>
+<p>==&gt; Installing Cask vivaldi</p>
+<p>Error: It seems there is already an App at '/Applications/Vivaldi.app'.</p>
+<p>==&gt; Purging files for version 2.2.1388.37 of Cask vivaldi</p>
+<p>Installing vivaldi has failed! # インストール済み</p>
+<p>Using appcleaner</p>
+<p>Error: Cask 'intelli-idea' is unavailable: No Cask with this name exists.</p>
+<p>Installing intelli-idea has failed!　# typo</p>
+<p>Password:</p>
+<p>Installing google-japanese-ime</p>
+<p>Installing visual-studio-code</p>
+<p>Installing adobe-creative-cloud</p>
+<p>Installing adobe-creative-cloud-cleaner-tool</p>
+<p>Installing dropbox</p>
+<p>Installing iterm2</p>
+<p>Installing notion</p>
+<p>Installing spotify</p>
+<p>No downloads</p>
+<p>Warning: No downloads began</p>
+<p>Installing 1Password has failed!　# invalid ID</p>
+<p>No downloads</p>
+<p>Warning: No downloads began</p>
+<p>Installing Skitch has failed!</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">cask_args appdir: &quot;/Applications&quot;
+</span></pre>
+<p>tap &quot;homebrew/cask&quot;</p>
+<h1>brew</h1>
+<p>brew 'mas'</p>
+<p>brew 'bash-completion'</p>
+<p>brew 'wget'</p>
+<p>brew 'hub'</p>
+<p>brew 'aws-cli'</p>
+<p>brew 'ruby-build'</p>
+<p>brew 'rbenv'</p>
+<h1>Casks</h1>
+<h1>cask &quot;google-chrome&quot; # installed by corp admin</h1>
+<p>cask 'vivaldi'</p>
+<p>cask 'appcleaner'</p>
+<p>cask 'intellij-idea'</p>
+<p>cask 'google-japanese-ime'</p>
+<p>cask 'visual-studio-code'</p>
+<p>cask 'adobe-creative-cloud'</p>
+<p>cask 'adobe-creative-cloud-cleaner-tool'</p>
+<p>cask 'dropbox'</p>
+<p>cask 'iterm2'</p>
+<p>cask 'notion'</p>
+<p>cask 'spotify'</p>
+<h1>Mac App Store</h1>
+<h1>mas &quot;1Password7&quot;, id: 1333542190 # can not download for 2019/02/03</h1>
+<p>mas &quot;Skitch&quot;, id: 425955336</p>
+<p>mas &quot;dayone&quot;, id: 1055511498</p>
+<p>mas &quot;Line&quot;, id: 539883307</p>
+<p>mas &quot;Spark&quot;, id: 1176895641</p>
+<p>mas &quot;CotEditor&quot;, id: 1024640650</p>
+<p>mas &quot;TomatoOne&quot;, id: 907364780</p>
+<p>mas &quot;Xcode&quot;, id: 497799835 # download long time...</p>
+<p>mas &quot;Toggle Desktop&quot;, id: 957734279</p>
+<h3>Google日本語入力の設定</h3>
+<p>ほとんどのプログラミングで使いそうな記号英数字を、日本語入力時も半角で入力されるようにする。</p>
+<ul>
+<li></li>
+</ul>
+<h2><img src="/public/images/2019/02/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-02-03-19.19.17-1024x756.png" alt="" /></h2>
+<p><img src="/public/images/2019/02/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-02-03-19.17.10-1024x772.png" alt="" />
+入力ソースはgoogle日本語入力(日本語)と英語キーボードだけにする</p>
+<p><img src="/public/images/2019/02/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-02-03-19.26.33-1024x813.png" alt="" />
+入力ソースの切り替えを<code>command+space</code> に、spotlightの表示を <code>Ctrl + space</code>に変更。</p>
+<h2>ソフトウェアのインストール（開発）</h2>
+<h3>terminal(iterm2)</h3>
+<ul>
+<li>必要があれば秘密鍵の移行(本来は新しい鍵を作るべき)</li>
+<li>terminalの設定</li>
+<li>font: Ricty Diminished Discordのダウンロードと設定
+<ul>
+<li>download: https://github.com/edihbrandon/RictyDiminished</li>
+</ul>
+</li>
+<li>themeの変更</li>
+<li>セッションが切れないように60秒操作がなかったらデータを送るようにする</li>
+<li>アラートを音ではなく画面でわかるようにする</li>
+<li>gitのブランチ表示・gitの入力補完を設定(git-completation)</li>
+</ul>
+<h3>IntelliJ idea</h3>
+<p>ログインしてJetBrainアカウントでできる同期機能を使ったらpluginや設定がコピーされていた。最高。</p>
+<p>globalの.gitignoreを設定する</p>
+<p>.gitignore_global に以下を追記して <code>git config --global core.excludesfile ~/.gitignore_global</code>を実行する</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">.idea/
+</span></pre>
+<p>STORES.jp.iml</p>
+<h2>ソフトウェアのインストール（その他）</h2>
+<h3>ブラウザのplugin</h3>
+<ul>
+<li>chrome(ただし、同期で一発で入る) 
+<ul>
+<li>Awesome screenshot</li>
+<li>1password </li>
+<li>google 翻訳</li>
+<li>Tag Assistant</li>
+<li>Vue.js devtools</li>
+<li>ng-inspector</li>
+<li>google Analytics debugger</li>
+<li>Jetbrains IDE Support</li>
+<li>zenhub</li>
+<li>The QR Code Extension</li>
+<li>Pinterest保存ボタン
+お気に入りはGoogle翻訳で、WEBページの英語をドラッグ選択状態にすると翻訳が表示される。あとは開発に必要なjsの解析ツールと1passwordですね。</li>
+</ul>
+</li>
+</ul>
+<h3>ドライバ</h3>
+<p>ケンジントンのslimbladeを使っているので、 <a href="https://www.kensington.com/p/products/control/trackballs/slimblade-trackball/">https://www.kensington.com/p/products/control/trackballs/slimblade-trackball/</a> からドライバを入手しインストール。</p>
+<h2>業務用の設定</h2>
+<p>基本的にローカルで開発するための環境については自社で手順書があるのでこちらでは特に記載なし。ひとつ発見はbrewのインストールで<code>mongodb@3.4</code>みたな記述ができるという知見を得た。</p>
+<p>brewで入れると起動設定やPATHを通すのを何個か手順漏れしていて、いつかは<code>brew bundle</code>するよりは、手順を作ってプロビジョニングツールに乗っけていくのがいいんだろうなと言う結論になった。</p>
+<h2>その他の設定</h2>
+<h3>買うべきもの</h3>
+<p>今回USBがtype Cに変わったため今までUSB運用していたものが全く使えなくなりそう。このへんで買わなければいけないものが知りたい。今調べて買おうとしているものはこのあたり。</p>
+<p>とりあえず変換端子を買ってみた( <a href="https://www.amazon.co.jp/dp/B0791YX2D1/ref=cm_sw_r_tw_dp_U_x_B09vCbCT4EXSW">https://www.amazon.co.jp/dp/B0791YX2D1/ref=cm_sw_r_tw_dp_U_x_B09vCbCT4EXSW</a> )</p>
+<p><img src="https://images-na.ssl-images-amazon.com/images/I/71%2B3KV1ooCL._SL1500_.jpg" alt="" />
+あとつけっぱなしのタイプ( <a href="https://www.amazon.co.jp/gp/product/B077R2KCYR/ref=ppx_yo_dt_b_asin_title_o01__o00_s00">https://www.amazon.co.jp/gp/product/B077R2KCYR/ref=ppx_yo_dt_b_asin_title_o01__o00_s00</a> ) これが結構良かった。ちょっと出っ張るけど。断線とかもないからちょっと安心。</p>
+<p><img src="https://images-na.ssl-images-amazon.com/images/I/61KU2YKhAXL._SL1001_.jpg" alt="" /></p>
+<h2>感想</h2>
+<p>順序によって手動設定が必要なものがあって意外と自動化できなさそう。自動化できるように日頃からPCの設定をしていく必要があるのを感じた。一旦ここまでであとはのちのち作業発生ごとに追記していきます。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

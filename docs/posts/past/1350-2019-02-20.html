@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>projectにnuxt appを追加</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">projectにnuxt appを追加</h2>
+    <div class="description">
+        　Date：2019-02-20 21:07:00 +0900<br />
+        　Categories： nuxt <br />
+        
+    </div>
+    <h2>概要</h2>
+<p>今回Railsでapiサーバーをやりたいという理由で、完全にフロントとapiを分けるっていうことをやりたくフロントのアプリケーションをどうしようか迷っていたんですが、Nuxtがどうも良さそうということで試してみた。</p>
+<h2>インストール</h2>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ yarn create nuxt-app frontend
+</span></pre>
+<p>yarn create v1.13.0</p>
+<p>[1/4] 🔍 Resolving packages...</p>
+<p>[2/4] 🚚 Fetching packages...</p>
+<p>[3/4] 🔗 Linking dependencies...</p>
+<p>[4/4] 🔨 Building fresh packages...</p>
+<p>success Installed &quot;create-nuxt-app@2.4.3&quot; with binaries:</p>
+<ul>
+<li>create-nuxt-app</li>
+</ul>
+<p>[#####################################################################] 369/369&gt; Generating Nuxt.js project in /Users/ryo/works/ANNP/25pm/frontend</p>
+<p>? Project name frontend</p>
+<p>? Project description frontend for 25pm.</p>
+<p>? Use a custom server framework none</p>
+<p>? Choose features to install Axios</p>
+<p>? Use a custom UI framework none</p>
+<p>? Use a custom test framework ava</p>
+<p>? Choose rendering mode Single Page App</p>
+<p>? Author name Katsumata Ryo</p>
+<p>? Choose a package manager yarn</p>
+<p>To get started:</p>
+<p>cd frontend</p>
+<p>yarn run dev</p>
+<p>To build &amp; start for production:</p>
+<p>cd frontend</p>
+<p>yarn run build</p>
+<p>yarn start</p>
+<p>To test:</p>
+<p>cd frontend</p>
+<p>yarn run test</p>
+<p>✨ Done in 743.52s</p>
+<p>公式の日本語ドキュメントと若干違ったけれど、雰囲気でやった。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ yarn run dev
+</span></pre>
+<p>yarn run v1.13.0</p>
+<p>$ nuxt</p>
+<p>ℹ Preparing project for development 20:57:27</p>
+<p>ℹ Initial build may take a while 20:57:27</p>
+<p>✔ Builder initialized 20:57:27</p>
+<p>✔ Nuxt files generated 20:57:27</p>
+<p>✔ Client</p>
+<p>Compiled successfully in 5.01s</p>
+<p>ℹ Waiting for file changes 20:57:34</p>
+<p>╭─────────────────────────────────────────╮</p>
+<p>│ │</p>
+<p>│ Nuxt.js v2.4.3 │</p>
+<p>│ Running in development mode (spa) │</p>
+<p>│ Memory usage: 165 MB (RSS: 233 MB) │</p>
+<p>│ │</p>
+<p>│ Listening on: http://localhost:3000 │</p>
+<p>│ │</p>
+<p>╰─────────────────────────────────────────╯</p>
+<p><code>http://localhost:3000</code> でアプリケーションが立ち上がります。Railsと一緒かーと若干悩ましげ。</p>
+<p><img src="/public/images/2019/02/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-02-20-20.58.12-1024x582.png" alt="" />
+見れた。</p>
+<p>続き書いて行きますが、一旦ここまでで公開。</p>
+<h2>試しに1ページ作ってみる</h2>
+<p>もともとVueでつくってた一枚のページを簡単に作ってみる(結果めちゃくちゃハマった)。そのページは背景に画像があって一秒ごとに時刻が更新されるページです。時刻表示のところだけ記録代わりにメモする</p>
+<h2>moment.jsを使う</h2>
+<p>本当はコンポーネントに分けなければいけないのだろうけど、一体pages/index.vue にべた書きする。以下は最終的なコードです。最初Vueのように <code>data</code>的な軽い感じでやろうとしたけれど全然うまく行かず、最終的には使うつもりのなかったvuexを使った(クラシックモードでやりたかったが、最終的にモジュールモードで)</p>
+<p>まず moment.jsをnuxtのプロジェクトに追加した。</p>
+<p><code>$ yarn add moment @nuxtjs/moment</code></p>
+<p>このコマンドのあとに config に追加。以下はファイルです。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">// nuxt.config.js
+</span></pre>
+<p>{</p>
+<p>modules: [</p>
+<p>['@nuxtjs/moment', ['ja']]</p>
+<p>]
+}</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">// pages/index.vue
+</span></pre>
+<p>&lt;template&gt;</p>
+<p>&lt;div class=&quot;window&quot; id=&quot;app&quot;&gt;</p>
+<p>&lt;div class=&quot;time&quot; v-cloak&gt;`{{$store.state.time}}&lt;/div&gt;</p>
+<p>&lt;/div&gt;</p>
+<p>&lt;/template&gt;</p>
+<p>&lt;script&gt;</p>
+<p>import moment from 'moment';</p>
+<p>export default {</p>
+<p>asyncData(context) {</p>
+<p>window.setInterval(function() {</p>
+<p>var time = moment().format('HH:mm:ss');</p>
+<p>context.store.commit('reload', time)</p>
+<p>}, 1000)</p>
+<p>}</p>
+<p>}</p>
+<p>&lt;/script&gt;</p>
+<p>&lt;style&gt;</p>
+<p>body {</p>
+<p>margin: 0;</p>
+<p>padding: 0;</p>
+<p>width: 100vw;</p>
+<p>height: 100vh;</p>
+<p>overflow-x: hidden;</p>
+<p>font-family: &quot;Noto Sans JP&quot;;</p>
+<p>}</p>
+<p>.window {</p>
+<p>margin: 0;</p>
+<p>padding: 0;</p>
+<p>width: 100vw;</p>
+<p>height: 100vh;</p>
+<p>background-color: #000;</p>
+<p>background-size: cover;</p>
+<p>color: #fff;</p>
+<p>background-position: center;</p>
+<p>background-attachment: fixed;</p>
+<p>background-image: url(&quot;/images/bg.jpg&quot;);</p>
+<p>}</p>
+<p>.time {</p>
+<p>margin: 0 0 40px 0;</p>
+<p>font-size: 180%;</p>
+<p>text-align: center;</p>
+<p>padding-top: 40vh;</p>
+<p>font-family: 'Cutive Mono';</p>
+<p>}</p>
+<p>.entrance {</p>
+<p>text-align: center;</p>
+<p>}</p>
+<p>.entrance .button {</p>
+<p>display: inline-block;</p>
+<p>vertical-align: middle;</p>
+<p>padding-top: 7px;</p>
+<p>width: 150px;</p>
+<p>height: 30px;</p>
+<p>background-color: #fff;</p>
+<p>color: #333;</p>
+<p>font-size: 90%;</p>
+<p>font-weight: bold;</p>
+<p>}</p>
+<p>&lt;/style&gt;</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">// store/index.js
+</span></pre>
+<p>export const state = () =&gt; ({</p>
+<p>time: ''</p>
+<p>})</p>
+<p>export const mutations = {</p>
+<p>reload(state, time) {</p>
+<p>state.time = time</p>
+<p>}</p>
+<p>}</p>
+<p>コードにするとこれだけなんだけど、nuxt.js ビギナーズガイド をがーっと眺めて該当ヒントがないか見たり。そしたらVueが全然わかってないってことで 基礎からわかるvue.js をガーッと読んで、そしたらなんとかできるようになった(本の内容は使ってないのだけど)。</p>
+<p>こういう今まで触ったことのない技術に触れるの本当に学習が下手で圧倒的にハマるし時間かかってセンスない。</p>
+<p>続く。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

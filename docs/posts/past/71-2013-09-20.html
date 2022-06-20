@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>sakura vps : snmpでrubyしてみる</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">sakura vps : snmpでrubyしてみる</h2>
+    <div class="description">
+        　Date：2013-09-20 17:27:10 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>会社の先輩と話していたら、snmpでサーバの情報持ってくると色々楽しくなりそうっていうことで、<br />
+とりあえず試験でvpsにいろいろ環境をしてみた。</p>
+<p>まず、snmpがわからないので<br />
+<a href="http://yosilove.blogspot.jp/2012/07/snmpnet-snmpsnmpd.html">http://yosilove.blogspot.jp/2012/07/snmpnet-snmpsnmpd.html</a><br />
+を参考に確認してみた。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ sudo yum list snmp
+</span><span style="color:#c0c5ce;">===============================================================================================
+</span><span style="color:#c0c5ce;">Package Arch Version Repository Size
+</span><span style="color:#c0c5ce;">===============================================================================================
+</span><span style="color:#c0c5ce;">Installing:
+</span><span style="color:#c0c5ce;">net-snmp x86_64 1:5.5-44.el6_4.4 updates 303 k
+</span><span style="color:#c0c5ce;">Installing for dependencies:
+</span><span style="color:#c0c5ce;">lm_sensors-libs x86_64 3.1.1-17.el6 base 38 k
+</span><span style="color:#c0c5ce;">net-snmp-libs x86_64 1:5.5-44.el6_4.4 updates 1.5 M
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Transaction Summary
+</span><span style="color:#c0c5ce;">===============================================================================================
+</span><span style="color:#c0c5ce;">Install 3 Package(s)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ sudo yum install net-snmp-utils
+</span><span style="color:#c0c5ce;">===============================================================================================
+</span><span style="color:#c0c5ce;">Package Arch Version Repository Size
+</span><span style="color:#c0c5ce;">===============================================================================================
+</span><span style="color:#c0c5ce;">Installing:
+</span><span style="color:#c0c5ce;">net-snmp-utils x86_64 1:5.5-44.el6_4.4 updates 172 k
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Transaction Summary
+</span><span style="color:#c0c5ce;">===============================================================================================
+</span><span style="color:#c0c5ce;">Install 1 Package(s)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">いらっしゃった。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ ls /usr/bin |grep snmp
+</span><span style="color:#c0c5ce;">net-snmp-create-v3-user
+</span><span style="color:#c0c5ce;">snmpbulkget snmpbulkwalk snmpconf snmpdelta snmpdf snmpget snmpgetnext snmpinform
+</span><span style="color:#c0c5ce;">snmpnetstat snmpset snmpstatus snmptable snmptest snmptranslate snmptrap
+</span><span style="color:#c0c5ce;">snmpusm snmpvacm snmpwalk
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">とりあえずデータは取れたっぽいですね。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ snmpwalk -v 1 -c public localhost
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysDescr.0 = STRING: XXXX
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysObjectID.0 = OID: NET-SNMP-MIB::netSnmpAgentOIDs.10
+</span><span style="color:#c0c5ce;">DISMAN-EVENT-MIB::sysUpTimeInstance = Timeticks: (2412) 0:00:24.12
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysContact.0 = STRING: Root (configure /etc/snmp/snmp.local.conf)
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysName.0 = STRING: XXX
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysLocation.0 = STRING: Unknown (edit /etc/snmp/snmpd.conf)
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORLastChange.0 = Timeticks: (11) 0:00:00.11
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORID.1 = OID: SNMP-MPD-MIB::snmpMPDMIBObjects.3.1.1
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORID.2 = OID: SNMP-USER-BASED-SM-MIB::usmMIBCompliance
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORID.3 = OID: SNMP-FRAMEWORK-MIB::snmpFrameworkMIBCompliance
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORID.4 = OID: SNMPv2-MIB::snmpMIB
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORID.5 = OID: TCP-MIB::tcpMIB
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORID.6 = OID: IP-MIB::ip
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORID.7 = OID: UDP-MIB::udpMIB
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORID.8 = OID: SNMP-VIEW-BASED-ACM-MIB::vacmBasicGroup
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORDescr.1 = STRING: The MIB for Message Processing and Dispatching.
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORDescr.2 = STRING: The MIB for Message Processing and Dispatching.
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORDescr.3 = STRING: The SNMP Management Architecture MIB.
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORDescr.4 = STRING: The MIB module for SNMPv2 entities
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORDescr.5 = STRING: The MIB module for managing TCP implementations
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORDescr.6 = STRING: The MIB module for managing IP and ICMP implementations
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORDescr.7 = STRING: The MIB module for managing UDP implementations
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORDescr.8 = STRING: View-based Access Control Model for SNMP.
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORUpTime.1 = Timeticks: (10) 0:00:00.10
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORUpTime.2 = Timeticks: (10) 0:00:00.10
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORUpTime.3 = Timeticks: (10) 0:00:00.10
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORUpTime.4 = Timeticks: (10) 0:00:00.10
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORUpTime.5 = Timeticks: (10) 0:00:00.10
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORUpTime.6 = Timeticks: (10) 0:00:00.10
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORUpTime.7 = Timeticks: (10) 0:00:00.10
+</span><span style="color:#c0c5ce;">SNMPv2-MIB::sysORUpTime.8 = Timeticks: (11) 0:00:00.11
+</span><span style="color:#c0c5ce;">HOST-RESOURCES-MIB::hrSystemUptime.0 = Timeticks: (638505284) 73 days, 21:37:32.84
+</span><span style="color:#c0c5ce;">End of MIB
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">動いてる。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

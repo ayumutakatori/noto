@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>git logの時々使うオプション</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">git logの時々使うオプション</h2>
+    <div class="description">
+        　Date：2018-02-28 02:24:22 +0900<br />
+        　Categories： Git <br />
+        
+    </div>
+    <h1>概要</h1>
+<p>git logの時々使うコマンドのメモ</p>
+<h1>コマンド</h1>
+<p>普通にコミットの履歴を見る</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git log
+</span></pre>
+<p>一行でコミットの履歴を見る</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git log --oneline
+</span></pre>
+<p>マージコミットを見る</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git log --merges
+</span></pre>
+<p>マージコミット以外を見る</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git log --no-merges
+</span></pre>
+<p>変更ファイルを見る</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git log --name-status
+</span></pre>
+<p>変更行数を見る</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git log --numstat
+</span></pre>
+<p>コミッターで絞る</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ git log --author=&#39;ryo&#39;
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>動画を背景にしたWEBSITEの作成</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">動画を背景にしたWEBSITEの作成</h2>
+    <div class="description">
+        　Date：2013-08-23 03:52:55 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>背景に動画を全面に使ったWEBSITEが流行ってますが、全面だと色々なパターン気にしなければ行けなさそうで</p>
+<p>それなら決め打ちでpixel指定で枠作ったら縦横比がおかしくなったりRETINA DISPLAYで解像度で残念な気持ちにならなくていいのかなと思い。</p>
+<p>奮闘してみました。一日でできなければやめます。</p>
+<p>まず調べた所</p>
+<p>1.動画はmp4とoggは少なくとも用意しておく必要がありそう。</p>
+<p> これはお手軽なオープンソース?の変換ソフトがあったのでどうにかなりそう -&gt; <a href="http://www.mirovideoconverter.com/">http://www.mirovideoconverter.com/</a></p>
+<p>2.お手軽なjQuery</p>
+<p> BigVideo.jsを使います。これがすぐみつかったので。</p>
+<p> iMovieで吐き出した動画でも(m4v)何かmp4に変換できたっぽいです(oggが微妙だけど何か時間かかりそうなので保留)</p>
+<p>結果<br />
+<a href="http://www.workapart.org/">http://www.workapart.org/<br />
+</a></p>
+<p>※topページのみ</p>
+<p>1.動画は.mp4, .webmがあるといい(</p>
+<p> -&gt; 本当は.ogvもあるといいけどいい変換ソフトが無かった</p>
+<p> -&gt; 何かなくても再生できてるっぽい。</p>
+<ol>
+<li>jQuery使わなかった。</li>
+</ol>
+<p>-&gt;スタイルシートだけでOKだった。</p>
+<p>-&gt;videoタグが使えるのは必須
+3.スムーズに再生させるために動画を1MBぐらいにした</p>
+<p> -&gt;粗がひどかったのだけど、z-indexでドット画像をかぶせるのがすごくあら隠しで来て良い感じだった。</p>
+<p> これ考えた人本当えらい。</p>
+<p>4.全体表示はたしかにかっこいいけど、動画をどう見せるかすごく気を配らなければいけない</p>
+<p> -&gt;今回はもう動画を流す枠を決め打ちしていたので(1280×720)動画をその解像度で作ってしまえばよかった。</p>
+<p> 解像度によってかけることもないし、念のための大きい容量で作る必要もなくなったので確かな安心。</p>
+<p>5.一応モダンブラウザ制覇? IE10 firefox, chrome, opera ,safariは全部OKただし、iPhoneはダメだった。</p>
+<p>そんな感じで、menuの位置とかがだいぶ微妙ですから</p>
+<p>おいおいやっていこー。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>auのiPhoneテザリングでsshがつながらない(セキュリティグループ)</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">auのiPhoneテザリングでsshがつながらない(セキュリティグループ)</h2>
+    <div class="description">
+        　Date：2018-01-01 20:06:41 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <h1>概要</h1>
+<p>auのテザリングでインターネットに接続した時に、EC2のセキュリティグループにグローバルIPアドレスを追加したところsshがつながらない。</p>
+<h1>原因</h1>
+<p>auのグローバルIPアドレスは、httpとその他で違う可能性があるらしい。</p>
+<p>( <a href="https://www.au.com/developer/android/kaihatsu/network/">https://www.au.com/developer/android/kaihatsu/network/</a> )例えばIP確認くんなどで調べたIPとSSHでつながるIPが違うらしい。</p>
+<h1>対応</h1>
+<p>ぱっとMACのネットワークの調べ方がわからなかったので、他のサーバに入って、実際にアクセスしているネットワークを確認した(余談だけど、kdXXXXXXXXXXXX.au-net.ne.jp みたいな形式になるようで、XXXの9桁がIPアドレスになっているようだった)。</p>
+<p><code>設定&gt;ネットワーク</code> では、IP確認サイトでは出てこないIPアドレスが出てくる。ifconfigではこのIPアドレスがでてくるので、グロバールではなく機器につながっているのだろうか(確認できてない)。tracerouteでも対象のIPアドレスが出てこなくて辛い(172から始まるIPアドレスでグローバルアドレス一覧になかった...)。IP確認くん( <a href="http://www.ugtop.com/spill.shtml">http://www.ugtop.com/spill.shtml</a> )にでてくるIPはSSHの時に違うIPがくる。CMAN( <a href="https://www.cman.jp/network/support/go_access.cgi">https://www.cman.jp/network/support/go_access.cgi</a> )だとSSHに使っているIPアドレスが返ってくるようだった。</p>
+<p>なのでこれらで調べたIPアドレスをセキュリティグループに追加することで無事SSHで接続できることを確認した。</p>
+<ul>
+<li>他のサーバに接続してhostからIPを推測する</li>
+<li>CMANにアクセスしてIPを確認する
+がいまのところ解決策。</li>
+</ul>
+<p>コマンドで一発で出せるようにしたい。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

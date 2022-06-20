@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Railsアプリの調査に関する作法</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Railsアプリの調査に関する作法</h2>
+    <div class="description">
+        　Date：2016-03-14 10:24:47 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>自分がつくっていないアプリケーションは何がどこにあるか予想外なことも多いと思います。<br />
+それでもRailsのアプリは規約が強いおかげで、ある程度めどがつきやすいことがありがたい。</p>
+<h4>作法</h4>
+<p>基本的にはシステムが処理をしていく順番をHTTPからたどっていくのが正当っぽい調査の作法ということを教えてもらった。</p>
+<ul>
+<li>
+<p>ページにアクセスして該当のページURLを確認する</p>
+</li>
+<li>
+<p>/config/routes もしくは rake routesでルーティングを確認する</p>
+</li>
+<li>
+<p>ルーティングで割り当てられているcontrollerを確認する</p>
+</li>
+<li>
+<p>ここからは調べる内容によっても変わるけれど</p>
+</li>
+<li>
+<p>該当のviewを確認する</p>
+</li>
+<li>
+<p>該当のModelを確認する
+あとは多岐にわたる部分もあったりするので</p>
+</li>
+<li>
+<p>該当のviewから呼び出しているものを探していく</p>
+</li>
+<li>
+<p>js/css など</p>
+</li>
+<li>
+<p>jsonの場合はまたrouting =&gt; controller =&gt; jsonのviewを見ていく
+とかする。</p>
+</li>
+</ul>
+<h4>勘というもの</h4>
+<p>調べる内容にもよると思うがざっくりはこんな感じなきがした。<br />
+あと勘で探すのはやめたほうがいい。<br />
+といってもすごく勘で探しがちなので、<br />
+自分は勘で探す時間を例えば5分とか10分とか制限をかけていくのが最初はいいかもなーというところに落ち着いた。</p>
+<h4>デバッグ</h4>
+<p>ソースコードのデバッグはrailsの中であれば binding.pry がやっぱり良さがある。<br />
+javascriptゾーンに入ってしまっているときは debugger が良さを感じさせてくれる。</p>
+<h4>初心</h4>
+<p>勘は職人という経験に裏打ちされた第六感という名の総合感覚なので<br />
+私たちはおとなしく正攻法で頑張りましょう。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

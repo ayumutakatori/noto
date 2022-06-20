@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>docker上のpostgresqlにユーザを作成</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">docker上のpostgresqlにユーザを作成</h2>
+    <div class="description">
+        　Date：2019-02-11 20:47:53 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <h2>概要</h2>
+<p>ただハマっただけの記録です。<br />
+仕事用のPCで仕事用の開発環境が入っているんですが、postgresqlはdockerで動いておりlocalhostが使われているので、そのdocker上に別ユーザで別データベースを作ろうとしたときにdockerがわからなかったためハマった記録です。</p>
+<h2>dockerのコンソールに入る</h2>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ docker exec -ti CONTAINER_NAME bash
+</span></pre>
+<h2>ユーザを作成</h2>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">u postgres # postgresユーザで操作する
+</span></pre>
+<p>$ whoami</p>
+<p>postgres</p>
+<p>$ psql -U postgres</p>
+<p>(postgresql console)</p>
+<p>postgres=# \du</p>
+<p>List of roles</p>
+<p>Role name | Attributes | Member of</p>
+<p>-----------+------------------------------------------------+-----------</p>
+<p>postgres | Superuser, Create role, Create DB, Replication | {}</p>
+<p>postgres=# \q # 一回出る</p>
+<p>$ createdb NAME -P # パスワード付き</p>
+<p>Enter password for new role:</p>
+<p>Enter it again:</p>
+<p>$ psql -U postgres</p>
+<p>postgres=# \du</p>
+<p>List of roles</p>
+<p>Role name | Attributes | Member of</p>
+<p>-----------+------------------------------------------------+-----------</p>
+<p>postgres | Superuser, Create role, Create DB, Replication | {}</p>
+<p>NAME | | {}</p>
+<h2>DB作成の権限を付与する</h2>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">postgres=# ALTER ROLE NAME CREATEDB;
+</span></pre>
+<p>ALTER ROLE</p>
+<p>postgres=# \du</p>
+<p>List of roles</p>
+<p>Role name | Attributes | Member of</p>
+<p>-----------+------------------------------------------------+-----------</p>
+<p>postgres | Superuser, Create role, Create DB, Replication | {}</p>
+<p>NAME | Create DB | {}</p>
+<p>railsで使用していたんですが、これでようやくスタートライン...はまった。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>clasp 事始め</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">clasp 事始め</h2>
+    <div class="description">
+        　Date：2021-01-11 12:01:51 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <h2>claspとは</h2>
+<p>Google App Scriptをローカルマシンで便利に使えるようにGoogleのプロジェクトツール。</p>
+<h2>インストール</h2>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">npm install -g @google/clasp
+</span></pre>
+<p><a href="https://script.google.com/home/usersettings">https://script.google.com/home/usersettings</a> にアクセスすると下記のような設定ができるので有効にする。</p>
+<p><img src="/public/images/2021/01/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2021-01-11-11.22.32-1024x202.png" alt="" />
+自分の環境だとclaspのパスが通ってなく <code>command not found</code> になった。nodenvでいれていて <code>export PATH=&quot;~/.nodenv/shims:$PATH&quot;</code> を <code>.bashrc</code> に追加した。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ clasp --version
+</span></pre>
+<p>2.3.0</p>
+<p>無事パスが通った。</p>
+<h2>ログイン</h2>
+<p>ログインの確認。してなさそう。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ clasp login --status
+</span></pre>
+<p>You are not logged in.</p>
+<p>$ clasp login</p>
+<p>Logging in globally...</p>
+<p>(node:20018) ExperimentalWarning: The fs.promises API is experimental</p>
+<p>🔑 Authorize clasp by visiting this url:</p>
+<p>Authorization successful.</p>
+<p>Default credentials saved to: ~/.clasprc.json</p>
+<p>コマンドを打つと画面遷移してアカウントの連携ができる。</p>
+<p><img src="/public/images/2021/01/2021-01-11-11.52.50.png" alt="" />
+無事ログイン完了。随分 シンプルなページ。</p>
+<h2>typescriptを使えるように</h2>
+<p>typescriptを使いたいのがメインの目的なので参考にしているblogを参考に環境を準備してみる。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ mkdir hello-world
+</span></pre>
+<p>$ cd hello-world/</p>
+<p>$ npm i -S @types/google-apps-script</p>
+<p>$ tree</p>
+<p>.</p>
+<p>├── node_modules</p>
+<p>│   └── @types</p>
+<p>│   └── google-apps-script</p>
+<p>│   ├── LICENSE</p>
+<p>│   ├── README.md</p>
+<p>│   ├── apis</p>
+<p>│   │   ├── adsense_v1_4.d.ts</p>
+<p>│   │   ├── analytics_v3.d.ts</p>
+<p>│   │   ├── analyticsreporting_v4.d.ts</p>
+<p>│   │   ├── appsactivity_v1.d.ts</p>
+<p>│   │   ├── bigquery_v2.d.ts</p>
+<p>│   │   ├── calendar_v3.d.ts</p>
+<p>│   │   ├── classroom_v1.d.ts</p>
+<p>│   │   ├── content_v2.d.ts</p>
+<p>│   │   ├── dfareporting_v3_3.d.ts</p>
+<p>│   │   ├── directory_v1.d.ts</p>
+<p>│   │   ├── docs_v1.d.ts</p>
+<p>│   │   ├── drive_v2.d.ts</p>
+<p>│   │   ├── driveactivity_v2.d.ts</p>
+<p>│   │   ├── gmail_v1.d.ts</p>
+<p>│   │   ├── groupsmigration_v1.d.ts</p>
+<p>│   │   ├── groupssettings_v1.d.ts</p>
+<p>│   │   ├── licensing_v1.d.ts</p>
+<p>│   │   ├── mirror_v1.d.ts</p>
+<p>│   │   ├── peopleapi_v1.d.ts</p>
+<p>│   │   ├── reports_v1.d.ts</p>
+<p>│   │   ├── reseller_v1.d.ts</p>
+<p>│   │   ├── sheets_v4.d.ts</p>
+<p>│   │   ├── slides_v1.d.ts</p>
+<p>│   │   ├── tagmanager_v2.d.ts</p>
+<p>│   │   ├── tasks_v1.d.ts</p>
+<p>│   │   ├── youtube_v3.d.ts</p>
+<p>│   │   ├── youtubeanalytics_v2.d.ts</p>
+<p>│   │   └── youtubepartner_v1.d.ts</p>
+<p>│   ├── google-apps-script-events.d.ts</p>
+<p>│   ├── google-apps-script.base.d.ts</p>
+<p>│   ├── google-apps-script.cache.d.ts</p>
+<p>│   ├── google-apps-script.calendar.d.ts</p>
+<p>│   ├── google-apps-script.card-service.d.ts</p>
+<p>│   ├── google-apps-script.charts.d.ts</p>
+<p>│   ├── google-apps-script.conference-data.d.ts</p>
+<p>│   ├── google-apps-script.contacts.d.ts</p>
+<p>│   ├── google-apps-script.content.d.ts</p>
+<p>│   ├── google-apps-script.data-studio.d.ts</p>
+<p>│   ├── google-apps-script.document.d.ts</p>
+<p>│   ├── google-apps-script.drive.d.ts</p>
+<p>│   ├── google-apps-script.forms.d.ts</p>
+<p>│   ├── google-apps-script.gmail.d.ts</p>
+<p>│   ├── google-apps-script.groups.d.ts</p>
+<p>│   ├── google-apps-script.html.d.ts</p>
+<p>│   ├── google-apps-script.jdbc.d.ts</p>
+<p>│   ├── google-apps-script.language.d.ts</p>
+<p>│   ├── google-apps-script.lock.d.ts</p>
+<p>│   ├── google-apps-script.mail.d.ts</p>
+<p>│   ├── google-apps-script.maps.d.ts</p>
+<p>│   ├── google-apps-script.optimization.d.ts</p>
+<p>│   ├── google-apps-script.properties.d.ts</p>
+<p>│   ├── google-apps-script.script.d.ts</p>
+<p>│   ├── google-apps-script.sites.d.ts</p>
+<p>│   ├── google-apps-script.slides.d.ts</p>
+<p>│   ├── google-apps-script.spreadsheet.d.ts</p>
+<p>│   ├── google-apps-script.types.d.ts</p>
+<p>│   ├── google-apps-script.url-fetch.d.ts</p>
+<p>│   ├── google-apps-script.utilities.d.ts</p>
+<p>│   ├── google-apps-script.xml-service.d.ts</p>
+<p>│   ├── index.d.ts</p>
+<p>│   └── package.json</p>
+<p>└── package-lock.json</p>
+<p>4 directories, 64 files</p>
+<p>$ touch tsconfig.json</p>
+<p>$ vim tsconfig.json</p>
+<p>$ cat tsconfig.json</p>
+<p>{</p>
+<p>&quot;compilerOptions&quot;: {</p>
+<p>&quot;lib&quot;: [&quot;es2019&quot;],</p>
+<p>&quot;experimentalDecorators&quot;: true</p>
+<p>}</p>
+<p>}</p>
+<h2>プロジェクトの作成</h2>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ clasp create --title &quot;Hello World&quot; --type standalone
+</span></pre>
+<p>(node:20839) ExperimentalWarning: The fs.promises API is experimental</p>
+<p>Created new standalone script: https://script.google.com/d/1QoTkRYwxa_vHJEOdVZk2rKvI8jZ3c2JdahkGcrF_RAgX3wpmN8cpAzYe/edit</p>
+<p>Warning: files in subfolder are not accounted for unless you set a '.claspignore' file.</p>
+<p>Cloned 1 file.</p>
+<p>└─ appsscript.json</p>
+<p>タイムゾーンを Asia/Tokyoに変更する</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ cat appsscript.json
+</span></pre>
+<p>{</p>
+<p>&quot;timeZone&quot;: &quot;America/New_York&quot;,</p>
+<p>&quot;dependencies&quot;: {</p>
+<p>},</p>
+<p>&quot;exceptionLogging&quot;: &quot;STACKDRIVER&quot;,</p>
+<p>&quot;runtimeVersion&quot;: &quot;V8&quot;</p>
+<h2>codeを書いていく</h2>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">const greeter = (person: string) =&gt; {
+</span></pre>
+<p>return <code>Hello, ${person}!</code>;</p>
+<p>}</p>
+<p>function testGreeter() {</p>
+<p>const user = 'Ken';</p>
+<p>Logger.log(greeter(user));</p>
+<p>}</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ clasp push
+</span></pre>
+<p>(node:21224) ExperimentalWarning: The fs.promises API is experimental</p>
+<p>? Manifest file has been updated. Do you want to push and overwrite? Yes</p>
+<p>└─ appsscript.json</p>
+<p>└─ hello.ts</p>
+<p>Pushed 2 files.</p>
+<p>$ clasp open</p>
+<p>(node:21322) ExperimentalWarning: The fs.promises API is experimental</p>
+<p>Opening script: https://script.google.com/d/xxxxxx/edit</p>
+<p>ブラウザがたちあがります</p>
+<p><img src="/public/images/2021/01/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2021-01-11-15.36.52-1024x469.png" alt="" />
+testGreeter を実行してみる</p>
+<p><img src="/public/images/2021/01/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2021-01-11-15.38.13-1024x370.png" alt="" />
+ちゃんとでてた！</p>
+<p><img src="/public/images/2021/01/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2021-01-11-15.39.07-1024x718.png" alt="" />
+これでなんとなく手順はわかった。次からtypescriptの学習をやってく。</p>
+<hr />
+<p>参考</p>
+<p>・<a href="https://panda-program.com/posts/clasp-typescript">https://panda-program.com/posts/clasp-typescript</a> ほとんどこの通りに作業させていただきました。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

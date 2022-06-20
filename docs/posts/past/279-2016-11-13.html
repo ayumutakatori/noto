@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>atom で C++ を勉強する準備</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">atom で C++ を勉強する準備</h2>
+    <div class="description">
+        　Date：2016-11-13 22:11:44 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h3>概要</h3>
+<p>諸事情でC(C++)を勉強したいということになり、普段使っている atom でとりあえずかけるようにする準備をしたのでそのメモです。</p>
+<h3>やったこと</h3>
+<ul>
+<li>atomにプラグインを追加</li>
+<li>実際にはじめてのコードを書く</li>
+</ul>
+<h3>atomにプラグインを追加</h3>
+<p>今回下記のプラグインを追加しました。</p>
+<ul>
+<li>atom ctags: 参照先にジャンプする便利プラグイン</li>
+<li>language-cpp14: C++ を書きやすくするプラグイン</li>
+<li>gpp-compiler: atom上でコンパイルするプラグイン</li>
+<li>linter-cpplint: C++ の文法チェック
+とりあえずこれだけ。</li>
+</ul>
+<h3>実際にはじめてコードを書く</h3>
+<p>よくあるはじめに標準出力にだすやつ</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">#include &lt;iostream&gt;
+</span><span style="color:#c0c5ce;">using namespace std;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">int main() {
+</span><span style="color:#c0c5ce;">cout &lt;&lt; &quot;ようこそC++へ!n&quot;;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">return 0;
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">ちなみにlinterが効いていて
+</span></pre>
+<p><img src="/public/images/2017/09/b9be7-0bxrsdsojhcojgjxn.png" alt="app_cpp_-___works_ryo_cpp" />    copyrightとかのエラーが出てたんですが、本のコードをそのまま持ってきただけなので一旦無視で...</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">atomでコンパイルできるっぽいプラグインを入れたんですが、なんか動かなかったのでコンソールでコンパイルと実行をしてみた。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">[ryo@annp-mac] ~/works/ryo/cpp
+</span><span style="color:#c0c5ce;">% g++ -o test app.cpp
+</span><span style="color:#c0c5ce;">[ryo@annp-mac] ~/works/ryo/cpp
+</span><span style="color:#c0c5ce;">% ls
+</span><span style="color:#c0c5ce;">app.cpp test*
+</span><span style="color:#c0c5ce;">[ryo@annp-mac] ~/works/ryo/cpp
+</span><span style="color:#c0c5ce;">% ./test
+</span><span style="color:#c0c5ce;">ようこそC++へ!
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">とりあえずはじめの一歩ということで。
+</span><span style="color:#c0c5ce;">(ちなみに cout を cont って書いていることに気づかずちょっと「？」になっていた)
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

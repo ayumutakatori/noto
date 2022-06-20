@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>AWSの新しいCLIツールを試してみた。</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">AWSの新しいCLIツールを試してみた。</h2>
+    <div class="description">
+        　Date：2013-11-10 04:05:11 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>AWSってCLIツールが2つあるんですけど、autoscalingの時は古いほうが情報が多かったので<br />
+as-delete-launch-configs みたいな感じの長いコマンド名の方を使ってました。</p>
+<p>今回試してみたのは<br />
+aws s3 ls みたいな「aws サービス コマンド xxxx」みたいな感じの方を新しくかったMACに入れてみました。<br />
+ちなみにpythonの2.6以上が必要みたいです。MACは最初から2.7が入ってました。<br />
+詳しくは公式を読んでみて下さい。<br />
+<a href="http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html#install-bundle-other-os">http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html#install-bundle-other-os</a></p>
+<p>まずはCLIツールのダウンロード <br />
+<a href="https://s3.amazonaws.com/aws-cli/awscli-bundle.zip">https://s3.amazonaws.com/aws-cli/awscli-bundle.zip</a><br />
+それを適当なフォルダ(でいいのかわからないけど)に解答して、Unixの実行ファイル install というファイルを実行しました。<br />
+そうしたら自分の場合は/Users/ユーザ名/.local/lib/aws/ がなんか出来ていて そのなかにある bin/aws が実行ファイルっぽかったので</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ sudo ln -s /Users/&quot;username&quot;/.local/lib/aws/bin/aws /usr/bin/aws
+</span><span style="color:#c0c5ce;">$ ls -l /usr/bin/aws
+</span><span style="color:#c0c5ce;">lrwxr-xr-x 1 root wheel 33 11 10 03:38 /usr/bin/aws -&gt; /Users/&quot;username&quot;/.local/lib/aws/bin/aws
+</span></pre>
+<p>という感じでシンボリックリンクにしときました。詳しくないからこのやり方は美味しくないかも。</p>
+<p>試しにコマンドを実行したら、アクセスキーとかって怒られてしまった。<br />
+予めもっていたs3バケットの中身を見ようとしました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ aws s3 ls s3://aaa.bbb.ccc
+</span><span style="color:#c0c5ce;">Unable to locate credentials. You can configure credentials by running &quot;aws configure&quot;.
+</span></pre>
+<p>どうやら”aws configure”これでなんかできるみたい。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ aws configure
+</span><span style="color:#c0c5ce;">AWS Access Key ID [None]: xxx
+</span><span style="color:#c0c5ce;">AWS Secret Access Key [None]: xxx
+</span><span style="color:#c0c5ce;">Default region name [None]: ap-northeast-1 #tokyo
+</span><span style="color:#c0c5ce;">Default output format [None]: json #なんかよくわからないけどjson、他にはtextとtableが選べるみたい。
+</span></pre>
+<p>どうやらこの設定は一度コンソールを閉じても、残っているようでござんす。</p>
+<p>試しにさっき失敗したけどコマンドを試してみる。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ aws s3 ls s3://aaa.bbb.ccc
+</span><span style="color:#c0c5ce;">PRE logs/
+</span><span style="color:#c0c5ce;">2013-11-08 22:16:28 791 error.html
+</span><span style="color:#c0c5ce;">2013-11-08 22:16:28 665 index.html
+</span></pre>
+<p>おーバケットの中身が見れたー。<br />
+やっぴ。</p>
+<p>次回はs3の静的コンテンツ公開機能を使って、<br />
+バケット作成からコンテンツ公開をスクリプト一発でやってみたいと思います。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

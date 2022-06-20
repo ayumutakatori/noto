@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>twitterのようにslackチャネルを使うを読んで</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">twitterのようにslackチャネルを使うを読んで</h2>
+    <div class="description">
+        　Date：2016-02-13 00:39:44 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h4>きっかけ</h4>
+<p>Facebookをだらーっと見ながら朝通勤していたら、Funteractive代表の @imura_design さんが以下の記事を紹介していた。</p>
+<p>Slackで簡単に「日報」ならぬ「分報」をチームで実現する3ステップ 〜 Problemが10分で解決するチャットを作ろう<br />
+<a href="http://c16e.com/1511101558/">http://c16e.com/1511101558/</a></p>
+<p>これもまたざーっと読んでいたんですが、単純におもしろーってなりました。</p>
+<h4>実際</h4>
+<p>実際自分とちかしいことをしている人で常駐の人はいないわけで、上の記事の効果が実際発揮されるような環境でもないかなと思ったわけだけども、もしかしたら以下の2つの効果はあるかもしれないと思った。</p>
+<ul>
+<li>やるべきことをつぶやいていくことで、自分が外部から見られている感を演出できる</li>
+<li>ある程度リアルな感じでつぶやいていくことで、非エンジニアの人からの「あの人何やっているんだろ感」を減らせるかもしれない
+というわけで早速今日から始めてみた。</li>
+</ul>
+<h4>やったこと</h4>
+<ul>
+<li>slackのchannelに#times_nameを作った。</li>
+<li>とりあえずつぶやき続きてみた。
+これだけ笑<br />
+集中するとき音楽を聞くことが許されるているので、聞いている音楽とかつぶやいてみた。<br />
+あとはやったことをとりあえずつぶやいてみた。</li>
+</ul>
+<h4>今後</h4>
+<p>記事にも書いてあったんだけど、やっぱりこのシステムはチームの人間関係がひどく大事な気がした。ひとりでも乱す人がいるだけで全部おじゃんになりそうな気させする。だから雰囲気作る人も同様に大事そうだ。</p>
+<p>自分もたぶんtimesをみられて、圧っぽいのかけてくる人がいたら即効やめる。たぶん。</p>
+<h4>せっかくなので</h4>
+<p>思い立ったタイミングでslackにつぶやいていくと、一日何していたかがなんとなく掴めそうなデータになりそうだったので<br />
+このチャネルの発現をまとめて自分用の日報にすることにした(今のところ特に会社に日報はない)。</p>
+<p>業務終了後にサササッと書こうと思ったら意外と時間かかってしまった。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">require &#39;open-uri&#39;
+</span><span style="color:#c0c5ce;">require &#39;json&#39;
+</span><span style="color:#c0c5ce;">require &#39;time&#39;
+</span><span style="color:#c0c5ce;">​
+</span><span style="color:#c0c5ce;">module Slack
+</span><span style="color:#c0c5ce;">class Times
+</span><span style="color:#c0c5ce;">def initialize(team, user, token)
+</span><span style="color:#c0c5ce;">@team = team
+</span><span style="color:#c0c5ce;">@user = user
+</span><span style="color:#c0c5ce;">@channel = &quot;times_#{user}&quot;
+</span><span style="color:#c0c5ce;">@token = token
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">​
+</span><span style="color:#c0c5ce;"># 今日一日のメッセージをコピペする形にするところ
+</span><span style="color:#c0c5ce;">def today
+</span><span style="color:#c0c5ce;">today = Date.today
+</span><span style="color:#c0c5ce;">from = Time.parse(today.to_s)
+</span><span style="color:#c0c5ce;">to = Time.parse((today + 1).to_s)
+</span><span style="color:#c0c5ce;">​
+</span><span style="color:#c0c5ce;">today_history = channel_history(from, to).sort
+</span><span style="color:#c0c5ce;">​
+</span><span style="color:#c0c5ce;">puts &quot;今日の感じ&quot;
+</span><span style="color:#c0c5ce;">puts &quot;```&quot;
+</span><span style="color:#c0c5ce;">today_history.each do |time, message|
+</span><span style="color:#c0c5ce;">puts time
+</span><span style="color:#c0c5ce;">puts &quot;#{message[&#39;user&#39;]}: #{message[&#39;text&#39;]} nn&quot;
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">puts &quot;```&quot;
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">​
+</span><span style="color:#c0c5ce;">private
+</span><span style="color:#c0c5ce;">​
+</span><span style="color:#c0c5ce;"># 特定期間のメッセージを抽出
+</span><span style="color:#c0c5ce;"># ※今気づいたけどfrom toの使い方間違えたAPIに投げる予定だったのに使っていない
+</span><span style="color:#c0c5ce;">def channel_history(from, to)
+</span><span style="color:#c0c5ce;">channel_id()
+</span><span style="color:#c0c5ce;">uri = &quot;https://slack.com/api/channels.history?token=#{@token}&amp;channel=#{@channel_id}&quot;
+</span><span style="color:#c0c5ce;">responce = open(uri)
+</span><span style="color:#c0c5ce;">if responce.status[0] == &#39;200&#39;
+</span><span style="color:#c0c5ce;">json = JSON.parse(responce.read)
+</span><span style="color:#c0c5ce;">else
+</span><span style="color:#c0c5ce;">puts &quot;HTTP STATUS ERROR. It is #{responce.status[0]}&quot;
+</span><span style="color:#c0c5ce;">exit 1
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">messages = {}
+</span><span style="color:#c0c5ce;">json[&quot;messages&quot;].each do |message|
+</span><span style="color:#c0c5ce;">user = convert_to_user(message[&quot;user&quot;])
+</span><span style="color:#c0c5ce;">text = message[&quot;text&quot;]
+</span><span style="color:#c0c5ce;">time = Time.at(message[&quot;ts&quot;].to_i)
+</span><span style="color:#c0c5ce;">​
+</span><span style="color:#c0c5ce;">if (time &gt; from and time &lt; to)
+</span><span style="color:#c0c5ce;">messages[time] = {
+</span><span style="color:#c0c5ce;">&quot;user&quot; =&gt; user,
+</span><span style="color:#c0c5ce;">&quot;text&quot; =&gt; text,
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">messages
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">​
+</span><span style="color:#c0c5ce;"># メッセージをとった時にuserのidがでるんだけど、名前がほしいので取りに行く人
+</span><span style="color:#c0c5ce;">def convert_to_user(id)
+</span><span style="color:#c0c5ce;">uri = &quot;https://slack.com/api/users.info?token=#{@token}&amp;user=#{id}&quot;
+</span><span style="color:#c0c5ce;">responce = open(uri)
+</span><span style="color:#c0c5ce;">if responce.status[0] == &#39;200&#39;
+</span><span style="color:#c0c5ce;">json = JSON.parse(responce.read)
+</span><span style="color:#c0c5ce;">else
+</span><span style="color:#c0c5ce;">puts &quot;HTTP STATUS ERROR. It is #{responce.status[0]}&quot;
+</span><span style="color:#c0c5ce;">exit 1
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">json[&quot;user&quot;][&quot;name&quot;]
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">​
+</span><span style="color:#c0c5ce;"># channel名はしってるんだけど、idじゃないとhistoryを呼べないので変換
+</span><span style="color:#c0c5ce;">def channel_id
+</span><span style="color:#c0c5ce;">uri = &quot;https://slack.com/api/channels.list?token=#{@token}&quot;
+</span><span style="color:#c0c5ce;">responce = open(uri)
+</span><span style="color:#c0c5ce;">if responce.status[0] == &#39;200&#39;
+</span><span style="color:#c0c5ce;">json = JSON.parse(responce.read)
+</span><span style="color:#c0c5ce;">else
+</span><span style="color:#c0c5ce;">puts &quot;HTTP STATUS ERROR. It is #{responce.status[0]}&quot;
+</span><span style="color:#c0c5ce;">exit 1
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">json[&quot;channels&quot;].each do |channel|
+</span><span style="color:#c0c5ce;">if channel[&quot;name&quot;] == @channel
+</span><span style="color:#c0c5ce;">@channel_id = channel[&quot;id&quot;]
+</span><span style="color:#c0c5ce;">else
+</span><span style="color:#c0c5ce;">&quot;The channel is not found.&quot;
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span></pre>
+<p>newしてtodayするとなんとなく雑な感じにだだだと文字列が表示されると思います。<br />
+明日になったら重複しているコードをまとめよう。</p>
+<h4>そんな感じで</h4>
+<p>今日から始まったこれですがどうなるかわかりません。<br />
+進展があったら報告しませう。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

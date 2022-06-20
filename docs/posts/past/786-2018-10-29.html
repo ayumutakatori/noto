@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Zaim APIの利用</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Zaim APIの利用</h2>
+    <div class="description">
+        　Date：2018-10-29 01:04:05 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <p><a href="https://zaim.net/">Zaim</a> をいつも使ってます。他の家計簿サービスもすごくいいんですが、差し迫ってくる感じ、意識の高そうな感じがなんとなく合わず。最も家計簿を家計簿として使えそうなZaimを使わせてもらっています。### APIが使えた
+ノーマークだったんですが、実は公開されているAPIがありせっかくなので使ってみようという記事です。</p>
+<h3>手順</h3>
+<p>事前にzaimに登録してある程度使っておきます(readとかできる内容がないとおもしろくない)。<br />
+<a href="https://dev.zaim.net">https://dev.zaim.net</a> にアクセスします。すると下記の画面のように遷移するので、求められるままに情報を出していきます。</p>
+<h4>アクセストークンの取得</h4>
+<p>規約をみてログインを押す</p>
+<p><img src="/public/images/2019/01/3a7f4-1MIIl1OIvZSjluk1992OHUg.png" alt="" />* * *
+zaimを使っているユーザのログイン情報を入力</p>
+<p><img src="/public/images/2019/01/bbecd-1dC4ODvlfmOlUfNe_XEuRSQ.png" alt="" />* * *
+新しいアプリケーションを追加 を選択</p>
+<p><img src="/public/images/2019/01/5edc8-1qPJ79fRPgFb35kD2dbNmRg.png" alt="" />* * *
+求められるままにチェックを入れる「永続的に許可する」を選択しておくと定期的に情報を更新しなくていいらしい(セキュリティには気をつけて)</p>
+<p><img src="/public/images/2019/01/628d3-17JM2ko9Ol6VoDXzdWECs1Q.png" alt="" />* * *
+アプリケーションが作られる</p>
+<p><img src="/public/images/2019/01/6e9ab-1YnDllBChcCKtHg_W3quw-w.png" alt="" />* * *
+データが作成される。ほぼモザイク。URLとかは多分固定だと思うんだけど、ログイン後に見れる情報のようだったので一応モザイクに。</p>
+<p><img src="/public/images/2019/01/77e7a-109wcWz1IXT9n-AFhfDjxog.jpeg" alt="" />#### Rubyでデータを取得
+以下、下記の記事の写経。</p>
+<p>faradayでoauthを実行しようとしたら、2個ほど他にもライブラリが必要で面倒になりそのままこちらのおせわになりました。</p>
+<p><a href="https://qiita.com/seteen/items/12f535228e2a3453764b#2-oauth%E3%81%AE%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E3%82%92%E5%8F%96%E5%BE%97">RubyでZaim APIを利用する</a>(oauthのトークンを取得)    require 'oauth'</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">CONSUMER_KEY = &#39;1で取得したConsumer Key&#39;
+</span><span style="color:#c0c5ce;">CONSUMER_SECRET = &#39;1で取得したConsumer Secret&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">consumer = OAuth::Consumer.new(CONSUMER_KEY, CONSUMER_SECRET,
+</span><span style="color:#c0c5ce;">site: &#39;https://api.zaim.net&#39;,
+</span><span style="color:#c0c5ce;">request_token_path: &#39;/v2/auth/request&#39;,
+</span><span style="color:#c0c5ce;">authorize_url: &#39;https://auth.zaim.net/users/auth&#39;,
+</span><span style="color:#c0c5ce;">access_token_path: &#39;/v2/auth/access&#39;)
+</span><span style="color:#c0c5ce;">request_token = consumer.get_request_token(oauth_callback: &#39;http://google.com&#39;)
+</span><span style="color:#c0c5ce;">system(&#39;open&#39;, request_token.authorize_url)
+</span><span style="color:#c0c5ce;">print &quot;Verifierを入力してください:&quot;
+</span><span style="color:#c0c5ce;">oauth_verifier = gets.chomp.strip
+</span><span style="color:#c0c5ce;">access_token = request_token.get_access_token(:oauth_verifier =&gt; oauth_verifier)
+</span><span style="color:#c0c5ce;">p access_token.token
+</span><span style="color:#c0c5ce;">p access_token.secret
+</span></pre>
+<p>下記の画面が表示されるのでログインすると、次のページ遷移先のソースに <code>oauth_verifier</code> という項目がありそこに記載されたものを上記のコードの <code>oauth_cerifier</code> に代入する。</p>
+<p><img src="/public/images/2019/01/d0d6f-1LvphBE8pBCoH5bjhyrQ_-Q.png" alt="" />これでアクセストークンが得られる。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">require &#39;oauth&#39;
+</span><span style="color:#c0c5ce;">require &#39;json&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">CONSUMER_KEY = &#39;&lt;上記コードで得られたもの&gt;&#39;
+</span><span style="color:#c0c5ce;">CONSUMER_SECRET = &#39;&lt;上記コードで得られたもの&gt;&#39;
+</span><span style="color:#c0c5ce;">ACCESS_TOKEN = &#39;&lt;上記コードで得られたもの&gt;&#39;
+</span><span style="color:#c0c5ce;">ACCESS_TOKEN_SECRET = &#39;&lt;上記コードで得られたもの&gt;&#39;
+</span><span style="color:#c0c5ce;">API_URL = &#39;https://api.zaim.net/v2/&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">_consumer_ = OAuth::Consumer.new(
+</span><span style="color:#c0c5ce;">CONSUMER_KEY,
+</span><span style="color:#c0c5ce;">CONSUMER_SECRET,
+</span><span style="color:#c0c5ce;">site: &#39;https://api.zaim.net&#39;,
+</span><span style="color:#c0c5ce;">request_token_path: &#39;/v2/auth/request&#39;,
+</span><span style="color:#c0c5ce;">authorize_url: &#39;https://auth.zaim.net/users/auth&#39;,
+</span><span style="color:#c0c5ce;">access_token_path: &#39;/v2/auth/access&#39;
+</span><span style="color:#c0c5ce;">)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">_access\_token_ = OAuth::AccessToken.new(_consumer_, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 認証の確認
+</span><span style="color:#c0c5ce;">JSON.parse(verify.body)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 入力データの確認
+</span><span style="color:#c0c5ce;">_moneys_ =_access\_token_.get(&quot;#{API_URL}home/money&quot;)
+</span><span style="color:#c0c5ce;">JSON.parase(_moneys_.body)
+</span></pre>
+<p>以上でデータの取得までできた。目的は毎月発生する金額の一括入力なので、それは作業したら追記するようにしたい。</p>
+<p>(たぶんzaimアプリ内でできるっぽいのだけど、いまいち自分には方法がわからないかった。めちゃくちゃデータが追加されてハイパー赤字になった)</p>
+<p>ほぼ、 <a href="https://qiita.com/seteen/items/12f535228e2a3453764b">こちらの記事</a>と同じ内容となったためぜひそちらをご覧になっていただくことをおすすめしたい。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

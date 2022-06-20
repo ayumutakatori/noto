@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>フィヨルドインターン: 黒い画面入門</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">フィヨルドインターン: 黒い画面入門</h2>
+    <div class="description">
+        　Date：2015-10-18 17:18:15 +0900<br />
+        　Categories： Etc <br />
+        
+    </div>
+    <h4>はじめに</h4>
+<p>この記事はフィヨルド社のインターン内のカリキュラムにあった<a href="http://fjord.jp/love/548.html">Webデザイナーの為の「本当は怖くない」”黒い画面”入門</a>を読んでの感想記事です。</p>
+<h4>感想</h4>
+<p>私自身がLinuxサーバの運用担当なので、ほとんど普段業務で接している内容でした。<br />
+なのでコマンドの一つ一つがとても身近でした。<br />
+それでも読んでいてバイナリの意味とかcatの語源とかしらないことはいくつかあって、<br />
+なるほどなるほどと読んでいました。</p>
+<p>それとsaykanaは全く存在を知らなかったので新鮮でした笑<br />
+これはなにかと使いみちがある予感。</p>
+<h4>せっかくなので</h4>
+<p>せっかくなので、これらの頻出コマンドのうち自分がMACで使ってるコマンドランキングを出してみました。<br />
+いかがそのコマンドです。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ history | awk &#39;{print $2}&#39; | sort | uniq -c | sort -nr | head -n 10
+</span></pre>
+<p>使用コマンドは</p>
+<ul>
+<li>history: 使用したコマンドの履歴を出力するコマンド。</li>
+<li>awk: UNIX上で動くプログラミング言語、文字列処理によく使われる</li>
+<li>sort: 出力の並び替えを行うコマンド</li>
+<li>nオプション:先頭の数字や記号(“+” , “-” , “.” など)を数値とみなして，ソートする。先頭の空白は無視する</li>
+<li>rオプション:反対から表示する</li>
+<li>uniq: ソート済みのファイルから重複した行を削除する</li>
+<li>cオプション:それぞれの行の数も表示する</li>
+<li>head: ファイルの先頭部分を表示する</li>
+<li>nオプション:表示する行数を指定する
+これらです。</li>
+</ul>
+<p>そして私の結果ですが、MACということもあり</p>
+<ul>
+<li>142 git</li>
+<li>66 ls</li>
+<li>44 rails</li>
+<li>35 cap</li>
+<li>34 cd</li>
+<li>32 pry</li>
+<li>28 exit</li>
+<li>20 rake</li>
+<li>13 gem</li>
+<li>13 brew<br />
+※約500件中。
+macではrubyしかほぼ書かないことと、確認しまくりなlsが1,2で個人的に納得の結果でした笑<br />
+自分のを見てみると意外と面白いかもしれません。</li>
+</ul>
+<h4>最後に</h4>
+<p>入門のblogにも記載されていますが、私ももともと黒い画面を使わ総務からサーバエンジニアになったタイミングでコンソールに触るようになりました。最初はそもそも / からつらなるファイル群がどこに何があってどういうグルーピング7なのかがさっぱりわかりませんでした。</p>
+<p>本当になれだと思うので、自分が便利だと思えたところから少しずつ覚えるのが良いんじゃないかなーと記事を読みながら感じました。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

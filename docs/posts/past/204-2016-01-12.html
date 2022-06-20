@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>今日知ったこと</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">今日知ったこと</h2>
+    <div class="description">
+        　Date：2016-01-12 04:42:16 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>今日も知らないことがたくさんあった。</p>
+<h3>rails runner</h3>
+<p>Railsの環境の値などをそのままつかってRubyScriptの実行ができる。<br />
+バッチ処理などがあれば、cronで $ rails runner “scriptname.rb”とかすれば捗りそう。</p>
+<h3>private protected public</h3>
+<p>protectedにでくわした。いつもたいていprivateを使う程度だったので、少々困惑。<br />
+<a href="http://qiita.com/tbpgr/items/6f1c0c7b77218f74c63e">この記事</a>が参考になった。<br />
+tbpgrさんありがとうございます。</p>
+<h3>instance_eval</h3>
+<p>publicな性質のものではない、protectedなメソッドをどうしてもrunnerから呼ばないといけなくなって<br />
+instance_evalも初めて使った。<br />
+これ、コードを送り込まれたりしたら実行できちゃいそうだから、その隙を作らないようにしないといけないね。</p>
+<h3>git blame</h3>
+<p>行単位で最新のコミット番号が見れたりする。</p>
+<p>そんな感じで今日もなかなか調べた。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>複数の引数を処理できるようにする</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">複数の引数を処理できるようにする</h2>
+    <div class="description">
+        　Date：2019-01-03 00:25:35 +0900<br />
+        　Categories： Programming <br />
+        
+    </div>
+    <p><a href="https://medium.com/katsumataryo/rust%E3%81%A7some%E3%82%92%E5%8F%96%E3%82%8A%E6%89%B1%E3%81%86-95dbd86c08d0">こちら</a>の続きです。</p>
+<p>前回までで写真を読み取って表示したい項目を表示できるようになったので、複数の画像ファイルを扱えるようにしたいと思います。</p>
+<h3>引数をイテレートして処理する</h3>
+<h4>1つ目の引数をskipする</h4>
+<p>以前引数が入っているargsの1つ目は実行パスだった記憶があったので、1つ目をスキップするようにする</p>
+<p>[rust]</p>
+<p>// code</p>
+<p>use std::env;</p>
+<p>use rexiv2;</p>
+<p>fn main() {</p>
+<p>let arguments = env::args().skip(1);</p>
+<p>println!(&quot;{:?}&quot;, arguments);</p>
+<p>}</p>
+<p>// result</p>
+<p>ktmt-brkt:exif[master *]$ cargo run /Users/ryo/Downloads/Photos/DSC04117.jpg /Users/ryo/Downloads/Photos/DSC04118.jpg /Users/ryo/Downloads/Photos/DSC04119.jpg</p>
+<p>Compiling exif v0.1.0 (/Users/ryo/work/ryo/study_rust/exif) Finished dev [unoptimized + debuginfo] target(s) in 0.72s</p>
+<p>Running <code>target/debug/exif /Users/ryo/Downloads/Photos/DSC04117.jpg /Users/ryo/Downloads/Photos/DSC04118.jpg /Users/ryo/Downloads/Photos/DSC04119.jpg</code></p>
+<p>Skip { iter: Args { inner: [&quot;target/debug/exif&quot;, &quot;/Users/ryo/Downloads/Photos/DSC04117.jpg&quot;, &quot;/Users/ryo/Downloads/Photos/DSC04118.jpg&quot;, &quot;/Users/ryo/Downloads/Photos/DSC04119.jpg&quot;] }, n: 1 }[/rust]</p>
+<p>Skip { ... } が結果として返ってくることがわかった。これをイテレートすれば良さそう。</p>
+<h4>引数をイテレートする</h4>
+<p>引数のイテレートは以下のような書き方ができるみたい</p>
+<p>[rust]for argument in env::args() {</p>
+<p>println!(&quot;{}&quot;, argument);</p>
+<p>}[/rust]</p>
+<h3>コードに取り入れていく</h3>
+<p>この2つを今までのコードに取り入れていくと以下のような感じ。</p>
+<p>[rust]</p>
+<p>use std::env;</p>
+<p>use rexiv2;</p>
+<p>fn main() {</p>
+<p>let arguments = env::args().skip(1);</p>
+<p>for argument in arguments {</p>
+<p>let meta = rexiv2::Metadata::new_from_path(&amp;argument).unwrap();</p>
+<p>println!(&quot;[{}]&quot;, argument);</p>
+<p>println!(&quot;Width: {:?}&quot;, meta.get_pixel_width());</p>
+<p>println!(&quot;Height: {:?}&quot;, meta.get_pixel_height());</p>
+<p>println!(&quot;F: {:?}&quot;, meta.get_fnumber().unwrap());</p>
+<p>println!(&quot;ISO: {:?}&quot;, meta.get_iso_speed().unwrap());</p>
+<p>println!(&quot;Shutter: {:?}/{:?}&quot;, meta.get_exposure_time().unwrap().numer(), meta.get_exposure_time().unwrap().denom());</p>
+<p>}</p>
+<p>}</p>
+<p>[/rust]</p>
+<p>実行結果(3つの画像を引数にとってる)</p>
+<p>[rust]</p>
+<p>ktmt-brkt:exif[master *]$ cargo run /Users/ryo/Downloads/Photos/DSC04117.jpg /Users/ryo/Downloads/DSC03120.jpg /Users/ryo/Downloads/DSC03190.jpg // こめんど部分</p>
+<p>Finished dev [unoptimized + debuginfo] target(s) in 0.08s</p>
+<p>Running <code>target/debug/exif /Users/ryo/Downloads/Photos/DSC04117.jpg /Users/ryo/Downloads/DSC03120.jpg /Users/ryo/Downloads/DSC03190.jpg</code></p>
+<p>[/Users/ryo/Downloads/Photos/DSC04117.jpg] // 1つ目の結果</p>
+<p>Width: 6000</p>
+<p>Height: 4000</p>
+<p>F: 1.8</p>
+<p>ISO: 320</p>
+<p>Shutter: 1/200</p>
+<p>[/Users/ryo/Downloads/DSC03120.jpg] // 2つ目の結果</p>
+<p>Width: 3936</p>
+<p>Height: 2624</p>
+<p>F: 4.0</p>
+<p>ISO: 16000</p>
+<p>Shutter: 1/125</p>
+<p>[/Users/ryo/Downloads/DSC03190.jpg] // 3つ目の結果</p>
+<p>Width: 3936</p>
+<p>Height: 2624</p>
+<p>F: 4.0</p>
+<p>ISO: 5000</p>
+<p>Shutter: 1/100</p>
+<p>[/rust]</p>
+<p>もっと良い書き方があるのだろうけど、ひとつひとつ。本当はもっと包括的にやっていきたい。でも一つ一つ。ファイルパスが正しくないときのエラー処理などを次はやっていきたい。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

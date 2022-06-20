@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>clasp + typescript：[gas] 特定のGmailの受信をslack通知する</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">clasp + typescript：[gas] 特定のGmailの受信をslack通知する</h2>
+    <div class="description">
+        　Date：2021-01-13 11:45:50 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <p>メールをみるの無精なので、来たメールで拾いたいものがあったらslackに通知するようにするスクリプトを書いてみた。来たことがわかればいいので、来た件数だけを通知するという簡単仕様で 雑にでも gas + clasp + typescript の一連の流れを追えたらと思っています。</p>
+<h2>プロジェクトの準備</h2>
+<p>前回もやったようなプロジェクトの準備をやっていきます。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># ディレクトリ作成
+</span></pre>
+<p>$ mkdir kyuka-notification</p>
+<p>$ cd kyuka-notification/</p>
+<h1>ログインアカウントを確認</h1>
+<p>$ clasp login --status</p>
+<p>(node:48940) ExperimentalWarning: The fs.promises API is experimental</p>
+<p>You are logged in as xxxx@gmail.com</p>
+<h1>gasの環境準備</h1>
+<p>$ npm i -S @types/google-apps-script</p>
+<p>npm WARN saveError ENOENT: no such file or directory, open '/YOUR/DIR/kyuka-notification/package.json'</p>
+<p>npm notice created a lockfile as package-lock.json. You should commit this file.</p>
+<p>npm WARN enoent ENOENT: no such file or directory, open '/YOUR/DIR/kyuka-notification/package.json'</p>
+<p>npm WARN kyuka-notification No description</p>
+<p>npm WARN kyuka-notification No repository field.</p>
+<p>npm WARN kyuka-notification No README data</p>
+<p>npm WARN kyuka-notification No license field.</p>
+<ul>
+<li>@types/google-apps-script@1.0.20</li>
+</ul>
+<p>$ clasp create --title &quot;Kyuka Notification&quot; --type standalone</p>
+<h1>timezoneを変更</h1>
+<p>$ cat appsscript.json</p>
+<p>{</p>
+<p>&quot;timeZone&quot;: &quot;Asia/Tokyo&quot;,</p>
+<p>&quot;dependencies&quot;: {</p>
+<p>},</p>
+<p>&quot;exceptionLogging&quot;: &quot;STACKDRIVER&quot;,</p>
+<p>&quot;runtimeVersion&quot;: &quot;V8&quot;</p>
+<p>}</p>
+<h2>コードを書いていく</h2>
+<p>コードが書ける状態になったので、ローカルのエディタでコードを書いていきます。</p>
+<p>まずは一旦動作だけ確認できるようにログにメモを残す数行のプログラム。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">// 一旦console.logに出る状態で clasp push
+</span></pre>
+<p>// Compiled using ts2gas 3.6.4 (TypeScript 4.1.3)</p>
+<p>function main() {</p>
+<p>notify();</p>
+<p>}</p>
+<p>function notify() {</p>
+<p>console.log(&quot;log&quot;);</p>
+<p>}</p>
+<p>この状態で <code>clasp push</code> してWEB上で動作することを確認。</p>
+<h2>実際に動かすコードを書く</h2>
+<p>typescriptのコードがわからないので、特にライブラリを使わない<a href="https://specially198.com/notify-messages-with-images-using-slacks-incoming-webhook-in-gas/">こちら</a>を写経させてもらいました。incoming webhookの設定手順は省略しています。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">// incoming webhookを使ってslackに通知するプログラム
+</span></pre>
+<p>let webhook = &quot;https://hooks.slack.com/services/xxxxxx&quot;</p>
+<p>function main() {</p>
+<p>notify();</p>
+<p>}</p>
+<p>function notify() {</p>
+<p>let message = '私は気になります =&gt; 休暇申請';</p>
+<p>let jsonData = {</p>
+<p>&quot;username&quot; : '気になるタイプの民',</p>
+<p>&quot;text&quot; : message,</p>
+<p>};</p>
+<p>let payload = JSON.stringify(jsonData);</p>
+<p>let options = {</p>
+<p>&quot;method&quot; : &quot;post&quot;,</p>
+<p>&quot;contentType&quot; : &quot;application/json&quot;,</p>
+<p>&quot;payload&quot; : payload,</p>
+<p>};</p>
+<p>UrlFetchApp.fetch(webhook, options);</p>
+<p>console.log(&quot;notify done&quot;);</p>
+<p>}</p>
+<p>これでclasp pushしてslackに通知されることを確認した。次は実際にGmailからデータを見て処理をするところを時間を見つけて書いていきたい。</p>
+<h2>Gmail から特定のタイトルのメール件数を取る</h2>
+<p>GmailAppというオブジェクトが用意されていて、searchというファンクションにqueryを与えるとGmailの検索窓のように動くらしくそれを愚直に書いている感じです。</p>
+<p>returnで 返しているのは通知用に使うデータになっています。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">function searchMail() {
+</span></pre>
+<p>const beforeOneHour = dayjs.dayjs().subtract(1, 'hour').unix();</p>
+<p>const query = <code>承諾 after:${beforeOneHour}</code>;</p>
+<p>const threads = GmailApp.search(query);</p>
+<p>const length = threads.length;</p>
+<p>console.log(length);</p>
+<p>return { text: <code>承諾: ${length}件</code>, length: length };</p>
+<p>}</p>
+<p>「一時間前までの間に」という判定をしたかったため、day.jsを読み込んでいます。appscript.jsonに下記を追加するとグローバルオブジェクトに入ってくる様子（ここがちゃんと理解できてなくてハマった）</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">&quot;dependencies&quot;: {
+</span></pre>
+<p>&quot;libraries&quot;:[</p>
+<p>{</p>
+<p>&quot;userSymbol&quot;: &quot;dayjs&quot;,</p>
+<p>&quot;libraryId&quot;: &quot;1ShsRhHc8tgPy5wGOzUvgEhOedJUQD53m-gd8lG2MOgs-dXC_aCZn9lFB&quot;,</p>
+<p>&quot;version&quot;: &quot;1&quot;</p>
+<p>}</p>
+<p>]</p>
+<p>},</p>
+<p>あとは通知をするだけという感じです。</p>
+<h2>定期実行</h2>
+<p>この画面のトリガーを設定すれば良さそう。</p>
+<p>定期処理は明日調べて追加して、全体のスクリプトをはろうと思います。</p>
+<p><img src="/public/images/2021/01/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2021-01-15-7.18.12-906x1024.png" alt="" />
+テストで1分おきで実行にしてみたところ動いてそうだった。</p>
+<p><img src="/public/images/2021/01/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2021-01-15-7.34.34-1024x62.png" alt="" /></p>
+<h2>ちょっとわからなかった</h2>
+<p>ちゃんと調べればいいんだけど、デプロイが以下の選択肢がなくてバッチで実行する場合は特にデプロイしなくてもいいんだろうか？（トリガーで動いているし、バージョン管理は手元でできているのでまぁという気持ちになってる）</p>
+<p><img src="/public/images/2021/01/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2021-01-15-7.37.04-1024x551.png" alt="" /></p>
+<h2>最終的なコード</h2>
+<p>こんな感じになりました。js不勉強なのをこれを気に少しずつ解消できるとよいけども（ES2015すらそもそも危うい為）</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">// main.ts
+</span></pre>
+<p>const webhook = &quot;https://hooks.slack.com/services/xxx&quot;</p>
+<p>function main() {</p>
+<p>const mailResult = searchMail();</p>
+<p>console.log(mailResult);</p>
+<p>notify(mailResult);</p>
+<p>}</p>
+<p>function notify(result) {</p>
+<p>const message = <code>わたし、きになります！ → ${result.text}</code>;</p>
+<p>const jsonData = {</p>
+<p>&quot;username&quot; : '気になるタイプの民',</p>
+<p>&quot;text&quot; : message,</p>
+<p>};</p>
+<p>const payload = JSON.stringify(jsonData);</p>
+<p>const options = {</p>
+<p>&quot;method&quot; : &quot;post&quot;,</p>
+<p>&quot;contentType&quot; : &quot;application/json&quot;,</p>
+<p>&quot;payload&quot; : payload,</p>
+<p>};</p>
+<p>if (result.length != 0) {</p>
+<p>UrlFetchApp.fetch(webhook, options);</p>
+<p>console.log(&quot;notify done&quot;);</p>
+<p>}</p>
+<p>}</p>
+<p>function searchMail() {</p>
+<p>const beforeOneHour = dayjs.dayjs().subtract(1, 'hour').unix();</p>
+<p>const query = <code>\&lt;検索したい文字列\&gt; after:${beforeOneHour}</code>;</p>
+<p>const threads = GmailApp.search(query);</p>
+<p>const length = threads.length;</p>
+<p>console.log(length);</p>
+<p>return { text: <code>お知らせ: ${length}件</code>, length: length };</p>
+<p>}</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">// appscriot.json
+</span></pre>
+<p>{</p>
+<p>&quot;timeZone&quot;: &quot;Asia/Tokyo&quot;,</p>
+<p>&quot;dependencies&quot;: {</p>
+<p>&quot;libraries&quot;:[</p>
+<p>{</p>
+<p>&quot;userSymbol&quot;: &quot;dayjs&quot;,</p>
+<p>&quot;libraryId&quot;: &quot;1ShsRhHc8tgPy5wGOzUvgEhOedJUQD53m-gd8lG2MOgs-dXC_aCZn9lFB&quot;,</p>
+<p>&quot;version&quot;: &quot;1&quot;</p>
+<p>}</p>
+<p>]</p>
+<p>},</p>
+<p>&quot;exceptionLogging&quot;: &quot;STACKDRIVER&quot;,</p>
+<p>&quot;runtimeVersion&quot;: &quot;V8&quot;</p>
+<p>}</p>
+<p>文言は違いますが一応こんな感じで動いたので一旦満足。</p>
+<p><img src="/public/images/2021/01/2021-01-15-9.37.01.png" alt="" />
+これから本当にやりたかったことをやっていこうと思います。</p>
+<p>※実際にgoogle app scriptにデプロイされている.gsファイルとは違うためご注意ください。</p>
+<p>参考URL</p>
+<ul>
+<li><a href="https://specially198.com/notify-messages-with-images-using-slacks-incoming-webhook-in-gas/">https://specially198.com/notify-messages-with-images-using-slacks-incoming-webhook-in-gas/</a></li>
+<li><a href="https://qiita.com/masarufuruya/items/096e51c3e4c36c86ae27">https://qiita.com/masarufuruya/items/096e51c3e4c36c86ae27</a></li>
+</ul>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

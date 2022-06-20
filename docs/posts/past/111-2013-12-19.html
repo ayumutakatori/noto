@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Ruby レシピブック — 011:メソッド定義</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Ruby レシピブック — 011:メソッド定義</h2>
+    <div class="description">
+        　Date：2013-12-19 14:28:37 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>苦手パターンのやつです。メソッド定義。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">[6] pry(main)&gt; def test()
+</span><span style="color:#c0c5ce;">[6] pry(main)* print &quot;test&quot;
+</span><span style="color:#c0c5ce;">[6] pry(main)* return &quot;test&quot;
+</span><span style="color:#c0c5ce;">[6] pry(main)* end
+</span><span style="color:#c0c5ce;">=&gt; nil
+</span><span style="color:#c0c5ce;">[7] pry(main)&gt; test
+</span><span style="color:#c0c5ce;">test=&gt; &quot;test&quot;
+</span></pre>
+<p>簡単すぎるふうにいうとこういうことですよね。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">[10] pry(main)&gt; def test(status = &quot;the end...&quot;)
+</span><span style="color:#c0c5ce;">[10] pry(main)* print &quot;testn&quot;
+</span><span style="color:#c0c5ce;">[10] pry(main)* print status
+</span><span style="color:#c0c5ce;">[10] pry(main)* end
+</span><span style="color:#c0c5ce;">=&gt; nil
+</span><span style="color:#c0c5ce;">[11] pry(main)&gt; test
+</span><span style="color:#c0c5ce;">test
+</span><span style="color:#c0c5ce;">the end...=&gt; nil
+</span><span style="color:#c0c5ce;">[12] pry(main)&gt; new = &quot;dreaming&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;dreaming&quot;
+</span><span style="color:#c0c5ce;">[13] pry(main)&gt; test(new)
+</span><span style="color:#c0c5ce;">test
+</span><span style="color:#c0c5ce;">dreaming=&gt; nil
+</span></pre>
+<p>こういう感じですよね。<br />
+いやー、yield分からない。</p>
+<p>ブロック付きメソッドの定義、単項演算子のメソッド定義はちょっと飛ばしで。。。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

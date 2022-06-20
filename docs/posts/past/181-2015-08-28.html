@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Serverspecでサーバの構成をテストする 導入と個人的知見</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Serverspecでサーバの構成をテストする 導入と個人的知見</h2>
+    <div class="description">
+        　Date：2015-08-28 19:24:09 +0900<br />
+        　Categories： Centos <br />
+        
+    </div>
+    <h4>はじめに</h4>
+<p>最近肩こりが辛いんですが、肩こりのラスボスみたいな感じの痛みで夏の終わりを感じています。</p>
+<p>今回はServerspecについて書きます。</p>
+<p>Serverspecはサーバの状態をテストするツールです。<br />
+ServerspecはRuby(Rails)で有名なテストフレームワークであるRSpecと<br />
+サーバを抽象化するライブラリであるserverinfraを合わせたツールです。</p>
+<h4>Good</h4>
+<ul>
+<li>Puppetのようにサーバが「あるべき姿」をコード化することによってサーバの状態を定義することができる(仕様書のようになる)</li>
+<li>プログラミングの手法であるTDD(テスト駆動開発)的にサーバの構築ができる</li>
+<li>定義した際の状態が不変であれば、障害時普及の手助けになる
+他にも使い方によっては様々な利点がありそうです。</li>
+</ul>
+<h4>環境</h4>
+<ul>
+<li>windows 7 64bit</li>
+<li>ruby 2.2.1p85 (2015–02–26 revision 49769) [i386-mingw32]</li>
+<li>serverspec (2.21.0)</li>
+<li>rspec (3.3.0)</li>
+<li>リモートのサーバ: CentOS 7.1
+※ windowsのコンソールは cygwin + nyaos + ckwmod です</li>
+</ul>
+<h4>インストール</h4>
+<p>早速 serverspecをインストールします<br />
+※ Rubyのインストールは割愛します。</p>
+<p>gemライブラリで一発です。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ gem install serverspec
+</span></pre>
+<p>もろもろの依存するライブラリが合わせてインストールされます。<br />
+これで終了です。</p>
+<h4>早速使用する</h4>
+<p>今回はリモートのCentOS 7サーバでapacheが動いているかを確認します。これはデフォルトのサンプルで入っている設定です。<br />
+まずは 下記コマンドを叩きます。<br />
+※任意のディレクトリを作成しその中での作業をおすすめします。<br />
+※プログラムが無いと言われる場合は環境変数のパスを確認して下さい。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ serverspec-init
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 以下対話的な入力
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Select OS type:
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">1) UN*X
+</span><span style="color:#c0c5ce;">2) Windows
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># と表示されます。今回は UN*Xなので 1 を入力
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Select number: 1
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Select a backend type:
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">1) SSH
+</span><span style="color:#c0c5ce;">2) Exec (local)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># リモート接続のため 1 を選択
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Select number: 1
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># vagrantかどうか聞かれるので今回は n を選択
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Vagrant instance y/n: n
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#テストするサーバのホスト名を入力
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Input target host name:[www.example.com](http://www.example.com)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">ここまで入力を行うと初期設定用に下記のファイルが作成されます
+</span></pre>
+<ul>
+<li>
+<p>spec/</p>
+</li>
+<li>
+<p>spec/www.example.com/</p>
+</li>
+<li>
+<p>spec/www.example.com/sample_spec.rb</p>
+</li>
+<li>
+<p>spec/spec_helper.rb</p>
+</li>
+<li>
+<p>Rakefile</p>
+</li>
+<li>
+<p>.rspec
+ファイルの説明</p>
+</li>
+<li>
+<p>spec/www.example.com/sample_spec.rb</p>
+</li>
+<li>
+<p>実際にテストする内容を記載するファイル</p>
+</li>
+<li>
+<p>同ディレクトリに *_spec.rb というファイル名で別ファイルを作成すればそちらもテストされます</p>
+</li>
+<li>
+<p>spec/spec_helper.rb</p>
+</li>
+<li>
+<p>テストに関する全般的な設定ファイルです。</p>
+</li>
+<li>
+<p>Rakefile</p>
+</li>
+<li>
+<p>テスト実行のためのタスク定義ファイルです</p>
+</li>
+<li>
+<p>.rspec</p>
+</li>
+<li>
+<p>RSpecの挙動を設定するファイルです
+実行</p>
+<p>$ rake spec:www.example.com # ドメインは各自のものに読み替えてください</p>
+<p>もしも</p>
+<p>Please set sudo password to Specinfra.configuration.sudo_password.</p>
+<p>と出て実行できない場合は下記のコマンドを実行してください。</p>
+<p>$ rake spec:www.example.com ASK_SUDO_PASSWORD=1</p>
+<p>ASK_SUDO_PASSWORD=1 は sudoのパスワードを対話的に入力しその後実行します。</p>
+<p>うまく行けば下記のような感じになると思います。</p>
+<p>$ rake spec:jazz.workapart.org ASK_SUDO_PASSWORD=1
+Enter sudo password:</p>
+<p>Package &quot;httpd&quot;
+should be installed</p>
+<p>Service &quot;httpd&quot;
+should be enabled
+should be running</p>
+<p>Port &quot;80&quot;
+should be listening</p>
+<p>Finished in 1.48 seconds (files took 6.75 seconds to load)
+4 examples, 0 failures</p>
+<p>うまくいきました。</p>
+<p>他</p>
+<p>鍵認証あたりでうまく行かない場合</p>
+<p>~/.ssh/config に設定をする必要があるかもしれません。
+下記記事の SSH認証のところが参考になります。</p>
+<p><a href="http://hidemium.hatenablog.com/entry/2014/05/04/040051">http://hidemium.hatenablog.com/entry/2014/05/04/040051</a></p>
+<p>テストに便利なリソースタイプ</p>
+<p>puppetの用にテスト項目を設定する上で便利なリソースタイプの一覧が有ります。
+下記を組み合わせていくと簡単な事は直感的に結構書けそうな感じです。</p>
+<p><a href="http://serverspec.org/resource_types.html">http://serverspec.org/resource_types.html</a></p>
+<p>個人的知見</p>
+<p>個人で使いたい用途があったため、躓いたところやserverspecと直接関係ない部分でも
+さまよった証を残します。</p>
+<p>要件</p>
+<p>概ねですが、テストを作成する前に以下の要件を満たすようにできたらよいなと考えていました。</p>
+</li>
+<li>
+<p>レンタルサーバサービスでのテスト</p>
+</li>
+<li>
+<p>区画作成後に出来た区画が正常に作成されているかをテストする</p>
+</li>
+<li>
+<p>全体に対して同様のテストを行う</p>
+</li>
+<li>
+<p>区画情報の他にプロセスの確認なども行う</p>
+</li>
+<li>
+<p>本番サーバとステージサーバのテストをタスクで実行し分ける
+概ねこれらに関しては、Serverspecにてテストが可能でしたが
+一点だけ問題があり全体テストでの採用を見送りました（後述）</p>
+<p>要件に合わせた対応と細かいtips</p>
+<p>単純な確認</p>
+<p>サービスが起動しているか</p>
+<p>service のリソースを使うことで対応可能です。</p>
+<p>describe service('nginx-1.8.0') do
+it { should be_running }
+end</p>
+<p>fileの存在確認</p>
+<p>Directoryも同様ですが下記の記述で確認が可能です。</p>
+<p>Fileの場合
+describe file(&quot;/var/path/filename&quot;) do
+it { should be_file } # ファイルかどうか
+it { should be_owned_by name } # ファイルのオーナーがnameと同じか
+it { should be_grouped_into groupname } # ファイルのグループがgroupnameと同じか
+it { should be_mode 600} # ファイルのmodeが 600 か
+end</p>
+<p>Directoryの場合
+describe file(&quot;/var/path/directory/&quot;) do
+it { should be_directory } # directoryかどうか
+it { should be_owned_by 'root'} # オーナーがrootか
+it { should be_grouped_into 'root'} # グループがrootか</p>
+<h1>中でif文を書くことも出来ます</h1>
+<p>if dir1 == 'conf'
+it { should be_mode 700}
+else
+it { should be_mode 755}
+end
+end</p>
+<p>同じ内容のテストを行う場合は配列にして回すと記述を減らすことが出来ます。</p>
+<p>files = [file1, file2, file3]
+files.each do |file|
+describe file(&quot;/var/path/filename/#{file}&quot;) do
+it { should be_file }
+it { should be_owned_by name }
+it { should be_grouped_into groupname }
+it { should be_mode 600}
+end
+end</p>
+<p>その他基本的なリソースは公式サイトに紹介されているのでそちらを参照されるととてもよいです。他には 私が多用したのが file directory service interface command でした。</p>
+<p>悩ましかった部分</p>
+<p>ldapの値を取り出して確認</p>
+<p>ldapsearch コマンドをcommandリソースに与えてgrepとawkしました</p>
+<p>情報が足りないですが簡単な例 ※環境に合わせて変更してください。
+ldapsearch_command = &quot;ldapsearch -x -h 127.0.0.1 -b &quot;認証に必要な情報&quot; -w #{password}&quot;</p>
+<p>describe command(&quot;#{ldapsearch_command} &quot;uid=idname&quot; |grep 'ftpUID:'|awk '{print $抜き取る場所}'&quot;) do
+its(:exit_status) {should match eq 0}
+its(:stdout) {should match 検証する文字列}
+end</p>
+<p>mysqlもpostgresもほぼ同様にコマンドを投げて帰ってきた値を切り抜いてSTDOUTで比較していますが、postgresだけはmysqlのように認証をエコーしてログインということが出来なかったので一時的に環境変数にpostgresのログイン情報を設定して情報を得てserverspecが実行し終わった後にshellを抜けているような挙動にみえたので、そのタイミングで環境変数を消すというふうに設定しました。</p>
+<p>spec_helper.rbの変更</p>
+<p>YAMLから設定を読み込む</p>
+<p>一つの区画ではなく多数の区画を確認する必要があったので、テストのソースではないところで情報を管理しておく必要が有りました。
+また、テストは同じ設定のため同じソースを違う設定で回す必要も有りました。
+そのため読み込んだ設定を</p>
+<p>configs.each do |config|
+describe xxx do
+end
+describe xxx do
+end
+.
+.
+.
+end</p>
+<p>のように回していく必要があります。</p>
+<p>そしてそもそもserverspecのテストはリモートのサーバにて実行されているので、specファイルの中に記載をしてしまうとローカルのymlファイルを読めないため、spec実行前に変数とかにして渡し実行する必要が有ります。
+これは、spec_helperの中に set_propertyを記述することで変数等を持ち込んで実行が可能です。</p>
+<p>properties = YAML.load_file(File.join('.', 'filepath', &quot;configs.yml&quot;))
+set_property properties</p>
+<p>specの方では property という名前で値を取り出すことが出来ます。</p>
+<p>sudoパスワードの記述を強制</p>
+<p>sudoがテスト項目で必須なため
+if文で分岐しているあたりを下記のようにして実行時に必ず聞かれるように設定しました。</p>
+<p>require 'highline/import'
+set :sudo_password, ask(&quot;Enter sudo password: &quot;) { |q| q.echo = false }</p>
+<p>一時的にsudoでは実行しないことがある場合</p>
+<p>spec_helperに以下を記載します。</p>
+<p>RSpec.configure do |c|
+c.around :each, :sudo =&gt; false do |example|
+set :disable_sudo, true
+example.run
+set :disable_sudo, false
+end
+end</p>
+<p>specファイルには以下のように :sudo =&gt; false を記載することで、sudoではない権限で実行します。</p>
+<p>describe command(実行コマンド), :sudo =&gt; false do
+its(:exit_status) {should match eq 0}
+end</p>
+<p>同内容のテストをタスクで実行し分ける</p>
+<p>通常serverspec-initを実行するとhost名のディレクトリができそのディレクトリの名前を接続先として設定して実行します。通常であればその方法で問題ないのですが、windows環境なためシンボリックリンクで実行もまた微妙で以下のようにディレクトリとrakeタスクを変更しました。</p>
+<p>ディレクトリ</p>
+<p>/
+│ .gitignore
+│ .rspec
+│ Gemfile
+│ Gemfile.lock
+│ Rakefile
+│
+└─spec
+│ spec_helper.rb
+│
+├─lib
+│ sample1_spec.rb
+│ sample2_spec.rb
+│ sample3_spec.rb
+│
+└─yml
+host1.example.com.yml
+host2.example.com.yml</p>
+<p>それに対するrakeタスクが以下です。</p>
+<p>require 'rake'
+require 'rspec/core/rake_task'</p>
+<h4>Hosting Servers</h4>
+<p>hosts = [
+'host1.example.com',
+'host2.example.com',
+]</p>
+<p>namespace :spec do
+task hosts.map {|h| 'spec:' + h.split('.')[0] }
+hosts.each do |host|
+short_name = host.split('.')[0]</p>
+<p>desc &quot;Run serverspec to #{host}&quot;
+RSpec::Core::RakeTask.new(short_name) do |t|
+ENV['TARGET_HOST'] = host
+t.pattern = &quot;spec/lib/*_spec.rb&quot;
+end
+end
+end</p>
+<p>全体区画テストの見送り(解決せず)</p>
+<p>今回作成したメインのspecファイルは</p>
+</li>
+<li>
+<p>280行 と 33describeがある</p>
+</li>
+<li>
+<p>1ホストあたり約100区画がこのテストを通る</p>
+</li>
+<li>
+<p>1区画で実行すると30秒程度かかる</p>
+</li>
+<li>
+<p>場合によって頻繁にテストが走る可能性がある。
+というものになっており、本来のサーバの構成をテストするというものよりも少々細かく数が多いものとなったため、おそらく推測で30分程度テストがかかる可能性がありました。
+設定をまとめてリモートから取得してローカルで比較するというものになっていないのでこの時間がかかるものと推測されます。sshやコマンドが何回も繰り返されるぶん無駄が発生していると考えているのですが、今回はそこを対応するまでの時間がなかったため単体に対して行う方向で考えています。</p>
+<p>最後に</p>
+<p>全体テストこそ見送ったものの、serverspecに関しては個人的に以下の良さがあると思いました。</p>
+</li>
+<li>
+<p>rubyの知識が少なくてもテストが書きやすい</p>
+</li>
+<li>
+<p>実行結果がrspecのおかげで把握しやすい</p>
+</li>
+<li>
+<p>簡単なものであればresourceを駆使することで簡単に作れる</p>
+</li>
+<li>
+<p>サーバの構成をテストできる =&gt; そして安心できる
+まだサーバの構築の際にTDD的利用は私自身行っていませんが、
+サーバの構築に新しい価値観がもたらされるとてもよいツールだと感じました。</p>
+</li>
+</ul>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

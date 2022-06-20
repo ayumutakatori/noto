@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>ruby2.1.0 make installしました</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">ruby2.1.0 make installしました</h2>
+    <div class="description">
+        　Date：2013-12-26 17:35:22 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>sudo make test</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">test succeeded
+</span></pre>
+<p>PASS all 1008 tests</p>
+<p>./miniruby -I./lib -I. -I.ext/common ./tool/runruby.rb --extout=.ext -- --disable-gems &quot;./bootstraptest/runner.rb&quot; --ruby=&quot;ruby --disable-gems&quot; ./KNOWNBUGS.rb</p>
+<p>2013-12-26 17:17:45 +0900</p>
+<p>Driver is ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]</p>
+<p>Target is ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">KNOWNBUGS.rbPASS 0
+</span></pre>
+<p>No tests, no problem</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ sudo make $ sudo make install
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ ruby -v
+</span></pre>
+<p>ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">入っていたgem 入っていたgemのインストールする。以下はリスト
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">actionmailer (3.2.13)
+</span></pre>
+<p>actionpack (3.2.13)</p>
+<p>activemodel (3.2.13)</p>
+<p>activerecord (3.2.13)</p>
+<p>activeresource (3.2.13)</p>
+<p>activesupport (3.2.13)</p>
+<p>arel (3.0.3, 3.0.2)</p>
+<p>backports (3.3.5)</p>
+<p>bigdecimal (1.1.0)</p>
+<p>builder (3.0.0)</p>
+<p>bundler (1.3.5)</p>
+<p>coderay (1.0.9)</p>
+<p>daemon_controller (1.1.8)</p>
+<p>erubis (2.7.0)</p>
+<p>hike (1.2.3)</p>
+<p>i18n (0.6.1)</p>
+<p>io-console (0.3)</p>
+<p>journey (1.0.4)</p>
+<p>jquery-rails (2.0.3)</p>
+<p>json (1.8.1, 1.8.0, 1.5.5)</p>
+<p>mail (2.5.4)</p>
+<p>mime-types (1.25.1, 1.23)</p>
+<p>minitest (2.5.1)</p>
+<p>multi_json (1.8.2, 1.7.8)</p>
+<p>mysql2 (0.3.14, 0.3.13)</p>
+<p>net-ldap (0.3.1)</p>
+<p>passenger (4.0.29)</p>
+<p>polyglot (0.3.3)</p>
+<p>rack (1.4.5)</p>
+<p>rack-cache (1.2)</p>
+<p>rack-openid (1.4.1,</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">1.3.1)
+</span></pre>
+<p>rack-protection (1.5.1)</p>
+<p>rack-ssl (1.3.3)</p>
+<p>rack-test (0.6.2)</p>
+<p>rails (3.2.13)</p>
+<p>railties (3.2.13)</p>
+<p>rake (10.1.1, 10.1.0, 0.9.2.2)</p>
+<p>rdoc (3.12.2, 3.9.5)</p>
+<p>rmagick (2.13.2)</p>
+<p>ruby-openid (2.1.8)</p>
+<p>sinatra (1.4.4)</p>
+<p>sinatra-contrib (1.4.2)</p>
+<p>sinatra-reloader (1.0)</p>
+<p>sprockets (2.2.2)</p>
+<p>thor (0.18.1)</p>
+<p>tilt (1.4.1)</p>
+<p>treetop (1.4.15, 1.4.14)</p>
+<p>tzinfo (0.3.38, 0.3.37)</p>
+<p>yard (0.8.7)</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">redmineを動かす
+</span></pre>
+<p><a href="http://blog.redmine.jp/articles/2_3/installation_centos/">http://blog.redmine.jp/articles/2_3/installation_centos/</a>    の通りにやって動きました。 とりあえず2.3.3です。それで依存関係にあったgemが入った系です。パスを通す とりあえずよく使いそうなruby, gem, pryだけシンボリックリンクしておきました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ sudo ln -s /usr/local/ruby21/bin/ruby /usr/bin/ruby
+</span></pre>
+<p>$ sudo ln -s /usr/local/ruby21/bin/pry /usr/bin/pry</p>
+<p>$ sudo ln -s /usr/local/ruby21/bin/gem /usr/bin/gem</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

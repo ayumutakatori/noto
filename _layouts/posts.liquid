@@ -12,7 +12,7 @@
     <div class="description">
         　Date：{{ page.published_date }}<br />
         　Categories：{% for category in page.categories %} {{ category }} {% endfor %}<br />
-        　Tags：{% for tag in page.tags %} {{ tag }},  {% endfor %}<br />
+        {% comment %}　Tags：{% for tag in page.tags %} {{ tag }},  {% endfor %}<br />{% endcomment %}
     </div>
     {{ page.content }}
 </div>

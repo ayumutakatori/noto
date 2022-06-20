@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>macのRubyをアップデートした</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">macのRubyをアップデートした</h2>
+    <div class="description">
+        　Date：2013-07-16 00:05:25 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>air(1.9.3-p194)とmini(1.8.7)を持っていまして、それぞれRuby1.9.3-p448と2.0.0-p247の2つをインストールされている構成にしてみた。<br />
+一応デフォルトは2系にする予定。homebrew + rbenvでインストールしてみました。理由はairのほうがそれで前回やってたみたいなので(記憶なし)</p>
+<p>■ <a href="http://blog.livedoor.jp/noanoa07/archives/1830891.html">http://blog.livedoor.jp/noanoa07/archives/1830891.html</a></p>
+<p>こちらを参考にさせて頂きました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">#参考にさせていただいたサイトの3番までは終わっていたみたい。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#インストールできるrubyのバージョン情報更新と一覧の表示
+</span><span style="color:#c0c5ce;">$ brew upgrade ruby-build
+</span><span style="color:#c0c5ce;">$ rbenv rehash　← rehash を忘れずに！
+</span><span style="color:#c0c5ce;">$ rbenv install -list
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ rbenv install 1.9.3-p448
+</span><span style="color:#c0c5ce;">#私もここでエラーが出たので
+</span><span style="color:#c0c5ce;">#以下を試してみた
+</span><span style="color:#c0c5ce;">$ CONFIGURE_OPTS=&quot;--with-readline-dir=/usr/local --with-openssl-dir=/usr/local&quot; rbenv install 1.9.3-p448
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#インストールされているバージョン確認
+</span><span style="color:#c0c5ce;">$ rbenv versions
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#デフォルトにするバージョンを設定
+</span><span style="color:#c0c5ce;">$ rbenv global 1.9.3-p448
+</span><span style="color:#c0c5ce;">$ rbenv rehash
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#念のため確認
+</span><span style="color:#c0c5ce;">$ruby -v
+</span><span style="color:#c0c5ce;">-&gt; ruby 2.0.0p247 (2013-06-27 revision 41674) [x86_64-darwin11.4.2]
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#2.0.0もだいたい同じ感じです。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">一応airもminiも無事2.0.0でokっぽい感じです。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

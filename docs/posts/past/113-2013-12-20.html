@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>レシピブック 019,020,021</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">レシピブック 019,020,021</h2>
+    <div class="description">
+        　Date：2013-12-20 20:12:23 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>コマンドプロンプト上であえてutf-8した</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">[1] pry(main)&gt; #encoding: utf-8
+</span><span style="color:#c0c5ce;">[2] pry(main)&gt;
+</span><span style="color:#c0c5ce;">[3] pry(main)&gt; str = &quot;こんにちわ&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;
+</span><span style="color:#c0c5ce;">[4] pry(main)&gt; str.size
+</span><span style="color:#c0c5ce;">=&gt; 10
+</span><span style="color:#c0c5ce;">[5] pry(main)&gt; p str.encoding
+</span><span style="color:#c0c5ce;">#
+</span><span style="color:#c0c5ce;">=&gt; #
+</span><span style="color:#c0c5ce;">[6] pry(main)&gt; p str
+</span><span style="color:#c0c5ce;">&quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;
+</span></pre>
+<p>こんどはShift_JISする</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">[1] pry(main)&gt; # encoding: Shift_JIS
+</span><span style="color:#c0c5ce;">[2] pry(main)&gt;
+</span><span style="color:#c0c5ce;">[3] pry(main)&gt; str = &quot;こんにちわ&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;
+</span><span style="color:#c0c5ce;">[4] pry(main)&gt; p str.encoding
+</span><span style="color:#c0c5ce;">#
+</span><span style="color:#c0c5ce;">=&gt; #
+</span><span style="color:#c0c5ce;">[5] pry(main)&gt; p str.size
+</span><span style="color:#c0c5ce;">10
+</span><span style="color:#c0c5ce;">=&gt; 10
+</span></pre>
+<p>2.0のせいなのか書いたとおりに書いて同じ結果にならない「」この部分。</p>
+<p>次。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">[7] pry(main)&gt; p &quot;Hello&quot;.encoding
+</span><span style="color:#c0c5ce;">#
+</span><span style="color:#c0c5ce;">=&gt; #
+</span><span style="color:#c0c5ce;">[8] pry(main)&gt; p Encoding.list
+</span><span style="color:#c0c5ce;">[#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #]
+</span></pre>
+<p>何か配列ですげーかえってきた。なんでーアスキーなのかなー。pryのせいかなー。</p>
+<p>NKFの章はダメポ。何かだめなのだろうな。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">[1] pry(main)&gt; require &#39;nkf&#39;
+</span><span style="color:#c0c5ce;">=&gt; true
+</span><span style="color:#c0c5ce;">[2] pry(main)&gt; p NKF.nkf(&quot;-s -m0&quot;, &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;)
+</span><span style="color:#c0c5ce;">&quot;x{82B1}x{82F1}x{82C9}x{82BF}x{82ED}&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;x{82B1}x{82F1}x{82C9}x{82BF}x{82ED}&quot;
+</span><span style="color:#c0c5ce;">[3] pry(main)&gt; p NKF.nkf(&quot;-w -m0&quot;, &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;)
+</span><span style="color:#c0c5ce;">&quot;u3053u3093u306Bu3061u308F&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;u3053u3093u306Bu3061u308F&quot;
+</span><span style="color:#c0c5ce;">[4] pry(main)&gt; p NKF.nkf(&quot;-W -m0&quot;, &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;)
+</span><span style="color:#c0c5ce;">ArgumentError: no output encoding given
+</span><span style="color:#c0c5ce;">from (pry):4:in `nkf&#39;
+</span><span style="color:#c0c5ce;">[5] pry(main)&gt; p NKF.nkf(&quot;-s -m0&quot;, &quot;こんにちわ&quot;)
+</span><span style="color:#c0c5ce;">&quot;x{82B1}x{82F1}x{82C9}x{82BF}x{82ED}&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;x{82B1}x{82F1}x{82C9}x{82BF}x{82ED}&quot;
+</span><span style="color:#c0c5ce;">[6] pry(main)&gt; p NKF.nkf(&quot;-w -m0&quot;, &quot;こんにちわ&quot;)
+</span><span style="color:#c0c5ce;">&quot;u3053u3093u306Bu3061u308F&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;u3053u3093u306Bu3061u308F&quot;
+</span><span style="color:#c0c5ce;">[7] pry(main)&gt; p NKF.nkf(&quot;-e -m0&quot;, &quot;こんにちわ&quot;)
+</span><span style="color:#c0c5ce;">&quot;x{A4B3}x{A4F3}x{A4CB}x{A4C1}x{A4EF}&quot;
+</span><span style="color:#c0c5ce;">=&gt; &quot;x{A4B3}x{A4F3}x{A4CB}x{A4C1}x{A4EF}&quot;
+</span><span style="color:#c0c5ce;">[8] pry(main)&gt; exit
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

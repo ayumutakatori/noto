@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>ローカルでCircleCIを動かす</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">ローカルでCircleCIを動かす</h2>
+    <div class="description">
+        　Date：2018-04-22 01:23:35 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <h3>概要</h3>
+<p>MACのローカルでCircleCIを動かす。</p>
+<p>Circle CI 2.0の移行でいちいちデプロイして失敗してを繰り返して、時間を大量に取っていたので、思い切ってローカルでテストすることにした。</p>
+<h3>手順</h3>
+<h4>dockerをインストールする</h4>
+<p>もしもdockerがマシンに入ってなければインストールしてください。</p>
+<p><a href="https://docs.docker.com/docker-for-mac/">Get started</a>#### circleci コマンドを手に入れる
+初回をupdateが必要になるかもしれません。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ curl -o /usr/local/bin/circleci https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci &amp;&amp; chmod +x /usr/local/bin/circleci
+</span></pre>
+<h4>テストを実行</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># プロジェクトディレクトリに移動し
+</span><span style="color:#c0c5ce;">$ circleci build
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">====&gt;&gt; Spin up Environment
+</span><span style="color:#c0c5ce;">Build-agent version 0.0.4892-489ba99 (2018-04-20T16:46:32+0000)
+</span><span style="color:#c0c5ce;">Error: Configuration errors: 1 error occurred:
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">* In step 3 definition: Invalid step structure (expected string or map, got config.StepDescription)
+</span><span style="color:#c0c5ce;">Step failed
+</span><span style="color:#c0c5ce;">Task failed
+</span><span style="color:#c0c5ce;">Error: 1 error occurred:
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">* In step 3 definition: Invalid step structure (expected string or map, got config.StepDescription)
+</span></pre>
+<p>なんかテストは失敗しましたが、実行は問題なさそう。さぁ本丸のテスト通す。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

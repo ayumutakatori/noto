@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>wordpressの投稿をhatenablogへ自動投稿</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">wordpressの投稿をhatenablogへ自動投稿</h2>
+    <div class="description">
+        　Date：2016-02-29 11:34:38 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h4>はじめに</h4>
+<p>WORDPRESSで投稿した際に、その内容をhatenablogに自動投稿する設定を書きます。<br />
+この投稿自体がうまく転送されるかどうかのテストです。</p>
+<p><a href="http://midasmn.hatenablog.com/entry/2015/10/31/012109">こちらの記事</a>の内容を実践しキャプチャしたものです。<br />
+参考: <a href="http://midasmn.hatenablog.com/entry/2015/10/31/012109">http://midasmn.hatenablog.com/entry/2015/10/31/012109</a></p>
+<h4>用意するもの</h4>
+<ul>
+<li>wordpress</li>
+<li>hatenablog</li>
+<li>IFTTT</li>
+</ul>
+<h4>手順</h4>
+<p>基本的な流れとしては</p>
+<ul>
+<li>IFTTT でログイン</li>
+<li>新しいレシピの追加</li>
+<li>if this then that の this を 「FEED」</li>
+<li>FEEDでwordpressのfeedを登録する</li>
+<li>thatを「Gmail」</li>
+<li>メールの送付先を hatenablogの投稿用メールアドレスを指定</li>
+<li>送付するメールの内容を設定</li>
+<li>終了</li>
+</ul>
+<h4>IFTTTで設定</h4>
+<p>thisにFEEDを選択します。</p>
+<p><img src="/public/images/2017/09/04d69-0nbhz3zlcyisgi5gy.png" alt="Create_Recipe_-_IFTTT1" />new feed itemを選択</p>
+<p><img src="/public/images/2017/09/19969-00uvtc_a3ujjva0r1.png" alt="Create_Recipe_-_IFTTT2" />feed urlを入力。feed urlは通常特にいじってないblogであればサイドバーとかにあると思います。<br />
+なければ各々探してみてください。</p>
+<p><img src="/public/images/2017/09/7cd78-0gvtzgluvvm9ifewf.png" alt="Create_Recipe_-_IFTTT3" />次にthatで 「Gmail」を選択</p>
+<p><img src="/public/images/2017/09/a6086-0tjxdkkclm7-jgpyr.png" alt="Create_Recipe_-_IFTTT4" />「send an email」を選択</p>
+<p><img src="/public/images/2017/09/a3e05-0ajokh14akyyqpzv4.png" alt="Create_Recipe_-_IFTTT5" />メールの送り方設定がでますので To Addressにはてなの投稿用アドレスを設定してください。</p>
+<p><img src="/public/images/2017/09/1f9f5-0p4y2tqeusdhkgggp.png" alt="Create_Recipe_-_IFTTT6" />投稿用アドレスは、設定の詳細設定の中にあります。</p>
+<p><img src="/public/images/2017/09/3a2e6-0klhbbgyghxzuqkwy.png" alt="設定_-_はてなブログ4" />レシピの説明を記載して確定すれば終了です。</p>
+<p><img src="/public/images/2017/09/5287e-0flh8chzpwkecuw14.png" alt="Create_Recipe_-_IFTTT8" /></p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

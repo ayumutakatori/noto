@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>rails 自分的まとめ: 初期設定編</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">rails 自分的まとめ: 初期設定編</h2>
+    <div class="description">
+        　Date：2015-08-12 00:05:59 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h4>Railsの初期設定についてまとめる</h4>
+<p>Railsの自分的初期設定についてまとめる。<br />
+これから作成する場合にほぼ間違いなくすると思うのでまとめておきたい。</p>
+<h4>rails new</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ rails new
+</span></pre>
+<h4>日本語化</h4>
+<p>rails日本語化<br />
+http://qiita.com/yutackall/items/0ff97132f31e5bacbf00</p>
+<h4>haml使用のため</h4>
+<p>Gemfile</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">gem &#39;haml-rails&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ bundle install
+</span><span style="color:#c0c5ce;">$ rails generate haml:application_layout convert
+</span><span style="color:#c0c5ce;">$ rails generate haml:application_layout convert
+</span></pre>
+<h4>bootswatch 使用</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># Gemfile
+</span><span style="color:#c0c5ce;">gem &#39;twitter-bootswatch-rails&#39;, &#39;~&gt; 3.1.1&#39;
+</span><span style="color:#c0c5ce;">gem &#39;twitter-bootswatch-rails-helpers&#39;
+</span><span style="color:#c0c5ce;">gem &#39;execjs&#39;
+</span><span style="color:#c0c5ce;">gem &#39;less-rails&#39;
+</span><span style="color:#c0c5ce;">gem &#39;therubyracer&#39;, platforms: :ruby
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ bundle install
+</span><span style="color:#c0c5ce;">$ rails g bootswatch:install simplex
+</span><span style="color:#c0c5ce;">$ rails g bootswatch:import simplex
+</span><span style="color:#c0c5ce;">$ rails g bootswatch:layout simplex
+</span></pre>
+<p>app/assets/stylesheets/application.css に</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">*= require simplex/loader
+</span><span style="color:#c0c5ce;">*= require simplex/bootswatch
+</span></pre>
+<p>を追加</p>
+<p>app/assets/javascripts/application.js に</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">//= require simplex/loader
+</span><span style="color:#c0c5ce;">//= require simplex/bootswatch
+</span></pre>
+<p>を追加</p>
+<p>あとは <a href="https://bootswatch.com/simplex/">https://bootswatch.com/simplex/</a> のやつ適当に組み合わせる<br />
+独自にCSS入れたいときはapp/assets/stylesheets/simplex/ の中にxxxx.lessファイルを置いてそのなかに書いていく。</p>
+<h4>scaffold</h4>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ rails g scaffold &lt;name&gt; &lt;column&gt;:&lt;type&gt;
+</span></pre>
+<p>使用可能な型<br />
+string 文字列<br />
+text 長い文字列<br />
+integer 整数<br />
+float 浮動小数<br />
+decimal 精度の高い小数<br />
+datetime 日時<br />
+timestamp より細かい日時<br />
+time 時間<br />
+date 日付<br />
+binary バイナリデータ<br />
+boolean Boolean型</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

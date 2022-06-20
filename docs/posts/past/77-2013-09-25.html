@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>TeratermからMTPuTTYへ</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">TeratermからMTPuTTYへ</h2>
+    <div class="description">
+        　Date：2013-09-25 23:21:15 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>頭のなかが混迷を極めたので、先輩が使っていたMTPuTTYを導入してみました。</p>
+<p>参考にしたサイト</p>
+<p>・http://d.hatena.ne.jp/tullio/20120422/1335105667 :最初に見つけたサイト<br />
+・http://ice.hotmint.com/putty/ : PuTTYごった煮<br />
+・http://blog.kironono.com/archives/179 :コンソールの配色の件<br />
+・http://ttyplus.com/multi-tabbed-putty/ : MTPuTTY</p>
+<p>導入</p>
+<p><a href="http://ice.hotmint.com/putty/">http://ice.hotmint.com/putty/</a></p>
+<p>上記のページで日本語版にできたりと何かとありがたいPuTTYがあるので<br />
+本家ではなくてこちらを使ってみました。0.63がでてたのでこちらを使っています。</p>
+<p>これを適当に C:Program FilesPuTTYx64 みたいな感じで配置しました。<br />
+iniやlngなファイルたちは.exeと同じ階層に配置すると素直に読んでくれそうです。</p>
+<p><a href="http://ttyplus.com/multi-tabbed-putty/">MTPuTTY</a><br />
+MTPuTTYをインストールし起動するとPuTTY.exeの場所を聞いてくるので教えてあげます。<br />
+これはなんかいわゆるラッパーツールみたいな言われ方してた。</p>
+<p>やったことは<br />
+・Putty.iniで配色の変更<br />
+・default設定で認証の「エージェーンとフォワードを認める」「SSH-2でユーザ名変更の試みを認める」「ページェントを使って認証する」をチェック<br />
+・default設定の外観を「フォント:Consolas 11point」「クリアタイプ」にチェックを行いました。<br />
+・PuTTYの方の設定で接続 — KeepAliveの間隔を初期値0担っているので30にかえる(たぶん秒だと思う。)<br />
+あとは特にやってないかもしくは覚えてない。</p>
+<p>あとは適当に設定を入れていって何とかつながったりするみたいです。</p>
+<p>便利ポイント</p>
+<p>なんかタブで見れるので便利です。まだ分割とかはしてないですが、それも多分便利だと思われます。<br />
+teratermからするとログイン先のホストが何件もあると探すのがめんどくさいのでそれ用のショートカット作って色々工夫してたんですが、それが今回フォルダ作れたりで見やすくなったのでそれが一番の恩恵かもしれません。</p>
+<p>他</p>
+<p>PuttY側で透過の部分を100から違う値にするとうまく起動しない感じが有りました。なんか動作はしてるみたい(ctrl+Dで抜けられる)が表のコンソール画面が出てこないのですよね。まぁいっか。と。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

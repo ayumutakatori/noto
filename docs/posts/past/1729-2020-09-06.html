@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Rust：hashmapの取り出し</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Rust：hashmapの取り出し</h2>
+    <div class="description">
+        　Date：2020-09-06 01:18:57 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h2>メモ</h2>
+<p>全然挙動がわからないのため <a href="https://play.rust-lang.org/">https://play.rust-lang.org/</a> で動作確認しながら進めてる。</p>
+<p>ハッシュマップからstringで文字列を取り出す。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">use std::collections::HashMap;
+</span></pre>
+<p>fn main() {</p>
+<p>let mut scores = HashMap::new();</p>
+<p>scores.insert(String::from(&quot;Blue&quot;), 10);</p>
+<p>scores.insert(String::from(&quot;Yellow&quot;), 50);</p>
+<p>let team_name = String::from(&quot;Blue&quot;);</p>
+<p>let score = scores.get(&amp;team_name).unwrap();</p>
+<p>println!(&quot;{}&quot;, score);</p>
+<p>}</p>
+<p>// 結果</p>
+<p>// Standard Error</p>
+<p>// Compiling playground v0.0.1 (/playground)</p>
+<p>// Finished dev [unoptimized + debuginfo] target(s) in 0.76s</p>
+<p>// Running <code>target/debug/playground</code></p>
+<p>// Standard Output</p>
+<p>// 10</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

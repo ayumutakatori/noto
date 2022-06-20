@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>operaのspeed dialを共有</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">operaのspeed dialを共有</h2>
+    <div class="description">
+        　Date：2013-11-12 01:57:05 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>opera 12以降 opera linkがちっとも役に立たないのでちょっと考えてみた。<br />
+というかブックマークという考え方がなくなってspeed dial使えってなってるの知らなかったよ。それならそれで移行できる指示とか更新時に見たかったものです。まぁそうなってしまったものはしょうがないので対策してみる。operaファンだからしょうがないです。</p>
+<p>今回opera 17にあったspeed dialをopera Next 18に移します。<br />
+またそのファイルを他の端末と共有し更新があってもそれを見に行くようにします。</p>
+<p>考え方は、<br />
+・speed dialのファイルをdropboxとか端末間を共有するところに置く<br />
+・本当はoperaが参照するファイルをシンボリックリンクで上のdropbox上のファイルに結びつける。<br />
+です。</p>
+<p>1.operaのファイルをDropboxの特定のフォルダにコピーする<br />
+うちはmacなので以下のフォルダにありました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">/Users/username/Library/Application Support/com.operasoftware.Opera/favorites.db
+</span><span style="color:#c0c5ce;">/Users/username/Library/Application Support/com.operasoftware.Opera/favorites.db-journal
+</span></pre>
+<p>このふたつをどっかdropboxに配置する仮に</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">/Users/username/Dropbox/SHARE/Opera/speeddial/favorites.db
+</span><span style="color:#c0c5ce;">/Users/username/Dropbox/SHARE/Opera/speeddial/favorites.db-journal
+</span></pre>
+<p>とします</p>
+<ol>
+<li>シンボリックリンクを貼る<br />
+コンソールから以下の感じで
+#opera nextの階層に移動(元々あったファイルはリネームしてある)
+cd /Users/username/Library/Application Support/com.operasoftware.OperaNext/
+#シンボリックリンクを貼る
+ln -s /Users/username/Dropbox/SHARE/Opera/speeddial/favorites.db favorites.db
+ln -s /Users/username/Dropbox/SHARE/Opera/speeddial/favorites.db favorites.db</li>
+</ol>
+<p>一応うまく動いてるっぽいすね。</p>
+<p>Windows 7でもシンボリックリンク使えるみたいなのであす試してみたい。<br />
+<a href="http://blog.livedoor.jp/s_imai_jp/archives/51360129.html">http://blog.livedoor.jp/s_imai_jp/archives/51360129.html</a><br />
+ちなみにwindowsのoperaは</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">Users[ユーザ名]AppDataRoamingOpera SoftwareOpera (Stable|Next?|Developer?)
+</span></pre>
+<p>とかにあるらしい。</p>
+<p>続報:windowsでもmklinkでシンボリックリンクが使えて無事speed dialを共有できました。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

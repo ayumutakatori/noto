@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>Rustでコマンドライン引数を受け取る</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">Rustでコマンドライン引数を受け取る</h2>
+    <div class="description">
+        　Date：2019-09-05 15:13:31 +0900<br />
+        　Categories： Rust <br />
+        
+    </div>
+    <p>こちらの続きです。コマンドラインで引数を受け取って、それによって表示を切り分けるようなものを作ってみました。色々考慮足りないですが、とりあえず動かすです。</p>
+<p>https://note.katsumataryo.com/tech/2019/09/1452.html</p>
+<h2>code</h2>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">use std::fs;
+</span></pre>
+<p>use std::env;</p>
+<p>fn main() {</p>
+<p>let args: Vec&lt;String&gt; = env::args().collect();</p>
+<p>let target_path:String;</p>
+<p>if args.len() &gt; 1 {</p>
+<p>target_path = format!(&quot;./{}&quot;, &amp;args[1]);</p>
+<p>} else {</p>
+<p>target_path = &quot;./&quot;.to_string();</p>
+<p>}</p>
+<p>let paths = fs::read_dir(target_path).unwrap();</p>
+<p>for path in paths {</p>
+<p>println!(&quot;{}&quot;, path.unwrap().path().display())</p>
+<p>}</p>
+<p>}</p>
+<h2>run</h2>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># 実際の状態
+</span></pre>
+<p>$ ls</p>
+<p>Cargo.lock Cargo.toml src target</p>
+<h1>引数なし</h1>
+<p>$ cargo run</p>
+<p>Compiling ls v0.1.0 (/Users/ryo/works/RYO/rust/ls)</p>
+<p>Finished dev [unoptimized + debuginfo] target(s) in 0.33s</p>
+<p>Running <code>target/debug/ls</code></p>
+<p>./Cargo.toml</p>
+<p>./target</p>
+<p>./Cargo.lock</p>
+<p>./.gitignore</p>
+<p>./.git</p>
+<p>./src</p>
+<h1>引数があり</h1>
+<p>$ cargo run src</p>
+<p>Finished dev [unoptimized + debuginfo] target(s) in 0.00s</p>
+<p>Running <code>target/debug/ls src</code></p>
+<p>./src/main.rs</p>
+<h1>前のディレクトリも一応見える(見え方の良し悪しはさておき)</h1>
+<p>$ cargo run ../</p>
+<p>Finished dev [unoptimized + debuginfo] target(s) in 0.00s</p>
+<p>Running <code>target/debug/ls ../</code></p>
+<p>./../ls</p>
+<h1>以下は例外になってるのでどうにかしたい</h1>
+<h1>ファイルだった場合</h1>
+<p>$ cargo run src/main.rs</p>
+<p>Finished dev [unoptimized + debuginfo] target(s) in 0.00s</p>
+<p>Running <code>target/debug/ls src/main.rs</code></p>
+<p>thread 'main' panicked at 'called <code>Result::unwrap()</code> on an <code>Err</code> value: Os { code: 20, kind: Other, message: &quot;Not a directory&quot; }', src/libcore/result.rs:1084:5</p>
+<p>note: run with <code>RUST_BACKTRACE=1</code> environment variable to display a backtrace.</p>
+<h1>存在しないディレクトリ</h1>
+<p>$ cargo run noexist</p>
+<p>Finished dev [unoptimized + debuginfo] target(s) in 0.00s</p>
+<p>Running <code>target/debug/ls noexist</code></p>
+<p>thread 'main' panicked at 'called <code>Result::unwrap()</code> on an <code>Err</code> value: Os { code: 2, kind: NotFound, message: &quot;No such file or directory&quot; }', src/libcore/result.rs:1084:5</p>
+<p>note: run with <code>RUST_BACKTRACE=1</code> environment variable to display a backtrace.</p>
+<h2>memo</h2>
+<p>のちほどメモするけど、例外を次はキャッチしてどうにかするみたいなものをやってみると良さそうかな。</p>
+<ul>
+<li>コマンドライン引数は <code>env::args()</code> でとってる。そのあと <code>collect()</code>してる</li>
+<li>Vecは1つ目の要素に実行ファイル名が入ってる</li>
+<li>Vecのサイズは<code>.len()</code>で取れる</li>
+<li>文字列の変数展開は <code>format!(&quot;{}&quot;, variable)</code> でよさそうだけどいいのだろうか
+コマンドラインから色々見ていくの覚えることがちょっとずつ勉強になっていいかもしれない。</li>
+</ul>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

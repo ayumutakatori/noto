@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>MacでDayone CLIを使ってみる</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">MacでDayone CLIを使ってみる</h2>
+    <div class="description">
+        　Date：2018-03-18 22:31:48 +0900<br />
+        　Categories： Tech <br />
+        
+    </div>
+    <h3>概要</h3>
+<p>Dayone2でAPIを使おうと思ったら見当たらず、CLIなるものがあることをしったので投稿を試してみた。使用しているのはdayone2です。</p>
+<h3>インストール</h3>
+<p>下記の一発でした</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">$ sudo /Applications/Day One.app/Contents/Resources/install_cli.sh
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ dayone2 -h
+</span><span style="color:#c0c5ce;">Usage: dayone2 [options] command
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">Commands:
+</span><span style="color:#c0c5ce;">new [text] [text]…
+</span><span style="color:#c0c5ce;">Creates new entry with optional text. Every text argument will be separated by
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">略
+</span></pre>
+<h3>実行</h3>
+<p><code>-j</code> は `—-journal``のオプションです。    $ dayone2 -j nikki new ‘text’
+Created new entry with uuid: D95EE7ADEFD6443C9F13E4C07B4EB03A</p>
+<p>実際の投稿は以下のような感じ</p>
+<p><img src="/public/images/2019/01/b5154-1vigK2Uw19hulxI_LvG8xiw.jpeg" alt="" />nikkiというジャーナルに追加されてました。</p>
+<h3>余談</h3>
+<p>APIがあればrubyから直接叩きに行くのだけど、しょうがないのでCLIをrubyから呼び出して投稿してる。asanaで終わったタスクをあつめて投稿するスクリプトを組んでいます。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># ruby
+</span><span style="color:#c0c5ce;">`/usr/local/bin/dayone2 -j nikki new #{body}`
+</span></pre>
+<p>みたいな感じにしようと思っていたんですが、シェルが改行きっかけで別コマンドとして読んでしまうのでちょっと考えたんですが、めんどくさかったのでファイルに一時的に書き出してそのファイルを渡す方法に変更して投稿しています。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">_# ruby  
+</span><span style="color:#c0c5ce;">File_ .open(&#39;./tmp/tmp.txt&#39;, &#39;w&#39;) do |io|
+</span><span style="color:#c0c5ce;">io.write(body)
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">`/usr/local/bin/dayone2 -j nikki new &lt; ./tmp/tmp.txt`
+</span></pre>
+<p>一応これで投稿できるようになりました。</p>
+<h3>参考</h3>
+<p><a href="http://help.dayoneapp.com/day-one-2-0/command-line-interface-cli">http://help.dayoneapp.com/day-one-2-0/command-line-interface-cli</a></p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

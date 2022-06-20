@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>簡単なXMLファイルの処理についてのmemo</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">簡単なXMLファイルの処理についてのmemo</h2>
+    <div class="description">
+        　Date：2014-12-25 11:42:00 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <h4>はじめに</h4>
+<p>XMLから簡単な要素の抽出をする必要があってそれの備忘ログ的にメモ</p>
+<h4>手順</h4>
+<p>pryで作業しています。</p>
+<h4>gem rexml の利用</h4>
+<p>まずgemの読み込み</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">require &#39;rexml/document&#39;
+</span></pre>
+<h4>xmlファイルの読み込み</h4>
+<p>引数にxmlを開いたものを渡し、REXML::Documentのオブジェクトを作成するみたいです。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">doc = REXML::Document.new(open(&quot;filepath&quot;)
+</span></pre>
+<h4>内容の読み込み</h4>
+<p>上記の状態でも puts doc すると内容が出てきます。 せっかく構造的なファイルなので読み込んでみます。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># 要素を指定して読み込む
+</span><span style="color:#c0c5ce;"># この方法では同要素が複数ある場合一番最初のが来るみたい
+</span><span style="color:#c0c5ce;">puts doc.elements[&#39;root/data&#39;]
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 全部回したいときは、ブロックを取って処理ができる
+</span><span style="color:#c0c5ce;">doc.elements[&#39;root&#39;].each do |element|
+</span><span style="color:#c0c5ce;">puts element.
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># 属性を取りたい場合はこんな感じに
+</span><span style="color:#c0c5ce;">doc.elements[&#39;root&#39;].each do |element|
+</span><span style="color:#c0c5ce;">puts element.attributes[&#39;attr&#39;]
+</span><span style="color:#c0c5ce;">end
+</span></pre>
+<h4>終わりに</h4>
+<p>htmlの構造とかにも使えるんだろうなと勝手に思っているので、ホームページからデータの抜き出しなど行うときに重宝させたいなと思っております。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>冬休みのこと6</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">冬休みのこと6</h2>
+    <div class="description">
+        　Date：2016-01-03 21:52:12 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>今日は実家から自宅に戻ってきました。<br />
+なんとか行動しようと。</p>
+<h3>seedファイルの作成</h3>
+<p>ある程度形になってきたので、rake db:seed のためのファイルを作成しました。<br />
+Userクラスがdevise経由だったでちょっと手こずった。</p>
+<p>$ rails c で必須のものがが :email と :encrypted_password だけのように見えたんだけど、<br />
+エラーメッセージが</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">user = User.new
+</span><span style="color:#c0c5ce;">user.email = &quot;test@example.com&quot;
+</span><span style="color:#c0c5ce;">user.encrypted_password = &quot;暗号化されたパスワード文字列&quot;
+</span><span style="color:#c0c5ce;">user.save!
+</span><span style="color:#c0c5ce;">ActiveRecord::RecordInvalid: Validation failed: Password can&#39;t be blank
+</span></pre>
+<p>みたいな感じにだった。:passwordなんてモデルに合ったかなーと思ったんですが、<br />
+もしかしたらと思って user.password = “パスワード”としてみたら入ったのでそれでuser.saveしたところ保存できた。<br />
+deviseは自分にはまだ過ぎたる道具感あるな~と思った。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

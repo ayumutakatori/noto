@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>rspecの標準出力を潰(されていたのをもど)す</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">rspecの標準出力を潰(されていたのをもど)す</h2>
+    <div class="description">
+        　Date：2016-06-16 19:53:26 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <p>厳密には、「rspecの標準出力が潰されていたので戻す」です。</p>
+<p>spec/spec_helper.rb</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">config.around(:example) do |example|
+</span><span style="color:#c0c5ce;">$stdout = StringIO.new
+</span><span style="color:#c0c5ce;">example.run
+</span><span style="color:#c0c5ce;">$stdout = STDOUT
+</span><span style="color:#c0c5ce;">end
+</span></pre>
+<p>こうなっているところを</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># config.around(:example) do |example|
+</span><span style="color:#c0c5ce;"># $stdout = StringIO.new
+</span><span style="color:#c0c5ce;"># example.run
+</span><span style="color:#c0c5ce;"># $stdout = STDOUT
+</span><span style="color:#c0c5ce;"># end
+</span></pre>
+<p>こうすると標準出力が戻ってきた。</p>
+
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

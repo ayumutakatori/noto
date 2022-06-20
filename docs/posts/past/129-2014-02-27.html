@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>DNSサーバ移行するときにzoneファイルをもらえない時に試すレコード</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">DNSサーバ移行するときにzoneファイルをもらえない時に試すレコード</h2>
+    <div class="description">
+        　Date：2014-02-27 11:11:50 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>はじめに</p>
+<p>ネームサーバを移行する時にお客様が連絡がなんか途絶えるし、前の業者がzone情報出すの渋ったりとかありますよね。あれないですか。本当は全部をぬるっとまるっと移行できればこれ幸いなわけですが、そうもいかない時調べるんですけど、一般的なものしか正直遠隔から調べる難しいしそもそも一般的なものって何でしょうねってことで、比較的いつもしらべてヒットするやつをメモしておく。</p>
+<p>一覧</p>
+<p>“dig A sample.co.jp “とかで引く</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># mx系
+</span><span style="color:#c0c5ce;">MX @
+</span><span style="color:#c0c5ce;">MX mail
+</span><span style="color:#c0c5ce;">MX mx
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># A系
+</span><span style="color:#c0c5ce;">A @
+</span><span style="color:#c0c5ce;">A www
+</span><span style="color:#c0c5ce;">A ftp
+</span><span style="color:#c0c5ce;">A mail
+</span><span style="color:#c0c5ce;">A imap
+</span><span style="color:#c0c5ce;">A pop
+</span><span style="color:#c0c5ce;">A smtp
+</span><span style="color:#c0c5ce;">A localhost
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># TXT 系
+</span><span style="color:#c0c5ce;">TXT @(MXがあるレコード)
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#CNAME系はAでCNAMEきたものをAで書くかCNAMEで書くかするっきゃ。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">ま、本当にドメインをフルに活用しているようなところは当てずっぽうには行けないよね。って話がもっともだし、中途半端に移行するというのはなるべく避けたいですね。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">おしまい。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

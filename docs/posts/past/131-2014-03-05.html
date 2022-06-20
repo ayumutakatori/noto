@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>net-ldapを試してみた</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">net-ldapを試してみた</h2>
+    <div class="description">
+        　Date：2014-03-05 00:18:10 +0900<br />
+        　Categories： Engine <br />
+        
+    </div>
+    <p>業務でldapを扱うことがあったのですが、全くわからなかったので悪あがきでRubyで抽出とかしてみた。</p>
+<p>gemのインストール 今回はnet/ldapというものを使いました。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">sudo gem install net-ldap
+</span></pre>
+<p>抽出のために書いたコード ちなみにもろこちらの方を参考にしています。</p>
+<p><a href="http://d.hatena.ne.jp/zizgig/20110620/1308586789">http://d.hatena.ne.jp/zizgig/20110620/1308586789</a> <a href="http://d.hatena.ne.jp/dayflower/20100302/1267509137">http://d.hatena.ne.jp/dayflower/20100302/1267509137</a> ありがとうございます。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># coding: utf-8
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">require &#39;net/ldap&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">SERVER = &#39;sample.com&#39;
+</span><span style="color:#c0c5ce;">PORT = &#39;389&#39;
+</span><span style="color:#c0c5ce;">BASE_DN = &#39;o=適当に.,c=適当に&#39;
+</span><span style="color:#c0c5ce;">ROOT_DN = &quot;cn=admin,#{BASE_DN}&quot;
+</span><span style="color:#c0c5ce;">PASSWARD = &#39;パスワード&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">ldap = Net::LDAP.new :host =&gt; SERVER, :port =&gt; PORT, :base =&gt; BASE_DN,
+</span><span style="color:#c0c5ce;">:auth =&gt; {
+</span><span style="color:#c0c5ce;">:username =&gt; ROOT_DN,
+</span><span style="color:#c0c5ce;">:password =&gt; PASSWORD,
+</span><span style="color:#c0c5ce;">:method =&gt; :simple,
+</span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">raise &#39;bind failed&#39; unless ldap.bind
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">domainname = []
+</span><span style="color:#c0c5ce;">value = []
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">ldap.open do |conn|
+</span><span style="color:#c0c5ce;">filter1 = Net::LDAP::Filter.eq(&quot;uid&quot;, &quot;admin@*&quot;)
+</span><span style="color:#c0c5ce;">conn.search(:filter =&gt; filter1) do |entry|
+</span><span style="color:#c0c5ce;">entry.each do[http://www.stbarnabashealthsystem.com/100mg/](http://www.stbarnabashealthsystem.com/100mg/)|attr_name, values|
+</span><span style="color:#c0c5ce;">case attr_name
+</span><span style="color:#c0c5ce;">when :domainname
+</span><span style="color:#c0c5ce;">domainname &lt;&lt; values
+</span><span style="color:#c0c5ce;">when :value
+</span><span style="color:#c0c5ce;">value &lt;&lt; values
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">puts domainname
+</span><span style="color:#c0c5ce;">puts ftpuid
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">exit 0
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">こんなかんじでldapの認証情報を定義してnewの時に変数に一緒に詰め込んであげる。そして ldap.bindとかで接続して、ldap.openで実際に中身をごそっと拾ってくる。 Net::LDAP::Filter.eq(”,”)でフィルターに使う道具を用意してsearchの時にそのフィルターを元に探す。 あとは通常のruby的にテキスト処理をしてあげてほしいものを抽出する。 ッて感じであってるかわからないんですが、そんな感じかなと思います。 ldapを直接触ったことがないので参考までに。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>

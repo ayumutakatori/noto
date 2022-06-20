@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>db/seeds.rbをfixturesから呼ぶのに変えた</title>
+<link rel="stylesheet" href="/public/css/base.css">
+</head>
+<body>
+
+<h1><a href="/">PAPYRUS</a></h1>
+
+<div class="content">
+    <h2 class="title">db/seeds.rbをfixturesから呼ぶのに変えた</h2>
+    <div class="description">
+        　Date：2016-02-17 00:01:37 +0900<br />
+        　Categories： ETC <br />
+        
+    </div>
+    <h4>経緯</h4>
+<p>今までrailsアプリで基礎データはdb/seeds.rbに書いていたのだけど、これに書いていると自分が書いたhookに引っかかったりして意図しない動きをしていることがままあって、控えめにいってめんどくさかったので(控えめに言わなければ、まじファ○クと叫んでたので)なんか良い方法ないかなと思っていました。</p>
+<h4>simple_seed</h4>
+<p>そんななかで <a href="https://github.com/komagata/simple_seed">simple_seed</a> というgemを教えていただいたので、自分が作成しているアプリで入れてみた。今までseeds.rbにハッシュと配列でcreate!な感じだったものが</p>
+<p>db/seeds/rb</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">import_fixture :users
+</span><span style="color:#c0c5ce;">import_fixture :categories
+</span><span style="color:#c0c5ce;">import_fixture :salaries
+</span><span style="color:#c0c5ce;">import_fixture :salary_dates
+</span><span style="color:#c0c5ce;">import_fixture :records
+</span></pre>
+<p>という感じで書くことができて<br />
+このなかのたとえばrecordsについては fixtures/records.yml を用意して</p>
+<p>fixtures/records.yml</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">records_01:
+</span><span style="color:#c0c5ce;">id: 1
+</span><span style="color:#c0c5ce;">payment: 1000
+</span><span style="color:#c0c5ce;">date: 2016-01-02
+</span><span style="color:#c0c5ce;">card: false
+</span><span style="color:#c0c5ce;">memo: &quot;サンプルデータ1&quot;
+</span><span style="color:#c0c5ce;">category_id: 1
+</span><span style="color:#c0c5ce;">user_id: 1
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">records_02:
+</span><span style="color:#c0c5ce;">id: 2
+</span><span style="color:#c0c5ce;">payment: 1000
+</span><span style="color:#c0c5ce;">date: 2016-01-02
+</span><span style="color:#c0c5ce;">card: false
+</span><span style="color:#c0c5ce;">memo: &quot;サンプルデータ2&quot;
+</span><span style="color:#c0c5ce;">category_id: 2
+</span><span style="color:#c0c5ce;">user_id: 1
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">records_03:
+</span><span style="color:#c0c5ce;">id: 3
+</span><span style="color:#c0c5ce;">payment: 1000
+</span><span style="color:#c0c5ce;">date: 2016-01-02
+</span><span style="color:#c0c5ce;">card: false
+</span><span style="color:#c0c5ce;">memo: &quot;サンプルデータ3&quot;
+</span><span style="color:#c0c5ce;">category_id: 3
+</span><span style="color:#c0c5ce;">user_id: 1
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">records_04:
+</span><span style="color:#c0c5ce;">id: 4
+</span><span style="color:#c0c5ce;">payment: 1000
+</span><span style="color:#c0c5ce;">date: 2016-01-02
+</span><span style="color:#c0c5ce;">card: false
+</span><span style="color:#c0c5ce;">memo: &quot;サンプルデータ4&quot;
+</span><span style="color:#c0c5ce;">category_id: 4
+</span><span style="color:#c0c5ce;">user_id: 1
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">みたいにyamlで書くことができる。助かっちゃう。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">rb -&gt; ymlの書き直しで
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">seeds.rb とかは結局rubyスクリプトだったので連番とかも動的に生成できたのだけど、
+</span><span style="color:#c0c5ce;">fixturesはそういうわけにもいかずデータ量も2,3個とかではなかったので書き換え面倒だなと
+</span><span style="color:#c0c5ce;">sublimeの画面を見ながらおもっていたらなんと、マルチカーソルで連番が打てるパッケージがあるではないですか。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">(InputSequence)[https://github.com/kazu1107/InputSequence]
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">こいつのおかげでえらくはかどりました。連番を用意しなければいけない状況がなかなかあるので重宝しそうです。
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">今日もこれで眠れそうです。もう春まで寝たい。
+</span><span style="color:#c0c5ce;">おやすみなさい。
+</span></pre>
+</div>
+<div class="footer">
+    <a href="/">TOP</a>
+</div>
+</body>
+</html>
