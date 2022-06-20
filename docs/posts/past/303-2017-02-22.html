@@ -16,7 +16,7 @@
                 　Categories： TECHNOLOGY <br />
                 
             </div>
-            <p><img src="/public/images/2017/09/ce4f2-1hkdipgvig8tsiefyh8kcag.jpeg" alt="" />### パフォーマンス改善
+            <p><img class="in_article" src="/public/images/2017/09/ce4f2-1hkdipgvig8tsiefyh8kcag.jpg">### パフォーマンス改善
 Rails アプリケーションのパフォーマンス改善というものに初めて取り組んだので、その記録を残します。<br />
 ほとんどがはじめて行ったものなので、かつ他の方がすでにまとめられているものではありますが何らかの参考になれば幸いです。</p>
 <h3>手順</h3>
@@ -39,13 +39,13 @@ Rails アプリケーションのパフォーマンス改善というものに�
 <h4>Chromeの開発者ツール</h4>
 <p>一番最初に行ったのはChromeの開発者ツールで「ページ全体の読み込み」について調べました。<br />
 主に参考にしたのは <a href="http://qiita.com/y_fujieda/items/a0a69151cf7307039f74">http://qiita.com/y_fujieda/items/a0a69151cf7307039f74</a> こちらのnetworkを参考にしました。</p>
-<p><img src="/public/images/2017/09/2c86b-0os8tuoxxs7hwnycn.jpeg" alt="" />(※今回の改善点と画像の数値は関係ありません)</p>
+<p><img class="in_article" src="/public/images/2017/09/2c86b-0os8tuoxxs7hwnycn.jpg">(※今回の改善点と画像の数値は関係ありません)</p>
 <p>開発者ツールのnetworkタブを表示した状態で、読み込むとこのような形で表示がされます。<br />
 特に今回見ていたのは以下の部分です</p>
 <p>■全体の読み込み</p>
-<p><img src="/public/images/2017/09/59aa4-074xyez9gkmuihm0z.jpeg" alt="" />ページ下部に表示されています。全体の読み込み時間は一つの指標としました。</p>
+<p><img class="in_article" src="/public/images/2017/09/59aa4-074xyez9gkmuihm0z.jpg">ページ下部に表示されています。全体の読み込み時間は一つの指標としました。</p>
 <p>■TTFB(Time To First Byte)</p>
-<p><img src="/public/images/2017/09/9f088-0uzrzi_hw1qqqkjcn.jpeg" alt="" />networkタブで読み込んだときの一番最初にでてくるDocumentのTTFBをよく見ていました。<br />
+<p><img class="in_article" src="/public/images/2017/09/9f088-0uzrzi_hw1qqqkjcn.jpg">networkタブで読み込んだときの一番最初にでてくるDocumentのTTFBをよく見ていました。<br />
 TTFBは「最初の1バイト」でリクエストを投げてから応答が返ってくる一番最初の部分です。<br />
 ここがほかのと比べて時間がかかっていたので、今回注視して見ていました。<br />
 Googleはこの部分が200ms程度までで返ってくることを推奨しているようです。</p>
@@ -53,11 +53,11 @@ Googleはこの部分が200ms程度までで返ってくることを推奨して
 <h4>WEBサービス</h4>
 <p>■Google Page Speed Insights</p>
 <p>URL: <a href="https://developers.google.com/speed/pagespeed/insights/">https://developers.google.com/speed/pagespeed/insights/</a></p>
-<p><img src="/public/images/2017/09/6ed17-0mgvevi_6kqy3z_0y.jpeg" alt="" />モバイルとPCでWEBサイトの課題を表示してくれます。<br />
+<p><img class="in_article" src="/public/images/2017/09/6ed17-0mgvevi_6kqy3z_0y.jpg">モバイルとPCでWEBサイトの課題を表示してくれます。<br />
 レンダリングブロックなどアプリケーションの部分から、サーバ設定の部分までアドバイスがあります。</p>
 <p>■GTmetrix</p>
 <p>URL: <a href="https://gtmetrix.com/">https://gtmetrix.com/</a></p>
-<p><img src="/public/images/2017/09/8f520-0lijy9qrzuzmvxdpf.jpeg" alt="" />これもWEBページの評価をしてくれます。<br />
+<p><img class="in_article" src="/public/images/2017/09/8f520-0lijy9qrzuzmvxdpf.jpg">これもWEBページの評価をしてくれます。<br />
 開発者ツールの項目に近い感じです。</p>
 <h4>ログ</h4>
 <p>アプリケーションのログから主にデータベースのログを確認していました。</p>
@@ -75,14 +75,14 @@ Googleはこの部分が200ms程度までで返ってくることを推奨して
 <p>■rack-mini-profiler</p>
 <p>URL: <a href="https://github.com/MiniProfiler/rack-mini-profiler">https://github.com/MiniProfiler/rack-mini-profiler</a></p>
 <p>発行されたSQLとその内容に加え、それぞれにかかっている時間が表示されます。</p>
-<p><img src="/public/images/2017/09/5b322-0waw4inhzdw040awr.jpeg" alt="" />左上にこのような数値が表示されて、クリックすると</p>
-<p><img src="/public/images/2017/09/24792-0kjqf3c6-ktw7o6fc.jpeg" alt="" />みたいな感じでログが表示されます。<br />
+<p><img class="in_article" src="/public/images/2017/09/5b322-0waw4inhzdw040awr.jpg">左上にこのような数値が表示されて、クリックすると</p>
+<p><img class="in_article" src="/public/images/2017/09/24792-0kjqf3c6-ktw7o6fc.jpg">みたいな感じでログが表示されます。<br />
 すごくボトルネックが探しやすい。すごくたくさんのSQLが発行されていたり、著しく遅いところをさがしていきます。</p>
 <p>■rack-lineprof</p>
 <p>URL: <a href="https://github.com/kainosnoema/rack-lineprof">https://github.com/kainosnoema/rack-lineprof</a></p>
 <p>このgemは行単位で時間の計測が可能です。<br />
 画像を見てもらうのがはやいかとおもいますが、</p>
-<p><img src="/public/images/2017/09/91661-0xjyuri6wp5a_iklx.png" alt="" />※ ↑ <a href="https://github.com/kainosnoema/rack-lineprof">https://github.com/kainosnoema/rack-lineprof</a> の画像を転記</p>
+<p><img class="in_article" src="/public/images/2017/09/91661-0xjyuri6wp5a_iklx.png">※ ↑ <a href="https://github.com/kainosnoema/rack-lineprof">https://github.com/kainosnoema/rack-lineprof</a> の画像を転記</p>
 <p>このような形で表示されます。一連の処理に対してどれくらいかかったかというのがログでも見れるのですが、<br />
 どの部分にどれくらいというところが、画像のような感じでわかりやすく見ることができるので、これを土台に話たりして、とてもはかどりました。</p>
 <h3>課題</h3>

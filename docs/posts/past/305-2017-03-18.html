@@ -18,17 +18,17 @@
             </div>
             <p>google cloud platformの無料枠が増えたというニュースをみてちょっと触ってみることにしました(<a href="https://japan.zdnet.com/article/35097973/">https://japan.zdnet.com/article/35097973/</a>)。</p>
 <h3>アカウント登録からインスタンス作成まで</h3>
-<p><img src="/public/images/2017/09/58cf1-1hqcknwbz1ivn6a3lfq7p5a.png" alt="" /><em>まずはサービスのページここの無料トライアルから作成</em></p>
-<p><img src="/public/images/2017/09/bb59c-1kxhpbh6xqndv8vvzxwit0w.jpeg" alt="" /><em>利用するための情報を登録していく。</em></p>
-<p><img src="/public/images/2017/09/0426f-1kobqf-bcqieumsx5lop1fg.jpeg" alt="" /><em>開始までちょっと時間かかる。</em></p>
-<p><img src="/public/images/2017/09/1bdfe-1kixm5lblvk7qx4cq9kg3xa.jpeg" alt="" /><em>管理コンソールが表示される。ちゃんと日本語化されてる</em></p>
-<p><img src="/public/images/2017/09/63ad5-1pm2ltbfpg69wdlwhknaffw.jpeg" alt="" /><em>まずはサーバを。AWSで言うEC2</em></p>
-<p><img src="/public/images/2017/09/7038d-1ydlj9bi6mvaya6w3o6ngrg.jpeg" alt="" /><em>初めて作るときはここも時間がかかる。</em></p>
-<p><img src="/public/images/2017/09/53cc5-1byipuu3egfniilnelebzaw.jpeg" alt="" /><em>画面が表示されたらサーバの設定をしていく。OSイメージの種類</em></p>
-<p><img src="/public/images/2017/09/1f4c6-1bog4lx78ire89ewy8bla7a.jpeg" alt="" /><em>こんなのもある。</em></p>
-<p><img src="/public/images/2017/09/0a507-1pl30-h58ebxra2unnj0h4w.jpeg" alt="" /><em>設定していく。</em></p>
-<p><img src="/public/images/2017/09/89e34-1zyzpttellv6gfuulkr481w.jpeg" alt="" /><em>設定が完了したら「作成」を押す</em></p>
-<p><img src="/public/images/2017/09/8e984-1kelhwvarqgtwvi0ceyudpg.jpeg" alt="" /><em>無事にインスタンスが立ち上がりました。</em></p>
+<p><img class="in_article" src="/public/images/2017/09/58cf1-1hqcknwbz1ivn6a3lfq7p5a.png"><em>まずはサービスのページここの無料トライアルから作成</em></p>
+<p><img class="in_article" src="/public/images/2017/09/bb59c-1kxhpbh6xqndv8vvzxwit0w.jpg"><em>利用するための情報を登録していく。</em></p>
+<p><img class="in_article" src="/public/images/2017/09/0426f-1kobqf-bcqieumsx5lop1fg.jpg"><em>開始までちょっと時間かかる。</em></p>
+<p><img class="in_article" src="/public/images/2017/09/1bdfe-1kixm5lblvk7qx4cq9kg3xa.jpg"><em>管理コンソールが表示される。ちゃんと日本語化されてる</em></p>
+<p><img class="in_article" src="/public/images/2017/09/63ad5-1pm2ltbfpg69wdlwhknaffw.jpg"><em>まずはサーバを。AWSで言うEC2</em></p>
+<p><img class="in_article" src="/public/images/2017/09/7038d-1ydlj9bi6mvaya6w3o6ngrg.jpg"><em>初めて作るときはここも時間がかかる。</em></p>
+<p><img class="in_article" src="/public/images/2017/09/53cc5-1byipuu3egfniilnelebzaw.jpg"><em>画面が表示されたらサーバの設定をしていく。OSイメージの種類</em></p>
+<p><img class="in_article" src="/public/images/2017/09/1f4c6-1bog4lx78ire89ewy8bla7a.jpg"><em>こんなのもある。</em></p>
+<p><img class="in_article" src="/public/images/2017/09/0a507-1pl30-h58ebxra2unnj0h4w.jpg"><em>設定していく。</em></p>
+<p><img class="in_article" src="/public/images/2017/09/89e34-1zyzpttellv6gfuulkr481w.jpg"><em>設定が完了したら「作成」を押す</em></p>
+<p><img class="in_article" src="/public/images/2017/09/8e984-1kelhwvarqgtwvi0ceyudpg.jpg"><em>無事にインスタンスが立ち上がりました。</em></p>
 <p>ざっと触ってみた感じ。AWSを触ったことがある人であればなんとなく使えそうって言う感じ。日本語ちゃんとなっているし。</p>
 <h3>gcloudコマンドのインストール</h3>
 <p>gcloudというコマンドが必要なようで、まずそちらをインストール。コマンドは下記の通りで。このコマンドを打つと何回か質問がされますので、全部答えていきます。私は最初なのでとりあえず全部デフォルトっぽいのでセットしました。</p>
@@ -41,11 +41,11 @@
 </span></pre>
 <p>認証しますか？という問いにYで応えるとブラウザが立ち上がり認証を求められます。</p>
 <p>Googleアカウントでログイン後に</p>
-<p><img src="/public/images/2017/09/1b18d-1bmyxk8vc3hkt_9v5emu5ag.jpeg" alt="" />と出てくるので許可をすると認証が終わります。</p>
-<p><img src="/public/images/2017/09/72caa-1mrovvaoenylhhpke0hzlnq.jpeg" alt="" />### compute engine にログイン
+<p><img class="in_article" src="/public/images/2017/09/1b18d-1bmyxk8vc3hkt_9v5emu5ag.jpg">と出てくるので許可をすると認証が終わります。</p>
+<p><img class="in_article" src="/public/images/2017/09/72caa-1mrovvaoenylhhpke0hzlnq.jpg">### compute engine にログイン
 ここまで準備が終わったのでcompute engineにログインしてみます。管理コンソールに戻ってcompute engineのインスタンスのところで赤枠部分を選択するとメニューがでてきて「gcloudコマンドを表示」とでます。</p>
-<p><img src="/public/images/2017/09/b564b-14cubzu74polwuyuh_77egw.jpeg" alt="" /> <img src="/public/images/2017/09/3a62b-1ot_zi_x1-lcsepnpwqzzg.jpeg" alt="" />ここを選択するとコマンドが表示されます。</p>
-<p><img src="/public/images/2017/09/6889a-1iajbtwyle4caxl5zbge66a.jpeg" alt="" />これを実行してみる。</p>
+<p><img class="in_article" src="/public/images/2017/09/3a62b-1ot_zi_x1-lcsepnpwqzzg.jpg">ここを選択するとコマンドが表示されます。</p>
+<p><img class="in_article" src="/public/images/2017/09/6889a-1iajbtwyle4caxl5zbge66a.jpg">これを実行してみる。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ gcloud compute --project &quot;service-account-manager&quot; ssh --zone &quot;asia-northeast1-c&quot; &quot;instance-1&quot;
 </span><span style="color:#c0c5ce;">

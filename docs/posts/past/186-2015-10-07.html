@@ -95,14 +95,14 @@ apache, postfix, dovecotなどのこの記事外の設定はすでに設定が�
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">http://webmail.example.com/にアクセスしてログイン画面がでることを確認
 </span></pre>
-<p><img src="/public/images/2017/09/9036d-0mfxdzltxsb6gk-yf.png" alt="01" />    次に<a href="http://webmail.example.com/?/admin">http://webmail.example.com/?/admin</a>にアクセスし管理用の画面が出ることを確認</p>
-<p><img src="/public/images/2017/09/19420-0vbwrvnhcalnhvih0.png" alt="02" />    こんな感じです、素敵なUI！</p>
+<p><img class="in_article" src="/public/images/2017/09/9036d-0mfxdzltxsb6gk-yf.png">    次に<a href="http://webmail.example.com/?/admin">http://webmail.example.com/?/admin</a>にアクセスし管理用の画面が出ることを確認</p>
+<p><img class="in_article" src="/public/images/2017/09/19420-0vbwrvnhcalnhvih0.png">    こんな感じです、素敵なUI！</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">ログイン後の画面はこんな感じ
 </span></pre>
-<p><img src="/public/images/2017/09/ad2b9-0wdmh0dskxdnclqgp.png" alt="03" />    デザインテンプレートを変えると</p>
-<p><img src="/public/images/2017/09/9d9c4-085efktkz8hd5mb9y.png" alt="04" />    また、管理画面はアカウント名が 「admin」ユーザ名が「12345」に設定されているのですみやかに変更してください。</p>
-<p><img src="/public/images/2017/09/837e7-0sp-s0kcys84vzo4s.png" alt="05" />    日本語化</p>
+<p><img class="in_article" src="/public/images/2017/09/ad2b9-0wdmh0dskxdnclqgp.png">    デザインテンプレートを変えると</p>
+<p><img class="in_article" src="/public/images/2017/09/9d9c4-085efktkz8hd5mb9y.png">    また、管理画面はアカウント名が 「admin」ユーザ名が「12345」に設定されているのですみやかに変更してください。</p>
+<p><img class="in_article" src="/public/images/2017/09/837e7-0sp-s0kcys84vzo4s.png">    日本語化</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">デフォルトでも日本語を選択することで日本語の表示ができるようになっていますが、さらに日本語化します。
 </span><span style="color:#c0c5ce;">まず通常ユーザの画面の日本語設定ファイルから
@@ -137,7 +137,7 @@ apache, postfix, dovecotなどのこの記事外の設定はすでに設定が�
 </span><span style="color:#c0c5ce;">このja.iniが中途半端な日本語になってるので、自分のほぼ0な英語力を駆使して日本語にします。
 </span><span style="color:#c0c5ce;">するとだいたいこんな感じぐらいにはなります。
 </span></pre>
-<p><img src="/public/images/2017/09/59cf4-0-ukccjsf-rlc0sxk.png" alt="08" />    管理画面のlangファイルは
+<p><img class="in_article" src="/public/images/2017/09/59cf4-0-ukccjsf-rlc0sxk.png">    管理画面のlangファイルは
 $ rainloop/v/1.9.3.363/langs/admin/
 にあるので適当に
 $ cp -ap en.ini ja.ini
@@ -145,8 +145,8 @@ $ cp -ap en.ini ja.ini
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">するとこんな感じの画面に
 </span></pre>
-<p><img src="/public/images/2017/09/b479c-0idaam6v2u_tkmhza.png" alt="07" />    実際使用するには、使用許可するドメインの設定をする必要があります。</p>
-<p><img src="/public/images/2017/09/52a22-0plj-ntxfvo1gbcij.png" alt="06" />    管理用画面のドメインメニューからドメインと追加することで通常のログインをすることができます。
+<p><img class="in_article" src="/public/images/2017/09/b479c-0idaam6v2u_tkmhza.png">    実際使用するには、使用許可するドメインの設定をする必要があります。</p>
+<p><img class="in_article" src="/public/images/2017/09/52a22-0plj-ntxfvo1gbcij.png">    管理用画面のドメインメニューからドメインと追加することで通常のログインをすることができます。
 また試してませんがここで設定したものは</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">data/_data_/_default_/domains/

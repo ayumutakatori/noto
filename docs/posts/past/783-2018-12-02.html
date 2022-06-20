@@ -72,20 +72,20 @@
 <h4>AWSでlambdaの作成</h4>
 <p>AWSでlambdaを作っていきます。</p>
 <p>lambdaのページを開いて関数の作成を押す。</p>
-<p><img src="/public/images/2019/01/e1757-1DZxacmPjkc6Fd4MMSCXtKw.png" alt="" />一から作成で項目を入力しランタイムでRubyを選択する。2018/12/02時点だと ruby2.5 のランタイムのみ用意されているようですね。</p>
-<p><img src="/public/images/2019/01/deeb4-1Lg6D8RnqgYwg6qTn3WfBmA.png" alt="" />以下のような画面が出てくると思うので(※画面はすでに動いてる関数のものなので実際の画面とは異なります)、一番上のファイル名のところが選択されている状態になっているとページの下部に関数コードの編集画面が出ていると思います。</p>
-<p><img src="/public/images/2019/01/a28c7-1uvGmV8xFOtqRAGqc61imAA.png" alt="" />コードエントリタイプで.zipファイルをアップロードを選択し、先程zipに固めたファイルをアップロードします。アップロード選択し終わったらページ上部の保存を押すようにしてください。毎回忘れてあれ？ってなる。今回ライブラリを含んでいるので下記画像のようなinfoが出ていて、インラインコードの編集はできなくなってる。</p>
-<p><img src="/public/images/2019/01/b73c7-1_dhfVjMUlWD4GOb50_U79g.png" alt="" />次に環境変数の登録です。書いたコードに合わせて環境変数を登録します。値にしてしているのは、先程のslackのレガシートークンです。</p>
-<p><img src="/public/images/2019/01/848e9-1bBiZAAbSwh738WG2ovJ9pw.jpeg" alt="" />最後にAPI Gatewayの設定をします。ない人はトリガーの追加からAPI Gatewayの設定を行ってください。</p>
-<p><img src="/public/images/2019/01/84d6d-1LKonQOBoOlSNy4Q1lf7H4w.jpeg" alt="" />ここで作ったAPI エンドポイントが IFTTT Buttonで登録する値になります。</p>
+<p><img class="in_article" src="/public/images/2019/01/e1757-1DZxacmPjkc6Fd4MMSCXtKw.png">一から作成で項目を入力しランタイムでRubyを選択する。2018/12/02時点だと ruby2.5 のランタイムのみ用意されているようですね。</p>
+<p><img class="in_article" src="/public/images/2019/01/deeb4-1Lg6D8RnqgYwg6qTn3WfBmA.png">以下のような画面が出てくると思うので(※画面はすでに動いてる関数のものなので実際の画面とは異なります)、一番上のファイル名のところが選択されている状態になっているとページの下部に関数コードの編集画面が出ていると思います。</p>
+<p><img class="in_article" src="/public/images/2019/01/a28c7-1uvGmV8xFOtqRAGqc61imAA.png">コードエントリタイプで.zipファイルをアップロードを選択し、先程zipに固めたファイルをアップロードします。アップロード選択し終わったらページ上部の保存を押すようにしてください。毎回忘れてあれ？ってなる。今回ライブラリを含んでいるので下記画像のようなinfoが出ていて、インラインコードの編集はできなくなってる。</p>
+<p><img class="in_article" src="/public/images/2019/01/b73c7-1_dhfVjMUlWD4GOb50_U79g.png">次に環境変数の登録です。書いたコードに合わせて環境変数を登録します。値にしてしているのは、先程のslackのレガシートークンです。</p>
+<p><img class="in_article" src="/public/images/2019/01/848e9-1bBiZAAbSwh738WG2ovJ9pw.jpg">最後にAPI Gatewayの設定をします。ない人はトリガーの追加からAPI Gatewayの設定を行ってください。</p>
+<p><img class="in_article" src="/public/images/2019/01/84d6d-1LKonQOBoOlSNy4Q1lf7H4w.jpg">ここで作ったAPI エンドポイントが IFTTT Buttonで登録する値になります。</p>
 <p>ちなみにlambdaはメソッドの投稿テストができるので、実際に全体で動かして見る前に関数のテストを試せるので便利です。</p>
-<p><img src="/public/images/2019/01/e688c-1kPz1ebos1rqbW4g8MECU9Q.png" alt="" />### IFTTT Buttonの設定
+<p><img class="in_article" src="/public/images/2019/01/e688c-1kPz1ebos1rqbW4g8MECU9Q.png">### IFTTT Buttonの設定
 あとは特に説明するほどではないのでキャプチャだけ。設定はbuttonからwebhookです。</p>
-<p><img src="/public/images/2019/01/5b974-1YkJfp03hLpLBoyfkR_NxXg.jpeg" alt="" />で、iPhoneの方でIFTTTのアプリをダウンロードしてボタンを設定してあげるとこのような感じに。</p>
-<p><img src="/public/images/2019/01/5e870-1WuJVSq3nfkPIMZt6ImEW7Q.jpeg" alt="" />これで準備完了です！(実装中に一回間違えてボタンを押してしまって、出勤してしまったため勤怠修正申請しなきゃいけない...)</p>
+<p><img class="in_article" src="/public/images/2019/01/5b974-1YkJfp03hLpLBoyfkR_NxXg.jpg">で、iPhoneの方でIFTTTのアプリをダウンロードしてボタンを設定してあげるとこのような感じに。</p>
+<p><img class="in_article" src="/public/images/2019/01/5e870-1WuJVSq3nfkPIMZt6ImEW7Q.jpg">これで準備完了です！(実装中に一回間違えてボタンを押してしまって、出勤してしまったため勤怠修正申請しなきゃいけない...)</p>
 <h3>実行</h3>
 <p>ボタンを押すとslackの投稿がこんな感じでされてよっしゃ。</p>
-<p><img src="/public/images/2019/01/6cab1-1eIuiyWTxKsP_RJyhQ0NfZQ.png" alt="" />以上lambda for ruby を使った勤怠ボタンの作成でした。</p>
+<p><img class="in_article" src="/public/images/2019/01/6cab1-1eIuiyWTxKsP_RJyhQ0NfZQ.png">以上lambda for ruby を使った勤怠ボタンの作成でした。</p>
 <p>lambda for rubyですが個人的に待望の機能追加でずっと待ってたので先日の発表は歓喜でした。サーバ上から何かを実行し用とすると環境の準備がネックになって作るのやめっちゃったりとかのハードルがぐっと下がりそう。簡単なwebアプリケーションも動かせたりと夢が広がりまくりな感じがあるので、lambda for ruby 活用していきたいところ。</p>
 <h4>参考リンク</h4>
 <ul>

@@ -23,17 +23,17 @@
 <a href="https://dev.zaim.net">https://dev.zaim.net</a> にアクセスします。すると下記の画面のように遷移するので、求められるままに情報を出していきます。</p>
 <h4>アクセストークンの取得</h4>
 <p>規約をみてログインを押す</p>
-<p><img src="/public/images/2019/01/3a7f4-1MIIl1OIvZSjluk1992OHUg.png" alt="" />* * *
+<p><img class="in_article" src="/public/images/2019/01/3a7f4-1MIIl1OIvZSjluk1992OHUg.png">* * *
 zaimを使っているユーザのログイン情報を入力</p>
-<p><img src="/public/images/2019/01/bbecd-1dC4ODvlfmOlUfNe_XEuRSQ.png" alt="" />* * *
+<p><img class="in_article" src="/public/images/2019/01/bbecd-1dC4ODvlfmOlUfNe_XEuRSQ.png">* * *
 新しいアプリケーションを追加 を選択</p>
-<p><img src="/public/images/2019/01/5edc8-1qPJ79fRPgFb35kD2dbNmRg.png" alt="" />* * *
+<p><img class="in_article" src="/public/images/2019/01/5edc8-1qPJ79fRPgFb35kD2dbNmRg.png">* * *
 求められるままにチェックを入れる「永続的に許可する」を選択しておくと定期的に情報を更新しなくていいらしい(セキュリティには気をつけて)</p>
-<p><img src="/public/images/2019/01/628d3-17JM2ko9Ol6VoDXzdWECs1Q.png" alt="" />* * *
+<p><img class="in_article" src="/public/images/2019/01/628d3-17JM2ko9Ol6VoDXzdWECs1Q.png">* * *
 アプリケーションが作られる</p>
-<p><img src="/public/images/2019/01/6e9ab-1YnDllBChcCKtHg_W3quw-w.png" alt="" />* * *
+<p><img class="in_article" src="/public/images/2019/01/6e9ab-1YnDllBChcCKtHg_W3quw-w.png">* * *
 データが作成される。ほぼモザイク。URLとかは多分固定だと思うんだけど、ログイン後に見れる情報のようだったので一応モザイクに。</p>
-<p><img src="/public/images/2019/01/77e7a-109wcWz1IXT9n-AFhfDjxog.jpeg" alt="" />#### Rubyでデータを取得
+<p><img class="in_article" src="/public/images/2019/01/77e7a-109wcWz1IXT9n-AFhfDjxog.jpg">#### Rubyでデータを取得
 以下、下記の記事の写経。</p>
 <p>faradayでoauthを実行しようとしたら、2個ほど他にもライブラリが必要で面倒になりそのままこちらのおせわになりました。</p>
 <p><a href="https://qiita.com/seteen/items/12f535228e2a3453764b#2-oauth%E3%81%AE%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E3%82%92%E5%8F%96%E5%BE%97">RubyでZaim APIを利用する</a>(oauthのトークンを取得)    require 'oauth'</p>
@@ -55,7 +55,7 @@ zaimを使っているユーザのログイン情報を入力</p>
 </span><span style="color:#c0c5ce;">p access_token.secret
 </span></pre>
 <p>下記の画面が表示されるのでログインすると、次のページ遷移先のソースに <code>oauth_verifier</code> という項目がありそこに記載されたものを上記のコードの <code>oauth_cerifier</code> に代入する。</p>
-<p><img src="/public/images/2019/01/d0d6f-1LvphBE8pBCoH5bjhyrQ_-Q.png" alt="" />これでアクセストークンが得られる。</p>
+<p><img class="in_article" src="/public/images/2019/01/d0d6f-1LvphBE8pBCoH5bjhyrQ_-Q.png">これでアクセストークンが得られる。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">require &#39;oauth&#39;
 </span><span style="color:#c0c5ce;">require &#39;json&#39;

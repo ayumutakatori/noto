@@ -21,9 +21,9 @@
 <p>これが本文がまるまる転送されるので厳しいという課題があって、ちょうどなんか不具合で転送されなくなったので「書くか...」となったので書いてみました。</p>
 <h2>ちなみにビフォー</h2>
 <p>携帯のファーストビューで金額までたどりつかない。厳しい。これが一通。</p>
-<p><img src="/public/images/2019/10/img_8247.png" alt="" /></p>
-<h2>段取り</h2>
-<p>やりたいことはだいたい</p>
+<img class="in_article" src="/public/images/2019/10/img_8247.png">
+## 段取り
+やりたいことはだいたい
 <ul>
 <li>Google Apps Script(以下GAS)を使い始める</li>
 <li>testでslack通知部分だけ書いてみる</li>
@@ -61,13 +61,13 @@
 <p>UrlFetchApp.fetch(webhook_url, options);</p>
 <p>}</p>
 <p>既に使用されている人のコードを参考に書いてみた。</p>
-<p><img src="/public/images/2019/10/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-10-06-0.26.35.png" alt="" />
-なんかうまくいってそう。</p>
+<img class="in_article" src="/public/images/2019/10/スクリーンショット-2019-10-06-0.26.35.png">
+なんかうまくいってそう。
 <p>ちなみにログは <code>Logger.log('message')</code>とかで出るんですが、どこで見ていいか最初わからず迷う。</p>
 <p>ここにあった。</p>
-<p><img src="/public/images/2019/10/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-10-06-0.31.57.png" alt="" /></p>
-<h2>最終的なコード</h2>
-<p>前日のメールをとってきて正規表現で強引に引っ張ってきて投げるというパワープレイです。</p>
+<img class="in_article" src="/public/images/2019/10/スクリーンショット-2019-10-06-0.31.57.png">
+## 最終的なコード
+前日のメールをとってきて正規表現で強引に引っ張ってきて投げるというパワープレイです。
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">function notifyUsingCardFromGmail() {
 </span></pre>
@@ -103,11 +103,11 @@
 <p>}</p>
 <p>}</p>
 <p>こんな感じに通知されます。</p>
-<p>![](/public/images/2019/10/Slack <em><strong>notification</strong></em>_ ktmt-1024x349.png)
-よいよい。7日分入ってますね。</p>
+<img class="in_article" src="/public/images/2019/10/Slack ___notification____ ktmt-1024x349.png">
+よいよい。7日分入ってますね。
 <p>あとは、定期実行をしかけるだけ。編集画面の時計マークを押すと追加ができてこんな感じで設定しています。</p>
-<p><img src="/public/images/2019/10/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-10-06-2.12.17-899x1024.png" alt="" />
-Google Apps Script 便利でした。いままで何故使ってこなかったのか。</p>
+<img class="in_article" src="/public/images/2019/10/スクリーンショット-2019-10-06-2.12.17-899x1024.png">
+Google Apps Script 便利でした。いままで何故使ってこなかったのか。
 
         </div>
         <div class="footer">
