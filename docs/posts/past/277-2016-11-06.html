@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
 <title>routes: 動的なパスをscopeでまとめる</title>
 <link rel="stylesheet" href="/public/css/base.css">
-</head>
-<body>
+    </head>
+    <body>
+        <h1><a href="/">PAPYRUS</a></h1>
 
-<h1><a href="/">PAPYRUS</a></h1>
-
-<div class="content">
-    <h2 class="title">routes: 動的なパスをscopeでまとめる</h2>
-    <div class="description">
-        　Date：2016-11-06 17:52:51 +0900<br />
-        　Categories： ETC <br />
-        
-    </div>
-    <p>ユーザごとのURL配下のコンテンツをgetにべた書きしていたので、scopeでまとめた。</p>
+        <div class="content">
+            <h2 class="title">routes: 動的なパスをscopeでまとめる</h2>
+            <div class="description">
+                　Date：2016-11-06 17:52:51 +0900<br />
+                　Categories： ETC <br />
+                
+            </div>
+            <p>ユーザごとのURL配下のコンテンツをgetにべた書きしていたので、scopeでまとめた。</p>
 <h3>before</h3>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">get &#39;:username&#39;, to: &#39;pages#index&#39;, constraints: { format: /()/ }
@@ -45,9 +44,9 @@
 </span></pre>
 <p>すっきり。</p>
 
-</div>
-<div class="footer">
-    <a href="/">TOP</a>
-</div>
-</body>
+        </div>
+        <div class="footer">
+            <a href="/">TOP</a>
+        </div>
+    </body>
 </html>

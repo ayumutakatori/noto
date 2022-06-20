@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-    {% include "head.liquid" %}
-</head>
-<body>
+    <head>
+        {% include "head.liquid" %}
+    </head>
+    <body>
+        {% include "header.liquid" %}
 
-{% include "header.liquid" %}
-
-<div class="content">
-    <h2 class="title">{{ page.title }}</h2>
-    <div class="description">
-        　Date：{{ page.published_date }}<br />
-        　Categories：{% for category in page.categories %} {{ category }} {% endfor %}<br />
-        {% comment %}　Tags：{% for tag in page.tags %} {{ tag }},  {% endfor %}<br />{% endcomment %}
-    </div>
-    {{ page.content }}
-</div>
-<div class="footer">
-    {% include "footer.liquid" %}
-</div>
-</body>
+        <div class="content">
+            <h2 class="title">{{ page.title }}</h2>
+            <div class="description">
+                　Date：{{ page.published_date }}<br />
+                　Categories：{% for category in page.categories %} {{ category }} {% endfor %}<br />
+                {% comment %}　Tags：{% for tag in page.tags %} {{ tag }},  {% endfor %}<br />{% endcomment %}
+            </div>
+            {{ page.content }}
+        </div>
+        <div class="footer">
+            {% include "footer.liquid" %}
+        </div>
+    </body>
 </html>

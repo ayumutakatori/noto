@@ -1,0 +1,6 @@
+{% assign target_year = page.title %}
+## {{target_year}}
+
+{% for post in collections.posts.pages %}
+{% assign year = post.published_date | date: "%Y" %} {% if year == target_year %} * {{ post.published_date }}：[{{ post.title }}](/{{ post.permalink }}) {% endif %}
+{% endfor %}

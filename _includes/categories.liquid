@@ -1,0 +1,6 @@
+{% assign target_category = page.title %}
+## {{ target_category }}
+
+{% for post in collections.posts.pages %}
+{% assign category = post.categories | first %} {% if category == target_category %} * {{ post.published_date }}：[{{ post.title }}](/{{ post.permalink }}) {% endif %}
+{% endfor %}

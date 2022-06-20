@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
 <title>redmine 2.5.0のヴァージョンアップ</title>
 <link rel="stylesheet" href="/public/css/base.css">
-</head>
-<body>
+    </head>
+    <body>
+        <h1><a href="/">PAPYRUS</a></h1>
 
-<h1><a href="/">PAPYRUS</a></h1>
-
-<div class="content">
-    <h2 class="title">redmine 2.5.0のヴァージョンアップ</h2>
-    <div class="description">
-        　Date：2014-03-07 01:35:41 +0900<br />
-        　Categories： Engine <br />
-        
-    </div>
-    <p>前回2.4系の時は断念したので、2.5系はいままでのデータを引っ越しつつ移行をしてみようとおもい頑張ってみました。</p>
+        <div class="content">
+            <h2 class="title">redmine 2.5.0のヴァージョンアップ</h2>
+            <div class="description">
+                　Date：2014-03-07 01:35:41 +0900<br />
+                　Categories： TECHNOLOGY <br />
+                
+            </div>
+            <p>前回2.4系の時は断念したので、2.5系はいままでのデータを引っ越しつつ移行をしてみようとおもい頑張ってみました。</p>
 <p>special thanks</p>
 <p><a href="http://www.goofoo.jp/2013/02/2179">Redmine のアップグレード全手順(1.2.3 → 2.2.2) これでバッチリ！</a> 私の環境は、2.7．セッション管理用秘密鍵の作成の部分でうまく行かなくて詰んだかと思ったんですが、下記の [[Redmine]Redmine 2.3.0から2.3.1へのアップデート手順メモ（CentOS 6.4 x64）][2] の方法でやった際にうまく行きました。</p>
 <p>簡単な手順 具体的なコードは上記のページが丁寧に解説して頂いています。 1, mysqlのバックアップ 2, redmineのファイルをダウンロードと展開 3, 既存のディレクトリの移動(名前変更) 4, ダウンロードしたファイルを元のディレクトリにリネーム 5, database.yml configuration.yml等のファイルを新しいところにコピー 6, 新しいディレクトリでbundle install(これが結構今回多かった) 7, DBのmigrate</p>
@@ -27,9 +26,9 @@
 <p>8, 今回引っかかった以下を実行 bundle exec rake generate_secret_token 9, web サーバのリロード この手順でだいたいやりましたが、実際はこの手順から幾つか抜けがあった状態で サーバのリロードをしていたりしたので、500とか出してしまったりしています。 なので手順や実行コマンドは実際作業されるときは再度確認したほうが良いと思われます。 何はともあれバージョンアップとこの後theme(gitneko)も無事動いてめでたしめでたしです。 (個人用のredmineで全然使ってないっちゃ使ってないのですが。)</p>
 <p><a href="http://iupatdc5.org">cialis online</a> [2]: <a href="http://d.hatena.ne.jp/torutk/20130502/p1">http://d.hatena.ne.jp/torutk/20130502/p1</a></p>
 
-</div>
-<div class="footer">
-    <a href="/">TOP</a>
-</div>
-</body>
+        </div>
+        <div class="footer">
+            <a href="/">TOP</a>
+        </div>
+    </body>
 </html>

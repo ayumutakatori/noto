@@ -3,7 +3,7 @@ title: Cobaltを触っている
 layout: posts.liquid
 is_draft: false
 published_date: 2022-06-10 01:31:00 +0900
-categories: [technology]
+categories: [TECHNOLOGY]
 tags: ["cobalt","rust"]
 ---
 ## Starting Cobalt

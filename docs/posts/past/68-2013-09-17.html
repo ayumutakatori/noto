@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
 <title>AWSのAutoScalingの続き</title>
 <link rel="stylesheet" href="/public/css/base.css">
-</head>
-<body>
+    </head>
+    <body>
+        <h1><a href="/">PAPYRUS</a></h1>
 
-<h1><a href="/">PAPYRUS</a></h1>
-
-<div class="content">
-    <h2 class="title">AWSのAutoScalingの続き</h2>
-    <div class="description">
-        　Date：2013-09-17 19:14:13 +0900<br />
-        　Categories： Engine <br />
-        
-    </div>
-    <p>Auto Scalingの続編をやっていたんですが、AMIを作ってそこからインスタンスを起こしてやろうと思ったけれどできず、DETACHEしたEIPとかEBSをくっつけることもできず。一筋縄ではいかないのだな。というイメージ。ただ、Auto Scalingはコマンド設定でいいかなという気がしてる。いつか設定がおかしくなったりすることがなければ、変わることも無いわけだし。確認用コマンドもあるし。<br />
+        <div class="content">
+            <h2 class="title">AWSのAutoScalingの続き</h2>
+            <div class="description">
+                　Date：2013-09-17 19:14:13 +0900<br />
+                　Categories： TECHNOLOGY <br />
+                
+            </div>
+            <p>Auto Scalingの続編をやっていたんですが、AMIを作ってそこからインスタンスを起こしてやろうと思ったけれどできず、DETACHEしたEIPとかEBSをくっつけることもできず。一筋縄ではいかないのだな。というイメージ。ただ、Auto Scalingはコマンド設定でいいかなという気がしてる。いつか設定がおかしくなったりすることがなければ、変わることも無いわけだし。確認用コマンドもあるし。<br />
  <br />
  とりあえず、終了時起動時設定だね。</p>
 <h4>EC2のREST API</h4>
 <p>REST APIであってるのかわからないけど、とりあえず以下を叩けば動いているEC2自体のインスタンスIDとかIPとかを引き剥がすとかの素材は揃いそう。</p>
 <p>» <a href="http://d.hatena.ne.jp/rx7/20100605/p1">Amazon EC2の仮想サーバ(インスタンス)から自身のメタ情報を取得する方法</a> を拝見しました。</p>
 
-</div>
-<div class="footer">
-    <a href="/">TOP</a>
-</div>
-</body>
+        </div>
+        <div class="footer">
+            <a href="/">TOP</a>
+        </div>
+    </body>
 </html>

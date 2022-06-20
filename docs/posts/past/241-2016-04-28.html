@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
 <title>active_record 関連テーブルを条件にして検索をする</title>
 <link rel="stylesheet" href="/public/css/base.css">
-</head>
-<body>
+    </head>
+    <body>
+        <h1><a href="/">PAPYRUS</a></h1>
 
-<h1><a href="/">PAPYRUS</a></h1>
-
-<div class="content">
-    <h2 class="title">active_record 関連テーブルを条件にして検索をする</h2>
-    <div class="description">
-        　Date：2016-04-28 16:24:32 +0900<br />
-        　Categories： ETC <br />
-        
-    </div>
-    <p>やっぱりよくわかっていなかったので、メモ。<br />
+        <div class="content">
+            <h2 class="title">active_record 関連テーブルを条件にして検索をする</h2>
+            <div class="description">
+                　Date：2016-04-28 16:24:32 +0900<br />
+                　Categories： ETC <br />
+                
+            </div>
+            <p>やっぱりよくわかっていなかったので、メモ。<br />
 要は joinsしたテーブルを検索状態にしたいのだけど…というやつです。</p>
 <h4>目的</h4>
 <p>Record は Category に紐付いていて、recordの検索の条件に categoryの中にあるカラムを使いたくなりました。<br />
@@ -72,9 +71,9 @@ Record.all.joins(:category).where(categories: { is_payment: false} ) という�
 <hr />
 <p>sql書かないと覚えなさそうなので、こんな感じでいろいろ遊んで覚えていきたい。</p>
 
-</div>
-<div class="footer">
-    <a href="/">TOP</a>
-</div>
-</body>
+        </div>
+        <div class="footer">
+            <a href="/">TOP</a>
+        </div>
+    </body>
 </html>
