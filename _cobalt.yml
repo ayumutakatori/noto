@@ -1,9 +1,9 @@
 destination: docs
 
 site:
-  title: Papyrus
+  title: note
   description: note
-  base_url: https://papyrus.katsumataryo.com
+  base_url: https://note.katsumataryo.com
 posts:
   rss: rss.xml
 assets:

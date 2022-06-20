@@ -1,5 +1,5 @@
 ---
-title: PAPYRUS
+title: note
 layout: default.liquid
 ---
 <h2 class="subtitle">さいきんのこと</h2>
