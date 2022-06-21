@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
         {% include "head.liquid" %}
     </head>
     <body>
         {% include "header.liquid" %}
         <div class="content">
           {{ page.content }}
+        </div>
+        <div class="footer">
+        {% include "footer.liquid" %}
         </div>
     </body>
 </html>
