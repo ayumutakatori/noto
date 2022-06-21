@@ -1,5 +1,5 @@
 ---
-title: note
+title: HOME
 layout: default.liquid
 ---
 <h2 class="subtitle">Logs</h2>

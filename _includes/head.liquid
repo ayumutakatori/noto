@@ -8,11 +8,11 @@
 <meta property="og:url" content="{{ page.permalink }}" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ site.title }} - {{ page.title }}" />
-<meta property="og:description" content="{{ page.content | truncate: 95, "..." }}" />
+<meta property="og:description" content="{{ page.content | strip_html | strip_newlines | truncate: 95, "..." }}" />
 <meta property="og:site_name" content="NOTO" />
 <meta property="og:image" content="{{ ogp_url }}" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ site.title }} - {{ page.title }}">
-<meta name="twitter:description" content="{{ page.content | truncate: 95, "..." }}">
+<meta name="twitter:description" content="{{ page.content | strip_html | strip_newlines | truncate: 95, "..." }}">
 <meta name="twitter:image" content="{{ ogp_url }}">
