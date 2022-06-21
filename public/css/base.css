@@ -28,7 +28,7 @@ body {
     padding: 0px 0;
     height: 100vh;
     font-family: "M PLUS Rounded 1c", sans-serif;
-    background-image: url("/public/images/background-sky.jpg");
+    background-image: url("/public/images/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -38,7 +38,7 @@ body {
 .content {
     padding: 40px;
     color: #222222;
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255,255,255,0.6);
     border-radius: 10px 10px 10px 10px;
     word-wrap: break-word;
 }
