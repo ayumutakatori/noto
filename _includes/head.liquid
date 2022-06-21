@@ -3,9 +3,16 @@
 <title>{{ site.title }} - {{ page.title }}</title>
 <link rel="stylesheet" href="/public/css/base.css">
 
+{% assign ogp_url = "https://noto.katsumataryo.com/public/images/ogp.png" %}
+
 <meta property="og:url" content="{{ page.permalink }}" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ site.title }} - {{ page.title }}" />
-<meta property="og:description" content="NOTO weblog" />
+<meta property="og:description" content="{{ page.content | truncate: 95, "..." }}" />
 <meta property="og:site_name" content="NOTO" />
-<meta property="og:image" content="https://noto.katsumataryo.com/public/images/background.jpg" />
+<meta property="og:image" content="{{ ogp_url }}" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ site.title }} - {{ page.title }}">
+<meta name="twitter:description" content="{{ page.content | truncate: 95, "..." }}">
+<meta name="twitter:image" content="{{ ogp_url }}">
