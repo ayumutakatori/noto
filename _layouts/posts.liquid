@@ -11,7 +11,6 @@
             <div class="description">
                 　Date：{{ page.published_date }}<br />
                 　Categories：{% for category in page.categories %} {{ category }} {% endfor %}<br />
-                {% comment %}　Tags：{% for tag in page.tags %} {{ tag }},  {% endfor %}<br />{% endcomment %}
             </div>
             {{ page.content }}
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

@@ -1,9 +1,9 @@
 destination: docs
 
 site:
-  title: note
+  title: NOTO
   description: note
-  base_url: https://note.katsumataryo.com
+  base_url: https://noto.katsumataryo.com
 posts:
   rss: rss.xml
 assets:
