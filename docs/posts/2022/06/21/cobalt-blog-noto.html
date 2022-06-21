@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
+<title>NOTO - Cobaltでblogを作り直した</title>
+<link rel="stylesheet" href="/public/css/base.css">
+
+
+
+<meta property="og:url" content="posts/2022/06/21/cobalt-blog-noto.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="NOTO - Cobaltでblogを作り直した" />
+<meta property="og:description" content="wordpressからの移行長年Wordpressを使ってきたのですが、ようやくCobaltを使った静的サイトジェネレーターで移行を済ませてみました。その前段階でmediumに移すこと..." />
+<meta property="og:site_name" content="NOTO" />
+<meta property="og:image" content="https://noto.katsumataryo.com/public/images/ogp.png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="NOTO - Cobaltでblogを作り直した">
+<meta name="twitter:description" content="wordpressからの移行長年Wordpressを使ってきたのですが、ようやくCobaltを使った静的サイトジェネレーターで移行を済ませてみました。その前段階でmediumに移すこと...">
+<meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+    </head>
+    <body>
+        <h1><a href="/">NOTO</a></h1>
+
+        <div class="content">
+            <h2 class="title">Cobaltでblogを作り直した</h2>
+            <div class="description">
+                　Date：2022-06-23 19:00:00 +0900<br />
+                　Categories： TECHNOLOGY <br />
+            </div>
+            <h2>wordpressからの移行</h2>
+<p>長年Wordpressを使ってきたのですが、ようやくCobaltを使った静的サイトジェネレーターで移行を済ませてみました。
+その前段階でmediumに移すことや、他ブログサービスに移すことやwordpress.comにそのまま移すことなどを検討していました。
+wordpressのインフラやアップデートの面倒をかけてられないというところの解消をしたかったのですが、
+独自ドメイン運用をすることや、PaaSを使うとなるとやはり適切にお金をかける必要があり少々悩みました。</p>
+<p>いろいろ考えてもとより、「コンテンツを自分の手元で管理したい」と「インフラなどの面倒はあまり見たくない」と「エンジニアとして自分で作るを維持したい」いう考えがありその上でcobaltを選択してみました。
+もう一つ「モバイルから投稿可能にしたい」という欲もあったのですが、mediumがモバイルでの投稿をできない方針にしたことでいい意味で諦めが付きました。</p>
+<h2>Wordpress について</h2>
+<p>色々言われることが多いwordpressですが良かったことも個人的には結構あり</p>
+<ul>
+<li>良かった
+<ul>
+<li>インストールをすれば投稿するだけの環境が整っている</li>
+<li>コンテンツ（画像など）も合わせて管理できるのでとりあえず投げ込めばいいという感じ</li>
+<li>開発が続いているので投稿体験としてはそれほど悪くない</li>
+<li>デザインも機能もプラグイン・テンプレートを追加することでいくらでも豪華に</li>
+<li>独自ドメイン設定も知識があれば無料でできる</li>
+</ul>
+</li>
+</ul>
+<p>逆に、移行するにあたったポイント</p>
+<ul>
+<li>移行ポイント
+<ul>
+<li>wordpressの普及率高さ故に攻撃対象になりがち</li>
+<li>ホスティングサーバにインストールしていたので管理コストがあった</li>
+<li>プラグインも脆弱性になる可能性がある</li>
+<li>テキストエディタがちょっと自分には立地すぎた</li>
+</ul>
+</li>
+</ul>
+<p>一番上の攻撃対象になりがちというのがほとんどすべてです。
+WEBの開発者と言う職業なのでなんとなく自分のblog乗っ取られるのは避けたいという気持ちも少しありました。</p>
+<h2>Cobalt にした理由</h2>
+<p>まずいちばん最初の選択肢はPaaSだったのですが（もっというとMediumだったのですが）、
+自分の用途だと独自ドメインが用件に入ると有料になってしまうというのが少し悩ましかった。
+次に自分でシステムを構築してみるかとも思ったのですが、時間がないことと何らかのフレームワークをおそらく使うため
+何らかのアップデート、脆弱性対応からは避けられないかなと思いました。</p>
+<p>そこで静的サイトジェネレーターを使って、GitHub Pagesを使って無料で独自ドメイン + ホスティングしてもらうという案で考えてみました。
+ジェネレーターは色々あってすでにみんな便利そうだったのですが、触ったことないものにしたかったのとRustに関わるものから絞ってみて、
+ZolaとCobaltの2択で名前が好みな Cobalt を選択しました。liquid にも興味があったのもあったため。</p>
+<h2>wpからの移行手順</h2>
+<p>片手間にやっていたので時間がかかってしまった。</p>
+<h3>wordpressのデータの引っこ抜き</h3>
+<p>下記の方法で試してみた。</p>
+<ul>
+<li>wordpressのデータがwordpress自体のエクスポートして取れるxmlファイル。</li>
+<li>wordpressにapi経由でデータを取得する方法（rubypress gemを使ってみた）</li>
+</ul>
+<p>最初にxmlファイルをparseしてみたんだけど、ファイルのインデントが読みにくくすぐにできなさそうに見えたので一旦保留。
+rubypress の方はmarkdwonで取りたいデータはかんたんに取れそうだったんだけど、markdownのファイルを作るフォーマットが決まってなかったので
+一旦ymlに吐き出しておきたかったんだけどdumpしたものを読み込むのにデータを直しながらyaml化しないと大変そうで保留。
+再度xmlファイルに取り掛かった。apiの方は何百記事を都度とったりしなければいけなく微妙だったので手元にファイルがあるxmlの方をどうにかすることにした。</p>
+<h3>画像ファイルの引っこ抜き</h3>
+<p>画像ファイルはホスティングサーバがSSH接続できたので、SSHでログインしてwordpressの <code>/wp-contents/uploads</code> をtarでかためてscpで引っこ抜いてきた。</p>
+<h3>wordpress のパース → markdwonファイル作成</h3>
+<p>wordpressのparseはちょっと調整しながらなんとかできたので、liquidのフォーマットを少しつつかためて何となくこんな感じかなと言うタイミングで
+parseしたものをmarkdownとして吐き出すscriptをRubyでかいた。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#65737e;"># parser_for_wpdump_to_xml.rb
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#8fa1b3;">require </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">rexml/document</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#8fa1b3;">require </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">reverse_markdown</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#8fa1b3;">require </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">date</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">wordpress_backup_filename = &#39;</span><span style="color:#a3be8c;">/your/file/path/wordpress_backup.xml</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#c0c5ce;">items_xpath = &#39;</span><span style="color:#a3be8c;">/rss/channel/item</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">file = </span><span style="color:#ebcb8b;">File</span><span style="color:#c0c5ce;">.read(wordpress_backup_filename)
+</span><span style="color:#c0c5ce;">xml_document = </span><span style="color:#ebcb8b;">REXML</span><span style="color:#c0c5ce;">::</span><span style="color:#ebcb8b;">Document</span><span style="color:#c0c5ce;">.</span><span style="color:#8fa1b3;">new</span><span style="color:#c0c5ce;">(file)
+</span><span style="color:#c0c5ce;">items = </span><span style="color:#ebcb8b;">REXML</span><span style="color:#c0c5ce;">::</span><span style="color:#ebcb8b;">XPath</span><span style="color:#c0c5ce;">.</span><span style="color:#96b5b4;">match</span><span style="color:#c0c5ce;">(xml_document, items_xpath) </span><span style="color:#65737e;"># [REXML::Element]
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">items.each </span><span style="color:#b48ead;">do </span><span style="color:#c0c5ce;">|</span><span style="color:#bf616a;">item</span><span style="color:#c0c5ce;">|
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># publishなものだけ抽出する
+</span><span style="color:#c0c5ce;">  </span><span style="color:#b48ead;">next if</span><span style="color:#c0c5ce;"> item.get_elements(&#39;</span><span style="color:#a3be8c;">wp:status</span><span style="color:#c0c5ce;">&#39;).first&amp;.text != &quot;</span><span style="color:#a3be8c;">publish</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">  </span><span style="color:#b48ead;">next if</span><span style="color:#c0c5ce;"> item.get_elements(&#39;</span><span style="color:#a3be8c;">wp:ping_status</span><span style="color:#c0c5ce;">&#39;).first&amp;.text == &quot;</span><span style="color:#a3be8c;">closed</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># title
+</span><span style="color:#c0c5ce;">  title = item.get_elements(&#39;</span><span style="color:#a3be8c;">title</span><span style="color:#c0c5ce;">&#39;).first.text
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># url
+</span><span style="color:#c0c5ce;">  url = item.get_elements(&#39;</span><span style="color:#a3be8c;">link</span><span style="color:#c0c5ce;">&#39;).first.text
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># 公開日
+</span><span style="color:#c0c5ce;">  publish_date = </span><span style="color:#ebcb8b;">DateTime</span><span style="color:#c0c5ce;">.parse(item.get_elements(&#39;</span><span style="color:#a3be8c;">pubDate</span><span style="color:#c0c5ce;">&#39;).first.text)
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># 本文
+</span><span style="color:#c0c5ce;">  text = item.get_elements(&#39;</span><span style="color:#a3be8c;">content:encoded</span><span style="color:#c0c5ce;">&#39;).first.text
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># post_id
+</span><span style="color:#c0c5ce;">  post_id = item.get_elements(&#39;</span><span style="color:#a3be8c;">wp:post_id</span><span style="color:#c0c5ce;">&#39;).first.text
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># category
+</span><span style="color:#c0c5ce;">  category = item.get_elements(&#39;</span><span style="color:#a3be8c;">category</span><span style="color:#c0c5ce;">&#39;).first&amp;.text
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># 本文
+</span><span style="color:#c0c5ce;">  content = &quot;&quot;
+</span><span style="color:#c0c5ce;">  text.each_line </span><span style="color:#b48ead;">do </span><span style="color:#c0c5ce;">|</span><span style="color:#bf616a;">line</span><span style="color:#c0c5ce;">|
+</span><span style="color:#c0c5ce;">    result = </span><span style="color:#ebcb8b;">ReverseMarkdown</span><span style="color:#c0c5ce;">.convert(line)
+</span><span style="color:#c0c5ce;">    content &lt;&lt; result </span><span style="color:#b48ead;">if</span><span style="color:#c0c5ce;"> result.length &gt; </span><span style="color:#d08770;">0
+</span><span style="color:#c0c5ce;">  </span><span style="color:#b48ead;">end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">  </span><span style="color:#65737e;"># ファイル作成
+</span><span style="color:#c0c5ce;">  markdown = &quot;</span><span style="color:#a3be8c;">---
+</span><span style="color:#a3be8c;">title: </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#65737e;">#｛title｝&quot;
+</span><span style="color:#a3be8c;">layout:</span><span style="color:#c0c5ce;"> posts.liquid
+</span><span style="color:#a3be8c;">is_draft: </span><span style="color:#d08770;">false
+</span><span style="color:#a3be8c;">published_date: </span><span style="color:#65737e;">#｛publish_date.new_offset(&#39;+0900&#39;).strftime(&quot;%Y-%m-%d %H:%M:%S +0900&quot;)｝
+</span><span style="color:#a3be8c;">categories: </span><span style="color:#c0c5ce;">[&quot;</span><span style="color:#a3be8c;">#｛category｝</span><span style="color:#c0c5ce;">&quot;]
+</span><span style="color:#a3be8c;">tags: </span><span style="color:#c0c5ce;">[]
+</span><span style="color:#c0c5ce;">---
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#65737e;">#｛content｝
+</span><span style="color:#c0c5ce;">  &quot;
+</span><span style="color:#a3be8c;">  File.open(</span><span style="color:#c0c5ce;">&quot;posts/</span><span style="color:#65737e;">#｛post_id｝-#｛publish_date.new_offset(&#39;+0900&#39;).strftime(&quot;%Y-%m-%d&quot;)｝.md&quot;, &quot;wb&quot;) do |io|
+</span><span style="color:#c0c5ce;">    io.write(markdown)
+</span><span style="color:#c0c5ce;">  </span><span style="color:#b48ead;">end
+</span><span style="color:#b48ead;">end
+</span><span style="color:#c0c5ce;">
+</span></pre>
+<p>いざ本当にサイトを動かしてみるとcategoryの表記を一括置換で書き換えたりしなければだった。
+サイトの形を変えていくたびmarkdwonのファイルフォーマットも変えなければいけなかったので
+やっぱり外部通信が発生しないエクスポートしたxmlファイルにしておいて今回は正解だった。</p>
+<h3>cobaltのサイト土台作成</h3>
+<p>まだまだ改善の余地ありだけど現時点で動いている Cobalt のディレクトリ構成はこんな感じになっている。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">❯ tree -L 2
+</span><span style="color:#c0c5ce;">.
+</span><span style="color:#c0c5ce;">├── _cobalt.yml
+</span><span style="color:#c0c5ce;">├── _defaults
+</span><span style="color:#c0c5ce;">│   ├── pages.md
+</span><span style="color:#c0c5ce;">│   └── posts.md
+</span><span style="color:#c0c5ce;">├── _includes
+</span><span style="color:#c0c5ce;">│   ├── categories.liquid
+</span><span style="color:#c0c5ce;">│   ├── footer.liquid
+</span><span style="color:#c0c5ce;">│   ├── head.liquid
+</span><span style="color:#c0c5ce;">│   ├── header.liquid
+</span><span style="color:#c0c5ce;">│   └── yearly.liquid
+</span><span style="color:#c0c5ce;">├── _layouts
+</span><span style="color:#c0c5ce;">│   ├── default.liquid
+</span><span style="color:#c0c5ce;">│   └── posts.liquid
+</span><span style="color:#c0c5ce;">├── _lib
+</span><span style="color:#c0c5ce;">│   └── parser_for_wpdump_to_xml.rb
+</span><span style="color:#c0c5ce;">├── categories
+</span><span style="color:#c0c5ce;">│   ├── BOOK.md
+</span><span style="color:#c0c5ce;">│   ├── CULTURE.md
+</span><span style="color:#c0c5ce;">│   ├── ETC.md
+</span><span style="color:#c0c5ce;">│   ├── HIBI.md
+</span><span style="color:#c0c5ce;">│   ├── PHOTOGRAPHY.md
+</span><span style="color:#c0c5ce;">│   ├── SOUNDTRACK.md
+</span><span style="color:#c0c5ce;">│   ├── TECHNOLOGY.md
+</span><span style="color:#c0c5ce;">│   └── WORK.md
+</span><span style="color:#c0c5ce;">├── docs &lt;= cobalt buildで吐き出されるところ、GitHub Pagesで公開されるディレクトリ
+</span><span style="color:#c0c5ce;">│   ├── CNAME
+</span><span style="color:#c0c5ce;">│   ├── categories
+</span><span style="color:#c0c5ce;">│   ├── index.html
+</span><span style="color:#c0c5ce;">│   ├── posts
+</span><span style="color:#c0c5ce;">│   ├── public
+</span><span style="color:#c0c5ce;">│   ├── rss.xml
+</span><span style="color:#c0c5ce;">│   └── yearly
+</span><span style="color:#c0c5ce;">├── index.md
+</span><span style="color:#c0c5ce;">├── posts
+</span><span style="color:#c0c5ce;">│   ├── 2022
+</span><span style="color:#c0c5ce;">│   └── past &lt;= ここにwordpressの移行ファイルをつっこんでいる
+</span><span style="color:#c0c5ce;">├── public
+</span><span style="color:#c0c5ce;">│   ├── css
+</span><span style="color:#c0c5ce;">│   ├── fonts
+</span><span style="color:#c0c5ce;">│   └── images
+</span><span style="color:#c0c5ce;">└── yearly
+</span><span style="color:#c0c5ce;">    ├── 2013.md
+</span><span style="color:#c0c5ce;">    ├── 2014.md
+</span><span style="color:#c0c5ce;">    ├── 2015.md
+</span><span style="color:#c0c5ce;">    ├── 2016.md
+</span><span style="color:#c0c5ce;">    ├── 2017.md
+</span><span style="color:#c0c5ce;">    ├── 2018.md
+</span><span style="color:#c0c5ce;">    ├── 2019.md
+</span><span style="color:#c0c5ce;">    ├── 2020.md
+</span><span style="color:#c0c5ce;">    ├── 2021.md
+</span><span style="color:#c0c5ce;">    └── 2022.md
+</span><span style="color:#c0c5ce;">
+</span></pre>
+<p>カテゴリーと過去の記事のところは絶対方法があるような気がするんだけど、
+cobaltとliquidのドキュメントが読み込めてない。</p>
+<p>_cobalt.yml はまだまだ必要最低限</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#bf616a;">destination</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">docs
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#bf616a;">site</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">  </span><span style="color:#bf616a;">title</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">NOTO
+</span><span style="color:#c0c5ce;">  </span><span style="color:#bf616a;">description</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">note
+</span><span style="color:#c0c5ce;">  </span><span style="color:#bf616a;">base_url</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">https://noto.katsumataryo.com
+</span><span style="color:#bf616a;">posts</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">  </span><span style="color:#bf616a;">rss</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">rss.xml
+</span><span style="color:#bf616a;">assets</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">  </span><span style="color:#bf616a;">sass</span><span style="color:#c0c5ce;">:
+</span><span style="color:#c0c5ce;">    </span><span style="color:#bf616a;">style</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">Nested
+</span></pre>
+<h3>GitHub Pages</h3>
+<p>GitHub Pages はむしろ解説しているところがたくさんあるので特に言及はなしですが、
+<code>$ cobalt build</code> したあとに全体をGitHubにまるごと上げて、_cobalt.ymlでbuildの吐き出し先が指定できたのでPagesで指定できる
+<code>docs</code> をサイトとして公開できるディレクトリとした。</p>
+<h3>liquidとcobalt</h3>
+<p>色々ツールとして使っていると言いながら、結局は公開されているのは素のHTMLという感じ。データベースもなし。
+ただcobaltの恩恵を受けているなと感じるのは liquidがテンプレートやインクルードやデータを提供してくれてるところ。</p>
+<p>例えば 2022 年の記事タイトルを表示する部分は下みたいな感じになっている。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># 2022.md
+</span><span style="color:#c0c5ce;">---
+</span><span style="color:#c0c5ce;">title: &quot;2022&quot;
+</span><span style="color:#c0c5ce;">layout: default.liquid
+</span><span style="color:#c0c5ce;">---
+</span><span style="color:#c0c5ce;">｛% include &quot;yearly.liquid&quot; %｝
+</span></pre><pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;"># yearly.luquid
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">｛% assign target_year = page.title %｝
+</span><span style="color:#c0c5ce;">## ｛｛target_year｝｝
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">｛% for post in collections.posts.pages %｝
+</span><span style="color:#c0c5ce;">｛% assign year = post.published_date | date: &quot;%Y&quot; %｝ ｛% if year == target_year %｝ * 
+</span><span style="color:#c0c5ce;">｛｛ post.published_date | date: &quot;%Y/%m/%d&quot; ｝｝：[｛｛ post.title ｝｝](/｛｛ post.permalink ｝｝) ｛% endif %｝
+</span><span style="color:#c0c5ce;">｛% endfor %｝
+</span></pre><pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">&lt;!DOCTYPE html&gt;
+</span><span style="color:#c0c5ce;">&lt;html&gt;
+</span><span style="color:#c0c5ce;">    &lt;head prefix=&quot;og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#&quot;&gt;
+</span><span style="color:#c0c5ce;">        ｛% include &quot;head.liquid&quot; %｝
+</span><span style="color:#c0c5ce;">    &lt;/head&gt;
+</span><span style="color:#c0c5ce;">    &lt;body&gt;
+</span><span style="color:#c0c5ce;">        ｛% include &quot;header.liquid&quot; %｝
+</span><span style="color:#c0c5ce;">        &lt;div class=&quot;content&quot;&gt;
+</span><span style="color:#c0c5ce;">          ｛｛ page.content ｝｝
+</span><span style="color:#c0c5ce;">        &lt;/div&gt;
+</span><span style="color:#c0c5ce;">        &lt;div class=&quot;footer&quot;&gt;
+</span><span style="color:#c0c5ce;">        ｛% include &quot;footer.liquid&quot; %｝
+</span><span style="color:#c0c5ce;">        &lt;/div&gt;
+</span><span style="color:#c0c5ce;">    &lt;/body&gt;
+</span><span style="color:#c0c5ce;">&lt;/html&gt;
+</span></pre>
+<p>で表示されているページがこんな感じ</p>
+<figure><img class="in_article" src="/public/images/2022/06/2022-06-21.png"></figure>
+<p>こんな感じでイテレータもあるしテンプレートもあるし変数も使えるしフィルターというかデータ加工も割と豊富。
+レイアウトやファイルの構造をいじったとき、素のHTMLなら全ファイル書き換えていかなければいけないところを
+<code>$ cobalt build</code> で一発というのはやっぱり爽快。</p>
+<p>確認も<code>$ cobalt serve</code> で <code>localhost:3000</code> が見れるようになるのでらくらく。</p>
+<pre style="background-color:#2b303b;">
+<span style="color:#c0c5ce;">❯ cobalt serve
+</span><span style="color:#c0c5ce;">[info] Building from &quot;/noto&quot; into &quot;/noto/docs&quot;
+</span><span style="color:#c0c5ce;">Error: serve command failed
+</span><span style="color:#c0c5ce;">Info: caused by Failed to render content for posts/2022/06/21/cobalt-blog-noto.html
+</span><span style="color:#c0c5ce;">Info: caused by liquid: Unknown index
+</span><span style="color:#c0c5ce;">  with:
+</span><span style="color:#c0c5ce;">    variable=page
+</span><span style="color:#c0c5ce;">    requested index=content
+</span><span style="color:#c0c5ce;">    available indexes=tags, permalink, slug, title, description, collection, is_draft, previous, next, file, data, published_date, categories, weight
+</span><span style="color:#c0c5ce;">from: ｛% include &quot;head.liquid&quot; %｝
+</span><span style="color:#c0c5ce;">  with:
+</span><span style="color:#c0c5ce;">    &quot;head.liquid&quot;=head.liquid
+</span><span style="color:#c0c5ce;">
+</span></pre>
+<p>こんな感じでエラーも出してくれる。</p>
+<h3>その他</h3>
+<ul>
+<li>CSSは昔の知識で何とかむりくりやってる。</li>
+<li>FontsはGoogle Fontで見つけて読みやすそうなのを読み込めるようにしてみた。</li>
+<li>OGP設定はちょっと勉強してなんとか意図したとおりに表示されるようになった気がする。</li>
+<li>記事を作るときmarkdwonのフォーマットがあるのでそれを簡単に作れるようにしないとちょっとめんどくさい。</li>
+<li><code>｛</code> とか <code>%</code> とか特殊文字をmarkdownで書くときエスケープしなければいけないのがちょっとめんどくさい。これどうにかなるような気もする</li>
+<li>github actionで <code>$ cobalt build</code> が蹴れるきがする。これがうまく行けば（PR作成時などにbuildしてdocsに格納できれば）githubのモバイル上で記事を書いたりできるような気がする。</li>
+</ul>
+<h2>現在の完成形</h2>
+<p>というわけでこんな感じになっています。</p>
+<figure><img class="in_article" src="/public/images/2022/06/2022-06-21.png"></figure>
+<p>まだやりたいことがあるので少しずつ改善をしていきたい。</p>
+
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="Cobaltでblogを作り直した - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="footer">
+            <h2 class="subtitle">Categories</h2>
+
+| <a href="/categories/TECHNOLOGY.html">TECHNOLOGY</a> | <a href="/categories/SOUNDTRACK.html">SOUNDTRACK</a> | <a href="/categories/PHOTOGRAPHY.html">PHOTOGRAPHY</a> | <a href="/categories/HIBI.html">HIBI</a> | <a href="/categories/WORK.html">WORK</a> | <a href="/categories/BOOK.html">BOOK</a> | <a href="/categories/CULTURE.html">CULTURE</a> | <a href="/categories/ETC.html">ETC</a> | 
+
+<h2 class="subtitle">Past Articles</h2>
+| <a href="/yearly/2022.html">2022</a> | <a href="/yearly/2021.html">2021</a> | <a href="/yearly/2020.html">2020</a> | <a href="/yearly/2019.html">2019</a> | <a href="/yearly/2018.html">2018</a> | <a href="/yearly/2017.html">2017</a> | <a href="/yearly/2016.html">2016</a> | <a href="/yearly/2015.html">2015</a> | <a href="/yearly/2014.html">2014</a> | <a href="/yearly/2013.html">2013</a> | 
+
+<p><a href="/">TOP</a></p>
+        </div>
+    </body>
+</html>
