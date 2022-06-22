@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><rss version="2.0"><channel><title>NOTO</title><link>https://noto.katsumataryo.com</link><description>note</description><item><title>Cobaltでblogを作り直した</title><link>https://noto.katsumataryo.com/posts/2022/06/21/cobalt-blog-noto.html</link><description><![CDATA[<h2>wordpressからの移行</h2>
-]]></description><guid>https://noto.katsumataryo.com/posts/2022/06/21/cobalt-blog-noto.html</guid><pubDate>Thu, 23 Jun 2022 19:00:00 +0900</pubDate></item><item><title>シンタックスハイライトのテスト</title><link>https://noto.katsumataryo.com/posts/2022/06/14/syntax-test.html</link><description><![CDATA[<pre style="background-color:#2b303b;">
+]]></description><guid>https://noto.katsumataryo.com/posts/2022/06/21/cobalt-blog-noto.html</guid><pubDate>Thu, 23 Jun 2022 19:00:00 +0900</pubDate></item><item><title>『佐久間宣行のずるい仕事術』を読んだ</title><link>https://noto.katsumataryo.com/posts/2022/06/22/book-sakuma-zurui.html</link><description><![CDATA[<h2>はじめに</h2>
+]]></description><guid>https://noto.katsumataryo.com/posts/2022/06/22/book-sakuma-zurui.html</guid><pubDate>Wed, 22 Jun 2022 23:24:00 +0900</pubDate></item><item><title>シンタックスハイライトのテスト</title><link>https://noto.katsumataryo.com/posts/2022/06/14/syntax-test.html</link><description><![CDATA[<pre style="background-color:#2b303b;">
 <span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">hello</span><span style="color:#c0c5ce;">()
 </span><span style="color:#c0c5ce;">  </span><span style="color:#96b5b4;">puts</span><span style="color:#c0c5ce;"> hellp  
 </span><span style="color:#b48ead;">end
