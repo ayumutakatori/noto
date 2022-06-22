@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Rustでコマンドライン引数を受け取る">
 <meta name="twitter:description" content="概要この記事の続きでRustでコマンドラインから文字列を受け取る処理を書いてみます。### 手順std::env を使うとコマンドライン引数を取ることができる    use std::...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -34,21 +44,31 @@
 <code>std::env</code> を使うとコマンドライン引数を取ることができる    use std::env;</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">fn main() {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let args: Vec&lt;String&gt; = env::args().collect();
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;{:?}&quot;, args);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">// 出力
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ cargo run /Users/ryo/Downloads/Photos/DSC04117.jpg
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling exif v0.1.0 (/Users/ryo/work/ryo/study_rust/exif)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Finished dev [unoptimized + debuginfo] target(s) in 0.89s
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Running `target/debug/exif /Users/ryo/Downloads/Photos/DSC04117.jpg`
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[&quot;target/debug/exif&quot;, &quot;/Users/ryo/Downloads/Photos/DSC04117.jpg&quot;]
 </span></pre>
 <p>1つ目は呼び出したプログラムの名前が入っているみたい。なんか撮れてる感じがします。</p>
 <p>これを↑に書いた記事のコードに組み合わせる</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">use std::env; use rexiv2;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">fn main() { let args: Vec&lt;String&gt; = env::args().collect(); let file_path = &amp;args[1]; let meta = rexiv2::Metadata::new_from_path(&amp;file_path).unwrap(); println!(&quot;{:?}&quot;, meta.get_pixel_width()); println!(&quot;{:?}&quot;, meta.get_pixel_height()); println!(&quot;F: {:?}&quot;, meta.get_fnumber()); println!(&quot;ISO: {:?}&quot;, meta.get_iso_speed()); println!(&quot;{:?}&quot;, meta.get_exposure_time());}// 出力$ cargo run /Users/ryo/Downloads/Photos/DSC04117.jpg Compiling exif v0.1.0 (/Users/ryo/work/ryo/study_rust/exif) Finished dev [unoptimized + debuginfo] target(s) in 0.93s Running `target/debug/exif /Users/ryo/Downloads/Photos/DSC04117.jpg`60004000F: Some(1.8)ISO: Some(320)Some(Ratio { numer: 1, denom: 200 })
 </span></pre>

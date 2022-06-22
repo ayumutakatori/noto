@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Transmit Mail の 非公式な編集をしてみた">
 <meta name="twitter:description" content="Transmit Mail の 非公式な編集ですTransmitMailがすごくいいので個人のWEBサイトの制作でよく使わせていただくんですが、今回 件名に入力内容を埋め込む 必要があ...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -43,15 +53,25 @@ github: <a href="https://github.com/dounokouno/TransmitMail">https://github.com/
 <p>フォームパーツの部分を該当箇所のみ抜粋します。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">&lt;tr class=&quot;form&quot;&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;th class=&quot;form&quot;&gt;お問い合せの種類&lt;span class=&quot;notice&quot;&gt;*&lt;span&gt;&lt;/th&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;td&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;input class=&quot;form&quot; type=&quot;radio&quot; name=&quot;お問い合わせの種類&quot; value=&quot;項目1&quot; id=&quot;radio1&quot; {$checked.お問い合わせの種類.項目1} {$checked.default} /&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;label for=&quot;radio1&quot;&gt;項目1&lt;/label&gt;&lt;br &gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;input class=&quot;form&quot; type=&quot;radio&quot; name=&quot;お問い合わせの種類&quot; value=&quot;項目2&quot; id=&quot;radio2&quot; {$checked.お問い合わせの種類.項目2} /&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;label for=&quot;radio2&quot;&gt;項目2&lt;/label&gt;&lt;br &gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;input class=&quot;form&quot; type=&quot;radio&quot; name=&quot;お問い合わせの種類&quot; value=&quot;項目3&quot; id=&quot;radio3&quot; {$checked.お問い合わせの種類.項目3} /&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;label for=&quot;radio3&quot;&gt;項目3&lt;/label&gt;&lt;br &gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;/td&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;/tr&gt;
 </span></pre>
 <p>このような感じ。</p>
@@ -59,8 +79,11 @@ github: <a href="https://github.com/dounokouno/TransmitMail">https://github.com/
 <p>25行目くらいの件名の設定のところを以下の様子で編集します。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">require_once(&#39;lib/common.php&#39;);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$_POST = delete_nullbyte($_POST);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$_POST = safe_strip_slashes($_POST);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">define(&#39;TO_SUBJECT&#39;, &#39;［テスト株式会社］お問い合わせ - &#39; . $_POST[&#39;お問い合わせの種類&#39;]);
 </span></pre>
 <h4>説明</h4>

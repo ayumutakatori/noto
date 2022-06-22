@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 容量確認のduコマンドに関するメモ">
 <meta name="twitter:description" content="はじめにCentOSのサーバの中で容量を確認するduのコマンドについてあんまり上手に使えてなかったので、基本的なことをメモしておきたいメモdu =&gt; カレントディレクトリでの容量...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -35,40 +45,64 @@
 <p>du =&gt; カレントディレクトリでの容量をでぃレクトリごとにバーと出す</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ du
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">8 ./spell
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">12 ./working/ruby/sqlite
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">8 ./working/ruby/.hg/cache
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">8 ./working/ruby/.hg/store/data/2013-07-31
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">中略
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">12 ./.vim/plugin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">200 ./.vim
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">142188 .
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">du -h =&gt; 容量を見やすくする。 -kはキロ表示、-mはメガで表示する。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ du -h
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">8.0K ./spell
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">12K ./working/ruby/sqlite
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">8.0K ./working/ruby/.hg/cache
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">8.0K ./working/ruby/.hg/store/data/2013-07-31
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">中略
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">12K ./.vim/plugin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">200K ./.vim
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">139M .
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">du dir_name =&gt; dir_name内の容量表示
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">du -s dir_name =&gt; dir_name内の容量の総量だけを表示
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ du -sh working/
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">115M working/
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">とりあえずこんなところでしょうか。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="容量確認のduコマンドに関するメモ - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

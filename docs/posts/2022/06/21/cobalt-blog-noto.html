@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Cobaltでblogを作り直した">
 <meta name="twitter:description" content="wordpressからの移行長年Wordpressを使ってきたのですが、ようやくCobaltを使った静的サイトジェネレーターで移行を済ませてみました。その前段階でmediumに移すこと...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -238,7 +248,8 @@ cobaltとliquidのドキュメントが読み込めてない。</p>
 </span><span style="color:#c0c5ce;">layout: default.liquid
 </span><span style="color:#c0c5ce;">---
 </span><span style="color:#c0c5ce;">｛% include &quot;yearly.liquid&quot; %｝
-</span></pre><pre style="background-color:#2b303b;">
+</span></pre>
+<pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># yearly.luquid
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">｛% assign target_year = page.title %｝
@@ -248,7 +259,8 @@ cobaltとliquidのドキュメントが読み込めてない。</p>
 </span><span style="color:#c0c5ce;">｛% assign year = post.published_date | date: &quot;%Y&quot; %｝ ｛% if year == target_year %｝ * 
 </span><span style="color:#c0c5ce;">｛｛ post.published_date | date: &quot;%Y/%m/%d&quot; ｝｝：[｛｛ post.title ｝｝](/｛｛ post.permalink ｝｝) ｛% endif %｝
 </span><span style="color:#c0c5ce;">｛% endfor %｝
-</span></pre><pre style="background-color:#2b303b;">
+</span></pre>
+<pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">&lt;!DOCTYPE html&gt;
 </span><span style="color:#c0c5ce;">&lt;html&gt;
 </span><span style="color:#c0c5ce;">    &lt;head prefix=&quot;og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#&quot;&gt;

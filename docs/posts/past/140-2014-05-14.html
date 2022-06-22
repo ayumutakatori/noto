@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - do whileで試しに書いてみた。">
 <meta name="twitter:description" content="do whileの勉強do {}while();の勉強がてらちょっとスクリプトを書いてみました。 これを何に使うかって言うとちょっとあれなんですが、ちょっと楽しかったので久々の記事更新...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -39,7 +49,9 @@
 <p>do while文は</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">do{
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">命令文;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">} while(評価式)
 </span></pre>
 <p>という形で書かれます。</p>
@@ -47,9 +59,13 @@
 <p>たとえばこんなかんじです。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">var i = 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">do {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">console.log(i);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">i += 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">} while( i &lt; 10)
 </span></pre>
 <p>これは、変数iが10より少ない間ずっと繰り返します。 ですので4行目の’i += 1’を抜くと延々に何かをやり続けブラウザの読み込みが延々に止まらない感じになります(これに気づかずさきほど30分ぐらいハマってました。)</p>
@@ -62,148 +78,258 @@
 <p>これは先ほどのもろにdo whileですね。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">var month = 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">do {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">この中の処理は後ほど
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">month += 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}while(month &lt;= 12);
 </span></pre>
 <p>変数monthは1月から12月って言うことで month = 1 =&gt; 最初に1をセット(ここは0でもいいけどなんとなく精神衛生的に) month += 1 =&gt; 1を毎回足して条件にいつかマッチするように month &lt;= 12 =&gt; 比較演算子で12以下を表現 と記載しているところがポイントな気がします。</p>
 <p>月によって違う日付を設定する</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">switch(month){
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 1:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 3:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 5:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 7:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 8:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 10:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 12:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lastDay = 31;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">break;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 2:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lastDay = 28;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">break;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 4:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 6:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 9:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 11:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lastDay = 30;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">break;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">変数lastDayに対してswitch文でその月の最後の日付を出してあげる感じ。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">その月の日付を書き出す
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ポイントはdo whileで書きつつも、評価式は固定にできないので毎月の最後の日付を変数にいれてあげるところです。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">// lastDayは上記のやつから引き継ぎ
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">var day = 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">do {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">document.write(day);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">day += 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">} while (day &lt;= lastDay );
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">こんな感じです。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">日付と月を書き出す部分
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">したがって月と日を書き出す部分は下みたいな感じにするとうまくいきそうです。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">var day = 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">month = 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lastDay;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">do {
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">do{
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">document.write(day);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">day += 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">} while( day &lt;= lastDay)
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">day = 1 // 初期化? これをやらないと引き続き足し続けてしまう。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">month += 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}while( month &lt;= 12 );
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">日付が土日だったら色を変える
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">これはif文とDate関数で曜日を判定するのhtmlとか複合ですが、そんな難しいことはなく、Date関数で週を評価できるような日付の形を頑張って作り出し、それをweekという変数にいれてif文するって感じです。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">var fullDay = (&quot;2013/&quot; + month + &quot;/&quot; + day);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">var week = new Date(fullDay).getDay();
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">if (week == 0 ) {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">document.write(&quot; &quot; + day + &quot;&quot;);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">} else if( week == 6 ) {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">document.write(&quot; &quot; + day + &quot;&quot;);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">} else {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">document.write(&quot; &quot; + day + &quot;&quot;);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">最終的にはこうなったっていう全体
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;!doctype html&gt;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">// varriable
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">var month = 1,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">day = 1,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lastDay = 1;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">do {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">switch(month){
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 1:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 3:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 5:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 7:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 8:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 10:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 12:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lastDay = 31;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">break;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 2:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lastDay = 28;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">break;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 4:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 6:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 9:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case 11:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lastDay = 30;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">break;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">document.write( &#39;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; + month + &#39;月
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; );
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">do{
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">var fullDay = (&quot;2013/&quot; + month + &quot;/&quot; + day);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">var week = new Date(fullDay).getDay();
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">if (week == 0 ) {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">document.write(&quot; &quot; + day + &quot;&quot;);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">} else if( week == 6 ) {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">document.write(&quot; &quot; + day + &quot;&quot;);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">} else {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">document.write(&quot; &quot; + day + &quot;&quot;);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">day += 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">} while ( day &lt;= lastDay );
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">day = 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">month += 1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">} while (month &lt;= 12);
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">終わりに
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">つうことでちょっと業務終わりに書いてみました。do whileはなにか難しい処理をするときには(時間とか)大事な処理な気がするので、ちゃんと使えるようにしておきたいですね。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="do whileで試しに書いてみた。 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

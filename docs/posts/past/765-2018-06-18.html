@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - (WIP)Rust 基礎文法 メモ">
 <meta name="twitter:description" content="Rustのインストール公式サイトに記載の方法で実行。[embed]https://www.rust-lang.org/ja-JP/install.html[/embed]Rustのプロ...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -46,20 +56,26 @@
 <p>複数行コメント</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">/*
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">複数行のコメントが
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ここで書ける
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">*/
 </span></pre>
 <p>ドキュメンテーションコメントなるものもある様子。markdown記法が使える。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">/// 一行のドキュメンテーションコメント
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">//! それを含んでいる要素（例えばクレート、モジュール、関数）にコメントを付けます。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">//! 一般的にはクレートルート（lib.rs）やモジュールルート（mod.rs）の中で使われる
 </span></pre>
 <h4>変数</h4>
 <p>変数の宣言。デフォルトはイミュータブル。実際に使用される時は値で初期化されている必要がある。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">let x = 5; // イミュータブル
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let mut y = 6; // ミュータブル
 </span></pre>
 <h4>パターン</h4>
@@ -69,19 +85,28 @@
 <h4>型注釈</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">//xは型i32を持つ束縛で、値は 5 である。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let x: i32 = 5;
 </span></pre>
 <h4>スコープとシャドーイング</h4>
 <p>rubyとちょっと感覚が違うのは *1 で値が書き換わってないところ。変化はスコープの中で閉じている理解。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">let x: i32 = 8;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">{
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;{}&quot;, x); // &quot;8&quot;を印字する
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let x = 12;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;{}&quot;, x); // &quot;12&quot;を印字する
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;{}&quot;, x); // &quot;8&quot;を印字する *1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let x = 42;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;{}&quot;, x); // &quot;42&quot;を印字する
 </span></pre>
 <h4>変数</h4>
@@ -89,12 +114,15 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">fn main() {
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span></pre>
 <p>この中に処理を書いていく。引数を取る時は下記のように書く。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">// x というなの i32 という型の引数
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">fn foo(x: i32) {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span></pre>
@@ -102,16 +130,22 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">fn foo(x: i32) -&gt; i32 {
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span></pre>
 <h4>リターン</h4>
 <p>関数の一番最後はreturnを書かない。早期リターンは以下のような感じ</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">fn foo(x: i32) -&gt; i32 {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">return x;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">// このコードは走りません!
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">x + 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span></pre>
 <h4>関数ポインタ</h4>
@@ -126,7 +160,9 @@ let f = plus_one;</p>
 <h3>プリミティブ型</h3>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">let x: bool = true; # 真偽値
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let x = &#39;x&#39; # 一文字
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let i = ４２ # 数値型 u =&gt; 符号なし / i =&gt; 符号あり / f =&gt; 小数点
 </span></pre>
 <h4>配列</h4>
@@ -134,19 +170,24 @@ let f = plus_one;</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">let array = [0; 20];
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let a = [1, 2, 3];
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;a has {} elements&quot;, a.len()); // 表示
 </span></pre>
 <p>添字記法でも値を取り出せる。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">let names = [&quot;Graydon&quot;, &quot;Brian&quot;, &quot;Niko&quot;]; // names: [&amp;str; 3]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;The second name is: {}&quot;, names[1]);
 </span></pre>
 <h4>スライス</h4>
 <p>様々なものからスライスを作るためには <code>&amp;</code> と <code>[]</code> の組合せを使うことができます。 <code>&amp;</code> はスライスが参照と同じであることを示し、 <code>[]</code> はレンジを持ち、スライスの長さを定義します。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">let a = [0, 1, 2, 3, 4];
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let complete = &amp;a[..]; // aに含まれる全ての要素を持つスライス
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let middle = &amp;a[1..4]; // 1、2、3のみを要素に持つaのスライス
 </span></pre>
 <h3>str</h3>
@@ -157,17 +198,27 @@ let f = plus_one;</p>
 <p>タプルは固定サイズの順序ありリスト。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">let x = (1, &quot;hello&quot;);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let x: (i32, &amp;str) = (1, &quot;hello&quot;); // 型注釈付き。様々な方が混在できる。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">// 値の取り出し
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let tuple = (1, 2, 3);
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let x = tuple.0;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let y = tuple.1;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let z = tuple.2;
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;x is {}&quot;, x);
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="(WIP)Rust 基礎文法 メモ - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

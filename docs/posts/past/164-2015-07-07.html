@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 他力本願でruby2.2.2のrpm化をして挫折した記録">
 <meta name="twitter:description" content="はじめにrubyをrpm化する必要があったので、調べてみました。rpmbuild自体をしたことがなかったのですが、他のblog記事を参考にしながら行っています。加えてspecファイルを...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -74,8 +84,11 @@ export CFLAGS=&quot;$RPM_OPT_FLAGS -Wall -fno-strict-aliasing&quot;</p>
 <h4>RPMの作成</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ pwd
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/home/username/rpmbuild # rpmbuildの中に居ます
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># ビルドします ※rootで作業しないほうがいいらしいです
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rpmbuild -bb SPECS/ruby222.spec
 </span></pre>
 <h4>エラーがでました</h4>
@@ -88,22 +101,39 @@ export CFLAGS=&quot;$RPM_OPT_FLAGS -Wall -fno-strict-aliasing&quot;</p>
 元のファイルとの差分は以下のとおりです。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">--- C:UserskatsumataDownloadsruby222.spec
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+++ %define rubyver 2.2.2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@@ -36,6 +36,7 @@
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">export CFLAGS=&quot;$RPM_OPT_FLAGS -Wall -fno-strict-aliasing&quot;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%configure
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+ --prefix=/usr/local/rubys/
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">--enable-shared
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">--disable-rpath
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">--without-X11
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@@ -56,6 +57,7 @@
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rm -rf $RPM_BUILD_ROOT
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%files
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+/usr/local/rubys/share/ri/2.2.0/system/*
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%defattr(-, root, root)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%{_bindir}
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%{_includedir}
 </span></pre>
 <h4>rpmファイルの完成(失敗する)</h4>
@@ -115,82 +145,147 @@ $ sudo yum localinstall ruby-2.2.2–1.el7.centos.x86_64.rpm <br />
 <p>SPECファイルを編集してみました。さっきのファイル修正からの差分ですrubyをruby22にしただけです。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">--- C:UserskatsumataDownloadsruby222.spec
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+++ %define rubyver 2.2.2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@@ -1,6 +1,6 @@
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%define rubyver 2.2.2
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Name: ruby
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Name: ruby22
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Version: %{rubyver}
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Release: 1%{?dist}
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">License: Ruby License/GPL - see COPYING
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@@ -11,17 +11,17 @@
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Source0: ftp://ftp.ruby-lang.org/pub/ruby/ruby-%{rubyver}.tar.bz2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Summary: An interpreter of object-oriented scripting language
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Group: Development/Languages
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Provides: ruby(abi) = 2.2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Provides: ruby-irb
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Provides: ruby-rdoc
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Provides: ruby-libs
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Provides: ruby-devel
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Provides: rubygems
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Obsoletes: ruby-libs
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Obsoletes: ruby-irb
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Obsoletes: ruby-rdoc
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Obsoletes: ruby-devel
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-Obsoletes: rubygems
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Provides: ruby22(abi) = 2.2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Provides: ruby22-irb
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Provides: ruby22-rdoc
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Provides: ruby22-libs
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Provides: ruby22-devel
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Provides: rubygems22
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Obsoletes: ruby22-libs
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Obsoletes: ruby22-irb
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Obsoletes: ruby22-rdoc
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Obsoletes: ruby22-devel
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+Obsoletes: rubygems22
 </span></pre>
 <h4>再度rpmbuild</h4>
 <p>※ sudo yum localeinstall の際にSERVERに db4関係 yumでインストールできなかったので db4-devel, db4を外しています</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ sudo yum localinstall ruby22-2.2.2-1.el7.centos.x86_64.rpm
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[sudo] password for :
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Loaded plugins: fastestmirror
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Examining ruby22-2.2.2-1.el7.centos.x86_64.rpm: ruby22-2.2.2-1.el7.centos.x86_64
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Marking ruby22-2.2.2-1.el7.centos.x86_64.rpm to be installed
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Resolving Dependencies
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">--&gt; Running transaction check
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">---&gt; Package ruby22.x86_64 0:2.2.2-1.el7.centos will be installed
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">--&gt; Finished Dependency Resolution
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Dependencies Resolved
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">===================================================================================================================
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Package Arch Version Repository Size
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">===================================================================================================================
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Installing:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ruby22 x86_64 2.2.2-1.el7.centos /ruby22-2.2.2-1.el7.centos.x86_64 35 M
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Transaction Summary
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">===================================================================================================================
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Install 1 Package
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Total size: 35 M
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Installed size: 35 M
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Transaction check error:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">file /usr/bin from install of ruby22-2.2.2-1.el7.centos.x86_64 conflicts with file from package filesystem-3.2-18.el7.x86_64
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">file /usr/lib64 from install of ruby22-2.2.2-1.el7.centos.x86_64 conflicts with file from package filesystem-3.2-18.el7.x86_64
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">file /usr/bin/irb from install of ruby22-2.2.2-1.el7.centos.x86_64 conflicts with file from package ruby-irb-2.0.0.598-24.el7.noarch
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">file /usr/bin/erb from install of ruby22-2.2.2-1.el7.centos.x86_64 conflicts with file from package ruby-2.0.0.598-24.el7.x86_64
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">file /usr/bin/ruby from install of ruby22-2.2.2-1.el7.centos.x86_64 conflicts with file from package ruby-2.0.0.598-24.el7.x86_64
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">file /usr/share/man/man1/ruby.1.gz from install of ruby22-2.2.2-1.el7.centos.x86_64 conflicts with file from package ruby-2.0.0.598-24.el7.x86_64
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">file /usr/lib64/libruby.so from install of ruby22-2.2.2-1.el7.centos.x86_64 conflicts with file from package ruby-devel-2.0.0.598-24.el7.x86_64
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">エラーがでてまして、やっぱりruby2.0とバッティングしてしまうので一旦時間がかかり過ぎそうということで今回はここまでと。。。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="他力本願でruby2.2.2のrpm化をして挫折した記録 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - CentOS7にajentiをインストール">
 <meta name="twitter:description" content="ajentiとはajentiはpython製のサーバ管理ツールです。キャプチャを見ていただくとなんとなく伝わると思いますが、かなりいろいろなことができます。画面もいわゆる管理ツールっぽ...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -46,6 +56,7 @@
 私は</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ sudo firewall-cmd --add-port=8000/tcp --zone=public --permanent
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo firewall-cmd --reload
 </span></pre>
 <p>で完了です。</p>

@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - レシピブック 019,020,021">
 <meta name="twitter:description" content="コマンドプロンプト上であえてutf-8した[1] pry(main)&gt; #encoding: utf-8[2] pry(main)&gt;[3] pry(main)&gt; st...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -32,65 +42,110 @@
             <p>コマンドプロンプト上であえてutf-8した</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[1] pry(main)&gt; #encoding: utf-8
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[2] pry(main)&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[3] pry(main)&gt; str = &quot;こんにちわ&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[4] pry(main)&gt; str.size
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 10
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[5] pry(main)&gt; p str.encoding
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; #
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[6] pry(main)&gt; p str
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;
 </span></pre>
 <p>こんどはShift_JISする</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[1] pry(main)&gt; # encoding: Shift_JIS
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[2] pry(main)&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[3] pry(main)&gt; str = &quot;こんにちわ&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[4] pry(main)&gt; p str.encoding
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; #
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[5] pry(main)&gt; p str.size
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">10
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 10
 </span></pre>
 <p>2.0のせいなのか書いたとおりに書いて同じ結果にならない「」この部分。</p>
 <p>次。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[7] pry(main)&gt; p &quot;Hello&quot;.encoding
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; #
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[8] pry(main)&gt; p Encoding.list
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #]
 </span></pre>
 <p>何か配列ですげーかえってきた。なんでーアスキーなのかなー。pryのせいかなー。</p>
 <p>NKFの章はダメポ。何かだめなのだろうな。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[1] pry(main)&gt; require &#39;nkf&#39;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; true
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[2] pry(main)&gt; p NKF.nkf(&quot;-s -m0&quot;, &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;x{82B1}x{82F1}x{82C9}x{82BF}x{82ED}&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;x{82B1}x{82F1}x{82C9}x{82BF}x{82ED}&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[3] pry(main)&gt; p NKF.nkf(&quot;-w -m0&quot;, &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;u3053u3093u306Bu3061u308F&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;u3053u3093u306Bu3061u308F&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[4] pry(main)&gt; p NKF.nkf(&quot;-W -m0&quot;, &quot;x82xB1x82xF1x82xC9x82xBFx82xED&quot;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ArgumentError: no output encoding given
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">from (pry):4:in `nkf&#39;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[5] pry(main)&gt; p NKF.nkf(&quot;-s -m0&quot;, &quot;こんにちわ&quot;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;x{82B1}x{82F1}x{82C9}x{82BF}x{82ED}&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;x{82B1}x{82F1}x{82C9}x{82BF}x{82ED}&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[6] pry(main)&gt; p NKF.nkf(&quot;-w -m0&quot;, &quot;こんにちわ&quot;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;u3053u3093u306Bu3061u308F&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;u3053u3093u306Bu3061u308F&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[7] pry(main)&gt; p NKF.nkf(&quot;-e -m0&quot;, &quot;こんにちわ&quot;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;x{A4B3}x{A4F3}x{A4CB}x{A4C1}x{A4EF}&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;x{A4B3}x{A4F3}x{A4CB}x{A4C1}x{A4EF}&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[8] pry(main)&gt; exit
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="レシピブック 019,020,021 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

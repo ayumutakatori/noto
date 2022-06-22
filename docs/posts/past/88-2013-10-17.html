@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - EIP(ENI)/EBSのアタッチをEC2の中から行う 2">
 <meta name="twitter:description" content="昨日の作業アタッチ/デタッチするのはどちらかというとEIPではなくENIの方だったみたいなので、こちらもメモしておく。参考: http://exploreaws.doorblog.jp...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -36,12 +46,14 @@
 <p>例のごとく環境変数の設定</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">export ENI0=eni-XXXXXXXXX
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">export ENI1=eni-YYYYYYYYY
 </span></pre>
 <p>デフォルトでDelete On Termination:Trueになっているくさいので<br />
 どうにかする。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ ec2-attach-network-interface $ENI1 -i $INSTANCE_ID -d 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">eni-attach-00000000
 </span></pre>
 <p>コンソールからみると確かにインスタンスにくっついていてしかも<br />
@@ -50,6 +62,7 @@ Delete On Termination: false<br />
 <p>eth0に当たるようなENIがEC2と共死にしそうだったので裏切るように設定した。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ ec2-modify-network-interface-attribute $ENI0 --delete-on-termination false -a eni-attach-1111111
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">NETWORKINTERFACE eni-XXXXXXXXX attachment
 </span></pre>
 <p>コンソールで不揮発になっているのを確認。</p>
@@ -69,20 +82,35 @@ Delete On Termination: false<br />
 <p>なんかこんなかんじかな。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">#cloud-config
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">repo_upgrade: all
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">runcmd:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [export, AWS_CREDENTIAL_FILE=/opt/aws/credential-file-path]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [export, AWS_ACCESS_KEY=YYYYYYYYYYYYYY]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [export, AWS_SECRET_KEY=XXXXXXXXXXXXXX]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [export, EC2_URL=https://ec2.ap-northeast-1.amazonaws.com]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [export, INSTANCE_ID=`curl -s[http://169.254.169.254/latest/meta-data/instance-id`]](http://169.254.169.254/latest/meta-data/instance-id%60%5D)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [export, EIP=000.000.000.000]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [export, DEVICE=/dev/sdf]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [export, ENI0=eni-00000000]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [export, ENI1=eni-11111111]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [ec2-attach-volume, $EBS_DATA, -i, $INSTANCE_ID, -d, $DEVICE]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [mount, /dev/xvdf, /data]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [ec2-attach-network-interface, $ENI0, -i, $INSTANCE_ID, -d, 0]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- [ec2-attach-network-interface, $ENI1, -i, $INSTANCE_ID, -d, 1]
 </span></pre>
 <p>でAMIを作成する。めんそうなのでEBS AMIで簡単に作ってしまっている。<br />
@@ -90,12 +118,18 @@ EC2でくっついているやつだけで作ります。</p>
 <p>Auto Scalingの設定</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">#新しいLaunchConfigの追加
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">as-create-launch-config MyLCv5 --image-id ami-XXXXXXXX --instance-type
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">OK-Created launch config
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#auto scaling groupの更新
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">as-update-auto-scaling-group MyGroup -launch-configuration MyLCv5 --availability-zones ap-northeast-1a --min-size 1 --max-size 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">OK-Updated AutoScalingGroup
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="EIP(ENI)/EBSのアタッチをEC2の中から行う 2 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

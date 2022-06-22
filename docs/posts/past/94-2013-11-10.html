@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - AWSの新しいCLIツールを試してみた。">
 <meta name="twitter:description" content="AWSってCLIツールが2つあるんですけど、autoscalingの時は古いほうが情報が多かったのでas-delete-launch-configs みたいな感じの長いコマンド名の方を...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -42,7 +52,9 @@ aws s3 ls みたいな「aws サービス コマンド xxxx」みたいな感じ
 そうしたら自分の場合は/Users/ユーザ名/.local/lib/aws/ がなんか出来ていて そのなかにある bin/aws が実行ファイルっぽかったので</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ sudo ln -s /Users/&quot;username&quot;/.local/lib/aws/bin/aws /usr/bin/aws
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ ls -l /usr/bin/aws
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lrwxr-xr-x 1 root wheel 33 11 10 03:38 /usr/bin/aws -&gt; /Users/&quot;username&quot;/.local/lib/aws/bin/aws
 </span></pre>
 <p>という感じでシンボリックリンクにしときました。詳しくないからこのやり方は美味しくないかも。</p>
@@ -50,22 +62,30 @@ aws s3 ls みたいな「aws サービス コマンド xxxx」みたいな感じ
 予めもっていたs3バケットの中身を見ようとしました。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ aws s3 ls s3://aaa.bbb.ccc
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Unable to locate credentials. You can configure credentials by running &quot;aws configure&quot;.
 </span></pre>
 <p>どうやら”aws configure”これでなんかできるみたい。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ aws configure
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">AWS Access Key ID [None]: xxx
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">AWS Secret Access Key [None]: xxx
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Default region name [None]: ap-northeast-1 #tokyo
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Default output format [None]: json #なんかよくわからないけどjson、他にはtextとtableが選べるみたい。
 </span></pre>
 <p>どうやらこの設定は一度コンソールを閉じても、残っているようでござんす。</p>
 <p>試しにさっき失敗したけどコマンドを試してみる。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ aws s3 ls s3://aaa.bbb.ccc
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">PRE logs/
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2013-11-08 22:16:28 791 error.html
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2013-11-08 22:16:28 665 index.html
 </span></pre>
 <p>おーバケットの中身が見れたー。<br />

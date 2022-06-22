@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Vagrantを使ったWindowsでの自分用開発環境の作成（CentOS）">
 <meta name="twitter:description" content="ずっとMACで作業だったんですが、昨日からwindowsでrails書いていたらいたるところで苦しくなってしまい本番がlinuxなのでlinux環境を手軽に作ってみることにしました。お...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -71,28 +81,43 @@
 <p>windowsの適当な場所で下記を実行</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ mkdir develobment
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ cd development
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 今回はchefのcentos7を使用
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ vagrant init chef/centos-7.0
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">vagrantfileの編集
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Vagrantfileを編集します。コメントをはずしたり、ちょっと追記したり。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">一応win-cent間でデータをシンクロさせておく用に設定しました。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rsyncが入っていないため&quot;nfs&quot;で設定しました（typeのところは&#39;virtualbox&#39;だとうまくいかなかったのもあり）。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">config.vm.synced_folder &quot;data&quot;, &quot;/vagrant_data&quot;, create: true, type: &#39;nfs&#39;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">vagrantfileの書き換えが終わったら下記コマンドを実行。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ vagrant up --provider virtualbox
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">これで特にエラーが起こらなければ起動します。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">その後下記コマンドでログインできます。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ vagrant ssh
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">sshd関係の設定
 </span></pre>

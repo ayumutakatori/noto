@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - atom で C++ を勉強する準備">
 <meta name="twitter:description" content="概要諸事情でC(C++)を勉強したいということになり、普段使っている atom でとりあえずかけるようにする準備をしたのでそのメモです。やったことatomにプラグインを追加実際にはじめ...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -49,13 +59,19 @@
 <p>よくあるはじめに標準出力にだすやつ</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">#include &lt;iostream&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">using namespace std;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">int main() {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">cout &lt;&lt; &quot;ようこそC++へ!n&quot;;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">return 0;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ちなみにlinterが効いていて
 </span></pre>
@@ -63,18 +79,29 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">atomでコンパイルできるっぽいプラグインを入れたんですが、なんか動かなかったのでコンソールでコンパイルと実行をしてみた。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[ryo@annp-mac] ~/works/ryo/cpp
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">% g++ -o test app.cpp
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[ryo@annp-mac] ~/works/ryo/cpp
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">% ls
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">app.cpp test*
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[ryo@annp-mac] ~/works/ryo/cpp
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">% ./test
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ようこそC++へ!
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">とりあえずはじめの一歩ということで。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">(ちなみに cout を cont って書いていることに気づかずちょっと「？」になっていた)
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="atom で C++ を勉強する準備 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

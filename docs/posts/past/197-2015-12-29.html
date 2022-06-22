@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 冬休みのこと1">
 <meta name="twitter:description" content="ruby 2.3のインストールクリスマスだから2.3が来ていました。私はmacのrbenvなので以下のコマンドでインストールしました。$ cd .rbenv/plugins/ruby-...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -33,19 +43,29 @@
 <p>クリスマスだから2.3が来ていました。私はmacのrbenvなので以下のコマンドでインストールしました。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ cd .rbenv/plugins/ruby-build/
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ git pull
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ cd ~/ #なんとなく
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rbenv install --list |grep 2.3.0
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2.3.0-dev
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2.3.0-preview1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2.3.0-preview2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2.3.0
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rbx-2.3.0
 </span></pre>
 <p>2.3.0があることを確認。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ rbenv global 2.3.0
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ ruby -v
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin15]
 </span></pre>
 <p>無事にruby2.3入りました。</p>

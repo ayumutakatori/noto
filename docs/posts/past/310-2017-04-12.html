@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Atomでフロー図っぽいのを書く">
 <meta name="twitter:description" content="概要Atom( https://atom.io/ )でテキストからこんな図を書いてみようです。### きっかけちょっと大きな規模の開発になった時に、頭がおかしくなりそうになったので一旦...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -56,55 +66,90 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">title クラスっぽい図
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">class User {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">age
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">class Email {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">address
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">user_id
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">class Phone {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">number
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">user_id
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">User..Email
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">User..Phone
 </span></pre>
 <p>二つ目の画像のコードです。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">title 悲しい恋模様
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==出会い==
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">note over man: 渋谷にでかける
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">note over woman: 渋谷にでかける
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">man-&gt;woman: 街中でたまたま見かけて一目惚れ
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">woman--&gt;man: 記憶にない
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">loop 7日間
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">man-&gt;man: 思い巡らす
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">note over man: 合わない時間が気持ち高ぶらせる
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==再会==
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">man-&gt;woman: 「好きだ」
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">woman-&gt;man: 「だれ？」
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">alt 頑張る？
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">man-&gt;woman: デートに誘う
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">woman-&gt;man: だが、断る
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">else
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">man-&gt;man: 次の手を考える
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">note over man:諦める
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">note over man: 終了
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==失恋==
 </span></pre>
 <p>なんかさっきの図と見比べてみると、なんとなくどれがどのあたりかとか検討がつきますよね。<br />

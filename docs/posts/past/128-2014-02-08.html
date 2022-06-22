@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Jenkins さんをインストールしてみた">
 <meta name="twitter:description" content="お仕事がだいぶ追い込まれ煮詰まってしまい、何か息抜きしたくなったので名前はよく聞いていたjenkins氏をサーバに招いてみようと思いました。以下、どこかのサイトにもあるようなことを書き...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -40,6 +50,7 @@ javaのようですが、rubyの人もつかっちゃいなよ。だそうです
 <p>jenkinsが標準のリポジトリにはいないようなので、リポジトリ追加。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ sudo wget -O /etc/yum.repos.d/jenkins.repo[http://pkg.jenkins-ci.org/redhat/jenkins.repo](http://pkg.jenkins-ci.org/redhat/jenkins.repo)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo rpm --import[http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key](http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key)
 </span></pre>
 <p>インストール</p>
@@ -59,12 +70,19 @@ iptablesを忘れてました。てへっ。設定そのままだと8080のポ�
 <p>このジョブの実行結果はこんなかんじで出ます(コンソール出力)</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">------------------------------
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">定期的に実行
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ビルドします。 ワークスペース: /var/lib/jenkins/workspace/Goodbye World
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[Goodbye World] $ /bin/sh -xe /tmp/hudson2127765012744002955.sh
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+ ruby -v
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Finished: SUCCESS
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">------------------------------
 </span></pre>
 <p>定期的に実行は、「設定」-&gt;「ビルドトリガ」-&gt;「定期的に実行」でcron的な設定ができます。</p>

@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Rubyでcsrの作成">
 <meta name="twitter:description" content="ちょっと必要に迫られてsslの申請系をRubyで楽ちんにやっちゃおう企画をしていて、SSL申請時のCSRを何とかならんかねということでしらべてたんですが、opensslコマンドのページ...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -35,108 +45,196 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># coding:utf-8
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">require &#39;openssl&#39;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># ファイルから秘密鍵を読み込む
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rsa = OpenSSL::PKey::RSA.new(File.read(&quot;domain.key&quot;))
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">csr = OpenSSL::X509::Name.new
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">csr = OpenSSL::X509::Request.new
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># subject部分の生成
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name = OpenSSL::X509::Name.new
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name.add_entry(&#39;C&#39;,&#39;JP&#39;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name.add_entry(&#39;ST&#39;,&#39;Kanagawa&#39;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name.add_entry(&#39;L&#39;,&#39;Yokohama&#39;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name.add_entry(&#39;O&#39;,&#39;WORKAPART&#39;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name.add_entry(&#39;OU&#39;,&#39;Security&#39;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name.add_entry(&#39;CN&#39;,&#39;www.workapart.org&#39;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">csr.subject = name
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># バージョンを 0 (v1.7) に
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">csr.version = 0
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 公開鍵を CSR に設定
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">csr.public_key = rsa.public_key
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># attribute を設定
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">factory = OpenSSL::X509::ExtensionFactory.new
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">exts = [factory.create_ext(&quot;subjectAltName&quot;, &quot;DNS:www.workapart.org&quot;)]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">asn1exts = OpenSSL::ASN1::Set([OpenSSL::ASN1::Sequence(exts)])
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">csr.add_attribute(OpenSSL::X509::Attribute.new(&quot;extReq&quot;, asn1exts))
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">csr.sign(rsa, &quot;sha1&quot;)
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># ファイルの書き出し
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">csrfile = File.open(&quot;domain.csr&quot;,&quot;w&quot;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">File.write(csrfile, csr)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">csrfile.close
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">exit 0
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ちょっとattributeの件がよくわからないので調べる。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">とりあえずサイトに乗ってたものをそのまま載せた感じです。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">▼できたcsrを確かめてみた
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">WorkApartAir:~ ryo$ openssl req -noout -text -in domain.csr
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Certificate Request:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Data:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Version: 0 (0x0)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Subject: C=JP, ST=Kanagawa, L=Yokohama, O=WORKAPART, OU=Security, CN=www.workapart.org
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Subject Public Key Info:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Public Key Algorithm: rsaEncryption
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">RSA Public Key: (2048 bit)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Modulus (2048 bit):
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">00:bc:1f:c2:db:51:45:4c:b1:ad:15:00:6e:38:b4:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">8a:a0:ef:b6:b6:46:00:df:38:f5:97:d3:ea:5f:ef:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">d2:8e:7f:be:da:6c:24:47:9c:ea:69:13:71:0c:49:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">29:1a:8a:4c:89:48:e9:5c:d9:cc:a3:ac:d9:99:ae:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">1d:31:df:93:3f:b1:ea:0e:89:03:20:c2:0d:7e:60:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">25:a6:7a:30:f0:ab:0a:84:57:a7:df:ed:01:39:53:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ec:4e:f4:37:fe:f2:db:fb:83:8b:0e:d1:2b:00:b1:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">a8:f8:08:15:5a:1a:08:6e:5b:21:aa:eb:f3:d3:d1:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">fd:11:26:a7:3f:00:77:a3:fb:e6:ee:52:03:0b:d0:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">eb:36:52:94:a3:a7:e8:ec:a1:3f:37:e4:9b:64:ab:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">a4:85:50:09:d3:c0:a8:29:c1:99:53:c0:e8:65:a4:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">3b:23:af:8d:be:0e:43:d6:1b:55:0a:ac:96:20:2f:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">77:f7:30:cb:3a:eb:5e:43:9d:1e:32:ca:56:0a:78:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">3b:fa:28:b5:1e:00:38:28:a0:63:8b:6c:59:af:56:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">38:15:63:8c:13:c3:b2:f5:1c:33:63:7e:2f:f2:e4:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">cf:c4:9b:ed:bf:c3:0f:e1:5a:d0:5a:71:47:89:64:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">1a:c2:9f:bb:a0:d4:3f:97:42:6c:c3:b9:0a:77:c0:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">c7:9d
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Exponent: 65537 (0x10001)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Attributes:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Requested Extensions:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">X509v3 Subject Alternative Name:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">DNS:www.workapart.org
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Signature Algorithm: sha1WithRSAEncryption
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">5d:50:b7:3b:8c:81:c2:57:d0:a8:0e:1a:5c:4e:4a:50:5b:e8:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">5d:1b:4c:31:f4:6a:45:c1:16:25:d5:1d:6e:70:7c:ad:54:b8:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ab:87:5f:d6:7c:b2:7f:a1:22:53:91:f2:9a:c8:ed:23:ae:48:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">10:8b:79:43:f9:b0:be:c8:6d:19:de:de:f5:e5:ed:78:a1:d1:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">8b:8f:8b:ab:aa:1e:dc:50:6d:cb:a7:6a:46:1e:c7:d6:49:22:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">f5:fb:fa:1e:5f:e1:b8:8a:b4:41:27:e1:fd:d2:a9:cb:2e:83:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">48:a1:f3:2d:bb:1e:9f:45:96:90:9c:4f:60:bf:95:fa:70:cc:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2e:e6:41:81:23:d1:4f:8d:5d:2d:e6:a4:74:8b:87:3e:5f:33:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">a9:cf:92:c0:8a:bd:9a:87:01:9b:09:df:99:5d:03:e7:20:5f:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">e7:d0:55:97:c5:ef:d6:bc:f2:b6:4e:d5:18:75:9a:e0:a8:71:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">fa:e3:a9:b6:be:dc:7a:40:56:42:1e:20:5d:50:ef:4c:e8:8b:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ae:e2:31:d6:19:db:f0:30:03:ed:a0:29:10:e2:69:b6:02:fb:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">75:f9:b7:41:77:dc:ff:48:93:d6:e5:6f:30:7d:2f:73:07:86:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">05:f5:63:0e:02:33:f4:9f:75:87:6f:06:d6:07:34:6f:df:ee:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">7f:c9:d9:d7
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">md5値もあってるっぽいすね。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ openssl req -noout -modulus -in domain.csr |openssl md5
-</span><span style="color:#c0c5ce;">4eff3ef7231de66185eb39a3b8f85835
-</span><span style="color:#c0c5ce;">$ openssl rsa -noout -modulus -in domain.key |openssl md5
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">4eff3ef7231de66185eb39a3b8f85835
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">$ openssl rsa -noout -modulus -in domain.key |openssl md5
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">4eff3ef7231de66185eb39a3b8f85835
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">あとは秘密鍵を作るスクリプト作って合体させればOKかなー。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ちょっと使えるかどうかは、先輩によく確認してもらおう。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="Rubyでcsrの作成 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

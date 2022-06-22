@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - ram bulanceでのエラーハンドリング">
 <meta name="twitter:description" content="はじめにコントローラでのエラーを取得、対応するために色々方法を考えていたのですが、そのなかで見つけたram bulanceというgemが簡単に実装するには良さそうだったので、作業のまと...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -42,6 +52,7 @@
 <p>Gemfileに書きを追記しましす。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">Gemfile
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">gem &quot;rambulance&quot;
 </span></pre>
 <p>以上でbundle installを行います。</p>
@@ -49,78 +60,134 @@
 <p>rails g でファイルを生成します。-eオプションでviewのテンプレートが選べるようだったので使用していた haml を入力しました。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">generating templates:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/errors/bad_request.html.haml
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/errors/forbidden.html.haml
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/errors/internal_server_error.html.haml
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/errors/not_found.html.haml
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/errors/unprocessable_entity.html.haml
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/errors/bad_request.json.jbuilder
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/errors/forbidden.json.jbuilder
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/errors/internal_server_error.json.jbuilder
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/errors/not_found.json.jbuilder
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/errors/unprocessable_entity.json.jbuilder
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">copying app/views/layouts/application.html.haml to app/views/layouts/error.html.haml:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create app/views/layouts/error.html.haml
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">generating initializer:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create config/initializers/rambulance.rb
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">設定の変更
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">config/initializers/rambulance.rb を編集します。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">config.rescue_responses = {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ActionController::RoutingError =&gt; :not_found,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">AbstractController::ActionNotFound =&gt; :not_found,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ActionController::BadRequest =&gt; :bad_request,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;Hosting::Task::Base::DrubyNotRunningError&quot; =&gt; :internal_server_error,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;Hosting::Task::Base::AlreadyExistError&quot; =&gt; :internal_server_error,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;CustomersController::DrubyNotWorkingError&quot; =&gt; :internal_server_error,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># view/layout内から使用するテンプレートファイル
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">config.layout_name = &#39;application&#39;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ハッシュの中によく使いそうなエラーと独自に作成したエラーを残しました。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">layoutは他のページと同様のものを使用するのでapplication/にあるとレイアウトファイルをそのまま使用するように設定しました。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">また、開発環境でもエラーを確認できるように
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ config.consider_all_requests_local = false
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">を設定しています。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">エラーの内容をページに表示
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">上記でだいたい整ったので最後に、もしもエラーが有った際にエラークラスを表示できるようにしました。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">.dialog
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%div
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%h1 Internal Server Error
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%p
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">申し訳ありません、下記の理由で実行を停止しました。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%br/
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">サーバ管理者に確認をして下さい。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%pre
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">【エラーメッセージ】
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%br/
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- if $!
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">= &quot;[Error] #{$!.class}&quot; # error class
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%br/
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">= &quot;[Message] #{$!}&quot; # message
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%br/
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">= &quot;#{$@}&quot; # error trace
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%br/
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- else
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">メッセージはありません。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">とても雑だけど、$!で発生した種類の障害をクラスとメッセージで表示、もう一個の$@で詳細で其の際のログを大量に出します。こちらでやりたいことが満たせました。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">最後に
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">エラー処理はめんどくさいですが、クラス同士で結びつけてよく発生するエラーがあればそれを流せるレールをつくれるのでエラー処理をあまりやって来なかった自分にもなんとか導入出来ました。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="ram bulanceでのエラーハンドリング - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

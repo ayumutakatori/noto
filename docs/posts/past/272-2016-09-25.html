@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Specifying strings for both :path and the route path is deprecated.">
 <meta name="twitter:description" content="参考にしたサイトに書いてあった path が deprecate だった。DEPRECATION WARNING: Specifying strings for both :path ...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -33,19 +43,28 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">DEPRECATION WARNING: Specifying strings for both :path and the route path is deprecated. Change things like this:
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">match &quot;username&quot;, :path =&gt; &quot;:username&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">to this:
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">match &quot;:username&quot;, :as =&gt; &quot;username&quot;, :action =&gt; &quot;username&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">(called from block in at /Users/ryo/works/ryo/pubr/config/routes.rb:10)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">railsのエラー表示が丁寧だったのでそれを参考に書き換えた(as, actionの代わりに to: を使用した)
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># pages
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- get &#39;username&#39;, path: &#39;:username&#39;, to: &#39;pages#index&#39;, constraints: { format: /()/ }
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+ get &#39;:username&#39;, to: &#39;pages#index&#39;, constraints: { format: /()/ }
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="Specifying strings for both :path and the route path is deprecated. - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

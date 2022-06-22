@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - レシピブック 017:aliasとundef">
 <meta name="twitter:description" content="aliasの方です。[5] pry(main)&gt; def d1[5] pry(main)* return &quot;printing&quot;[5] pry(main)* e...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -32,24 +42,39 @@
             <p>aliasの方です。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[5] pry(main)&gt; def d1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[5] pry(main)* return &quot;printing&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[5] pry(main)* end
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; nil
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[6] pry(main)&gt; alias d2 d1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; nil
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[7] pry(main)&gt; d1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;printing&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[8] pry(main)&gt; d2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;printing&quot;
 </span></pre>
 <p>この状態でundefを使うます。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[9] pry(main)&gt; undef d2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; nil
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[10] pry(main)&gt; d2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">NameError: undefined local variable or method `d2&#39; for main:Object
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">from (pry):8:in ` __pry__&#39;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[11] pry(main)&gt; d1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;printing&quot;
 </span></pre>
 <p>ちゃんとにエラーが出ます。</p>

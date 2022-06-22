@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - rspecの標準出力を潰(されていたのをもど)す">
 <meta name="twitter:description" content="厳密には、「rspecの標準出力が潰されていたので戻す」です。spec/spec_helper.rbconfig.around(:example) do |example|$stdou...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -33,17 +43,25 @@
 <p>spec/spec_helper.rb</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">config.around(:example) do |example|
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$stdout = StringIO.new
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">example.run
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$stdout = STDOUT
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span></pre>
 <p>こうなっているところを</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># config.around(:example) do |example|
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># $stdout = StringIO.new
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># example.run
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># $stdout = STDOUT
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># end
 </span></pre>
 <p>こうすると標準出力が戻ってきた。</p>
