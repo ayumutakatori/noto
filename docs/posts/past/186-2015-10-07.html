@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - rainloop のインストールをしてみた">
 <meta name="twitter:description" content="PHP製のWebmailツール rainloopを試してみました。このジャンルだと SquirrelMail とか Roundcube が有名そうですが、機能的な部分は置いておいてUI...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -53,58 +63,100 @@ apache, postfix, dovecotなどのこの記事外の設定はすでに設定が�
 <p>まずファイルの準備をします。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">ディレクトリを掘る
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ mkdir /work/virtual/webmail.example.com
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ファイルのダウンロード
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ wget[http://repository.rainloop.net/v2/webmail/rainloop-community-latest.zip](http://repository.rainloop.net/v2/webmail/rainloop-community-latest.zip)
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">作業用ディレクトリに解凍
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ unzip rainloop-community-latest.zip -d /work/virtual/webmail.example.com
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ディレクトリのパーミションを整えます
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">modeを揃える
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo find webmail.example.com -type d -exec chmod 755 {} ;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo find webmail.example.com -type f -exec chmod 644 {} ;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">所有権をapacheの権限で行けるように揃える
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">私の環境はapacheユーザ
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo chown -R apache:apache webmail.example.com
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">次にapacheの設定をする
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">※自分の環境はネームベースバーチャル
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rainloop.confという別ファイルを作成しました。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">#
-</span><span style="color:#c0c5ce;"># Rainloop Webmail Configuration
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;"># Rainloop Webmail Configuration
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">#
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;VirtualHost *:80&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ServerName webmail.example.com
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">DocumentRoot /work/virtual/webmail.example.com
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;Directory /work/virtual/webmail.example.com/&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;IfModule mod_authz_core.c&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># Apache 2.4
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Require all granted
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;/IfModule&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;IfModule !mod_authz_core.c&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># Apache 2.2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Order Deny,Allow
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Deny from all
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Allow from 127.0.0.1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Allow from ::1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;/IfModule&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;/Directory&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;/VirtualHost&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">confを作成しているので、apacheをリスタートします。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo /sbin/httpd -t
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Syntax OK
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo systemctl restart httpd
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">以上で、アクセスができるようになっているはずです。ものすごく簡単ですね。いいんでしょうか。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ブラウザで確認
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">http://webmail.example.com/にアクセスしてログイン画面がでることを確認
 </span></pre>
@@ -118,36 +170,60 @@ apache, postfix, dovecotなどのこの記事外の設定はすでに設定が�
 <p><img class="in_article" src="/public/images/2017/09/837e7-0sp-s0kcys84vzo4s.png">    日本語化</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">デフォルトでも日本語を選択することで日本語の表示ができるようになっていますが、さらに日本語化します。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">まず通常ユーザの画面の日本語設定ファイルから
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">場所は rainloop/v/1.9.3.363/langs/ja-jp.ini にあります。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">langのディレクトリに移動
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ cd webmail.example.com/rainloop/v/1.9.3.363/langs/
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">こんな感じで言語があります
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ ls
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">admin cs.ini en.ini hu.ini ja-jp.ini lv.ini pl.ini ro.ini sv.ini zh-cn.ini
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ar.ini de.ini es.ini is.ini ko-kr.ini nl.ini pt-br.ini ru.ini tr.ini zh-tw.ini
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">bg.ini en-gb.ini fr.ini it.ini lt.ini no.ini pt-pt.ini sk.ini ua.ini
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">非公式だと思うんですが、リネームします。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo mv ja-jp.ini ja.ini
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">その後、設定ファイルが以下のディレクトリにあるので編集。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ vim data/_data_/_default_/configs/application.ini
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">編集はこの一箇所のみです
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo diff -u application.ini application.ini.origin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">--- application.ini 2015-10-07 18:36:19.608267403 +0900
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+++ application.ini.origin 2015-10-07 18:27:37.419085215 +0900
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@@ -17,7 +17,7 @@
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">allow_user_background = Off
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">; Language used by default
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-language = &quot;ja&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">+language = &quot;en&quot;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">このja.iniが中途半端な日本語になってるので、自分のほぼ0な英語力を駆使して日本語にします。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">するとだいたいこんな感じぐらいにはなります。
 </span></pre>
 <p><img class="in_article" src="/public/images/2017/09/59cf4-0-ukccjsf-rlc0sxk.png">    管理画面のlangファイルは
@@ -164,16 +240,23 @@ $ cp -ap en.ini ja.ini
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">data/_data_/_default_/domains/
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">の中にiniファイルがあるのでもしかしたら直接こっちを作成してしまってもいいかもしれません。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">最後に
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">UIがキレイなのは凄くストレスがなくてよろしいです。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">最近では、会社以外でメールソフト設定をすることが減りました。スマホを設定するのみなので、一元的にみるのにWEBMAILっていう選択肢はありだと思いました。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">これはもちろんgmailでも可能ですが。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">また、日本語の訳が適当すぎるので、もう少しちゃんと整えたらrainloopにプルリクエストしてみようと思います。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="rainloop のインストールをしてみた - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - RSpecで一時的に言語設定を変える">
 <meta name="twitter:description" content="i18nの機能に以下のメソッドが定義されてることを知った。# Executes block with given I18n.locale set.def_with\_locale_(_...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -32,22 +42,35 @@
             <p>i18nの機能に以下のメソッドが定義されてることを知った。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># Executes block with given I18n.locale set.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def_with\_locale_(_tmp\_locale_ = nil)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">if_tmp\_locale  
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"> current\_locale_ = self.locale
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">self.locale =_tmp\_locale_  
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">yield
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ensure
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">self.locale =_current\_locale_ if_tmp\_locale_  
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span></pre>
 <p>なのでこんなふうにかけた。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">it &#39;意図した英語の値が返る&#39; do
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">I18n.with_locale(:en) do
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">expect(object.start_string).to eq(&quot;Early 10/2018&quot;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span></pre>
 <p>よっしゃ。</p>

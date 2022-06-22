@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - htmlをhamlに書き換えてみて思ったこと">
 <meta name="twitter:description" content="hamlを書いてみたかったので、一番手軽なところで普通のhtmlで書いていたものを手書きでhamlに書き換えてみた。いくつかメモしておきたかったのでメモします。まずhtmlをhamlに...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -38,7 +48,9 @@
 <p>hamlだけでなくhtml2hamlというのがあるんですね。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ sudo gem install html2haml
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">インストール後に
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ html2haml index.html index.haml
 </span></pre>
 <p>とかです。</p>
@@ -50,6 +62,7 @@
 <p>以下のエラーがsublimetextでのビルドだけ出てまして、コンソールで ‘haml index.haml index.html’ した時はでないという謎な感じで。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">Haml error on line XX: Invalid US-ASCII character &quot;xE3&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Use --trace for backtrace.
 </span></pre>
 <p>でこれについては、hamlファイルの先頭行に</p>
@@ -70,19 +83,28 @@
 <p>という場当たり的なニュアンスでとりあえず通りましたが、他にも</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">%meta{ http:{ :equiv =&gt;&quot;X-UA-Compatible&quot;}, :content =&gt; &quot;IE=edge,chrome=1&quot; }
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">や、ニュアンス違いで
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%meta{content: &quot;IE=edge,chrome=1&quot;, &quot;http-equiv&quot; =&gt; &quot;X-UA-Compatible&quot;}
 </span></pre>
 <p>こういう書き方もできるようで、統一する上でどうしたものかと現在悩んでいるところです。</p>
 <p>Googleアナリティクスとかjsどうしようかなっと</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">var _gaq = _gaq || [];
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">_gaq.push([&#39;_setAccount&#39;, &#39;UA-XXXXXXXX&#39;]);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">_gaq.push([&#39;_trackPageview&#39;]);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">(function() {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">var ga = document.createElement(&#39;script&#39;); ga.type = &#39;text/javascript&#39;; ga.async = true;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ga.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://ssl&#39; : &#39;http://www&#39;) + &#39;.google-analytics.com/ga.js&#39;;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">var s = document.getElementsByTagName(&#39;script&#39;)[0]; s.parentNode.insertBefore(ga, s);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">})();
 </span></pre>
 <p>こういうやつなのですが、これはこれでまたインデントが内のjavascriptにもあるので、インデントをもとにしているhamlでどうするんだろうーっておもってましたが、さすが、</p>

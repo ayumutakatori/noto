@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - macのRubyをアップデートした">
 <meta name="twitter:description" content="air(1.9.3-p194)とmini(1.8.7)を持っていまして、それぞれRuby1.9.3-p448と2.0.0-p247の2つをインストールされている構成にしてみた。一応デフ...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -36,31 +46,51 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">#参考にさせていただいたサイトの3番までは終わっていたみたい。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#インストールできるrubyのバージョン情報更新と一覧の表示
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ brew upgrade ruby-build
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rbenv rehash　← rehash を忘れずに！
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rbenv install -list
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rbenv install 1.9.3-p448
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#私もここでエラーが出たので
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#以下を試してみた
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ CONFIGURE_OPTS=&quot;--with-readline-dir=/usr/local --with-openssl-dir=/usr/local&quot; rbenv install 1.9.3-p448
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#インストールされているバージョン確認
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rbenv versions
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#デフォルトにするバージョンを設定
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rbenv global 1.9.3-p448
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rbenv rehash
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#念のため確認
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ruby -v
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-&gt; ruby 2.0.0p247 (2013-06-27 revision 41674) [x86_64-darwin11.4.2]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#2.0.0もだいたい同じ感じです。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">一応airもminiも無事2.0.0でokっぽい感じです。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="macのRubyをアップデートした - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

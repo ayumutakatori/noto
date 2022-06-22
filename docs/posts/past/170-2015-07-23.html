@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 雑感: postfix + dovecot + mysql + roundcube でメールサーバを構築">
 <meta name="twitter:description" content="仕事でWEBメールの導入がありそうだったので調べ物をしてみました。今回は感想だけです。他にも構築手順を掲載しているサイトはたくさんあるので、そちらを参考にしてください。参考にしたサイト...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -54,43 +64,68 @@ master.confでは受けられるように書かれているんですが、どう
 <p>main.cf</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># 前
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">smtpd_use_tls = no
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 修正
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">smtpd_tls_security_level = encrypt
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">上記の様になっていたのを修正しました。そもそもTLSを使わないようにしていたんですね。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">印象としてはとにかく設定できる項目がものすごく多いイメージです。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">apacheもそうですが、プラグインまで含めると広大すぎて学びきれないイメージでした。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">dovecotについて
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">dovecotは比較的今回のサイトでは修正箇所がすくなかったのであまりはまらずに進めました。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">認証をdovecotに依頼する構成をとっていたので、今後深くする必要があると思います。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">postfixadmin
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">これもあまり深くはまらず。乗っ取られるとやられまくるので色々対策を撮らないといけない項目ですね。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">roundcubeについて
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">今回WEBメールにかんして4つほどソフトウェアを選定してい比較していたんですが、
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">一番最初に調べようとしていたのがこちらでした。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">機能と導入のしやすさのバランスで一番良かったところがポイントでした。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">具体的にはスクワールメールよりもレガシーではないことと、yumでのインストールができるので
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">脆弱性の対応も比較的用意かと思われたためです。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">実際、インストールもyumで入れてデータベースの設定を行った後はwordpress的にだいたいが画面での設定だったので
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">比較的容易でした（ただしimapのテスト設定でめちゃくちゃはまりしました、これはどちらかというとdovecot）
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">おわりに
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">メールは依然攻撃がものすごく多いところで、かつ認証周りと関わりが深いのであまり安易な設定ができない印象です。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">これから理解を深めていき、意味をわかって構築をする必要があります。今はあまりにもただ動いているだけすぎる。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puppetで構築ができるようになったあたりで、あらためて技術的な内容で記事を新しく作成しようと思います。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">とりあえず、特にこだわりがなければGmailとか使ったほうが安心だな・・・と思いました。個人でSSL用意しようと思うとお金もかかるし・・・
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="雑感: postfix + dovecot + mysql + roundcube でメールサーバを構築 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

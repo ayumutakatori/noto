@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - rails 自分的まとめ: 初期設定編">
 <meta name="twitter:description" content="Railsの初期設定についてまとめるRailsの自分的初期設定についてまとめる。これから作成する場合にほぼ間違いなくすると思うのでまとめておきたい。rails new$ rails n...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -44,33 +54,47 @@ http://qiita.com/yutackall/items/0ff97132f31e5bacbf00</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">gem &#39;haml-rails&#39;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ bundle install
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rails generate haml:application_layout convert
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rails generate haml:application_layout convert
 </span></pre>
 <h4>bootswatch 使用</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># Gemfile
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">gem &#39;twitter-bootswatch-rails&#39;, &#39;~&gt; 3.1.1&#39;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">gem &#39;twitter-bootswatch-rails-helpers&#39;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">gem &#39;execjs&#39;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">gem &#39;less-rails&#39;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">gem &#39;therubyracer&#39;, platforms: :ruby
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ bundle install
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rails g bootswatch:install simplex
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rails g bootswatch:import simplex
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rails g bootswatch:layout simplex
 </span></pre>
 <p>app/assets/stylesheets/application.css に</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">*= require simplex/loader
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">*= require simplex/bootswatch
 </span></pre>
 <p>を追加</p>
 <p>app/assets/javascripts/application.js に</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">//= require simplex/loader
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">//= require simplex/bootswatch
 </span></pre>
 <p>を追加</p>

@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - DNSサーバ移行するときにzoneファイルをもらえない時に試すレコード">
 <meta name="twitter:description" content="はじめにネームサーバを移行する時にお客様が連絡がなんか途絶えるし、前の業者がzone情報出すの渋ったりとかありますよね。あれないですか。本当は全部をぬるっとまるっと移行できればこれ幸い...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -35,29 +45,47 @@
 <p>“dig A sample.co.jp “とかで引く</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># mx系
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">MX @
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">MX mail
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">MX mx
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># A系
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">A @
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">A www
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">A ftp
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">A mail
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">A imap
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">A pop
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">A smtp
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">A localhost
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># TXT 系
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">TXT @(MXがあるレコード)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#CNAME系はAでCNAMEきたものをAで書くかCNAMEで書くかするっきゃ。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ま、本当にドメインをフルに活用しているようなところは当てずっぽうには行けないよね。って話がもっともだし、中途半端に移行するというのはなるべく避けたいですね。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">おしまい。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="DNSサーバ移行するときにzoneファイルをもらえない時に試すレコード - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - railsアプリのrubyを2.4.0にアップデート">
 <meta name="twitter:description" content="簡単な家計簿アプリのrubyを2.4.0にアップデートした。環境ruby(old) 2.3.1rails 5.0.0.1手順rubyのバージョンは Gemfile と .ruby-ve...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -43,6 +53,7 @@ ruby2.4.0で数字の扱いが変わったのでそれが原因かも。<br />
 この1.8.3はrailsの依存なので、railsをアップデート。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># 以下はローカルのMAC作業環境
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ bundle update
 </span></pre>
 <p>rails 5.0.1 にあがり依存するjson gemが2.0.2となりました。<br />

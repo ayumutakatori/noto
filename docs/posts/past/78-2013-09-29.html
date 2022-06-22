@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 簡単な日付の計算のメモ">
 <meta name="twitter:description" content="もう本当簡単なことなんですけどきっと。毎月25日に翌5日に期限を迎えるチケット登録の日付割り出しで、年、月、日を分けて計算したらめんどくさいことになって。で単純に25日から5日足すのも...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -35,10 +45,15 @@
 で単純に25日から5日足すのも日付ばらばらだからってんで、一ヶ月足して20日引けばいいのかって気づいた。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">irb(main):001:0&gt; require &#39;date&#39;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; true
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">irb(main):003:0&gt; today = Date.today
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; #
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">irb(main):004:0&gt; endtime = (today.next_month(n=1)-20)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; #
 </span></pre>
 <p>本当は5営業日なんだけど、それは1月とか面倒なのでやめました。逃げ。</p>

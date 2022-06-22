@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Ruby レシピブック — 008:繰り返し">
 <meta name="twitter:description" content="ほぼ、条件分岐とかと変わらない感じですね。このあとにwhile修飾子とかuntil修飾子がありますね。っていうのもありました。とりあえず、こんなかんじでしょうか。[25] pry(ma...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -34,47 +44,86 @@
 とりあえず、こんなかんじでしょうか。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[25] pry(main)&gt; a =1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[26] pry(main)&gt; while a nil
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[27] pry(main)&gt; p 2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[28] pry(main)&gt; p a
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">11
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 11
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[29] pry(main)&gt; b = 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[30] pry(main)&gt; until b &gt;= 10 do
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[30] pry(main)* b = b+1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[30] pry(main)* p b
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[30] pry(main)* end
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">3
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">4
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">5
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">6
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">7
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">8
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">9
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">10
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; nil
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[35] pry(main)&gt; array =[1,2,3,4,5,6]
-</span><span style="color:#c0c5ce;">=&gt; [1, 2, 3, 4, 5, 6]
-</span><span style="color:#c0c5ce;">[36] pry(main)&gt; for c in array do
-</span><span style="color:#c0c5ce;">[36] pry(main)* p c
-</span><span style="color:#c0c5ce;">[36] pry(main)* end
-</span><span style="color:#c0c5ce;">1
-</span><span style="color:#c0c5ce;">2
-</span><span style="color:#c0c5ce;">3
-</span><span style="color:#c0c5ce;">4
-</span><span style="color:#c0c5ce;">5
-</span><span style="color:#c0c5ce;">6
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; [1, 2, 3, 4, 5, 6]
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">[36] pry(main)&gt; for c in array do
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">[36] pry(main)* p c
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">[36] pry(main)* end
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">1
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">2
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">3
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">4
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">5
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">6
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">=&gt; [1, 2, 3, 4, 5, 6]
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ちょっとforのときのcがなんなのか混乱したんですが、
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">array.each do |c| とイコールってことでいいんじゃないかと思いましたが、違ったら教えて下さい。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="Ruby レシピブック — 008:繰り返し - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

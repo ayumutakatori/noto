@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - gitを2.0.0にアップデートした">
 <meta name="twitter:description" content="macbookのgitを2.0.0にしました。(もともとgit version 1.8.5.2 (Apple Git-48)とやらが入っていた) 一番楽そうなのがbrewだったのでそれ...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -34,21 +44,28 @@
 <p>パスが通っている場所の確認とそのgitのバージョンを確認</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ which git
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/bin/git
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ git --version
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">git version 1.8.5.2 (Apple Git-48)
 </span></pre>
 <p>gitのインストール()</p>
 <p>先にも述べましたがbrewを使います。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$brew update
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$brew versions git
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2.0.0 git checkout e2e2236 /usr/local/Library/Formula/git.rb
 </span></pre>
 <p>brewではgitをインストールしていなかったので、</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ brew install git
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ /usr/local/bin/git --version
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">git version 2.0.0
 </span></pre>
 <p>でインストールできました。</p>
@@ -56,24 +73,35 @@
 <p>/etcの中に pathsというファイルが有ります。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ cat /etc/paths
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/bin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/bin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/sbin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/sbin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/local/bin
 </span></pre>
 <p>となっていたのでこのままだと/usr/bin/git を使い続けてしまうので</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ cat /etc/paths
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/local/bin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/bin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/bin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/sbin
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/sbin
 </span></pre>
 <p>に書き換えます。コンソールを再起動してパスを読み直します。 ※ 全体に影響するので十分注意してください。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">git --version
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">git version 2.0.0
 </span></pre>
 <p>以上で完了です。</p>

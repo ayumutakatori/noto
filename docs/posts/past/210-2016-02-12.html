@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - git rebase -iの復習">
 <meta name="twitter:description" content="commitをまとめる commit -i が時々記憶喪失になるので復習。commitをまとめるとき$ git rebase -i &lt;表示するcommitの数&gt;※&lt;表...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -33,6 +43,7 @@
 <h4>commitをまとめるとき</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ git rebase -i &lt;表示するcommitの数&gt;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">※&lt;表示するcommitの数&gt;は HEAD~~ って書いたり HEAD~2とか書く。ここを抜かすとたくさんcommitが出てきてしまう
 </span></pre>
 <p>このコマンドを打つと編集画面が開く。<br />

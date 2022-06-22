@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Lambda for Ruby を使って勤怠ボタンを作ってみた">
 <meta name="twitter:description" content="概要弊社では勤怠の管理に jobcan というサービスを利用しています。slack連携で特定のコマンドを入力すると出勤・退勤ができるっていうグッドでナイスな感じなんですが、もはや出勤時...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -71,14 +81,19 @@
 <p>bundle installしてローカルにgemを用意する</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ bundle install
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ bundle install --deployment # ./vender/bundle にgemが入る
 </span></pre>
 <p>ファイルツリーの様子</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">./
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">├── Gemfile
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">├── Gemfile.lock
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">├── lambda_function.rb
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">└── vendor # gem が入ってる
 </span></pre>
 <p>ファイル構造がこんな感じになっているはずなので、この4つを選択してzipファイルにしてあげてください。</p>

@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - VCR gemのカセットを再作成する">
 <meta name="twitter:description" content="VCR についてVCRはrubyのgemで、APIリクエストなどをカセットとして保存し一度読み込んだら次からはそちらを参照してくれるものです。都度リクエストを投げなくなるので、テストの...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -38,51 +48,85 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">F
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Failures:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">1) XXXX in instance variable
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">VCR::Errors::UnhandledHTTPRequestError:
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">================================================================================
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">An HTTP request has been made that VCR does not know how to handle:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">POST[https://XXXXXX/XXXXX](https://XXXXXX/XXXXX)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">VCR is currently using the following cassette:
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Under the current configuration VCR can not find a suitable HTTP interaction
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">to replay and is prevented from recording new requests. There are a few ways
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">you can deal with this:
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">* If you&#39;re surprised VCR is raising this error
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">and want insight about how VCR attempted to handle the request,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">you can use the debug_logger configuration option to log more details [1].
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">* You can use the :new_episodes record mode to allow VCR to
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">record this new request to the existing cassette [2].
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">* If you want VCR to ignore this request (and others like it), you can
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">set an `ignore_request` callback [3].
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">* The current record mode (:once) does not allow new requests to be recorded
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">to a previously recorded cassette. You can delete the cassette file and re-run
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">your tests to allow the cassette to be recorded with this request [4].
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">* The cassette contains 1 HTTP interaction that has not been
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">played back. If your request is non-deterministic, you may need to
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">change your :match_requests_on cassette option to be more lenient
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">or use a custom request matcher to allow it to match [5].
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[1][https://www.relishapp.com/vcr/vcr/v/2-9-3/docs/configuration/debug-logging](https://www.relishapp.com/vcr/vcr/v/2-9-3/docs/configuration/debug-logging)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[2][https://www.relishapp.com/vcr/vcr/v/2-9-3/docs/record-modes/new-episodes](https://www.relishapp.com/vcr/vcr/v/2-9-3/docs/record-modes/new-episodes)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[3][https://www.relishapp.com/vcr/vcr/v/2-9-3/docs/configuration/ignore-request](https://www.relishapp.com/vcr/vcr/v/2-9-3/docs/configuration/ignore-request)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[4][https://www.relishapp.com/vcr/vcr/v/2-9-3/docs/record-modes/once](https://www.relishapp.com/vcr/vcr/v/2-9-3/docs/record-modes/once)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[5][https://www.relishapp.com/vcr/vcr/v/2-9-3/docs/request-matching](https://www.relishapp.com/vcr/vcr/v/2-9-3/docs/request-matching)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">※一部記載削除
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">VCRという物を知らなかったので、調べるところからで時間がかかってしまいましたが。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">解決
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">カセットの作成設定に :once が入っていたので、もともと入っていたカセットファイル(yml)を削除して、再度テスト実行をし直したら新しいカセットが作成されました。以降テストも問題ありませんでした。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="VCR gemのカセットを再作成する - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

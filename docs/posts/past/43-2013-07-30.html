@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 2013–07–30:memo">
 <meta name="twitter:description" content="umaskumask は、新しくファイルを作成する際に、許可*しない*ビットを示すものである。普通、ファイルの新規作成時はファイルの実行ビット (eXecute) は立てないので、um...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -32,9 +42,13 @@
             <p>umask</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">umask は、新しくファイルを作成する際に、許可*しない*ビットを示すものである。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">普通、ファイルの新規作成時はファイルの実行ビット (eXecute) は立てないので、
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">umask が 022 ということは、666 から 022 を引いた 644 という
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">パーミッションで新規ファイルが作られることになる。umask が 002 なら 664 、
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">umask が 000 なら 666 となる。
 </span></pre>
 <p>なるほど。ほど。</p>

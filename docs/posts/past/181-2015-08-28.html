@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Serverspecでサーバの構成をテストする 導入と個人的知見">
 <meta name="twitter:description" content="はじめに最近肩こりが辛いんですが、肩こりのラスボスみたいな感じの痛みで夏の終わりを感じています。今回はServerspecについて書きます。Serverspecはサーバの状態をテストす...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -68,33 +78,49 @@ ServerspecはRuby(Rails)で有名なテストフレームワークであるRSpec
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ serverspec-init
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 以下対話的な入力
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Select OS type:
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">1) UN*X
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2) Windows
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># と表示されます。今回は UN*Xなので 1 を入力
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Select number: 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Select a backend type:
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">1) SSH
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2) Exec (local)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># リモート接続のため 1 を選択
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Select number: 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># vagrantかどうか聞かれるので今回は n を選択
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Vagrant instance y/n: n
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#テストするサーバのホスト名を入力
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Input target host name:[www.example.com](http://www.example.com)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ここまで入力を行うと初期設定用に下記のファイルが作成されます
 </span></pre>

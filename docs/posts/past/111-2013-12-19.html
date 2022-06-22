@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Ruby レシピブック — 011:メソッド定義">
 <meta name="twitter:description" content="苦手パターンのやつです。メソッド定義。[6] pry(main)&gt; def test()[6] pry(main)* print &quot;test&quot;[6] pry(...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -32,27 +42,45 @@
             <p>苦手パターンのやつです。メソッド定義。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[6] pry(main)&gt; def test()
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[6] pry(main)* print &quot;test&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[6] pry(main)* return &quot;test&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[6] pry(main)* end
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; nil
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[7] pry(main)&gt; test
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">test=&gt; &quot;test&quot;
 </span></pre>
 <p>簡単すぎるふうにいうとこういうことですよね。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[10] pry(main)&gt; def test(status = &quot;the end...&quot;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[10] pry(main)* print &quot;testn&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[10] pry(main)* print status
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[10] pry(main)* end
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; nil
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[11] pry(main)&gt; test
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">test
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">the end...=&gt; nil
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[12] pry(main)&gt; new = &quot;dreaming&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;dreaming&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[13] pry(main)&gt; test(new)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">test
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">dreaming=&gt; nil
 </span></pre>
 <p>こういう感じですよね。<br />

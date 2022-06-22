@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 無駄にパーミションだけ知る">
 <meta name="twitter:description" content="CSVで ls -lとかで出した -rw-r — r — とかに対して =MIDB(A296,2,3) =MIDB(A296,5,3) =MIDB(A296,8,3) 的に分けてそれに...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -37,19 +47,32 @@
 的に分けてそれに対して</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">=IF(K318=&quot;rwx&quot;,7,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">IF(K318=&quot;rw-&quot;,6,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">IF(K318=&quot;r-x&quot;,5,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">IF(K318=&quot;r--&quot;,4,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">IF(K318=&quot;-wx&quot;,3,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">IF(K318=&quot;-w-&quot;,2,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">IF(K318=&quot;--r&quot;,1,&quot;other or 0&quot;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">)
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="無駄にパーミションだけ知る - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

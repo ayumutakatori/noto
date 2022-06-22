@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - ローカルでCircleCIを動かす">
 <meta name="twitter:description" content="概要MACのローカルでCircleCIを動かす。Circle CI 2.0の移行でいちいちデプロイして失敗してを繰り返して、時間を大量に取っていたので、思い切ってローカルでテストするこ...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -43,16 +53,25 @@
 <h4>テストを実行</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># プロジェクトディレクトリに移動し
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ circleci build
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">====&gt;&gt; Spin up Environment
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Build-agent version 0.0.4892-489ba99 (2018-04-20T16:46:32+0000)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Error: Configuration errors: 1 error occurred:
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">* In step 3 definition: Invalid step structure (expected string or map, got config.StepDescription)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Step failed
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Task failed
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Error: 1 error occurred:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">* In step 3 definition: Invalid step structure (expected string or map, got config.StepDescription)
 </span></pre>

@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - litaをslackに導入">
 <meta name="twitter:description" content="内容ちょっと自分用のSLACKにbotを導入してみました。以前、hubotを昔入れたことがあったんですが、今の会社がlitaだったのでlitaを入れてみました。rubyですし。lita...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -43,42 +53,69 @@ heroku-cli/5.5.1-cf2de15 (darwin-amd64) go1.7.3</p>
 <h4>ローカルの準備</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># lita gemをインストール
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ gem install lita
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># lita コマンドで初期コマンド
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ lita new &lt;app name&gt;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># できたディレクトリに移動
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ cd &lt;app name&gt;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># litaさんのGemfileのインストール
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ bundle install
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># litaさんが動くか確認
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ lita start
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Type &quot;exit&quot; or &quot;quit&quot; to end the session.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Lita &gt; lita info
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Lita 4.7.1 -[https://www.lita.io/](https://www.lita.io/)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Redis 3.2.0 - Memory used: 1.11M
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Lita &gt; lita help
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Lita: help - Lists help information for terms and command the robot will respond to.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Lita: help COMMAND - Lists help information for terms or commands that begin with COMMAND.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Lita: info - Replies with the current version of Lita.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Lita: users find SEARCH_TERM - Find a Lita user by ID, name, or mention name.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Lita &gt; exit
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Gemfileに lita-slack を追加
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Gemfile
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">gem &#39;lita-slack&#39;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">またターミナルで
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 追加したgemのインストール
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ bundle install
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">slack側の設定
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">導入するslackにlitaのインテグレーションを追加
 </span></pre>
@@ -125,12 +162,17 @@ SLACK_API_KEY: xoxoxoxoxoxoxoxoxoxoxoxoxoxoxo</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">こちらの記事を見ながら作成しました =&gt;[http://knowledge.sakura.ad.jp/knowledge/5228/](http://knowledge.sakura.ad.jp/knowledge/5228/)
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">個人的に route で指定した正規表現がハマリポイントでした。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">あと、lita-slack gemをいれるとローカルで確認するのに、Gemfileなどlita-slack関連をコメントアウトするのと
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lita_config.rbのconfig.robot.adapter = :slackをconfig.robot.adapter = :shellにし直さないと確認できなかったりしてどうにかならないかなーっておもった(たぶんあるんだろうと思う。)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">litaはrubyな分hubotよりめっちゃ簡単にかけてよかった。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="litaをslackに導入 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

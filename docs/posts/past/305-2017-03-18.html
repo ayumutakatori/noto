@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Google Cloud Platformを初めて触る">
 <meta name="twitter:description" content="google cloud platformの無料枠が増えたというニュースをみてちょっと触ってみることにしました(https://japan.zdnet.com/article/3509...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -62,21 +72,37 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ gcloud compute --project &quot;service-account-manager&quot; ssh --zone &quot;asia-northeast1-c&quot; &quot;instance-1&quot;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">WARNING: The public SSH key file for gcloud does not exist.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">WARNING: The private SSH key file for gcloud does not exist.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">WARNING: You do not have an SSH key for gcloud.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">WARNING: [/usr/bin/ssh-keygen] will be executed to generate a key.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Generating public/private rsa key pair.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Enter passphrase (empty for no passphrase):
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Enter same passphrase again:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Your identification has been saved in /Users/xxx/.ssh/google_compute_engine.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Your public key has been saved in /Users/xxx/.ssh/google_compute_engine.pub.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">The key fingerprint is:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">The key&#39;s randomart image is:
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Updating project ssh metadata.../Updated [[https://www.googleapis.com/compute/v1/projects/service-account-manager](https://www.googleapis.com/compute/v1/projects/service-account-manager)].
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Updating project ssh metadata...done.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Warning: Permanently added &#39;compute.00000000000000&#39; (ECDSA) to the list of known hosts.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[xxx@instance-1 ~]$
 </span></pre>
 <p>秘密鍵の指定を特にしていなかったせいか、鍵が自動で作られてログインされた様子。</p>
@@ -97,12 +123,15 @@
 <p>ユーザーはインスタンス作成時に追加したユーザが2人。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ cat /etc/redhat-release
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">CentOS Linux release 7.3.1611 (Core)
 </span></pre>
 <p>CentOs 7を選択したのでこれが(2017/03/18時点)</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ sudo cat /etc/ssh/sshd_config ※抜粋
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">PermitRootLogin no
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">PasswordAuthentication no
 </span></pre>
 <p>sudoパスワードなしで行けてた。怖い。</p>
@@ -112,56 +141,105 @@
 <p>これといってすごい面白いものはなかった。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ systemctl list-units --type=service |cat
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">UNIT LOAD ACTIVE SUB DESCRIPTION
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">acpid.service loaded active running ACPI Event Daemon
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">auditd.service loaded active running Security Auditing Service
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">avahi-daemon.service loaded active running Avahi mDNS/DNS-SD Stack
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">crond.service loaded active running Command Scheduler
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">dbus.service loaded active running D-Bus System Message Bus
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">firewalld.service loaded active running firewalld - dynamic firewall daemon
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">getty@tty1.service loaded active running Getty on tty1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">google-accounts-daemon.service loaded active running Google Compute Engine Accounts Daemon
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">google-clock-skew-daemon.service loaded active running Google Compute Engine Clock Skew Daemon
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">google-ip-forwarding-daemon.service loaded active running Google Compute Engine IP Forwarding Daemon
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">google-shutdown-scripts.service loaded active exited Google Compute Engine Shutdown Scripts
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">kmod-static-nodes.service loaded active exited Create list of required static device nodes for the current kernel
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">network.service loaded active exited LSB: Bring up/down networking
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">NetworkManager-wait-online.service loaded active exited Network Manager Wait Online
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">NetworkManager.service loaded active running Network Manager
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ntpd.service loaded active running Network Time Service
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">polkit.service loaded active running Authorization Manager
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">postfix.service loaded active running Postfix Mail Transport Agent
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rhel-dmesg.service loaded active exited Dump dmesg to /var/log/dmesg
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rhel-readonly.service loaded active exited Configure read-only root support
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rsyslog.service loaded active running System Logging Service
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">serial-getty@ttyS0.service loaded active running Serial Getty on ttyS0
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">sshd-keygen.service loaded active exited OpenSSH Server Key Generation
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">sshd.service loaded active running OpenSSH server daemon
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-fsck-root.service loaded active exited File System Check on Root Device
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-hwdb-update.service loaded active exited Rebuild Hardware Database
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-journal-catalog-update.service loaded active exited Rebuild Journal Catalog
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-journal-flush.service loaded active exited Flush Journal to Persistent Storage
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-journald.service loaded active running Journal Service
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-logind.service loaded active running Login Service
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-random-seed.service loaded active exited Load/Save Random Seed
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-remount-fs.service loaded active exited Remount Root and Kernel File Systems
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-sysctl.service loaded active exited Apply Kernel Variables
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-tmpfiles-setup-dev.service loaded active exited Create Static Device Nodes in /dev
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-tmpfiles-setup.service loaded active exited Create Volatile Files and Directories
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-udev-trigger.service loaded active exited udev Coldplug all Devices
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-udevd.service loaded active running udev Kernel Device Manager
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-update-done.service loaded active exited Update is Completed
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-update-utmp.service loaded active exited Update UTMP about System Boot/Shutdown
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-user-sessions.service loaded active exited Permit User Sessions
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">systemd-vconsole-setup.service loaded active exited Setup Virtual Console
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">tuned.service loaded active running Dynamic System Tuning Daemon
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">yum-cron.service loaded active exited Run automatic yum updates as a cron job
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">LOAD = Reflects whether the unit definition was properly loaded.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">SUB = The low-level unit activation state, values depend on unit type.
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">43 loaded units listed. Pass --all to see loaded but inactive units, too.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">To show all installed unit files use &#39;systemctl list-unit-files&#39;.
 </span></pre>
 <p>こんな感じかな。</p>

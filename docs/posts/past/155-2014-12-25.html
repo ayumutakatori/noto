@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 簡単なXMLファイルの処理についてのmemo">
 <meta name="twitter:description" content="はじめにXMLから簡単な要素の抽出をする必要があってそれの備忘ログ的にメモ手順pryで作業しています。gem rexml の利用まずgemの読み込みrequire &#39;rexml...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -47,17 +57,29 @@
 <p>上記の状態でも puts doc すると内容が出てきます。 せっかく構造的なファイルなので読み込んでみます。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># 要素を指定して読み込む
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># この方法では同要素が複数ある場合一番最初のが来るみたい
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puts doc.elements[&#39;root/data&#39;]
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 全部回したいときは、ブロックを取って処理ができる
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">doc.elements[&#39;root&#39;].each do |element|
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puts element.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 属性を取りたい場合はこんな感じに
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">doc.elements[&#39;root&#39;].each do |element|
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puts element.attributes[&#39;attr&#39;]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span></pre>
 <h4>終わりに</h4>

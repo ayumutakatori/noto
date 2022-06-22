@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Rustでyamlを読み込む">
 <meta name="twitter:description" content="Rustでなにか書こうと思ったときに、.bashrc の内容の置き換えができそうならやってみるかということになった。コードの中に変数的な内容直書きは流石に憚られると思い、設定ファイルを...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -39,79 +49,126 @@
 <p>次にcatgo.tomlに ↑ のライブラリを依存すると教えてあげる。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[dependencies]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">yaml-rust = &quot;0.4&quot;
 </span></pre>
 <p>つづいて <code>src/main.rs</code> にyamlを読み込む処理を書いてみる(ここは完全に写経)</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">extern crate yaml_rust;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">use yaml_rust::{YamlLoader};
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">// https://github.com/chyh1990/yaml-rust の写経
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">fn main() {
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let s =
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">servers:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- a.example.com
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- b.example.com
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- c.example.com
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- d.example.com
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let docs = YamlLoader::load_from_str(s).unwrap();
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let doc = &amp;docs[0];
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;{:?}&quot;, doc);
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span></pre>
 <p>んー、mediumはシンタックスハイライトないから渋い。</p>
 <p>まぁとりあえず書いたのでcargoでbuildしてみる。するとこんな感じでbuildが始まる。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ cargo build
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Updating registry `[https://github.com/rust-lang/crates.io-index`](https://github.com/rust-lang/crates.io-index%60)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Fetch [============&gt;] 24.28%
 </span></pre>
 <p>このbuildってやつはコードに変更があったときに差分をbuildし直してくれるそう。最初の一回目こんな小規模なのにめちゃくちゃ時間かかってしんどって思ったけど、2回目以降はそんなことなかった。</p>
 <p>ちなみにエラーのときはこんな感じの表示がでる</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ cargo build
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Updating registry `[https://github.com/rust-lang/crates.io-index`](https://github.com/rust-lang/crates.io-index%60)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Downloading yaml-rust v0.4.0
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Downloading linked-hash-map v0.5.1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling linked-hash-map v0.5.1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling yaml-rust v0.4.0
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling set_ssh_alias v0.1.0 (file:///Users/ryo/work/ryo/study_rust/set_ssh_alias)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">error[E0432]: unresolved import `yaml_rst`
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">--&gt; src/main.rs:2:5
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">|
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2 | use yaml_rst::{YamlLoader, YamlEmitter};
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">| ^^^^^^^^ Maybe a missing `extern crate yaml_rst;`?
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">warning: unused import: `YamlEmitter`
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">--&gt; src/main.rs:2:28
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">|
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2 | use yaml_rst::{YamlLoader, YamlEmitter};
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">| ^^^^^^^^^^^
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">|
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">= note: #[warn(unused_imports)] on by default
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">error: aborting due to previous error
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">For more information about this error, try `rustc --explain E0432`.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">error: Could not compile `set_ssh_alias`.
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">To learn more, run the command again with --verbose.
 </span></pre>
 <p>タイポとYamlEmitterってつかってなくね？っていうメッセージ。無事にbuildが通った時は</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ cargo build
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling set_ssh_alias v0.1.0 (file:///Users/ryo/work/ryo/study_rust/set_ssh_alias)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Finished dev [unoptimized + debuginfo] target(s) in 0.55 secs
 </span></pre>
 <p>こんな感じですぐ終わる。</p>
 <p>私最初の <code>cargo init</code> のときに <code>--bin</code> オプションをつけ忘れていたので、バイナリができず。なのでしかたなく <code>cargo run</code> のコマンドで実行してみた。プロジェクトの途中でバイナリを出すようにする方法が知りたい。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ cargo run
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Running `target/debug/set_ssh_alias`
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Hash({String(&quot;servers&quot;): Array([String(&quot;a.example.com&quot;), String(&quot;b.example.com&quot;), String(&quot;c.example.com&quot;), String(&quot;d.example.com&quot;)])})
 </span></pre>
 <p>yamlの <code>s</code> をそのまま出力してしまったので Hash =&gt; Array =&gt; String × 4 な感じの標準出力になっています。</p>

@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - Railsのパフォーマンス・チューニング">
 <meta name="twitter:description" content="### パフォーマンス改善Rails アプリケーションのパフォーマンス改善というものに初めて取り組んだので、その記録を残します。ほとんどがはじめて行ったものなので、かつ他の方がすでにま...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -76,9 +86,13 @@ Googleはこの部分が200ms程度までで返ってくることを推奨して
 <p>アプリケーションのログから主にデータベースのログを確認していました。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">_id&quot; = $1 AND (&quot;records&quot;.&quot;date&quot; BETWEEN $2 AND $3) AND &quot;records&quot;.&quot;category_id&quot; = $4 [[&quot;user_id&quot;, 1], [&quot;date&quot;, Wed, 01 Feb 2017], [&quot;date&quot;, Tue, 28 Feb 2017], [&quot;category_id&quot;, 15]]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2017-02-22T10:23:45.892753+00:00 app[web.1]: D, [2017-02-22T19:23:45.892254 #4] DEBUG -- : [c1917d0b-0d2b-4005-86de-5a54690e8d92] (1.3ms) SELECT SUM(&quot;records&quot;.&quot;amount&quot;) FROM &quot;records&quot; WHERE &quot;records&quot;.&quot;user_id&quot; = $1 AND (&quot;records&quot;.&quot;date&quot; BETWEEN $2 AND $3) AND &quot;records&quot;.&quot;category_id&quot; = $4 [[&quot;user_id&quot;, 1], [&quot;date&quot;, Wed, 01 Feb 2017], [&quot;date&quot;, Tue, 28 Feb 2017], [&quot;category_id&quot;, 16]]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2017-02-22T10:23:45.894353+00:00 app[web.1]: D, [2017-02-22T19:23:45.894036 #4] DEBUG -- : [c1917d0b-0d2b-4005-86de-5a54690e8d92] (0.9ms) SELECT SUM(&quot;records&quot;.&quot;amount&quot;) FROM &quot;records&quot; WHERE &quot;records&quot;.&quot;user_id&quot; = $1 AND (&quot;records&quot;.&quot;date&quot; BETWEEN $2 AND $3) AND &quot;records&quot;.&quot;credit&quot; = $4 [[&quot;user_id&quot;, 1], [&quot;date&quot;, Wed, 01 Feb 2017], [&quot;date&quot;, Tue, 28 Feb 2017], [&quot;credit&quot;, true]]
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2017-02-22T10:23:45.894666+00:00 app[web.1]: I, [2017-02-22T19:23:45.894607 #4] INFO -- : [c1917d0b-0d2b-4005-86de-5a54690e8d92] Rendered welcome/index.html.haml within layouts/application (38.3ms)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2017-02-22T10:23:45.896675+00:00 app[web.1]: I, [2017-02-22T19:23:45.896615 #4] INFO -- : [c1917d0b-0d2b-4005-86de-5a54690e8d92] Completed 200 OK in 44ms (Views: 18.0ms | ActiveRecord: 23.4ms)
 </span></pre>
 <p>例えばこんなようなログから 「3桁msのもの」や「同じようなクエリ」を探してリストアップして言いました。</p>
@@ -120,15 +134,21 @@ Googleはこの部分が200ms程度までで返ってくることを推奨して
 <p>before.rb</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">record_ids **.** each **do**** | **record_id** |**
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">record **=** Record **.** where(id: record_id, status: &#39;open&#39;) **.** first
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">_# recordに関する処理_
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">**end**
 </span></pre>
 <p>after.rb</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">open_records **=** Record **.** in(id: record_ids) **.** where(status: &#39;open&#39;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">open_records **.** each **do**** | **record** |**
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">_# recordに関する処理_
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">**end**
 </span></pre>
 <h4>キャッシュして良さそうな部分にキャッシュがなかった</h4>

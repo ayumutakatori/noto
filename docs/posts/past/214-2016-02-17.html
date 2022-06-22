@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - db/seeds.rbをfixturesから呼ぶのに変えた">
 <meta name="twitter:description" content="経緯今までrailsアプリで基礎データはdb/seeds.rbに書いていたのだけど、これに書いていると自分が書いたhookに引っかかったりして意図しない動きをしていることがままあって、...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -36,9 +46,13 @@
 <p>db/seeds/rb</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">import_fixture :users
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">import_fixture :categories
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">import_fixture :salaries
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">import_fixture :salary_dates
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">import_fixture :records
 </span></pre>
 <p>という感じで書くことができて<br />
@@ -46,56 +60,97 @@
 <p>fixtures/records.yml</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">records_01:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">id: 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">payment: 1000
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">date: 2016-01-02
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">card: false
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">memo: &quot;サンプルデータ1&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">category_id: 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">user_id: 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">records_02:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">id: 2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">payment: 1000
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">date: 2016-01-02
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">card: false
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">memo: &quot;サンプルデータ2&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">category_id: 2
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">user_id: 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">records_03:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">id: 3
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">payment: 1000
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">date: 2016-01-02
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">card: false
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">memo: &quot;サンプルデータ3&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">category_id: 3
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">user_id: 1
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">records_04:
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">id: 4
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">payment: 1000
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">date: 2016-01-02
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">card: false
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">memo: &quot;サンプルデータ4&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">category_id: 4
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">user_id: 1
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">みたいにyamlで書くことができる。助かっちゃう。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rb -&gt; ymlの書き直しで
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">seeds.rb とかは結局rubyスクリプトだったので連番とかも動的に生成できたのだけど、
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">fixturesはそういうわけにもいかずデータ量も2,3個とかではなかったので書き換え面倒だなと
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">sublimeの画面を見ながらおもっていたらなんと、マルチカーソルで連番が打てるパッケージがあるではないですか。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">(InputSequence)[https://github.com/kazu1107/InputSequence]
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">こいつのおかげでえらくはかどりました。連番を用意しなければいけない状況がなかなかあるので重宝しそうです。
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">今日もこれで眠れそうです。もう春まで寝たい。
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">おやすみなさい。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="db/seeds.rbをfixturesから呼ぶのに変えた - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

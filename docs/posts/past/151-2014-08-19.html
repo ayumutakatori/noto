@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 3桁区切のカンマ（備忘録）">
 <meta name="twitter:description" content="Rubyで3桁区切の日本円カンマをメモ。class Integerdef jpy_commaself.to_s.gsub(/(d)(?=(d{3})+(?!d))/, &#39;1,&...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -32,34 +42,57 @@
             <p>Rubyで3桁区切の日本円カンマをメモ。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">class Integer
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def jpy_comma
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">self.to_s.gsub(/(d)(?=(d{3})+(?!d))/, &#39;1,&#39;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">numeric = 123456
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">p numeric.class # 念のため確認
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; Fixnum
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">p numeric.methods # 念のため確認
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">中略 =&gt; :jpy_comma
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 実際
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">p numeric.jpy_comma
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;123,456&quot;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># もっと大きい数字
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">numeric = 12485456309235
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">p numeric.jpy_ccomma
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;12,485,456,309,235&quot;
 </span><span style="color:#c0c5ce;">
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 少数点のある数字 （エラーが出てほしい）
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">b = 13754.4566
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 13754.4566
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">b.jpy_comma
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">NoMethodError: undefined method `jpy_comma&#39; for 13754.4566:Float
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">よいよい。
 </span></pre>
+
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="3桁区切のカンマ（備忘録） - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

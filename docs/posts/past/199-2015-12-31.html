@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 冬休みのこと3">
 <meta name="twitter:description" content="modelをscaffoldした$ rails g scaffold Record payment:integer date:date category:string card:boo...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -32,12 +42,14 @@
             <h3>modelをscaffoldした</h3>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ rails g scaffold Record payment:integer date:date category:string card:boolean memo:text
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ rake db:migrate
 </span></pre>
 <h3>validation思いつくだけ入れておく</h3>
 <p>空の禁止と金額は0以上</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">validates_presence_of :payment, :category
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">validates_numericality_of :payment, :greater_than_or_equal_to =&gt; 0
 </span></pre>
 <h3>他</h3>

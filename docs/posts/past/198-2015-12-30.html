@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - 冬休みのこと2">
 <meta name="twitter:description" content="2日目タリーズからお送りいたします。bootstrapを使用する昨日作成したrailsプロジェクトにbootstrapを使用できるようにします。下記のサイトを参考にしました。http:...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -45,7 +55,9 @@ font-awesomeを利用する<br />
 <p>hamlに</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">i.fa.fa-home
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$li
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">= link_tag &quot;HOME&quot;, root_path
 </span></pre>
 <p>と書いてみたけどうまくかけなかった。<br />
@@ -53,6 +65,7 @@ font-awesomeを利用する<br />
 書いてみるとこんな感じ。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">%li
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">= link_to content_tag(:i, &#39; HOME&#39;, class: &#39;fa fa-home&#39;), root_path
 </span></pre>
 <p>良い感じです。</p>

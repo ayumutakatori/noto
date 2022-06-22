@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - active_record 関連テーブルを条件にして検索をする">
 <meta name="twitter:description" content="やっぱりよくわかっていなかったので、メモ。要は joinsしたテーブルを検索状態にしたいのだけど…というやつです。目的Record は Category に紐付いていて、recordの...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -37,42 +47,62 @@ activerecordだけで調べてピンとこなかったので、ここぞとば�
 <h4>目的を達成しそうなsql</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">SELECT &quot;records&quot;.*, &quot;categories&quot;.&quot;is_payment&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">FROM &quot;records&quot; INNER JOIN &quot;categories&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ON &quot;records&quot;.&quot;category_id&quot; = &quot;categories&quot;.&quot;id&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">WHERE &quot;categories&quot;.&quot;is_payment&quot; = false;
 </span></pre>
 <p>するとこんな感じの返しがきた。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">id | money | date | card | memo | created_at | updated_at | category_id | user_id | is_payment
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">----+--------+------------+------+------+----------------------------+----------------------------+-------------+---------+------------
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">41 | 290000 | 2016-04-10 | f | | 2016-04-27 09:52:07.124605 | 2016-04-27 09:52:07.124605 | 21 | 1 | f
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">(1 row)
 </span></pre>
 <h4>これをactive recordに変換する</h4>
 <p>まずjoinsから確認してみた。.to_sqlメソッドを使うと発行されるsqlを見ることができるので便利だった。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ puts Record.all.joins(:category).to_sql
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">SELECT &quot;records&quot;.* FROM &quot;records&quot; INNER JOIN &quot;categories&quot; ON &quot;categories&quot;.&quot;id&quot; = &quot;records&quot;.&quot;category_id&quot;
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; nil
 </span></pre>
 <p>意外と発行してもらいたいことと近そうだ。これにwhereをつけていい感じにはきだしてくれたぽい。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ puts Record.all.joins(:category).where(&quot;categories.is_payment = ?&quot;, false).to_sql
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">SELECT &quot;records&quot;.* FROM &quot;records&quot; INNER JOIN &quot;categories&quot; ON &quot;categories&quot;.&quot;id&quot; = &quot;records&quot;.&quot;category_id&quot; WHERE (categories.is_payment = &#39;f&#39;)
 </span></pre>
 <p>結果は</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">Record.all.joins(:category).where(&quot;categories.is_payment = ?&quot;, false)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Record Load (0.5ms) SELECT &quot;records&quot;.* FROM &quot;records&quot; INNER JOIN &quot;categories&quot; ON &quot;categories&quot;.&quot;id&quot; = &quot;records&quot;.&quot;category_id&quot; WHERE (categories.is_payment = &#39;f&#39;)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; [#&lt;Record:0x007fdbbf55a2b0
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">id: 41,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">money: 290000,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">date: Thu, 28 Apr 2016,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">card: false,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">memo: &quot;&quot;,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">created_at: Thu, 28 Apr 2016 07:02:28 UTC +00:00,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">updated_at: Thu, 28 Apr 2016 07:02:28 UTC +00:00,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">category_id: 21,
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">user_id: 1&gt;]
 </span></pre>
 <p>で無事に取れた様子。<br />

@@ -19,6 +19,16 @@
 <meta name="twitter:title" content="NOTO - vlookup時の0とエラーの両方に対して代替を行う方法">
 <meta name="twitter:description" content="今まで知らなかったんですが、vlookupって見つからないとエラーを返すだけだと思ってIFERRORだけしか確認していなかったのですが、エラーが出るのは検索語が検索範囲から見つからなか...">
 <meta name="twitter:image" content="https://noto.katsumataryo.com/public/images/ogp.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CVBDT5R2DS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CVBDT5R2DS');
+</script>
     </head>
     <body>
         <h1><a href="/">NOTO</a></h1>
@@ -34,9 +44,13 @@
 検索後は範囲内にあるけども、返り値を指定する位置に返すための何かがない場合は0が返るので、その両方に対してIF文で大体の文字列を入れたのが以下です。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">=IF(
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ISERROR(vlookup(検索語,範囲,位置,True or False)),&quot;該当なし&quot;, IF(
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">vlookup(検索語,範囲,位置,True or False)=0,&quot;なし&quot;,vlookup(検索語,範囲,位置,True or False)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">)
+</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">)
 </span></pre>
 <p>さきほどの<br />
