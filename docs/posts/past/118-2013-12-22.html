@@ -42,54 +42,34 @@
             <p>rubyの1.9.3を入れなおしました。なんとなく依存しなさそうな形で。sinatraを動かすためにruby2.0.0系で動かしてたもろもろとか全部消してしまったので、redmine用に別行動できるやつにしたいなー。です。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ wget[http://cache.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p484.tar.gz](http://cache.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p484.tar.gz)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ cp ruby-1.9.3-p484.tar.gz /usr/file/path
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo tar zxvf ruby-1.9.3-p484.tar.gz
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ cd ruby-1.9.3-p484/
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo ./configure --prefix=/usr/local/ruby19 --disable-install-doc
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#だーっと出てくる
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo make
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo make install
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ $ /usr/local/ruby19/bin/ruby -v
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ruby 1.9.3p484 (2013-11-22 revision 43786) [x86_64-linux]
 </span></pre>
 <p>オッケーっぽいですね。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">bundler
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo /usr/local/ruby19/bin/gem install bundler --no-rdoc --no-ri
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">MySQLの設定 系は以前入れた時に設定をしているのでいけるはず。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># redmineの入ったディレクトリで
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo /usr/local/ruby19/bin/bundle --without develoment test
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo /usr/local/ruby19/bin/gem install passenger --no-rdoc --no-ri
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo /usr/local/ruby19/bin/passenger-install-apache2-module
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">なかなかここが時間かかる。結果をpassenger.confとかにコピーして
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo service httpd restart
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ruby 2.0で動かすのは結構頑張ったんだけど、くじけた。どうもpsych周りで何かがあるみたいだ。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">コンパイルの時におかしくなったと思われる。
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="ruby1.9.3 を入れなおした(あとredmine) - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

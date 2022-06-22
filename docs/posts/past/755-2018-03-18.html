@@ -46,18 +46,12 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ sudo /Applications/Day One.app/Contents/Resources/install_cli.sh
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ dayone2 -h
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Usage: dayone2 [options] command
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Commands:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">new [text] [text]…
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Creates new entry with optional text. Every text argument will be separated by
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">略
 </span></pre>
@@ -70,19 +64,14 @@ Created new entry with uuid: D95EE7ADEFD6443C9F13E4C07B4EB03A</p>
 <p>APIがあればrubyから直接叩きに行くのだけど、しょうがないのでCLIをrubyから呼び出して投稿してる。asanaで終わったタスクをあつめて投稿するスクリプトを組んでいます。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># ruby
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">`/usr/local/bin/dayone2 -j nikki new #{body}`
 </span></pre>
 <p>みたいな感じにしようと思っていたんですが、シェルが改行きっかけで別コマンドとして読んでしまうのでちょっと考えたんですが、めんどくさかったのでファイルに一時的に書き出してそのファイルを渡す方法に変更して投稿しています。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">_# ruby  
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">File_ .open(&#39;./tmp/tmp.txt&#39;, &#39;w&#39;) do |io|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">io.write(body)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">`/usr/local/bin/dayone2 -j nikki new &lt; ./tmp/tmp.txt`
 </span></pre>

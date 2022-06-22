@@ -43,65 +43,40 @@
 <p>php5.4</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$sudo yum remove php-* httpd-*
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$sudo yum install httpd24 php54
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ php -v
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">PHP 5.4.17 (cli) (built: Jul 16 2013 23:21:13)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Copyright (c) 1997-2013 The PHP Group
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># httpd がchkconfigに入ってなかったので
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo chkconfig --add
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo chkconfig |grep httpd
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">httpd 0:off 1:off 2:on 3:on 4:on 5:on 6:off
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">※参考:[http://higan96.hatenablog.com/entry/2013/02/14/195328](http://higan96.hatenablog.com/entry/2013/02/14/195328)
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ruby 1.9
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo yum install ruby19 ruby19-devel
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo rm /usr/bin/ruby
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo rm /usr/bin/gem
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo ln -s /usr/bin/ruby1.9 /usr/bin/ruby
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo ln -s /usr/bin/gem1.9 /usr/bin/gem
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">jsonを入れようとしたらgccが入っていなかったので
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo yum install gcc
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo gem install json --no-ri --no-rdoc
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">今度はAWS-SDKをインストールしようとしたら、nokogiriがないって言われたので
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo yum install libxml2 libxml2-devel libxslt libxslt-devel
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo gem install nokogiri
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sudo gem install aws-sdk
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">とりあえずこれでOKっぽい。
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="EC2にphp5.4とかruby1.9とか… - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

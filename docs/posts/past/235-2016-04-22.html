@@ -51,37 +51,23 @@ wifiにつないでいるなど同じネットワーク内にいると、モバ�
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ rails_s_bind
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt;[http://192.168.1.13:3000/](http://192.168.1.13:3000/)
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; Booting Unicorn
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; Rails 4.2.3 application starting in development on[http://192.168.1.13:3000](http://192.168.1.13:3000)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; Run `rails server -h` for more startup options
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; Ctrl-C to shutdown server
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">I, [2016-04-22T11:52:04.069119 #3112] INFO -- : listening on addr=192.168.1.13:3000 fd=15
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">I, [2016-04-22T11:52:04.069225 #3112] INFO -- : worker=0 spawning...
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">I, [2016-04-22T11:52:04.071211 #3112] INFO -- : master process ready
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">I, [2016-04-22T11:52:04.072324 #3129] INFO -- : worker=0 spawned pid=3129
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">I, [2016-04-22T11:52:04.072927 #3129] INFO -- : worker=0 ready
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">最初のechoはただどのアドレスにアクセスすればいいか確認したいだけなので、特に意味は無いです。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ipconfig getifaddr en0 でen0に割り当てられているIPを取得して利用しています。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">これでわざわざifconfig叩いたり、環境設定見なくて良くなった。良さ。
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="rails s bindオプションが便利 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

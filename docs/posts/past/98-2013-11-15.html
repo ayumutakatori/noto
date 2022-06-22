@@ -45,17 +45,13 @@
 <p>・パーミション合わせ</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">chmod 700 ~/.ssh/
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">chmod 600 ~/.ssh/identify (鍵ファイル)
 </span></pre>
 <p>・AgentForwardingの許可</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># ~/.ssh/config
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Host hostname.co.jp
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ForwardAgent yes
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">IdentityFile ~/.ssh/id_rsa
 </span></pre>
 <p>・sshコマンド</p>

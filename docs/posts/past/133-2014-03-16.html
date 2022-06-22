@@ -59,69 +59,43 @@
 <p><a href="http://theessaymag.com/canada/">http://theessaymag.com/canada/</a> &amp;の存在今回はsassを機能的に使うというよりかは時間がなかったので、sassの中の記述をHTMLタグでネストすることをしていました。その中で気づいたのですが、CSSの中で</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">div .all {
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">width: 100%;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">margin: 0px 0px 0px 0px;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">padding: 20px 0px 0px 0px;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">border: 0px #333333 solid;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">background-color: transparent; }
 </span></pre>
 <p>と</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">div.all {
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">width: 100%;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">margin: 0px 0px 0px 0px;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">padding: 20px 0px 0px 0px;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">border: 0px #333333 solid;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">background-color: transparent; }
 </span></pre>
 <p>いうのは意味が変わっちゃうんですね。divと.allの間の空白の話なんですが、div.allと divの中にある.allということでサイトが崩れちゃったので少し迷いました。上記の二つはそれぞれ、以下のように書くことでかき分けることができます。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">div{
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">.all{
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">width:100%;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">margin:0px 0px 0px 0px;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">padding:20px 0px 0px 0px;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">border:0px #333333 solid;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">background-color:transparent;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span></pre>
 <p>を</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">div{
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&amp;.all{
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">width:100%;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">margin:0px 0px 0px 0px;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">padding:20px 0px 0px 0px;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">border:0px #333333 solid;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">background-color:transparent;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span></pre>
 <p>とかく必要がありました。&amp;のところですね。</p>

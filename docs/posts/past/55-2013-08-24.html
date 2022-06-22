@@ -42,64 +42,38 @@
             <p>codeはこれ</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">#include
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">using namespace std;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">int main()
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">{
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">cout
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">で出たエラーが。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ gcc sample.cpp
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Undefined symbols for architecture x86_64:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;std::ios_base::Init::Init()&quot;, referenced from:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">__static_initialization_and_destruction_0(int, int)in ccR2BuiH.o
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;std::ios_base::Init::~Init()&quot;, referenced from:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">___tcf_0 in ccR2BuiH.o
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;std::cout&quot;, referenced from:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">_main in ccR2BuiH.o
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;std::basic_ostream&lt;char, std::char_traits&lt;char&gt; &gt;&amp; std::operator&lt;&lt; &lt;std::char_traits&lt;char&gt; &gt;(std::basic_ostream&lt;char, std::char_traits&lt;char&gt; &gt;&amp;, char const*)&quot;, referenced from:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">_main in ccR2BuiH.o
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ld: symbol(s) not found for architecture x86_64
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">collect2: ld returned 1 exit status
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">で、
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ gcc -lstdc++ sample.cpp
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ ls
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">a.out helloworld.cpp sample.cpp
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ ./a.out
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ようこそC++へ!
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">C++をはじましょう!
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">これで解決した。
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="早速はまった - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

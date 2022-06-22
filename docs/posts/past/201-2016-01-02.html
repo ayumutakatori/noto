@@ -43,9 +43,7 @@
 <h3>categoryのテストを作成</h3>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ rails g rspec:model category
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Running via Spring preloader in process 29032
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create spec/models/category_spec.rb
 </span></pre>
 <h3>バリデーションとかする</h3>
@@ -56,11 +54,8 @@
 その後、DBのマイグレーションを行う</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ rails g migration ChangeColumnToRecord
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Running via Spring preloader in process 60204
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">invoke active_record
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create db/migrate/20160102045030_change_column_to_record.rb
 </span></pre>
 <h3>あいかわらずリレーションに迷う</h3>
@@ -105,36 +100,23 @@ Grant Access的なものをあげたらいい感じになったみたい。</p>
 <p>難しそうだ。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ rails g devise:controllers users
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">===============================================================================
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Some setup you must do manually if you haven&#39;t yet:
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ensure you have overridden routes for generated controllers in your routes.rb.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">For example:
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Rails.application.routes.draw do
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">devise_for :users, controllers: {
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">sessions: &#39;users/sessions&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">===============================================================================
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="冬休みのこと5 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

@@ -51,119 +51,71 @@
 <h4>早速書いたScript</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">require &#39;securerandom&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">require &#39;webrick&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">include WEBrick
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">module MyScript
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">class Htpasswd
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def initialize(name, chara_length)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@name = name
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@passwd = SecureRandom.urlsafe_base64[0...chara_length.to_i]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def generate
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">passwd = HTTPAuth::Htpasswd.new(&#39;.htpasswd&#39;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">passwd.set_passwd(nil, &quot;#{@name}&quot;, &quot;#{@passwd}&quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def display
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">{
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39;name&#39; =&gt; @name,
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39;password&#39; =&gt; @passwd,
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39;htpasswd&#39; =&gt; &quot;#{@name}:#{generate}&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">print &quot;Input name: &quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name = STDIN.gets.chomp
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">print &quot;Input password length: &quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">chara_length = STDIN.gets.chomp.to_i
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">htpasswd = MyScript::Htpasswd.new(name, chara_length)
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puts &quot;n&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">htpasswd.display.each {|title, text| puts &quot;#{title} =&gt; #{text}&quot;}
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puts &quot;nfinished.&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">STDIN.gets
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">exit 0
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">表示イメージ
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">IDと文字数を入力するとID、PW、htpasswdに記載するテキストを表示します。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">htpasswdファイルを個別に追加するようだったのでそのまま出力してしまいました。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ ruby htpasswd.rb
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Input name: username # STDIN.getsでID名を入力
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Input password length: 16 # STDIN.getsでパスワードの文字数を入力
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name =&gt; username
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">password =&gt; mkmLbE38A3QYapaf
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">htpasswd =&gt; username:zr5BN5NG6F5bM
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">finished.
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">備考とまとめ
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">HTPASSWDを操作するクラス
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[WEBrick::HTTPAuth::Htpasswd](http://docs.ruby-lang.org/ja/2.2.0/class/WEBrick=3a=3aHTTPAuth=3a=3aHtpasswd.html)のクラスでそのままファイルにhtpasswdを追加したり破棄したりができます。直接サーバ内で一つのファイルを管理するなら素直にコチラだけ使うのが良さそうです。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ランダムなパスワードの作成
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">色々とやりかたがあるようなのですがSecureRandomを利用するのが一番お手軽そうでした。文字列にも色々種類があるようなので、合わせてどの形態のパスワードが良いか検討されるのも良さそうです。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">※参考:[http://www.xmisao.com/2014/02/15/how-to-generate-a-random-string-in-ruby.html](http://www.xmisao.com/2014/02/15/how-to-generate-a-random-string-in-ruby.html)
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="htpasswdの作成スクリプト - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

@@ -60,67 +60,42 @@ wunderlistのころから機械的にtask管理からかけるようにしてい
 <h4>rubyスクリプト</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">require &#39;open-uri&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">require &#39;json&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">require &#39;date&#39;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">API_TOKEN = &#39;管理画面から取得するapi token&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">TASK = &#39;getCompletedItems&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">PROJECT_ID = &#39;プロジェクトID&#39;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">url = &quot;https://todoist.com/API/#{TASK}?token=#{API_TOKEN}&amp;project_id=#{PROJECT_ID}&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">responce = open(url)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">code, message = responce.status
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">items = JSON.parse(responce.read) if code == &#39;200&#39;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puts &quot;[#{Date.today.to_s}の完了タスク]&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">items.collect do |item|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;□ #{item[&#39;content&#39;]}&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end.sort!.each {|title| puts title}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">STDIN.gets
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">exit 0
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">こんな感じに書いたものをbatで叩きます。デスクトップに置いてあって、帰るときにポチってやる感じです。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rem Todoist completed task batch.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ruby &quot;作成したスクリプトのパス.rb&quot;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">するとコンソールが立ち上げってタスクの一覧が出てきます。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">それをコピペして時間入力して帰るっていう感じです。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">gemがなかった
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">たまたま見つけられなかっただけかもしれませんが、いい感じのtodoistのWrapperがなかったので
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">直々にたたき行きました。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">gemを作る勉強をしたことがなかったので、もし理解ができるならgemでwrapperをつくろうかなと思った次第でした。
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="タスク管理ツールをTodoistへ - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

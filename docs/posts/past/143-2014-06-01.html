@@ -65,57 +65,37 @@
 <p>すると.htaccessに書きが書き出されるはず。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">RewriteEngine On
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">RewriteBase /
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">RewriteRule ^index.php$ - [L]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">RewriteCond %{REQUEST_FILENAME} !-f
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">RewriteCond %{REQUEST_FILENAME} !-d
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">RewriteRule . /index.php [L]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">・各フォルダのパーミションを変更する。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">wp-config.php =&gt; 404
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">wp-content/
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">theme =&gt; 705
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">plugin =&gt; 705
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">uploads =&gt; 705
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">・wp-adminの.htaccessに書きを追加
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 画像・ファイルアップロード
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">AddHandler application/x-httpd-phpcgi .php
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># プラグイン・テーマ 新規インストール／アップグレード
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">AddHandler application/x-httpd-phpcgi .php
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 本体アップグレード
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">AddHandler application/x-httpd-phpcgi .php
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">以上で、ちゃんとに使えるようになっているはず。
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="そしてWORDPRESSの移行をしていた - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">
