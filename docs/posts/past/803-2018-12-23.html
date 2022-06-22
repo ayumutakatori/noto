@@ -47,59 +47,36 @@
 <p>このページに従って、コードを書いてみたがライブラリを読み込んでいないことを思い出した。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># console
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ cargo init
 </span></pre>
 <p>Cargo.tomlというものができるので、dependenciedにこのCrateを記載。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[package]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">name = &quot;exif&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">version = &quot;0.1.0&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">authors = [&quot;Katsumata Ryo &lt;katsumata@stores.jp&gt;&quot;]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">edition = &quot;2018&quot;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[dependencies]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rexiv2 = &quot;0.7.0&quot; // &lt;- これ
 </span></pre>
 <p>buildしてみる</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ cargo run Updating[crates.io](http://crates.io)index Downloaded rexiv2 v0.7.0
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Downloaded gexiv2-sys v1.0.0
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Downloaded num-rational v0.2.1
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Downloaded libc v0.2.45
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Downloaded pkg-config v0.3.14
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Downloaded num-traits v0.2.6
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Downloaded num-integer v0.1.39
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling num-traits v0.2.6
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling libc v0.2.45
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling num-integer v0.1.39
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling pkg-config v0.3.14
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling num-rational v0.2.1
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling gexiv2-sys v1.0.0
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">error: failed to run custom build command forgexiv2-sys v1.0.0
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">process didn&#39;t exit successfully:/Users/ryo/work/ryo/study_rust/exif/target/debug/build/gexiv2-sys-806d287d621f3889/build-script-build(exit code: 101) --- stdout
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">The gexiv2 library was not found by pkg-config on your system.Consult the README.md file for suggestions on how to acquire it.--- stderrthread &#39;main&#39; panicked at &#39;`&quot;pkg-config&quot; &quot;--libs&quot; &quot;--cflags&quot; &quot;gexiv2&quot;` did not exit successfully: exit code: 1--- stderrPackage gexiv2 was not found in the pkg-config search path.Perhaps you should add the directory containing `gexiv2.pc&#39;to the PKG_CONFIG_PATH environment variableNo package &#39;gexiv2&#39; found&#39;, /Users/ryo/.cargo/registry/src/github.com-1ecc6299db9ec823/gexiv2-sys-1.0.0/build.rs:28:13note: Run with `RUST_BACKTRACE=1` for a backtrace.warning: build failed, waiting for other jobs to finish...error: build failed
 </span></pre>
@@ -113,46 +90,27 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">use rexiv2;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">fn main() {
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let file = &quot;/Users/ryo/Downloads/Photos/DSC04117.jpg&quot;;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let meta = rexiv2::Metadata::new_from_path(&amp;file).unwrap();
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;{:?}&quot;, meta.get_pixel_width());
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;{:?}&quot;, meta.get_pixel_height());
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;F: {:?}&quot;, meta.get_fnumber());
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;ISO: {:?}&quot;, meta.get_iso_speed());
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;{:?}&quot;, meta.get_exposure_time());
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span></pre>
 <h3>実行</h3>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ cargo run
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling exif v0.1.0 (/Users/ryo/work/ryo/study_rust/exif)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Finished dev [unoptimized + debuginfo] target(s) in 0.72s
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Running `target/debug/exif`
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">6000
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">4000
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">F: Some(1.8)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ISO: Some(320)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Some(Ratio { numer: 1, denom: 200 })
 </span></pre>
 <p>なんか変だけど、それっぽいのがとれている気がする！この記事では一旦ここまで。</p>

@@ -108,6 +108,7 @@ h1 a:visited {
 pre {
     padding: 20px;
     border-radius: 10px 10px 10px 10px;
+    overflow-x:scroll;
 }
 
 img.in_article {

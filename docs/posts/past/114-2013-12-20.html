@@ -42,87 +42,50 @@
             <p>文字コード難しい問題。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[1] pry(main)&gt; require &#39;nkf&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; true
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[2] pry(main)&gt; NKF.guess(&quot;パリジェンヌ&quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; #
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[3] pry(main)&gt; exit 0
 </span></pre>
 <p>使い道を教えて下さい。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[1] pry(main)&gt; str = &quot;this is a string&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;this is a string&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[2] pry(main)&gt; p str
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;this is a string&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;this is a string&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[3] pry(main)&gt; p str.dup
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;this is a string&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;this is a string&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[4] pry(main)&gt; p str.object
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">NoMethodError: undefined method `object&#39; for &quot;this is a string&quot;:String
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">from (pry):4:in ` __pry__&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[5] pry(main)&gt; p str.object_id
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">25765896
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 25765896
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[6] pry(main)&gt; dupp = str.dup
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;this is a string&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[7] pry(main)&gt; p dupp.object_id
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">33028872
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 33028872
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[8] pry(main)&gt; p str.object_id
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">25765896
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 25765896
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[9] pry(main)&gt; cloned = str.clone
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;this is a string&quot;
 </span></pre>
 <p>文字の反復</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[14] pry(main)&gt; print &quot;poada&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">poada=&gt; nil
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[15] pry(main)&gt; print &quot;poada&quot; * 5
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">poadapoadapoadapoadapoada=&gt; nil
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[16] pry(main)&gt; print &quot;poada&quot; / 5
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">NoMethodError: undefined method `/&#39; for &quot;poada&quot;:String
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">from (pry):16:in ` __pry__&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[17] pry(main)&gt; print &quot;panda &quot; + &quot;copanda&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">panda copanda=&gt; nil
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[18] pry(main)&gt; print (&quot;panda &quot; + &quot;copanda&quot;) * 3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">panda copandapanda copandapanda copanda=&gt; nil
 </span></pre>
 <p>やってみればできるものやね。</p>

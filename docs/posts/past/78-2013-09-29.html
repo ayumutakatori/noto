@@ -45,15 +45,10 @@
 で単純に25日から5日足すのも日付ばらばらだからってんで、一ヶ月足して20日引けばいいのかって気づいた。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">irb(main):001:0&gt; require &#39;date&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; true
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">irb(main):003:0&gt; today = Date.today
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; #
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">irb(main):004:0&gt; endtime = (today.next_month(n=1)-20)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; #
 </span></pre>
 <p>本当は5営業日なんだけど、それは1月とか面倒なのでやめました。逃げ。</p>

@@ -44,110 +44,64 @@
 <p>常連if先生</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[9] pry(main)&gt; a = 16
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 16
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[10] pry(main)&gt; if a
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">elsifは何か面倒なのでとばし
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[11] pry(main)&gt; unless a nil
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">まぁそうなりますよね。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">まだやったことないやつ。修飾子というやつですね。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[12] pry(main)&gt; print &quot;しつこいんじゃガキがn&quot; if a nil
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[13] pry(main)&gt; print &quot;付き合ってください&quot; unless a nil
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">一向に振り向いてもらえません。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">begin～end 修飾子も有りみたいです。複数行書く時
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[14] pry(main)&gt; begin
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[14] pry(main)* print &quot;まだまだガキだなn&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[14] pry(main)* print &quot;まだまだガキだなn&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[14] pry(main)* print &quot;まだまだガキだなn&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[14] pry(main)* print &quot;まだまだガキだなn&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[14] pry(main)* print &quot;まだまだガキだなn&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[14] pry(main)* end if a nil
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">case文も省略しましょう。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">あとは演算子ですね。これが苦手です。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[15] pry(main)&gt; a = 2 || b = 3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[16] pry(main)&gt; a = 2 and b = 3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[17] pry(main)&gt; p a
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[18] pry(main)&gt; p b
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[19] pry(main)&gt; a = 2 or b =3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[20] pry(main)&gt; a = 2 &amp;&amp; b =3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">書いたもののいまいち意味がわかってないです。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">こういうことなのかな？
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[21] pry(main)&gt; c = a = 2 &amp;&amp; b =3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[22] pry(main)&gt; p c
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[23] pry(main)&gt; c = a = 2 || b =3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[24] pry(main)&gt; p c
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 2
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="Ruby レシピブック — 007:真偽値と条件分岐 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

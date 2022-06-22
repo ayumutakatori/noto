@@ -44,54 +44,34 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ bundle install rails s
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring binding_of_caller-0.7.3 because its extensions are not built. Try: gem pristine binding_of_caller --version 0.7.3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring binding_of_caller-0.7.2 because its extensions are not built. Try: gem pristine binding_of_caller --version 0.7.2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring byebug-9.0.6 because its extensions are not built. Try: gem pristine byebug --version 9.0.6
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring debug_inspector-0.0.2 because its extensions are not built. Try: gem pristine debug_inspector --version 0.0.2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring eventmachine-1.0.8 because its extensions are not built. Try: gem pristine eventmachine --version 1.0.8
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring ffi-1.9.17 because its extensions are not built. Try: gem pristine ffi --version 1.9.17
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring hitimes-1.2.5 because its extensions are not built. Try: gem pristine hitimes --version 1.2.5
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring nokogiri-1.8.1 because its extensions are not built. Try: gem pristine nokogiri --version 1.8.1
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring nokogiri-1.8.0 because its extensions are not built. Try: gem pristine nokogiri --version 1.8.0
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring nokogiri-1.5.11 because its extensions are not built. Try: gem pristine nokogiri --version 1.5.11
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring rainbow-2.2.2 because its extensions are not built. Try: gem pristine rainbow --version 2.2.2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring ruby-prof-0.16.2 because its extensions are not built. Try: gem pristine ruby-prof --version 0.16.2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring ruby-prof-0.15.8 because its extensions are not built. Try: gem pristine ruby-prof --version 0.15.8
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ignoring websocket-driver-0.6.5 because its extensions are not built. Try: gem pristine websocket-driver --version 0.6.5
 </span></pre>
 <p>それで仰るとおりにpristineすると</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ be gem pristine binding_of_caller --version 0.7.3
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ERROR: While executing gem ... (Gem::Exception)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Failed to find gems [&quot;binding_of_caller&quot;] = 0.7.3
 </span></pre>
 <p>検索したところ <code>pristine --all</code> しろってみつけたのでやったんだけど、同じ感じ。なんか見つけられないし、おれはお前のこと知らないって感じだったので、一旦 <code>vernder/bundle</code> にインストールしていたgemをまるごと消し去ってインストールしてみている。</p>
 <p>もう一度 <code>bundle install rails s</code> に挑戦</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ bundle exec rails s
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; Booting WEBrick
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; Rails 4.2.9 application starting in development on[http://localhost:3000](http://localhost:3000)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; Run `rails server -h` for more startup options
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; Ctrl-C to shutdown server
 </span></pre>
 <p>動いたようだ。</p>

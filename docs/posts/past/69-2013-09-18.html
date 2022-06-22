@@ -43,10 +43,8 @@
 <p>インスタンスに紐付いているEBSを(EC2がterminateした時)揮発しないようにする。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ ec2-modify-instance-attribute -O accesskey -W secretkey -b &#39;/dev/sda1=:false&#39; --region ap-northeast-1 i-XXXXXXXXX
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">BLOCKDEVICE /dev/sda1 false
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="AMIの作成・EBSの自動揮発防止 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

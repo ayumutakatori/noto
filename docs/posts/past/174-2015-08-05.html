@@ -53,32 +53,21 @@
 以下はサンプルです</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">/var/log/rails/production.log {
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">missingok
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">size 512k
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">rotate 4
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">notifempt
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">sharedscripts
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">create 0664 railsuser railsuser
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">postrotate
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/etc/init.d/passenger restart &gt; /dev/null/
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">endscript
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span></pre>
 <p>決まった書式については以下のページ等を参考にしてください<a href="invalid#zSoyz">ログローテーション(logrotate)を使ってみる</a></p>
 <p>設定が完了したら</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ logrotate -d /etc/logrotate.conf // 全体のチェック
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ logrotate -d /etc/logrotate.d/httpd //対象の項目チェック
 </span></pre>
 <p>上記で問題なければログローテーション街です。</p>

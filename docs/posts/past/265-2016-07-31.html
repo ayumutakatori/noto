@@ -41,25 +41,17 @@
             </div>
             <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">.formInformationsContainer
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">= form_for @information do |f|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- if @information.errors.any?
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#error_explanation
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%h2= &quot;#{pluralize(@information.errors.count, &quot;error&quot;)} prohibited this information from being saved:&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">%ul
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- @information.errors.full_messages.each do |msg|
 </span></pre>
 <p>この部分で</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">undefined method `information_index_path&#39; for #&lt;#&lt;Class:0x007ff8621fd670&gt;:0x007ff8620ed5c8&gt;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Did you mean? information_path
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">informations_path
 </span></pre>
 <p>というエラーがでた。<br />
@@ -72,9 +64,7 @@
 <p>config/initializers/inflections.rb</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">ActiveSupport::Inflector.inflections(:en) do |inflect|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">inflect.uncountable %w( information )
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span></pre>
 <p>不可算名詞だったのか。</p>

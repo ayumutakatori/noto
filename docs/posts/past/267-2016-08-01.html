@@ -44,21 +44,18 @@
 <p>片方の配列から、もう一つの配列の内容があったら削除する</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">pry(main)&gt; [1,2,3,4,5,6,7,8] - [1,4,7,9]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; [2, 3, 5, 6, 8]
 </span></pre>
 <h4>マージ</h4>
 <p>2つの配列を合わせて重複を除く</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">pry(main)&gt; [1,2,3,4,5,6,7,8] | [1,4,7,9]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; [1, 2, 3, 4, 5, 6, 7, 8, 9]
 </span></pre>
 <h4>積(両方にあるもの)</h4>
 <p>両方の配列にあるものを抽出する</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">pry(main)&gt; [1,2,3,4,5,6,7,8] &amp; [1,4,7,9]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; [1, 4, 7]
 </span></pre>
 <p>CSVを作成し直す手間が省ければ、かなり良い。<br />

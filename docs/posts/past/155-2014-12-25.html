@@ -57,29 +57,17 @@
 <p>上記の状態でも puts doc すると内容が出てきます。 せっかく構造的なファイルなので読み込んでみます。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># 要素を指定して読み込む
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># この方法では同要素が複数ある場合一番最初のが来るみたい
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puts doc.elements[&#39;root/data&#39;]
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 全部回したいときは、ブロックを取って処理ができる
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">doc.elements[&#39;root&#39;].each do |element|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puts element.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 属性を取りたい場合はこんな感じに
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">doc.elements[&#39;root&#39;].each do |element|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puts element.attributes[&#39;attr&#39;]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span></pre>
 <h4>終わりに</h4>

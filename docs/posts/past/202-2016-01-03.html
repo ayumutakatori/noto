@@ -48,13 +48,9 @@ Userクラスがdevise経由だったでちょっと手こずった。</p>
 エラーメッセージが</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">user = User.new
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">user.email = &quot;test@example.com&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">user.encrypted_password = &quot;暗号化されたパスワード文字列&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">user.save!
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ActiveRecord::RecordInvalid: Validation failed: Password can&#39;t be blank
 </span></pre>
 <p>みたいな感じにだった。:passwordなんてモデルに合ったかなーと思ったんですが、<br />

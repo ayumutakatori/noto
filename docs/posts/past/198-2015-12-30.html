@@ -55,9 +55,7 @@ font-awesomeを利用する<br />
 <p>hamlに</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">i.fa.fa-home
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$li
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">= link_tag &quot;HOME&quot;, root_path
 </span></pre>
 <p>と書いてみたけどうまくかけなかった。<br />
@@ -65,7 +63,6 @@ font-awesomeを利用する<br />
 書いてみるとこんな感じ。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">%li
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">= link_to content_tag(:i, &#39; HOME&#39;, class: &#39;fa fa-home&#39;), root_path
 </span></pre>
 <p>良い感じです。</p>

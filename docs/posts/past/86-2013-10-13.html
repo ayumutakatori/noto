@@ -44,131 +44,72 @@ consolas+MeiryoKeは日本語フォントがめっちゃでかくなるので、
 <p>FontForgeをインストール</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ brew install fontforge
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Installing fontforge dependency: gettext
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Downloading[https://downloads.sf.net/project/machomebrew/Bottles/gettext-0.18.](https://downloads.sf.net/project/machomebrew/Bottles/gettext-0.18.)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">######################################################################## 100.0%
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Pouring gettext-0.18.3.lion.bottle.1.tar.gz
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Caveats
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">This formula is keg-only: so it was not symlinked into /usr/local.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">OS X provides the BSD gettext library and some software gets confused if both are in the library path.
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Generally there are no consequences of this for you. If you build your
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">own software and it requires this formula, you&#39;ll need to add to your
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">build variables:
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">LDFLAGS: -L/usr/local/opt/gettext/lib
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">CPPFLAGS: -I/usr/local/opt/gettext/include
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Summary
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/local/Cellar/gettext/0.18.3: 374 files, 12M
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Installing fontforge dependency: jpeg
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Downloading[https://downloads.sf.net/project/machomebrew/Bottles/jpeg-8d.lion.](https://downloads.sf.net/project/machomebrew/Bottles/jpeg-8d.lion.)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">######################################################################## 100.0%
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Pouring jpeg-8d.lion.bottle.1.tar.gz
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/local/Cellar/jpeg/8d: 18 files, 784K
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Installing fontforge dependency: libtiff
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Downloading[http://download.osgeo.org/libtiff/tiff-4.0.3.tar.gz](http://download.osgeo.org/libtiff/tiff-4.0.3.tar.gz)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">######################################################################## 100.0%
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; ./configure --prefix=/usr/local/Cellar/libtiff/4.0.3 --without-x --disable-lzm
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; make install
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/local/Cellar/libtiff/4.0.3: 254 files, 3.7M, built in 39 seconds
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Installing fontforge dependency: fontconfig
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Downloading[http://fontconfig.org/release/fontconfig-2.10.93.tar.bz2](http://fontconfig.org/release/fontconfig-2.10.93.tar.bz2)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">######################################################################## 100.0%
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Patching
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">patching file src/fcarch.h
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; ./configure --with-add-fonts=/Library/Fonts,~/Library/Fonts --prefix=/usr/loca
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; make install
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Caveats
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">This formula is keg-only: so it was not symlinked into /usr/local.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Mac OS X already provides this software in versions before Mountain Lion.
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Generally there are no consequences of this for you. If you build your
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">own software and it requires this formula, you&#39;ll need to add to your
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">build variables:
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">LDFLAGS: -L/usr/local/opt/fontconfig/lib
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">CPPFLAGS: -I/usr/local/opt/fontconfig/include
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Summary
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/local/Cellar/fontconfig/2.10.93: 448 files, 5.5M, built in 93 seconds
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Installing fontforge
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Downloading[http://downloads.sourceforge.net/project/fontforge/fontforge-sourc](http://downloads.sourceforge.net/project/fontforge/fontforge-sourc)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">######################################################################## 100.0%
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Downloading patches
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">######################################################################## 100.0%
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Patching
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">patching file fontforge/startui.c
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Hunk #1 succeeded at 50 with fuzz 2.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; ./configure --prefix=/usr/local/Cellar/fontforge/20120731 --enable-double --wi
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; make
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; make install
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Caveats
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">For non-homebrew python (2.x), you need to amend your PYTHONPATH like so:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">==&gt; Summary
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/usr/local/Cellar/fontforge/20120731: 365 files, 13M, built in 70 seconds
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">準備
 </span></pre>
@@ -177,120 +118,70 @@ consolas+MeiryoKeは日本語フォントがめっちゃでかくなるので、
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[http://levien.com/type/myfonts/inconsolata.html](http://levien.com/type/myfonts/inconsolata.html)のサイトからINCONSOLATAをダウンロード(.otfのものをゲット)
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[http://mix-mplus-ipa.sourceforge.jp/](http://mix-mplus-ipa.sourceforge.jp/)からM+IPAの合成フォントを手に入れる(Migu 1mをダウンロード)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">INCONSOLATAの.otfとmigu-1m-bold.ttf/migu-1m-regular.ttfをRictyのフォルダに入れておく
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">合成
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ターミナルで以下のコマンドを実行 ※ファイル名やディレクトリは適宜環境で
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">sh ricty_generator.sh Inconsolata.otf migu-1m-regular.ttf migu-1m-bold.ttf
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 以下結果
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ sh ricty_generator.sh Inconsolata.otf migu-1m-regular.ttf migu-1m-bold.ttf
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Ricty Generator 3.2.2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Author: Yasunori Yusa
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">This script is for generating ``Ricty&#39;&#39; font from Inconsolata and Migu 1M.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">It requires 2-5 minutes to generate Ricty. Owing to SIL Open Font License
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Version 1.1 section 5, it is PROHIBITED to distribute the generated font.
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Generate modified Inconsolata.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Find Inconsolata.otf.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Save Modified-Inconsolata-Regular.sfd.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">While making Inconsolata bold, wait a moment...
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Save Modified-Inconsolata-Bold.sfd.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Generate modified Migu 1M.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Find migu-1m-regular.ttf.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">While scaling migu-1m-regular.ttf, wait a little...
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Save Modified-migu-1m-regular.sfd.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Find migu-1m-bold.ttf.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">While scaling migu-1m-bold.ttf, wait a little...
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Save Modified-migu-1m-bold.sfd.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Generate Ricty.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">While merging Modified-Inconsolata-Regular.sfd with Modified-migu-1m-regular.sfd, wait a little more...
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Save Ricty-Regular.ttf.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">While merging Modified-Inconsolata-Bold.sfd with Modified-migu-1m-bold.sfd, wait a little more...
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Save Ricty-Bold.ttf.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Remove temporary files.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Generate RictyDiscord-Regular.ttf.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Generate RictyDiscord-Bold.ttf.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Succeeded to generate Ricty!
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ls -l
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-rw-r--r-- 1 XXXX staff 3537912 10 13 00:32 Ricty-Bold.ttf
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-rw-r--r-- 1 XXXX staff 3227988 10 13 00:31 Ricty-Regular.ttf
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-rw-r--r-- 1 XXXX staff 3538164 10 13 00:32 RictyDiscord-Bold.ttf
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">-rw-r--r-- 1 XXXX staff 3228260 10 13 00:32 RictyDiscord-Regular.ttf
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">という4ファイルができている
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">フォント登録
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ダブルクリックとかでフォントのインストールが出てくるのでソレでインストール。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">・SublimeTextへの変更
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">{
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;theme&quot;: &quot;Flatland Dark.sublime-theme&quot;, #無視してください
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;color_scheme&quot;: &quot;Packages/Theme - Flatland/Flatland Monokai.tmTheme&quot; , #無視してください
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;font_face&quot;:&quot;Ricty Bold&quot;, #fontの名前じゃないとダメみたいだった
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;font_size&quot;:15, #15ぐらいが自分の環境だと読みやすかった。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">終わり。
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="Rictyというフォントの作成 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

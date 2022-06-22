@@ -47,83 +47,49 @@ slackを想定しています。</p>
 <p>puppetという名前でハンドラーを作成します。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># handlersというディレクトリを作成(やらなくてもいい)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ mkdir handlers
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ cd handlers
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># テンプレートを作成
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ lita handler puppet =&gt; lita-puppetというディレクトリとその配下にファイルが作成されます
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># .gemspecを修正
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ vim lita-pappet/lita-pappet.gemspec
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; TODOになっているところなどを適当に変更してください。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">handlerの処理を書いていく
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">puppet &lt;部屋の名前&gt; &lt;メッセージ&gt;と打つと指定した部屋にメッセージがとぶイメージです。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">module Lita
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">module Handlers
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">class Puppet &lt; Handler
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># ルーティングを作成
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">route(
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">/^puppets+(.{1,})s+(.{1,})$/, # 一個目のカッコで部屋をキャプチャ、二つ目のカッコでメッセージをキャプチャ
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">:puppet, # この対象に当てはまったものはpuppetメソッド(下)を呼ぶ
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">help: { &quot;puppet &lt;room_name&gt; &lt;message&gt;&quot; =&gt; &quot;messageをroomにパペットマペット&quot; }
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">)
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def puppet(response)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 部屋とメッセージを取得
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">room_name = response.matches[0][0]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">message = response.matches[0][1]
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 部屋とメッセージのオブジェクトを取得
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">room = Lita::Room.find_by_name(&quot;#{room_name}&quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">target_room = Lita::Source.new(room: room)
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># robotヘルパーに2つ引数を与えてメッセージ送信
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">robot.send_message(target_room, message)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Lita.register_handler(self)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">出来上がりイメージ
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">投稿
 </span></pre>

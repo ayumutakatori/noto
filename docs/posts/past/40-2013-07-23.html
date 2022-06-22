@@ -42,29 +42,20 @@
             <p>まず、ファイルの読込の流れ</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">file = File.open(&#39;ファイルパス&#39;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt;ファイルの存在が読み込まれる？
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">text = File.read(file,&quot;rとかwとか&quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt;がーっと内容が読み込まれる
 </span></pre>
 <p>ファイル自体が内容だけで、特に順序を持たないようなものだった場合(配列じゃないとか)<br />
 をグルグル回す(each的な)で変数にする</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">array = [] # 配列だよって教える
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">text.each_line do |io|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">if /正規表現で適当に抽出する条件/ =~ io
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">array &lt;&lt; io #ガーッと突っ込む
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="Rubyで覚えたことをメモしておく - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">
