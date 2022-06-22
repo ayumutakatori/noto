@@ -53,206 +53,115 @@ API tokenは事前に取得している前提です</li>
 <p>先に書いたコードを記載します。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">require &#39;open-uri&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">require &#39;json&#39;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">module MyTrello
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">class Task
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def initialize(name, key, token)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@name = name
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@key = key
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@token = token
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def boards
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">responce = open(boards_url)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">code, message = responce.status
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">if code == &#39;200&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@json = JSON.parse(responce.read)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># @json
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def lists(boardname)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@boardname = boardname
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">boards
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">board_id
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">responce = open(lists_url)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">code, message = responce.status
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">if code == &#39;200&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@listjson = JSON.parse(responce.read)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def cards(boardname, listname)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@boardname = boardname
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@listname = listname
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">lists(boardname)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">list_id
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">responce = open(cards_url)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">code, message = responce.status
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">if code == &#39;200&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@cardjson = JSON.parse(responce.read)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@cardjson
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def cardnames(boardname, listname)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">cards(boardname, listname).collect do |card|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">card[&#39;name&#39;]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">private
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def board_id
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@json.each do |board|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">if board[&#39;name&#39;] == @boardname
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@board_id = board[&#39;id&#39;]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def list_id
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@listjson.each do |list|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">if list[&#39;name&#39;] == @listname
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@list_id = list[&#39;id&#39;]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@list_id
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def boards_url
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;https://trello.com/1/members/#{@name}/boards?key=#{@key}&amp;token=#{@token}&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def lists_url
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;https://trello.com/1/boards/#{@board_id}/lists?key=#{@key}&amp;token=#{@token}&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def cards_url
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;https://trello.com/1/lists/#{@list_id}/cards?key=#{@key}&amp;token=#{@token}&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">こんな感じです。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">単純ですね。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">使い方
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">pryでrequireして例で出します。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">そして今回取り出すデータ元はこんな感じです。
 </span></pre>
 <p><img class="in_article" src="/public/images/2017/09/abbd7-0mlfz4qkpvbz38wzc.png">    $ pry -r ./mytrello.rb</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">mytrello.rbは上記コードが書いてあるファイルです
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">とりあえずイニシャライズします。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[4] pry(main)&gt; name = &quot;username&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;username&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[5] pry(main)&gt; key = &quot;000000000000000000000000000000&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;000000000000000000000000000000&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[6] pry(main)&gt; token = &quot;1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[7] pry(main)&gt; trello = MyTrello::Task.new(name, key, token)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; #&lt;MyTrello::Task:0x007fe47486a488
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@key=&quot;000000000000000000000000000000&quot;,
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@name=&quot;username&quot;,
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@token=
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&quot;1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a&quot;&gt;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">key, name, tokenの値は各自のものを入れます。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">つづいて実際に実行してみます。用意しているコマンドは以下です。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">すべて、インスタンスメソッドです。
 </span></pre>
 <ul>

@@ -42,41 +42,23 @@
             <p>hanami + pg でcircleciの2.0をとりあえず動かすようにしてみたのだけど、どうして動いているのかまだわかっていないので、WIP状態でメモ。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">version: 2
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">jobs:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">build:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">docker:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- image: circleci/ruby:2.5.0-node
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">environment:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">RAILS_ENV: test
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- image: circleci/postgres:9.4.12-alpine
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">environment:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- PGHOST: 127.0.0.1
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- POSTGRES_USER: circleci
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- POSTGRES_DB: &lt;app_name&gt;_test
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">working_directory: ~/&lt;app_name&gt;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">steps:
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- checkout
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- run: bundle install --path vendor/bundle
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- run: dockerize -wait tcp://localhost:5432 -timeout 1m
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">- run: bundle exec rake test
 </span></pre>
 <p>おそらく実際テストしてみてダメになりそうな気がするので参考まで。</p>

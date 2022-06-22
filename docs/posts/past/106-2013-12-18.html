@@ -46,35 +46,22 @@
 <p>整数リテラルではすきなだけ_が入れられます。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ pry
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[1] pry(main)&gt; print 100_000_000
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">100000000=&gt; nil
 </span></pre>
 <p>数字の表記。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># 「0b」で始まると2進数
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[2] pry(main)&gt; bin_num = 0b100100100
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 292
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># 0か0cではじまると8進数
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[4] pry(main)&gt; oct_name = 0o100100100
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 16810048
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">#0d =&gt;10進数
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[5] pry(main)&gt; dec_name = 0d100100100
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 100100100
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[6] pry(main)&gt; #0x =&gt;16進数
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[7] pry(main)&gt; hex_name = 0x100100100
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; 4296016128
 </span></pre>
 <p>ヒアドキュメント</p>
@@ -84,25 +71,19 @@
 <p>あとハッシュとか</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[15] pry(main)&gt; hash ={&quot;a&quot; =&gt; 13, &quot;b&quot;=&gt;&quot;13&quot;, &quot;c&quot; =&gt; &quot;test_text&quot;}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; {&quot;a&quot;=&gt;13, &quot;b&quot;=&gt;&quot;13&quot;, &quot;c&quot;=&gt;&quot;test_text&quot;}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[17] pry(main)&gt; print hash[&#39;c&#39;]
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">test_text=&gt; nil
 </span></pre>
 <p>コマンド出力リテラル</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[18] pry(main)&gt; pry_version = `pry -v`
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;Pry version 0.9.12.4 on Ruby 2.0.0n&quot;
 </span></pre>
 <p>Procリテラル？これ知らん。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[19] pry(main)&gt; 1 = -&gt;(x){p x}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">SyntaxError: unexpected &#39;=&#39;, expecting end-of-input
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">1 = -&gt;(x){p x}
 </span></pre>
 <p>何かエラーでよくわからず。</p>

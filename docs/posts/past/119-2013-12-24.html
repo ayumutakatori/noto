@@ -52,7 +52,6 @@ Ruby 2.0.0</p>
 ・require</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">require &#39;date&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">require &#39;mail&#39;
 </span></pre>
 <p>・定義部分（準備部分）<br />
@@ -60,13 +59,9 @@ Ruby 2.0.0</p>
 fortune部分の変数は朝から憂鬱になりたくないので、嬉しい目の結果が出るようにしています。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">today = Date.today
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">sending_address = &quot;送るメールアドレス&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">fortune = &quot;So Lucky!, So Lucky!, Lucky!, Lucky!, Lucky!, Normal, Not Normal!, So Hard!&quot;.split(&quot;, &quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">color = &quot;red, blue, black, white, green, yellow, pink, purple, orange, grey&quot;.split(&quot;, &quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">item = &quot;iPhone, book, iPad, macbook, pen, hhkb, coffee, fuchiko-san&quot;.split(&quot;, &quot;)
 </span></pre>
 <p>・メール本文になるもの<br />
@@ -75,51 +70,31 @@ fortune部分の変数は朝から憂鬱になりたくないので、嬉しい�
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">mail_body =
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">・メール送信部分
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">requireで読んだmailでfrom to subject bodyを設定しておけば
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">よしなにdeliverで送ってくれます。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">mail = Mail.new
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">mail.from = sending_address # fromを別アドレスにしたい際は変更してください。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">mail.to = sending_address
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">mail.subject = &quot;#{today.strftime(&quot;%Y/%m/%d&quot;)}&#39;s fortune&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">mail.body = mail_body
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">mail.deliver
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">これらをくっつけて最後にexit 0でほぼ動くと思います。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">あとは、crontabに朝7時にスクリプトをセットすればOKです。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">毎朝7時にメールが届くので、ちょっとした目覚まし代わりでもあります（そのあと2度寝）
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">追記
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">その後に日本語表示ができるようにスクリプトを改変したところ「Non US-ASCII detected and no charset defined.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Defaulting to UTF-8, set your own if this is incorrect.」というエラーがでました。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">調べたところ、mailのcharset周りをutf-8に合わせてあげればいいみたいでした。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">mail.charset = ‘utf-8′
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">こんな感じのをメール送信部分に混ぜてあげれば良いかもです。
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="簡単な占いをしてくれるスクリプトを書いた。 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

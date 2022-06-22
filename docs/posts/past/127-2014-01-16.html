@@ -43,90 +43,55 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">Add New
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= form_for @kakeibos do |f|%&gt;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.label[http://best1cleaning.com/discount/](http://best1cleaning.com/discount/):day %&gt;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.date_field :day %&gt;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.label :money %&gt;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.number_field :money %&gt;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.label :category1 %&gt;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.select :category1 , { &quot;自炊&quot; =&gt;&quot;in_eat&quot; , &quot;外食&quot; =&gt; &quot;out_eat&quot; } %&gt;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.label :category2 %&gt;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.text_field :category2 %&gt;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.label :memo %&gt;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.text_field :memo %&gt;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;%= f.submit %&gt;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&lt;% end %&gt;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">またコントローラに
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def new
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@kakeibos = Kakeibo.new
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">を追加しています。 これで登録画面の作成は出来ました。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">登録したデータの保存 コントローラにデータを作成するメソッドを追記
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def create
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@kakeibos = Kakeibo.new(kakeibo_params)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">@kakeibos.save
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">redirect_to kakeibos_path
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">private # &lt;= よくわからないけど、セキュリティ的に必要だそうです。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">def kakeibo_params
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">params[:kakeibo].permit(:day, :money, :category1, :category2, :card, :memo)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">これで一応登録したデータを保存できました。 インデックスページに登録されているデータをliでぐるぐる回すものでも表示を確認できています。 課題として ・booleanを処理するためのformをどうしたらいいかわからない ・editとdelを作成する ・model名をkakeiboと下のミスったと思った。これはきっとrecordとかが正しかった気がする。 です。明日以降その辺をやっていって、だいたい見えてきたところでデザインとかをやっていこうかと思います。
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="家計簿をつくる1.5日目:レコードを追加するページの作成 - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

@@ -44,20 +44,15 @@
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># config/routes.rb
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">get &#39;/show&#39; =&gt; &#39;books#show&#39;
 </span></pre>
 <p>コントローラにはshowのアクセスがない</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># app/controllers/books_controller.rb
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">class BooksController
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># def show がない
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># ただしviewはある この場合は app/views/books/show.html.erb みたいな
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span></pre>
 <p>ただしこんな感じでviewがある場合、上のアクセスは成功してshow.html.erbの内容は表示される。</p>

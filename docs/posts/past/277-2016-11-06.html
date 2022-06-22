@@ -43,38 +43,26 @@
 <h3>before</h3>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">get &#39;:username&#39;, to: &#39;pages#index&#39;, constraints: { format: /()/ }
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">get &#39;:username/about&#39;, to: &#39;pages#about&#39;, constraints: { format: /()/ }
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">get &#39;:username/announcements&#39;, to: &#39;pages/announcements#index&#39;, constraints: { format: /()/}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">get &#39;:username/announcements/:id&#39;, to: &#39;pages/announcements#show&#39;, constraints: { format: /()/}
 </span></pre>
 <p>に対して</p>
 <h3>after</h3>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">scope &#39;:username&#39;, constraints: { format: /()/ } do
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">get &#39;&#39;, to: &#39;pages#index&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">get &#39;about&#39;, to: &#39;pages#about&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">get &#39;announcements&#39;, to: &#39;pages/announcements#index&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">get &#39;announcements/:id&#39;, to: &#39;pages/announcements#show&#39;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span></pre>
 <h3>こうなる</h3>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ rake routes
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">GET /:username(.:format) pages#index {:format=&gt;/()/}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">about GET /:username/about(.:format) pages#about {:format=&gt;/()/}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">announcements GET /:username/announcements(.:format) pages/announcements#index {:format=&gt;/()/}
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">GET /:username/announcements/:id(.:format) pages/announcements#show {:format=&gt;/()/}
 </span></pre>
 <p>すっきり。</p>

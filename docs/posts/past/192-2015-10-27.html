@@ -59,72 +59,45 @@ ni.siois.in が出来上がります。</p>
 <h4>ネームサーバはAWSのROUTE53</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">Name Server:NS-1542.AWSDNS-00.CO.UK
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Name Server:NS-723.AWSDNS-26.NET
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Name Server:NS-429.AWSDNS-53.COM
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Name Server:NS-1389.AWSDNS-45.ORG
 </span></pre>
 <h4>やべーのみつけた</h4>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ dig a +noall +answer siois.in
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">siois.in. 5 IN A 54.231.226.35
 </span></pre>
 <p>TTL 5秒!! しびれる。<br />
 公開しているサイトも60秒</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ dig a +noall +answer ni.siois.in
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ni.siois.in. 60 IN A 54.230.233.40
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ni.siois.in. 60 IN A 54.230.233.81
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ni.siois.in. 60 IN A 54.230.234.16
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ni.siois.in. 60 IN A 54.230.234.145
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ni.siois.in. 60 IN A 54.230.235.216
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ni.siois.in. 60 IN A 54.192.232.111
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ni.siois.in. 60 IN A 54.230.232.180
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ni.siois.in. 60 IN A 54.230.232.250
 </span></pre>
 <p>中はcloudftont(コンテンツキャッシュサーバ)の様子。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">$ host 54.230.233.40
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">40.233.230.54.in-addr.arpa domain name pointer server-54-230-233-40.nrt12.r.cloudfront.net.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ host 54.230.233.81
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">81.233.230.54.in-addr.arpa domain name pointer server-54-230-233-81.nrt12.r.cloudfront.net.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ host 54.230.234.16
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">16.234.230.54.in-addr.arpa domain name pointer server-54-230-234-16.nrt12.r.cloudfront.net.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ host 54.230.234.145
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">145.234.230.54.in-addr.arpa domain name pointer server-54-230-234-145.nrt12.r.cloudfront.net.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ host 54.230.235.216
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">216.235.230.54.in-addr.arpa domain name pointer server-54-230-235-216.nrt12.r.cloudfront.net.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ host 54.230.232.111
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">111.232.230.54.in-addr.arpa domain name pointer server-54-230-232-111.nrt12.r.cloudfront.net.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ host 54.230.232.180
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">180.232.230.54.in-addr.arpa domain name pointer server-54-230-232-180.nrt12.r.cloudfront.net.
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$ host 54.230.232.250
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">250.232.230.54.in-addr.arpa domain name pointer server-54-230-232-250.nrt12.r.cloudfront.net.
 </span></pre>
 <p>なにやら耐障害性すごそう。<br />

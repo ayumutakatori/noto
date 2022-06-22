@@ -43,25 +43,17 @@
 <p>spec/spec_helper.rb</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">config.around(:example) do |example|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$stdout = StringIO.new
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">example.run
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">$stdout = STDOUT
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">end
 </span></pre>
 <p>こうなっているところを</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;"># config.around(:example) do |example|
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># $stdout = StringIO.new
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># example.run
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># $stdout = STDOUT
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;"># end
 </span></pre>
 <p>こうすると標準出力が戻ってきた。</p>

@@ -76,105 +76,57 @@
 <p>調べたところ、ThisWorkbookの中でエクセルを保存時にフックできるものがあることがわかりました。それを活用して以下のVBAを書きました。</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">Private Sub Workbook_AfterSave(ByVal Success As Boolean)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Call makeNewGeneralCSV
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">End Sub
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; CSVを保存するために別bookを作成
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Sub makeNewGeneralCSV()
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; 変数の宣言
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Dim newBook As Workbook
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Dim masterBook As Workbook
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Dim filename1 As String
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Dim dirPath As String
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Dim format1 As String
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">filename1 = &quot;filename.csv&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">format1 = &quot;xlCSV&quot;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; 新しいBOOKの作成 （間に確認）
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Set masterBook = Workbooks(&quot;managefile.xlsm&quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">dirPath = masterBook.Path &amp; &quot;&quot;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; general csvが存在するか確認
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">If Dir(dirPath &amp; &quot;filename.csv&quot;) = &quot;&quot; Then
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">MsgBox (&quot;ファイルは保存されましたが、通知管理用CSVの保存処理に失敗しました。同ディレクトリに「filename.csv」があるか確認してください&quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Exit Sub
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">End If
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Set newBook = Workbooks.Open(dirPath &amp; &quot;filename.csv&quot;)
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; アラートを消す
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Application.DisplayAlerts = False
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; シートにデータコピー とその他のシート削除
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">newBook.Sheets(&quot;datasheet&quot;).name = &quot;datasheet_bak&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">masterBook.Sheets(&quot;DATASHEET&quot;).Copy After:=newBook.Worksheets(&quot;datasheet_bak&quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">newBook.Sheets(&quot;datasheet_bak&quot;).Delete
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; newBookの保存
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">newBook.save
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; newBookを閉じる
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">newBook.Close
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">&#39; アラートを戻す
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Application.DisplayAlerts = True
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">MsgBox (&quot;通知用CSVを最新にしました&quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">End Sub
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">なぜかxlCSVで吐き出すのにえらく苦労しました。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">内容としては、それ用の別のブックを用意してCSV用のデータをコピーしてCSV保存しているというぐらいです。
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ポイントはやはり「Private Sub Workbook_AfterSave(ByVal Success As Boolean)」の部分で、
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">こいつの中に書いておくことで、保存後に挟む処理をかくことができます。
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">CSVを読み込んでrubyスクリプトでメール通知
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">こっちもなんてことないんですが、やったことは
 </span></pre>

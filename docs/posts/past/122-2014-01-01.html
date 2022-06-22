@@ -42,27 +42,19 @@
             <p>パスを「/」なしでFile.joinでつなぐ</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">dirname = &quot;/path/your&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">File.join(dirname, &quot;filename&quot;)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; /path/your/filename
 </span></pre>
 <p>実行中の.rbファイルのディレクトリパスを取得する</p>
 <p>便利です。File.join “dir”, “dir”, “dir”, “file” #カンマ区切りで何個でも</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">[12] pry(main)&gt; current_dir = File.expand_path(File.dirname( __FILE__ ))
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;/Users/ryo/Engine/daycounting2/yml&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[14] pry(main)&gt; yml_dir =&quot;yml&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;yml&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">[15] pry(main)&gt; dir_path = File.join current_dir, yml_dir , &quot;katsumata.yml&quot;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">=&gt; &quot;/Users/ryo/Engine/daycounting2/yml/yml/katsumata.yml&quot;
 </span></pre>
-
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-text="Rubyの小技 メモ - NOTO (@katsumata_ryo)">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="footer">

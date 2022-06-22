@@ -51,51 +51,30 @@
 <p>というわけでそれを元にコードを書き換えた</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">use std::env;
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">use rexiv2;
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">fn main() {
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let args: Vec&lt;String&gt; = env::args().collect();
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let file_path = &amp;args[1];
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">let meta = rexiv2::Metadata::new_from_path(&amp;file_path).unwrap();
 </span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;Width: {:?}&quot;, meta.get_pixel_width());
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;Height: {:?}&quot;, meta.get_pixel_height());
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;F: {:?}&quot;, meta.get_fnumber().unwrap()); // ココ
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;ISO: {:?}&quot;, meta.get_iso_speed().unwrap()); // ココ
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">println!(&quot;Shutter: {:?}/{:?}&quot;, meta.get_exposure_time().unwrap().numer(), meta.get_exposure_time().unwrap().denom()); // ココ
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">}
 </span></pre>
 <p>出力はこちら</p>
 <pre style="background-color:#2b303b;">
 <span style="color:#c0c5ce;">ktmt-brkt:exif[master *]$ cargo run /Users/ryo/Downloads/Photos/DSC04117.jpg
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Compiling exif v0.1.0 (/Users/ryo/work/ryo/study_rust/exif)
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Finished dev [unoptimized + debuginfo] target(s) in 0.83s
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Running `target/debug/exif /Users/ryo/Downloads/Photos/DSC04117.jpg`
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Width: 6000
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Height: 4000
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">F: 1.8
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">ISO: 320
-</span><span style="color:#c0c5ce;">
 </span><span style="color:#c0c5ce;">Shutter: 1/200
 </span></pre>
 <p>よっしゃ、コンパイルできたしちゃんと表示された。</p>
