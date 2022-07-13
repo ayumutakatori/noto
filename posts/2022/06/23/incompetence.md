@@ -2,7 +2,7 @@
 title: 無能の波と3つの軸
 layout: posts.liquid
 is_draft: false
-published_date: 2022-06-24 23:24:00 +0900
+published_date: 2022-07-12 23:24:00 +0900
 categories: [HIBI]
 ---
 
